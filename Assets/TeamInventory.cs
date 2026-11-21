@@ -16,15 +16,16 @@ public class TeamInventory : MonoBehaviour
 
     public void SellOneWood()
     {
-        if(woodCount <= 1) return ;
+        if(woodCount < 1) return ;
         funds += 2;
         woodCount -= 1;
+        woodLabel.text = $"Wood: {woodCount}";
         fundsLabel.text = $"Funds: {funds}";
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        fundsLabel.text = $"Funds: {funds}";
     }
 
     // Update is called once per frame
