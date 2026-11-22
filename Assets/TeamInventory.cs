@@ -14,11 +14,11 @@ public class TeamInventory : MonoBehaviour
         woodLabel.text = $"Wood: {woodCount}";
     }
 
-    public void SellOneWood()
+    public void SellWood(int amount)
     {
-        if(woodCount < 1) return ;
-        funds += 2;
-        woodCount -= 1;
+        if(woodCount < amount) return ;
+        funds += 2 * amount;
+        woodCount -= 1 * amount;
         woodLabel.text = $"Wood: {woodCount}";
         fundsLabel.text = $"Funds: {funds}";
     }
