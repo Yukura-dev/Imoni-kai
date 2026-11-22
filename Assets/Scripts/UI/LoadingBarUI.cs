@@ -11,7 +11,7 @@ public class LoadingBarUI : MonoBehaviour
 
         fill.gameObject.SetActive(progress > 0f);
 
-        float width = Mathf.Lerp(20f, maxWidth, progress); //width=20+248\times0.65=181.2
+        float width = maxWidth * progress;
 
         fill.SetSizeWithCurrentAnchors(
             RectTransform.Axis.Horizontal,
@@ -21,6 +21,5 @@ public class LoadingBarUI : MonoBehaviour
 
     void Start()
     {
-        SetProgress(0.65f); //テスト用：65%
     }
 }
