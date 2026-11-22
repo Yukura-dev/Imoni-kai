@@ -3765,14 +3765,55 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -16
       objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2712779124804320395}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Navigate
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Imoni.UI.SceneNavigationButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 626745790945984306, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4816651440649685824}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5700502061506174027, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2712779124804320395}
   m_SourcePrefab: {fileID: 100100000, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+--- !u!1 &1524880335825853628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5700502061506174027, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+  m_PrefabInstance: {fileID: 6500162085431132407}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2712779124804320395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524880335825853628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de485dbc2c7376c4e9fb29be82361981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Imoni.UI.SceneNavigationButton
+  targetSceneName: Lobby
 --- !u!224 &5946883477773991877 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 626745790945984306, guid: 8342f29e5667100408f99fbe1025292e, type: 3}

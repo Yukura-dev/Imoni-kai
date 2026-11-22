@@ -41,6 +41,7 @@ namespace Imoni.UI.Editor
                         }
                         Object.DestroyImmediate(oldPlay.gameObject);
                     }
+                    ImoniHomeNavigationSetup.BindPlayButton(play);
                 }
                 if (oldShadow) Object.DestroyImmediate(oldShadow.gameObject);
                 UseBottomNavigationPrefab(home.transform);
@@ -88,6 +89,7 @@ namespace Imoni.UI.Editor
             icon.sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/ImoniUI/Home/home_play.png");
             icon.preserveAspect = true;
             icon.raycastTarget = false;
+            ImoniHomeNavigationSetup.BindPlayButton(instance);
             return instance;
         }
 
