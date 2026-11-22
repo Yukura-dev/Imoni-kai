@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &108741933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 108741935}
+  - component: {fileID: 108741934}
+  m_Layer: 0
+  m_Name: LoadingSenceController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &108741934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108741933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f554da60e3c70ce4a9bec506f08e1636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoadingSceneController
+  loadingBar: {fileID: 907572026}
+  tapToStartButton: {fileID: 1550351996}
+--- !u!4 &108741935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108741933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 171.05106, y: 356.10822, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &142468025
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +1006,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5702151417585807059, guid: a557d0c4a67b6a445a5a333ebecb7f47, type: 3}
   m_PrefabInstance: {fileID: 3730918662815908756}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &907572026 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2149043337982700440, guid: a557d0c4a67b6a445a5a333ebecb7f47, type: 3}
+  m_PrefabInstance: {fileID: 3730918662815908756}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd3551e820da5bf4a82bf25f10670b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoadingBarUI
 --- !u!1 &997146213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,6 +1269,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 626745790945984306, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
   m_PrefabInstance: {fileID: 2931891528385797787}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1550351996 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+  m_PrefabInstance: {fileID: 2931891528385797787}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1997551509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,6 +1493,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartGameButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 108741934}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnTapToStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LoadingSceneController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818204239107366947, guid: 8342f29e5667100408f99fbe1025292e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1534,3 +1630,4 @@ SceneRoots:
   - {fileID: 810694837}
   - {fileID: 880430243}
   - {fileID: 460377503}
+  - {fileID: 108741935}
