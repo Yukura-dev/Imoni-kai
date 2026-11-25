@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-25",
+  "branch": "rebuild/m3a-world-core",
+  "baseCommit": "dacbdc9695392bceca5f06bc08d219bab56c966d",
+  "testCommand": "dotnet test tools/CoreTests --verbosity minimal --logger \"trx;LogFileName=dotnet-test.trx\" --results-directory docs/validation/m3a",
+  "tests": {
+    "total": 200,
+    "passed": 200,
+    "failed": 0,
+    "skipped": 0,
+    "added": 58,
+    "byNewClass": {
+      "GatheringSimulationTests": 16,
+      "WorldGenTests": 23,
+      "WorldMapExportTests": 3,
+      "WorldObjectiveTests": 11,
+      "WorldQualityTests": 5
+    }
+  },
+  "core": {
+    "languageVersion": "9.0",
+    "noEngineReferences": true,
+    "unityNamespacesFound": 0
+  },
+  "unityRecompile": {
+    "version": "6000.3.21f1",
+    "errors": 0,
+    "warnings": 0,
+    "verification": "Observed Console after final refresh; Unity generated new .meta files. No scene or UI changes."
+  },
+  "maps": [
+    {
+      "seed": 482,
+      "file": "map_seed_482.txt",
+      "width": 64,
+      "height": 64,
+      "layers": [
+        "terrain",
+        "resources",
+        "unlock"
+      ],
+      "sha256": "31f53841a4e4c7d679e9248f8a9b7fbfb7eda723170c360e0a11f28bd628e640"
+    },
+    {
+      "seed": 777,
+      "file": "map_seed_777.txt",
+      "width": 64,
+      "height": 64,
+      "layers": [
+        "terrain",
+        "resources",
+        "unlock"
+      ],
+      "sha256": "52e970c5616ddab50ac8561b2fc129d2b7e79a907dc83d54a42310085a2031cf"
+    },
+    {
+      "seed": 202647,
+      "file": "map_seed_202647.txt",
+      "width": 64,
+      "height": 64,
+      "layers": [
+        "terrain",
+        "resources",
+        "unlock"
+      ],
+      "sha256": "4e14ef1c76f91a3b1fd07efb4ebec93b2629b41c7c1cc7799950f4a6c371fe9b"
+    }
+  ]
+}

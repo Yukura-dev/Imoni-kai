@@ -23,7 +23,14 @@ namespace Imoni.Core
         public decimal BonusFundsPerPoint { get; }
         public BigInteger FixedScale { get; }
         public decimal TopBaseChance { get; }
-        public decimal LuckPerLevel { get; }
+        public decimal LuckPerLevel => Upgrade("luck").EffectPerLevel;
+        public WorldConfig World { get; }
+        public ObjectiveGenerationConfig ObjectiveGeneration { get; }
+        public int ResourceStock { get; }
+        public decimal ResourceRegrowSeconds { get; }
+        public IReadOnlyList<decimal> ResourceGrowthStageFractions { get; }
+        public decimal BotIntervalSeconds { get; }
+        public IReadOnlyList<BiomeDefinition> Biomes { get; }
         public int StreakBase { get; }
         public int StreakDivisor { get; }
         public decimal UpgradePriceGrowth { get; }
@@ -54,7 +61,25 @@ namespace Imoni.Core
             FixedScale = Integer(data, "numeric.fixedScale", true);
             TopBaseChance = NonnegativeDecimal(data, "qualityRoll.topBaseChance");
             Require(TopBaseChance <= 1, "topBaseChance must be a probability.");
-            LuckPerLevel = NonnegativeDecimal(data, "qualityRoll.luckPerLevel");
+            World = new WorldConfig(data);
+            ObjectiveGeneration = new ObjectiveGenerationConfig(data);
+            ResourceStock = PositiveInt(data, "gathering.nodeStockPerCycle");
+            ResourceRegrowSeconds = PositiveDecimal(data, "gathering.regrowSec");
+            ResourceGrowthStageFractions = ReadOnly(Array(data, "gathering.growthStageFractions")
+                .Select(token =>
+                {
+                    Require(token.Type == JTokenType.Integer || token.Type == JTokenType.Float,
+                        "Growth fractions must be numeric.");
+                    return token.Value<decimal>();
+                }));
+            Require(ResourceGrowthStageFractions.Count == 4 && ResourceGrowthStageFractions[0] > 0 &&
+                ResourceGrowthStageFractions[ResourceGrowthStageFractions.Count - 1] == 1 &&
+                ResourceGrowthStageFractions.Zip(ResourceGrowthStageFractions.Skip(1), (a, b) => a < b).All(value => value),
+                "Growth fractions must increase through sapling, young, mature, ready and end at one.");
+            BotIntervalSeconds = PositiveDecimal(data, "gathering.botIntervalSec");
+            Biomes = ReadOnly(Array(data, "gathering.biomeModifiers").Select(token => new BiomeDefinition(
+                Text(token, "id"), PositiveDecimal(token, "qualityMultiplier"), PositiveDecimal(token, "efficiencyMultiplier"))));
+            Unique(Biomes.Select(item => item.Id), "biome");
             StreakBase = PositiveInt(data, "streak.base");
             StreakDivisor = PositiveInt(data, "streak.divisor");
             UpgradePriceGrowth = PositiveDecimal(data, "upgrades.priceGrowth");
@@ -76,7 +101,19 @@ namespace Imoni.Core
                 "The first format unit must be an empty string.");
             Materials = ReadOnly(Array(data, "materials").Select(token => new MaterialDefinition(
                 Text(token, "id"), Text(token, "name"), Integer(token, "basePoint", true),
-                Integer(token, "basePrice", true), Integer(token, "baseYield", true))));
+                Integer(token, "basePrice", true), Integer(token, "baseYield", true),
+                Array(token, "biomes").Select(value => value.Value<string>()),
+                PositiveDecimal(token, "qualityMultiplier"), PositiveDecimal(token, "efficiencyMultiplier"))));
+            foreach (MaterialDefinition material in Materials)
+            {
+                Require(material.Biomes.Count > 0, "Every material needs at least one biome.");
+                Unique(material.Biomes, "material biome");
+                foreach (string biomeId in material.Biomes) Biome(biomeId);
+            }
+            foreach (string biomeId in new[] { "plain", "forest", "river", "mountain", "swamp" }) Biome(biomeId);
+            Require(World.StartingMaterials.Count >= ObjectiveGeneration.RequiredCount + 1,
+                "Starting materials must cover distinct required objectives plus one bonus.");
+            foreach (string materialId in World.StartingMaterials) Material(materialId);
             Qualities = ReadOnly(Array(data, "qualities").Select(token => new QualityDefinition(
                 Text(token, "id"), Text(token, "name"), Integer(token, "multiplier", true),
                 PositiveInt(token, "unlockRound"), PositiveDecimal(token, "weight"))));
@@ -123,6 +160,8 @@ namespace Imoni.Core
             ?? throw new ArgumentException("Unknown quality: " + id, nameof(id));
         public UpgradeDefinition Upgrade(string id) => Upgrades.FirstOrDefault(item => item.Id == id)
             ?? throw new ArgumentException("Unknown upgrade: " + id, nameof(id));
+        public BiomeDefinition Biome(string id) => Biomes.FirstOrDefault(item => item.Id == id)
+            ?? throw new ArgumentException("Unknown biome: " + id, nameof(id));
 
         private static ReadOnlyCollection<T> ReadOnly<T>(IEnumerable<T> items) => new List<T>(items).AsReadOnly();
         private static void Unique(IEnumerable<string> ids, string type)
@@ -181,8 +220,25 @@ namespace Imoni.Core
         public BigInteger BasePoint { get; }
         public BigInteger BasePrice { get; }
         public BigInteger BaseYield { get; }
-        internal MaterialDefinition(string id, string name, BigInteger point, BigInteger price, BigInteger yield)
-        { Id = id; Name = name; BasePoint = point; BasePrice = price; BaseYield = yield; }
+        public IReadOnlyList<string> Biomes { get; }
+        public decimal QualityMultiplier { get; }
+        public decimal EfficiencyMultiplier { get; }
+        internal MaterialDefinition(string id, string name, BigInteger point, BigInteger price, BigInteger yield,
+            IEnumerable<string> biomes, decimal qualityMultiplier, decimal efficiencyMultiplier)
+        {
+            Id = id; Name = name; BasePoint = point; BasePrice = price; BaseYield = yield;
+            Biomes = System.Array.AsReadOnly(biomes.ToArray());
+            QualityMultiplier = qualityMultiplier; EfficiencyMultiplier = efficiencyMultiplier;
+        }
+    }
+
+    public sealed class BiomeDefinition
+    {
+        public string Id { get; }
+        public decimal QualityMultiplier { get; }
+        public decimal EfficiencyMultiplier { get; }
+        internal BiomeDefinition(string id, decimal qualityMultiplier, decimal efficiencyMultiplier)
+        { Id = id; QualityMultiplier = qualityMultiplier; EfficiencyMultiplier = efficiencyMultiplier; }
     }
 
     public sealed class QualityDefinition

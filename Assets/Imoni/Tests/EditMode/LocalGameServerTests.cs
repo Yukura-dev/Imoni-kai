@@ -23,6 +23,32 @@ namespace Imoni.Core.Tests
             return GameConfig.FromJson(json.ToString());
         }
 
+        // Rule fixtures keep fixed goals and no autonomous teammates; production defaults are
+        // exercised in GatheringSimulationTests. Acquisitions still use real movement and work.
+        private static LocalGameServer Server(GameConfig config, int seed,
+            IEnumerable<string> actorIds = null, RoundObjectives objectives = null) =>
+            new LocalGameServer(config, seed, actorIds, objectives ?? config.DefaultObjectives, enableBots: false);
+
+        private static GatherResult Gather(LocalGameServer server, string actorId, string materialId)
+        {
+            var before = server.Snapshot();
+            var position = Player(before, actorId).Position;
+            var target = server.World.Resources.Where(node => node.MaterialId == materialId &&
+                    server.CanSelectResource(actorId, node.Id))
+                .OrderBy(node => Pathfinding.FindPathToResource(server.World, position, node, before.RoundNumber).Steps.Count)
+                .ThenBy(node => node.Id, StringComparer.Ordinal).First();
+            Assert.That(server.TrySelectResource(actorId, target.Id), Is.True);
+            while (server.Snapshot().History.Count == before.History.Count &&
+                server.Snapshot().Phase == RoundPhase.Collecting)
+                server.Tick(0.05m);
+            var after = server.Snapshot();
+            server.CancelAction(actorId);
+            var record = after.History.Last(entry => entry.Kind == OperationKind.Gather && entry.ActorId == actorId);
+            var lot = after.Lots.Last();
+            return new GatherResult(record.MaterialId, record.QualityId, record.Quantity,
+                lot.PointMultiplierRaw, Player(after, actorId).Streak);
+        }
+
         private static RoundObjectives SmallObjectives() =>
             new RoundObjectives(new[] { new Objective("wood", BigInteger.One) }, new Objective("mushroom", BigInteger.One));
 
@@ -43,7 +69,7 @@ namespace Imoni.Core.Tests
         public void NewChallengeUsesConfigAndPublishesRequiredGoalsAtZero()
         {
             GameConfig config = Config(json => { json["team"]["size"] = 2; json["economy"]["startFunds"] = 12345; });
-            IGameServer server = new LocalGameServer(config, 42, new[] { "alice", "bob" });
+            LocalGameServer server = Server(config, 42, new[] { "alice", "bob" });
             GameSnapshot state = server.Snapshot();
             Assert.That(state.Phase, Is.EqualTo(RoundPhase.Collecting));
             Assert.That(state.RoundNumber, Is.EqualTo(1));
@@ -62,7 +88,7 @@ namespace Imoni.Core.Tests
         public void BonusIsHiddenUntilExactlyTwoMinutesAndRevealedOnlyOnce()
         {
             GameConfig config = Config();
-            var server = new LocalGameServer(config, 7);
+            var server = Server(config, 7);
             server.Tick(119.999m);
             Assert.That(server.Snapshot().BonusObjective, Is.Null);
             server.Tick(0.001m);
@@ -85,7 +111,7 @@ namespace Imoni.Core.Tests
                 json["round"]["bonusRevealSec"] = 4;
                 json["round"]["mockTimeScale"] = 100;
             });
-            var server = new LocalGameServer(config, 7);
+            var server = Server(config, 7);
             server.Tick(1m);
             Assert.That(server.Snapshot().ElapsedSeconds, Is.EqualTo(1m));
             server.Tick(3m);
@@ -97,7 +123,7 @@ namespace Imoni.Core.Tests
         [Test]
         public void LargeTickEmitsOrderedBoundaryEventsAtTheirExactTimes()
         {
-            var server = new LocalGameServer(Config(), 7);
+            var server = Server(Config(), 7);
             server.Tick(decimal.MaxValue);
             GameSnapshot state = server.Snapshot();
             Assert.That(state.Events.Select(item => item.Kind), Is.EqualTo(new[]
@@ -112,7 +138,7 @@ namespace Imoni.Core.Tests
         [Test]
         public void NegativeTickIsRejectedWithoutChangingTime()
         {
-            var server = new LocalGameServer(Config(), 7);
+            var server = Server(Config(), 7);
             Assert.Throws<ArgumentOutOfRangeException>(() => server.Tick(-1m));
             Assert.That(server.Snapshot().ElapsedSeconds, Is.Zero);
             Assert.That(server.Snapshot().Events.Count, Is.EqualTo(1));
@@ -122,11 +148,10 @@ namespace Imoni.Core.Tests
         public void FiveMinutesStopsGatheringAndEvaluatesTheInventory()
         {
             GameConfig config = Config();
-            var server = new LocalGameServer(config, 7, objectives: SmallObjectives());
-            server.Tick(299.999m);
-            GatherResult gathered = server.Gather("player1", "wood");
+            var server = Server(config, 7, objectives: SmallObjectives());
+            GatherResult gathered = Gather(server, "player1", "wood");
             Assert.That(gathered.Quantity, Is.GreaterThan(BigInteger.Zero));
-            server.Tick(0.001m);
+            server.Tick(config.DurationSeconds - server.Snapshot().ElapsedSeconds);
             GameSnapshot state = server.Snapshot();
             Assert.That(state.Phase, Is.EqualTo(RoundPhase.Succeeded));
             Assert.That(state.LastResult.Evaluation.Success, Is.True);
@@ -142,7 +167,7 @@ namespace Imoni.Core.Tests
         [TestCase(OperationKind.Upgrade)]
         public void EveryInventoryOrFundsCommandIsRejectedAfterTimeUp(OperationKind operation)
         {
-            var server = new LocalGameServer(Config(), 7);
+            var server = Server(Config(), 7);
             server.Tick(300m);
             Assert.Throws<InvalidOperationException>(() =>
             {
@@ -162,7 +187,7 @@ namespace Imoni.Core.Tests
         public void SuccessConsumesLockedAndUnrelatedItemsButKeepsFundsUpgradesAndSeed()
         {
             GameConfig config = Config();
-            var server = new LocalGameServer(config, 29, objectives: SmallObjectives());
+            var server = Server(config, 29, objectives: SmallObjectives());
             server.Upgrade("player1", "move");
             BuyForSuccess(server);
             server.Buy("player2", "negi", 1);
@@ -190,12 +215,12 @@ namespace Imoni.Core.Tests
         public void FailedSecondRoundResetsRunAndKeepsDetachedFailureResult()
         {
             GameConfig config = Config(json => json["qualityRoll"]["topBaseChance"] = 1);
-            var server = new LocalGameServer(config, 29, objectives: SmallObjectives());
+            var server = Server(config, 29, objectives: SmallObjectives());
             BuyForSuccess(server);
             server.Tick(config.DurationSeconds);
             server.StartNextRound(SmallObjectives());
             server.Upgrade("player1", "amount");
-            server.Gather("player1", "negi");
+            Gather(server, "player1", "negi");
             server.Buy("player2", "mushroom", 1);
             server.SetProtection("player3", "mushroom", "normal", 1);
             Assert.That(server.Snapshot().CumulativeScore, Is.GreaterThan(BigInteger.Zero));
@@ -230,7 +255,7 @@ namespace Imoni.Core.Tests
         public void FiveConsecutiveSuccessesClearAndSumOnlyCompletedRoundScores()
         {
             GameConfig config = Config();
-            var server = new LocalGameServer(config, 29, objectives: SmallObjectives());
+            var server = Server(config, 29, objectives: SmallObjectives());
             BigInteger total = BigInteger.Zero;
             for (int round = 1; round <= config.RoundsToClear; round++)
             {
@@ -256,7 +281,7 @@ namespace Imoni.Core.Tests
         {
             GameConfig config = Config(json => json["round"]["roundsToClear"] = 1);
             var goals = new RoundObjectives(new[] { new Objective("negi", 1) }, new Objective("fish", 1));
-            var server = new LocalGameServer(config, 29, objectives: goals);
+            var server = Server(config, 29, objectives: goals);
             server.Buy("player1", "negi", 1);
             server.Tick(config.DurationSeconds);
             Assert.That(server.Snapshot().Phase, Is.EqualTo(RoundPhase.Cleared));
@@ -267,16 +292,16 @@ namespace Imoni.Core.Tests
         public void SameSeedAndOperationSequenceReproduceQualityStreakQuantityAndPoints()
         {
             GameConfig config = Config();
-            var first = new LocalGameServer(config, 7813);
-            var second = new LocalGameServer(config, 7813);
+            var first = Server(config, 7813);
+            var second = Server(config, 7813);
             first.Upgrade("player1", "luck");
             second.Upgrade("player1", "luck");
             string[] materials = { "wood", "taro", "negi", "mushroom" };
             string[] actors = { "player1", "player2", "player3" };
-            for (int index = 0; index < 200; index++)
+            for (int index = 0; index < 24; index++)
             {
-                GatherResult a = first.Gather(actors[index % actors.Length], materials[index % materials.Length]);
-                GatherResult b = second.Gather(actors[index % actors.Length], materials[index % materials.Length]);
+                GatherResult a = Gather(first, actors[index % actors.Length], materials[index % materials.Length]);
+                GatherResult b = Gather(second, actors[index % actors.Length], materials[index % materials.Length]);
                 Assert.That((a.QualityId, a.Streak, a.Quantity, a.PointMultiplierRaw),
                     Is.EqualTo((b.QualityId, b.Streak, b.Quantity, b.PointMultiplierRaw)));
                 first.Tick(0.25m); second.Tick(0.25m);
@@ -289,8 +314,8 @@ namespace Imoni.Core.Tests
         public void RejectedCommandsDoNotConsumeRandomnessOrChangeFunds()
         {
             GameConfig config = Config();
-            var first = new LocalGameServer(config, 72);
-            var control = new LocalGameServer(config, 72);
+            var first = Server(config, 72);
+            var control = Server(config, 72);
             Assert.Throws<ArgumentException>(() => first.Gather("unknown", "wood"));
             Assert.Throws<ArgumentException>(() => first.Gather("player1", "unknown"));
             Assert.Throws<ArgumentException>(() => first.Buy("unknown", "wood", 1));
@@ -302,16 +327,16 @@ namespace Imoni.Core.Tests
             Assert.That(first.Snapshot().Funds, Is.EqualTo(config.StartFunds));
             Assert.That(first.Snapshot().History, Is.Empty);
             for (int index = 0; index < 20; index++)
-                Assert.That(first.Gather("player1", "wood").QualityId, Is.EqualTo(control.Gather("player1", "wood").QualityId));
+                Assert.That(Gather(first, "player1", "wood").QualityId, Is.EqualTo(Gather(control, "player1", "wood").QualityId));
         }
 
         [Test]
         public void StreakIsPerPlayerSurvivesMaterialChangesAndDoesNotAffectPurchases()
         {
             GameConfig config = Config(json => json["qualityRoll"]["topBaseChance"] = 1);
-            var server = new LocalGameServer(config, 72);
-            GatherResult first = server.Gather("player1", "wood");
-            GatherResult second = server.Gather("player1", "negi");
+            var server = Server(config, 72);
+            GatherResult first = Gather(server, "player1", "wood");
+            GatherResult second = Gather(server, "player1", "negi");
             Assert.That(first.Streak, Is.EqualTo(1));
             Assert.That(second.Streak, Is.EqualTo(2));
             Assert.That(Player(server.Snapshot(), "player2").Streak, Is.Zero);
@@ -326,12 +351,12 @@ namespace Imoni.Core.Tests
         [Test]
         public void NonHighestGatherResetsOnlyThatPlayersStreak()
         {
-            var server = new LocalGameServer(Config(), 801);
+            var server = Server(Config(), 801);
             bool sawTop = false, sawReset = false;
             int previous = 0;
-            for (int index = 0; index < 500; index++)
+            for (int index = 0; index < 60; index++)
             {
-                GatherResult result = server.Gather("player1", index % 2 == 0 ? "wood" : "negi");
+                GatherResult result = Gather(server, "player1", index % 2 == 0 ? "wood" : "negi");
                 if (result.Streak > 0) sawTop = true;
                 if (previous > 0 && result.Streak == 0) { sawReset = true; break; }
                 previous = result.Streak;
@@ -344,7 +369,7 @@ namespace Imoni.Core.Tests
         public void SaleBelowProtectionRejectsAtomicallyAcrossSharedActors()
         {
             GameConfig config = Config();
-            var server = new LocalGameServer(config, 72);
+            var server = Server(config, 72);
             server.Buy("player1", "wood", 5);
             server.SetProtection("player2", "wood", "normal", 4);
             GameSnapshot before = server.Snapshot();
@@ -361,7 +386,7 @@ namespace Imoni.Core.Tests
         public void ConcurrentSalesCannotSpendTheSameLotTwice()
         {
             GameConfig config = Config();
-            var server = new LocalGameServer(config, 72);
+            var server = Server(config, 72);
             server.Buy("player1", "wood", 1);
             int successes = 0, rejections = 0;
             Parallel.ForEach(new[] { "player2", "player3" }, actor =>
@@ -379,7 +404,7 @@ namespace Imoni.Core.Tests
         public void PurchaseAndUpgradeInsufficientFundsLeaveEveryValueUntouched()
         {
             GameConfig config = Config(json => json["economy"]["startFunds"] = 1);
-            var server = new LocalGameServer(config, 72);
+            var server = Server(config, 72);
             Assert.Throws<InvalidOperationException>(() => server.Buy("player1", "wood", 1));
             Assert.Throws<InvalidOperationException>(() => server.Upgrade("player1", "move"));
             GameSnapshot state = server.Snapshot();
@@ -393,7 +418,7 @@ namespace Imoni.Core.Tests
         [TestCase(-1)]
         public void InvalidPurchaseOrSaleQuantityCannotChangeTheRun(int quantity)
         {
-            var server = new LocalGameServer(Config(), 72);
+            var server = Server(Config(), 72);
             Assert.Throws<ArgumentOutOfRangeException>(() => server.Buy("player1", "wood", quantity));
             Assert.Throws<ArgumentOutOfRangeException>(() => server.Sell("player1", "wood", "normal", quantity));
             Assert.That(server.Snapshot().History, Is.Empty);
@@ -402,7 +427,7 @@ namespace Imoni.Core.Tests
         [Test]
         public void OperationsRecordActorKindQuantityFundsAndSimulationTime()
         {
-            var server = new LocalGameServer(Config(), 72);
+            var server = Server(Config(), 72);
             server.Tick(23.5m);
             BigInteger cost = server.Buy("player2", "wood", 2);
             server.SetProtection("player3", "wood", "normal", 1);
@@ -426,7 +451,7 @@ namespace Imoni.Core.Tests
         [Test]
         public void ClientSnapshotsCannotMutateServerOrChangeAfterLaterCommands()
         {
-            var server = new LocalGameServer(Config(), 72);
+            var server = Server(Config(), 72);
             server.Buy("player1", "wood", 2);
             GameSnapshot before = server.Snapshot();
             Assert.Throws<NotSupportedException>(() => ((IList<MaterialLot>)before.Lots).Clear());
@@ -442,7 +467,7 @@ namespace Imoni.Core.Tests
         [Test]
         public void SoldBonusMaterialCannotReturnInTheFinalScore()
         {
-            var server = new LocalGameServer(Config(), 72, objectives: SmallObjectives());
+            var server = Server(Config(), 72, objectives: SmallObjectives());
             BuyForSuccess(server);
             server.Sell("player3", "mushroom", "normal", 1);
             server.Tick(300m);
@@ -457,9 +482,9 @@ namespace Imoni.Core.Tests
         public void LifecycleAndMemberValidationRejectInvalidTransitions()
         {
             GameConfig config = Config();
-            Assert.Throws<ArgumentException>(() => new LocalGameServer(config, 7, new[] { "one" }));
-            Assert.Throws<ArgumentException>(() => new LocalGameServer(config, 7, new[] { "same", "same", "other" }));
-            var server = new LocalGameServer(config, 7);
+            Assert.Throws<ArgumentException>(() => Server(config, 7, new[] { "one" }));
+            Assert.Throws<ArgumentException>(() => Server(config, 7, new[] { "same", "same", "other" }));
+            var server = Server(config, 7);
             Assert.Throws<InvalidOperationException>(() => server.StartNextRound());
             Assert.Throws<InvalidOperationException>(() => server.Retry(8));
             Assert.That(server.Snapshot().Events.Count, Is.EqualTo(1));

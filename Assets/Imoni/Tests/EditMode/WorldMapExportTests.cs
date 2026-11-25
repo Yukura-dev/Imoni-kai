@@ -1,0 +1,105 @@
+using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using NUnit.Framework;
+
+namespace Imoni.Core.Tests
+{
+    public sealed class WorldMapExportTests
+    {
+        [TestCase(482)]
+        [TestCase(777)]
+        [TestCase(202647)]
+        public void ExportThreeValidationSeeds(int seed)
+        {
+#if UNITY_EDITOR
+            string configPath = Path.Combine(UnityEngine.Application.dataPath, "Imoni", "Config", "GameConfig.json");
+#else
+            string configPath = Path.Combine(TestContext.CurrentContext.TestDirectory, "GameConfig.json");
+#endif
+            GameConfig config = GameConfig.Load(configPath);
+            WorldMap world = WorldGen.Generate(config, seed);
+            var text = new StringBuilder();
+            text.AppendLine("Imoni M3a deterministic world / seed " + seed.ToString(CultureInfo.InvariantCulture));
+            text.AppendLine($"Size: {world.Width}x{world.Height}; chunk: {world.ChunkSize}x{world.ChunkSize}; base: {world.Start}");
+            text.AppendLine("Coordinates: x increases right; y increases down; each grid has exactly 64 columns and 64 rows.");
+            text.AppendLine("Terrain: .=plain F=forest ~=river ^=mountain s=swamp ==bridge @=base");
+            text.AppendLine("Resources: W=wood N=negi T=taro M=mushroom I=fish S=sansai");
+            text.AppendLine("Unlock: first normal round (1..5), .=outside normal range");
+            text.AppendLine();
+            AppendGrid(text, "TERRAIN", world, position =>
+            {
+                if (position.Equals(world.Start)) return '@';
+                var tile = world.TileAt(position);
+                if (tile.IsBridge) return '=';
+                switch (tile.BiomeId)
+                {
+                    case "plain": return '.';
+                    case "forest": return 'F';
+                    case "river": return '~';
+                    case "mountain": return '^';
+                    case "swamp": return 's';
+                    default: throw new InvalidOperationException("Unknown biome " + tile.BiomeId);
+                }
+            });
+            var nodes = world.Resources.ToDictionary(node => node.Position);
+            AppendGrid(text, "RESOURCES", world, position =>
+            {
+                if (position.Equals(world.Start)) return '@';
+                if (!nodes.TryGetValue(position, out var node)) return '.';
+                switch (node.MaterialId)
+                {
+                    case "wood": return 'W';
+                    case "negi": return 'N';
+                    case "taro": return 'T';
+                    case "mushroom": return 'M';
+                    case "fish": return 'I';
+                    case "sansai": return 'S';
+                    default: throw new InvalidOperationException("Unknown material " + node.MaterialId);
+                }
+            });
+            AppendGrid(text, "UNLOCK RINGS", world, position =>
+            {
+                if (position.Equals(world.Start)) return '@';
+                for (int round = 1; round <= config.RoundsToClear; round++)
+                    if (world.IsUnlocked(position, round)) return (char)('0' + round);
+                return '.';
+            });
+            text.AppendLine("COUNTS (reachable harvest position, path wholly inside that round's unlock area)");
+            for (int round = 1; round <= config.RoundsToClear; round++)
+            {
+                var available = world.ResourcesAvailable(round).ToArray();
+                text.AppendLine("R" + round + ": " + string.Join(", ", config.Materials.Select(material =>
+                    material.Id + "=" + available.Count(node => node.MaterialId == material.Id))));
+                foreach (var node in available)
+                    Assert.That(Pathfinding.FindPathToResource(world, world.Start, node, round).Reachable, Is.True, node.Id);
+            }
+            foreach (var node in world.Resources)
+                Assert.That(Pathfinding.FindPathToResource(world, world.Start, node, config.RoundsToClear).Reachable,
+                    Is.True, "Unreachable resource in export: " + node.Id);
+            string outputDirectory = Environment.GetEnvironmentVariable("IMONI_MAP_EXPORT_DIR");
+            if (!string.IsNullOrWhiteSpace(outputDirectory))
+            {
+                Directory.CreateDirectory(outputDirectory);
+                File.WriteAllText(Path.Combine(outputDirectory, "map_seed_" + seed + ".txt"),
+                    text.ToString().Replace("\r\n", "\n"), new UTF8Encoding(false));
+            }
+        }
+
+        private static void AppendGrid(StringBuilder output, string title, WorldMap world,
+            Func<GridPosition, char> symbol)
+        {
+            output.AppendLine(title);
+            for (int y = 0; y < world.Height; y++)
+            {
+                var line = new StringBuilder();
+                for (int x = 0; x < world.Width; x++) line.Append(symbol(new GridPosition(x, y)));
+                Assert.That(line.Length, Is.EqualTo(world.Width));
+                output.AppendLine(line.ToString());
+            }
+            output.AppendLine();
+        }
+    }
+}

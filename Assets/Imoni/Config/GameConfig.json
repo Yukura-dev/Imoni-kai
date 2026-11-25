@@ -31,7 +31,9 @@
       "biomes": [
         "forest",
         "mountain"
-      ]
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0
     },
     {
       "id": "negi",
@@ -41,7 +43,9 @@
       "baseYield": 2,
       "biomes": [
         "plain"
-      ]
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0
     },
     {
       "id": "taro",
@@ -51,7 +55,9 @@
       "baseYield": 2,
       "biomes": [
         "plain"
-      ]
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0
     },
     {
       "id": "mushroom",
@@ -62,7 +68,9 @@
       "biomes": [
         "forest",
         "swamp"
-      ]
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0
     },
     {
       "id": "fish",
@@ -72,7 +80,9 @@
       "baseYield": 1,
       "biomes": [
         "river"
-      ]
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0
     },
     {
       "id": "sansai",
@@ -82,7 +92,9 @@
       "baseYield": 1,
       "biomes": [
         "mountain"
-      ]
+      ],
+      "qualityMultiplier": 1.1,
+      "efficiencyMultiplier": 1.0
     }
   ],
   "qualities": [
@@ -151,9 +163,8 @@
     }
   ],
   "qualityRoll": {
-    "_comment": "モックの式: 解放済みの最高品質の確率 pTop = min(1, topBaseChance × (1 + luckPerLevel × 採集運Lv))。残りを他の品質の weight で按分。上限は設けない(仕様5.2)",
-    "topBaseChance": 0.08,
-    "luckPerLevel": 0.6
+    "_comment": "pTop = min(1, topBaseChance * (1 + upgrades.items[luck].effectPerLevel * Lv))。バイオーム・素材・資源の品質係数を品質順位ごとの重みに掛け、正規化して抽選。採集運の係数はupgradesのみ。",
+    "topBaseChance": 0.08
   },
   "streak": {
     "_comment": "連続倍率 M(n) = base ^ (n / divisor)。実獲得数量 = floor(基本獲得数量 × 採集量倍率 × M)。素材ポイントにも M を掛ける(仕様6)",
@@ -190,7 +201,7 @@
         "name": "採集運",
         "basePrice": 150,
         "effectPerLevel": 0.6,
-        "_effect": "qualityRoll を参照"
+        "_effect": "品質抽選が参照する唯一の採集運係数。"
       }
     ]
   },
@@ -205,6 +216,40 @@
       "young",
       "mature",
       "ready"
+    ],
+    "growthStageFractions": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "botIntervalSec": 2,
+    "biomeModifiers": [
+      {
+        "id": "plain",
+        "qualityMultiplier": 1.0,
+        "efficiencyMultiplier": 1.0
+      },
+      {
+        "id": "forest",
+        "qualityMultiplier": 1.05,
+        "efficiencyMultiplier": 1.0
+      },
+      {
+        "id": "river",
+        "qualityMultiplier": 1.1,
+        "efficiencyMultiplier": 1.0
+      },
+      {
+        "id": "mountain",
+        "qualityMultiplier": 1.2,
+        "efficiencyMultiplier": 1.15
+      },
+      {
+        "id": "swamp",
+        "qualityMultiplier": 1.15,
+        "efficiencyMultiplier": 0.9
+      }
     ]
   },
   "bonusTiers": [
@@ -1160,5 +1205,59 @@
         "#81920"
       ]
     }
+  },
+  "world": {
+    "width": 64,
+    "height": 64,
+    "chunkSize": 16,
+    "tileSizePx": 32,
+    "startClearRadius": 2,
+    "unlockRadii": [
+      10,
+      17,
+      24,
+      32,
+      46
+    ],
+    "endlessRadiusStep": 7,
+    "noiseCellSize": 8,
+    "noiseResolution": 10000,
+    "biomeThresholds": [
+      {
+        "id": "plain",
+        "max": 0.35
+      },
+      {
+        "id": "forest",
+        "max": 0.62
+      },
+      {
+        "id": "swamp",
+        "max": 0.78
+      },
+      {
+        "id": "mountain",
+        "max": 1.0
+      }
+    ],
+    "riverWidth": 2,
+    "riverOffsetTiles": 5,
+    "riverMeanderTiles": 2,
+    "riverBendStep": 4,
+    "bridgeSpacing": 12,
+    "resourceChance": 0.12,
+    "minimumNodesPerMaterial": 3,
+    "startingMaterials": [
+      "wood",
+      "negi",
+      "taro",
+      "mushroom"
+    ]
+  },
+  "objectiveGeneration": {
+    "requiredCount": 3,
+    "minimumFraction": 0.4,
+    "maximumFraction": 0.7,
+    "_comment": "各候補に5分を重複配分せず、必須+ボーナスでチームの作業時間を等分。往復移動・在庫・再生・強化を含む保守的な採集シミュレーションの40〜70%を要求する。"
   }
 }

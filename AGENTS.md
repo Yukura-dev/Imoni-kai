@@ -162,6 +162,6 @@
 
 正本は `D:/UnityProjects/Imoni-kai`。ここがUnityプロジェクトのルートで、`unity/` の入れ子は作らない。旧handoffは資料の受け取り元のみ。既存プロトタイプは比較用に残し、新実装は `Assets/Imoni/` に集約する。仕様書の `unity/Assets/` はこのリポジトリの `Assets/` と読み替える。
 
-2026-11-25：M2aレビュー承認済み。今回はrebuild/m2a-componentsからrebuild/m2b-screensを作成し、UI_SPEC1〜10章の画面と遷移・保存を実装。先にdisabled色、Gallery背景・撮影保存、ScreenHostへのUSS集約を修正。Unityエラー・警告0、dotnet test全成功、390×844の左右比較画像とdocs/M2B_SCREENS.mdを揃え、コミット・pushして停止。Gameは空の仮画面のみ。M3には進まない。
+2026-11-25：M2bレビュー承認済み。今回はmainを基点にrebuild/m3a-world-coreでM3a（Coreのみ）を実装。WorldGen・A*・資源成長・目標生成・採集Tick・ボット・品質補正を純C#で実装し、dotnet test全成功と3シードのASCIIマップをdocs/validation/m3a/に揃える。コミット・pushして停止し、M3b（Tilemap・画面・タップ操作）には進まない。Gameは引き続き空の仮画面。
 
 USS非対応の構造擬似クラス（`:first-child`、`:last-child`、`:nth-child`など）は使わない。`Theme.uss` の先頭タブ用クラスは `.tabbar__item--first`。M2のTabBarは先頭のタブにこのクラスを付ける。

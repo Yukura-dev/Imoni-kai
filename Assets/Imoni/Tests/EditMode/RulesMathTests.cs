@@ -41,7 +41,7 @@ namespace Imoni.Core.Tests
         [TestCase("round.bonusRevealSec", 300)]
         [TestCase("numeric.fixedScale", 0)]
         [TestCase("qualityRoll.topBaseChance", 2)]
-        [TestCase("qualityRoll.luckPerLevel", -1)]
+        [TestCase("upgrades.items[3].effectPerLevel", -1)]
         [TestCase("streak.divisor", 0)]
         [TestCase("format.unitBase", 1)]
         [TestCase("format.decimalPlaces", -1)]
@@ -139,7 +139,7 @@ namespace Imoni.Core.Tests
             var changed = new QualityRoller(Config(json =>
             {
                 json["qualityRoll"]["topBaseChance"] = 0.2m;
-                json["qualityRoll"]["luckPerLevel"] = 0.25m;
+                json["upgrades"]["items"][3]["effectPerLevel"] = 0.25m;
             }));
             Assert.That(changed.TopChanceRaw(4), Is.EqualTo(config.FixedScale * 2 / 5));
         }

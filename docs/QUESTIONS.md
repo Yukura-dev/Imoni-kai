@@ -67,11 +67,11 @@
   - 該当：`Theme.uss`、`AGENTS.md`、`docs/COMPONENTS.md`。
 
 
-## M3で対応するメモ（ユーザー指示、2026-11-25）
+## M3で対応するメモ（2026-11-25、M3aで対応）
 
-- R2以降の目標がR1の固定目標（round1Mock）のままなので、M3でワールドからの目標生成につなぐ。M2aでは変更しない。
-- 品質抽選にバイオーム・資源ごとの補正（仕様5.2）を追加する。M2aでは変更しない。
-- 採集運の係数がGameConfigのqualityRoll.luckPerLevelとupgradesのluck.effectPerLevelに重複しているので、M3で1か所にまとめる。M2aでは変更しない。
+- 対応済み：R1を含め、目標省略時は毎ラウンドWorldからObjectiveGeneratorで生成する。round1Mockはモック表示・明示的なルールテストfixtureにだけ残す。
+- 対応済み：QualityRollerにバイオームと資源の品質補正を追加し、LocalGameServerの採集確定時に適用する（仕様5.2）。
+- 対応済み：採集運の係数はupgrades.itemsのluck.effectPerLevelに集約。qualityRoll.luckPerLevelは削除し、GameConfig.LuckPerLevelも同じ定義を読む。
 
 ## M2aの表示上の判断（2026-11-25）
 
@@ -94,3 +94,29 @@
   - 仮決定：戻る操作で退出し、再入場はチーム選択から始める。モックの初期modeと合わせ、作成経路へ戻れるようにする。対象：LobbyScreens.cs、ImoniM2BValidation.cs。
 - 質問：M2aのAvatar表示とモックの塗り円をM2bでどう合わせるか。
   - 仮決定：同じAvatar部品を継続利用し、Lobby／Waiting／Loadingではレイヤーを隠して枠と単色だけ表示する。Home／Memberのキャラ編集は4レイヤー表示を維持する。対象：LobbyScreens.uss、LobbyScreenData.SetAvatar。
+
+
+## M3aの仮決定（2026-11-25）
+
+- 質問：mainへマージ済みとの依頼と、取得したGit履歴が一致しない。
+  - 判断：origin/mainとローカルmainは053c6e6のままで、レビュー済みM2bはdacbdc9だった。mainがM2bの祖先であることを確認し、ローカルmainだけをM2bまでfast-forwardしてからrebuild/m3a-world-coreを作成した。リモートmainは変更しない。
+  - 該当：Gitブランチ履歴。本タスクの差分の基点はdacbdc9。
+- 質問：水上の魚と、資源へ重ならずに到達する条件をどう扱うか。
+  - 仮決定：資源タイルの上下左右いずれかの歩行可能タイルまでA*で到達すれば採集可能。水上へ移動せず、魚は岸または橋から採る。資源自体も解放範囲内であることを要求する。人同士は移動の障害物にしない。
+  - 該当：WorldMap.cs、Pathfinding.cs、LocalGameServer.cs。
+- 質問：旧M1の即時Gatherコマンドを残すか。
+  - 仮決定：本番APIは移動・採集時間・在庫を検証し、時間進行による完了時だけ確定する。M1テストも資源選択とTickを経て採集する。ルール単独テストは明示目標とボット無効をテスト側から渡し、本番の抜け道は作らない。
+  - 該当：LocalGameServer.cs、LocalGameServerTests.cs、GatheringSimulationTests.cs。
+- 質問：M2bのLoadingとワールド表示をこの段階で接続するか。
+  - 判断：今回の指定はCoreのみ。M3bでLoadingとGameへ接続する。画面、Tilemap、タップ操作、カメラ・手の演出は変更しない。
+  - 該当：docs/M3A_WORLD_CORE.md。
+
+- 質問：仕様9.2の簡易シミュレーションで、複数素材に同じ5分を使ってよいか。
+  - 仮決定：ラウンド時間を必須とボーナスで等分し、現在位置からの帰還と各採集の往復も負担する。実数量の保守的な上限を使い、品質・連続の上振れは数えない。人数分の作業と資源在庫を共有シミュレーションする。目標種類不足や時間不足は候補を除外して再抽選し、固定の必須数を満たせなければエラーにする。
+  - 該当：ObjectiveGenerator.cs、ObjectiveGenerationConfig.cs、GatheringTiming.cs。
+- 質問：品質補正の具体的な式・成長段階の時間・ボット間隔が未定。
+  - 仮決定：品質順位rの抽選重みに総補正係数のr乗を掛けて正規化。成長は40秒の25/50/75/100%で区切り、ボットは2秒ごとに最寄りを探す。採用値はDECISIONSのM3a節とGameConfigへ集約した。
+  - 該当：QualityRoller.cs、ResourceNode.cs、Bots.cs、GameConfig.json。
+- 質問：ラウンド間の待ち時間と同時完了をどう扱うか。
+  - 仮決定：Collecting中だけ成長を進め、成功画面では停止して次ラウンドへ引き継ぐ。同時完了はメンバー順、5:00の期限が採集完了より優先。移動/速度の強化は次のタイル/採集作業から、数量/運は採集確定時に適用する。
+  - 該当：LocalGameServer.cs、GatheringSimulationTests.cs。

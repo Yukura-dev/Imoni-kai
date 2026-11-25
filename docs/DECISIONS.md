@@ -93,3 +93,13 @@
 - `outGame.profile/ranking`はモックの初期プロフィール、取得済みパーツ/バッジ、最高R3とランキング表示用ダミーを集約。プロフィール保存はpersistentDataPath/imoni-profile.json、検証は別のLibrary内ファイルを使う。
 - disabled色はThemeの専用変数（大: #EFD38A/#5C4518、小: #E9D5AE/#6B4A3A）、opacity1。画面ルートScreenHostでThemeと部品USSを一度読み、部品はattach時に親のシートがない場合だけフォールバックする。
 - M2b湯気画像の複製位相差: `ui.smallSteamPhaseDelaySeconds=0.6`・`ui.largeSteamPhaseDelaySeconds=0.5`秒。モックの2本／3本の遅延をAnimatedPotで再利用する。
+
+
+## M3a ワールド・採集Core（2026-11-25）
+
+- `world`を追加：64×64、chunk16、tileSizePx32、開始点は中央、開放半径10/17/24/32/46、エンドレス半径増分7、拠点空白半径2。ノイズcell8・分解能10000・閾値plain0.35/forest0.62/swamp0.78/mountain1。河川幅2・拠点から5・蛇行±2・4行ごと変化・橋12行ごと。配置確率0.12、各素材最低3ノード、R1はwood/negi/taro/mushroomを保証。
+- 在庫3・再生40秒は既存値を使用。`gathering.growthStageFractions=[0.25,0.5,0.75,1]`、ボット思考間隔`botIntervalSec=2`を追加。移動時間は既存140px/秒とタイル32pxから計算。時間精度は既存numeric.fixedScale、ゼロ時間を避ける最小単位は1/scale秒。
+- `objectiveGeneration`を追加：必須3、最低0.4、最高0.7。チーム3人×5分の時間を4素材で等分し、往復移動・強化・共有在庫・再生待ちを含む保守的な採集量を算出。品質と連続の上振れを見込まず、下限は切り上げ、上限は切り捨て。不適切な素材を除いて有限回で再選択し、4種類揃わない設定ではエラーにする。
+- 品質補正（品質/効率）はplain1/1、forest1.05/1、river1.1/1、mountain1.2/1.15、swamp1.15/0.9。素材はsansaiの品質1.1以外すべて1。ノード固有補正は中立値1で生成し、Coreモデルは個別補正も扱える。元確率へ総品質係数の品質順位乗を掛けて正規化する。
+- `qualityRoll.luckPerLevel`を削除。`upgrades.items[luck].effectPerLevel=0.6`を唯一の採集運係数として品質抽選も参照する。
+- 生成・目標・採集の乱数列は分離し、目標のseedはworld seed+round（整数のunchecked加算）。A*は上下左右・同距離の順序固定。採集同時完了はメンバー順、5:00は採集完了より先に確定する。
