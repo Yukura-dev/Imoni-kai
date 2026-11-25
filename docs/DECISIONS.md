@@ -62,4 +62,11 @@
 
 ## 芋煮会演出の修正（2026-11-25）
 
-- `GameConfig.imoniEffect.visual` にIMONI_EFFECT_SPECの画面座標・速度・光・揺れ・拡大の定数、`layout` に390×844上のHUD／テキスト／画像矩形、`audio` に提供WAVの音量・ピッチ・フェード、`effectReview` に録画解像度390×844・25fps・12.6秒・参照スコアとseed40410を追加。ゲームルールの数値は変更しない。元画像を加工せず使用し、Unity生成アセットは `Imoni > Setup Project` から生成する。
+- `GameConfig.imoniEffect.visual` にIMONI_EFFECT_SPECの画面座標・速度・光・揺れ・拡大の定数、`layout` に390×844上のHUD／テキスト／画像矩形、`audio` に提供WAVの音量・ピッチ・フェード、`effectReview` に録画解像度390×844・25fps・12.6秒・参照スコアとseed40410を追加。ゲームルールの数値は変更しない。元画像を加工せず使用し、旧演出のUnity生成アセットは `Imoni > Legacy > Setup Effect` から生成する（M0統合後のメニュー名）。
+
+
+## M0統合（2026-11-25）
+
+- 作業先を `D:/UnityProjects/Imoni-kai` に固定。`unity/Assets/` は `Assets/` と読み替える。
+- M0の生成値は既存 `GameConfig.setup` を使用する：Panel390×844・Match0・Sort10、Dynamic Font90pt／Padding9／Atlas1024×1024、Orthographic Camera8／位置(0,0,-10)／Clip0.3〜1000、Grid(1,1,0)。今回、新しいゲームバランス値は追加・変更しない。
+- `Imoni > Setup Project` はBootの土台を生成する。旧uGUIプロトタイプは比較用に保存し、新Bootには組み込まない。次の実装はM1。

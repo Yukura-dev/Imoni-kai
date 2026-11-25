@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Imoni.Game.Effects;
+using Imoni.Game;
 using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -25,6 +25,7 @@ namespace Imoni.Editor
         private const string FontFolder = Root + "/Fonts/Generated";
         private const string PanelPath = Root + "/UI/ImoniPanelSettings.asset";
         private const string DefaultThemePath = Root + "/UI/UnityDefaultRuntimeTheme.tss";
+        private const string BootPath = Root + "/Scenes/Boot.unity";
 
         // These names are the project://database references already defined in Theme.uss.
         private static readonly (string Source, string Asset)[] Fonts =
@@ -39,171 +40,30 @@ namespace Imoni.Editor
         public static void SetupProject()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
-                throw new InvalidOperationException("Exit Play Mode before setup.");
-            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
-            var settings = ReadSettings();
-            EnsureFolder(FontFolder); EnsureFolder(Root + "/UI"); EnsureFolder(Root + "/Scenes");
-            foreach (var font in Fonts)
-                EnsureFont(LoadRequired<Font>(Root + "/Fonts/" + font.Source), font.Asset, settings);
-            var panel = EnsurePanel(settings);
+                throw new InvalidOperationException("Exit Play Mode before running Imoni > Setup Project.");
+
+            // Validate inputs before switching scenes or creating any assets.
+            SetupSettings settings = ReadSettings();
+            Font[] sourceFonts = Fonts.Select(font => LoadRequired<Font>(Root + "/Fonts/" + font.Source)).ToArray();
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                return;
+
+            EnsureFolder(FontFolder);
+            EnsureFolder(Root + "/UI");
+            EnsureFolder(Root + "/Scenes");
+            for (int index = 0; index < Fonts.Length; index++)
+                EnsureFont(sourceFonts[index], Fonts[index].Asset, settings);
+
+            PanelSettings panel = EnsurePanel(settings);
+            EnsureBootScene(panel, settings);
+            RegisterBootScene();
+            SetPortrait(settings);
+
             AssetDatabase.SaveAssets();
-            AssetDatabase.ImportAsset(Root + "/UI/Theme.uss", ImportAssetOptions.ForceSynchronousImport);
-            AssetDatabase.ImportAsset(Root + "/UI/ImoniEffect.uss", ImportAssetOptions.ForceSynchronousImport);
-            PatchResultPrefab(panel);
-            PatchResultScene(panel);
-            CreatePreviewScene(panel);
-            AssetDatabase.SaveAssets();
-            Debug.Log("IMONI_EFFECT_SETUP_COMPLETE: UI Toolkit effect connected; harvesting and result settlement preserved.");
-        }
-
-        private const string ResultPrefabPath = "Assets/Prefabs/UI/RoundResultScreen.prefab";
-        private const string ResultScenePath = "Assets/Scenes/RoundResult.unity";
-        private const string PreviewPath = Root + "/Scenes/ImoniEffectPreview.unity";
-
-        private static ImoniEffectView ConfigureView(GameObject root, PanelSettings panel)
-        {
-            var document = EnsureComponent<UIDocument>(root);
-            document.panelSettings = panel;
-            var view = EnsureComponent<ImoniEffectView>(root);
-            view.document = document;
-            view.gameConfig = LoadRequired<TextAsset>(ConfigPath);
-            view.visualTree = LoadRequired<VisualTreeAsset>(Root + "/UI/ImoniEffect.uxml");
-            view.themeStyle = LoadRequired<StyleSheet>(Root + "/UI/Theme.uss");
-            view.effectStyle = LoadRequired<StyleSheet>(Root + "/UI/ImoniEffect.uss");
-            view.textures = AssetDatabase.FindAssets("t:Texture2D", new[] { Root + "/Art/Sprites" })
-                .Select(guid => AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(guid)))
-                .Where(texture => texture != null).ToArray();
-            var audio = EnsureComponent<ImoniEffectAudio>(root);
-            audio.view = view;
-            audio.drone = LoadRequired<AudioClip>(Root + "/Audio/SFX/bgm_drone_loop.wav");
-            audio.beat = LoadRequired<AudioClip>(Root + "/Audio/SFX/sfx_beat.wav");
-            audio.hihat = LoadRequired<AudioClip>(Root + "/Audio/SFX/sfx_beat_hihat.wav");
-            audio.hit = LoadRequired<AudioClip>(Root + "/Audio/SFX/sfx_hit.wav");
-            audio.levelUps = Enumerable.Range(1, 5).Select(level => LoadRequired<AudioClip>(Root + "/Audio/SFX/sfx_levelup_L" + level + ".wav")).ToArray();
-            audio.successFinale = LoadRequired<AudioClip>(Root + "/Audio/SFX/sfx_finale_success.wav");
-            audio.failureFinale = LoadRequired<AudioClip>(Root + "/Audio/SFX/sfx_finale_fail.wav");
-            EditorUtility.SetDirty(audio);
-            EditorUtility.SetDirty(document); EditorUtility.SetDirty(view);
-            return view;
-        }
-
-        private static void PatchController(global::Imoni.UI.RoundResultController controller, PanelSettings panel)
-        {
-            var child = controller.transform.Find("ImoniEffect");
-            var effect = child != null ? child.gameObject : new GameObject("ImoniEffect");
-            if (child == null) effect.transform.SetParent(controller.transform, false);
-            controller.effectView = ConfigureView(effect, panel);
-            if (controller.cookingRoot) controller.cookingRoot.SetActive(false);
-            EditorUtility.SetDirty(controller);
-            if (PrefabUtility.IsPartOfPrefabInstance(controller))
-                PrefabUtility.RecordPrefabInstancePropertyModifications(controller);
-        }
-
-        private static void PatchResultPrefab(PanelSettings panel)
-        {
-            var root = PrefabUtility.LoadPrefabContents(ResultPrefabPath);
-            try
-            {
-                PatchController(root.GetComponent<global::Imoni.UI.RoundResultController>(), panel);
-                PrefabUtility.SaveAsPrefabAsset(root, ResultPrefabPath);
-            }
-            finally { PrefabUtility.UnloadPrefabContents(root); }
-        }
-
-        private static void PatchResultScene(PanelSettings panel)
-        {
-            var scene = SceneManager.GetSceneByPath(ResultScenePath);
-            bool opened = !scene.isLoaded;
-            if (opened) scene = EditorSceneManager.OpenScene(ResultScenePath, OpenSceneMode.Additive);
-            try
-            {
-                foreach (var controller in scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<global::Imoni.UI.RoundResultController>(true)))
-                    PatchController(controller, panel);
-                if (!scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<AudioListener>(true)).Any())
-                {
-                    var camera = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Camera>(true)).FirstOrDefault();
-                    if (camera) EnsureComponent<AudioListener>(camera.gameObject);
-                }
-                EditorSceneManager.MarkSceneDirty(scene);
-                EditorSceneManager.SaveScene(scene);
-            }
-            finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
-        }
-
-        private static void CreatePreviewScene(PanelSettings panel)
-        {
-            var previous = SceneManager.GetActiveScene();
-            var scene = SceneManager.GetSceneByPath(PreviewPath);
-            bool opened = !scene.isLoaded;
-            if (opened) scene = File.Exists(PreviewPath)
-                ? EditorSceneManager.OpenScene(PreviewPath, OpenSceneMode.Additive)
-                : EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
-            try
-            {
-                var camera = EnsureComponent<Camera>(FindOrCreateRoot(scene, "Main Camera"));
-                camera.clearFlags = CameraClearFlags.SolidColor;
-                camera.backgroundColor = Color.black;
-                camera.orthographic = true;
-                camera.tag = "MainCamera";
-                EnsureComponent<AudioListener>(camera.gameObject);
-                var root = FindOrCreateRoot(scene, "ImoniEffectPreview");
-                var view = ConfigureView(root, panel);
-                var preview = EnsureComponent<ImoniEffectPreview>(root);
-                preview.view = view;
-                EditorUtility.SetDirty(preview);
-                EditorSceneManager.SaveScene(scene, PreviewPath);
-            }
-            finally
-            {
-                if (opened) EditorSceneManager.CloseScene(scene, true);
-                if (previous.IsValid() && previous.isLoaded) SceneManager.SetActiveScene(previous);
-            }
-        }
-
-        [MenuItem("Imoni/Effect/Record Success and Failure")]
-        public static void RecordBoth()
-        {
-            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Exit Play Mode first.");
-            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
-            EditorSceneManager.OpenScene(PreviewPath, OpenSceneMode.Single);
-            SetGameViewSize();
-            SessionState.SetBool("ImoniEffect.Capture", true);
-            EditorApplication.isPlaying = true;
-        }
-
-        private static void SetGameViewSize()
-        {
-            var flags = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance;
-            var assembly = typeof(UnityEditor.Editor).Assembly;
-            var gameViewType = assembly.GetType("UnityEditor.GameView");
-            var view = EditorWindow.GetWindow(gameViewType);
-            var sizesType = assembly.GetType("UnityEditor.GameViewSizes");
-            var sizes = typeof(ScriptableSingleton<>).MakeGenericType(sizesType).GetProperty("instance").GetValue(null);
-            var groupType = assembly.GetType("UnityEditor.GameViewSizeGroupType");
-            var group = sizesType.GetMethod("GetGroup").Invoke(sizes, new[] { Enum.Parse(groupType, "Standalone") });
-            var labels = (string[])group.GetType().GetMethod("GetDisplayTexts", flags).Invoke(group, null);
-            var review = (JObject)JObject.Parse(LoadRequired<TextAsset>(ConfigPath).text)["effectReview"];
-            int width = (int)review["width"], height = (int)review["height"];
-            int index = -1;
-            for (int i = 0; i < labels.Length; i++)
-            {
-                var size = group.GetType().GetMethod("GetGameViewSize", flags).Invoke(group, new object[] { i });
-                var sizeType = size.GetType();
-                if ((int)sizeType.GetProperty("width", flags).GetValue(size) == width &&
-                    (int)sizeType.GetProperty("height", flags).GetValue(size) == height &&
-                    sizeType.GetProperty("sizeType", flags).GetValue(size).ToString() == "FixedResolution") { index = i; break; }
-            }
-            if (index < 0)
-            {
-                var sizeType = assembly.GetType("UnityEditor.GameViewSize");
-                var kindType = assembly.GetType("UnityEditor.GameViewSizeType");
-                var size = Activator.CreateInstance(sizeType, flags | System.Reflection.BindingFlags.CreateInstance, null,
-                    new object[] { Enum.Parse(kindType, "FixedResolution"), width, height, "Imoni Effect Review" }, null);
-                group.GetType().GetMethod("AddCustomSize", flags).Invoke(group, new[] { size });
-                index = labels.Length;
-            }
-            gameViewType.GetProperty("selectedSizeIndex", flags).SetValue(view, index);
-            view.Focus(); view.Repaint();
+            // Resolve Theme.uss URLs that were imported before their FontAssets existed.
+            AssetDatabase.ImportAsset(Root + "/UI/Theme.uss", ImportAssetOptions.ForceUpdate);
+            Selection.activeObject = AssetDatabase.LoadAssetAtPath<SceneAsset>(BootPath);
+            Debug.Log("Imoni M0 setup complete. Boot scene and generated assets are ready. Screens are added in M2.");
         }
 
         private static SetupSettings ReadSettings()
@@ -345,6 +205,46 @@ namespace Imoni.Editor
             return panel;
         }
 
+        private static void EnsureBootScene(PanelSettings panel, SetupSettings settings)
+        {
+            Scene scene = AssetDatabase.LoadAssetAtPath<SceneAsset>(BootPath) != null
+                ? EditorSceneManager.OpenScene(BootPath, OpenSceneMode.Single)
+                : EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
+            GameObject cameraObject = FindOrCreateRoot(scene, "Main Camera");
+            Camera camera = EnsureComponent<Camera>(cameraObject);
+            cameraObject.tag = "MainCamera";
+            cameraObject.transform.SetPositionAndRotation(settings.CameraPosition, Quaternion.identity);
+            camera.orthographic = true;
+            camera.orthographicSize = settings.OrthographicSize;
+            camera.nearClipPlane = settings.NearClipPlane;
+            camera.farClipPlane = settings.FarClipPlane;
+
+            UIDocument document = EnsureComponent<UIDocument>(FindOrCreateRoot(scene, "UI Document"));
+            document.panelSettings = panel;
+            Grid grid = EnsureComponent<Grid>(FindOrCreateRoot(scene, "World Grid"));
+            grid.cellSize = settings.CellSize;
+            Transform tilemapTransform = grid.transform.Find("World Tilemap");
+            GameObject tilemapObject;
+            if (tilemapTransform == null)
+            {
+                tilemapObject = new GameObject("World Tilemap");
+                tilemapObject.transform.SetParent(grid.transform, false);
+            }
+            else
+            {
+                tilemapObject = tilemapTransform.gameObject;
+            }
+            Tilemap tilemap = EnsureComponent<Tilemap>(tilemapObject);
+            EnsureComponent<TilemapRenderer>(tilemapObject);
+            Bootstrap bootstrap = EnsureComponent<Bootstrap>(FindOrCreateRoot(scene, "Bootstrap"));
+            bootstrap.SetSceneReferences(document, camera, grid, tilemap);
+            EditorUtility.SetDirty(bootstrap);
+            EditorSceneManager.MarkSceneDirty(scene);
+            if (!EditorSceneManager.SaveScene(scene, BootPath))
+                throw new InvalidOperationException("Could not save " + BootPath + ".");
+        }
+
         private static GameObject FindOrCreateRoot(Scene scene, string name)
         {
             GameObject existing = scene.GetRootGameObjects().SingleOrDefault(item => item.name == name);
@@ -359,6 +259,24 @@ namespace Imoni.Editor
         {
             T component = target.GetComponent<T>();
             return component != null ? component : target.AddComponent<T>();
+        }
+
+        private static void RegisterBootScene()
+        {
+            var scenes = new List<EditorBuildSettingsScene> { new EditorBuildSettingsScene(BootPath, true) };
+            scenes.AddRange(EditorBuildSettings.scenes.Where(scene => scene.path != BootPath));
+            EditorBuildSettings.scenes = scenes.ToArray();
+        }
+
+        private static void SetPortrait(SetupSettings settings)
+        {
+            PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
+            PlayerSettings.allowedAutorotateToPortrait = true;
+            PlayerSettings.allowedAutorotateToPortraitUpsideDown = false;
+            PlayerSettings.allowedAutorotateToLandscapeLeft = false;
+            PlayerSettings.allowedAutorotateToLandscapeRight = false;
+            PlayerSettings.defaultScreenWidth = settings.ReferenceWidth;
+            PlayerSettings.defaultScreenHeight = settings.ReferenceHeight;
         }
 
         private static T LoadRequired<T>(string path) where T : Object

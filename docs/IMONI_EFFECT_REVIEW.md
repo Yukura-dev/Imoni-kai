@@ -1,6 +1,6 @@
 # 芋煮会演出の確認記録
 
-対象は現在のUnityプロジェクト `D:/UnityProjects/Imoni-kai`。前回のM0専用handoffは別フォルダにある。
+対象は現在のUnityプロジェクト `D:/UnityProjects/Imoni-kai`。M0の土台はこのプロジェクトに統合済み。旧handoffは参照元のみ。
 
 ## 実装
 
@@ -13,7 +13,7 @@
 ## 再生成・録画
 
 1. Unity 6.3 LTSでこのプロジェクトを開き、Playを停止する。
-2. `Imoni > Setup Project`。フォント、PanelSettings、演出のPrefab接続、独立した確認用シーンをEditor APIで生成する。もう一度実行しても同名要素を再利用する。
+2. `Imoni > Legacy > Setup Effect`。フォント、PanelSettings、演出のPrefab接続、独立した確認用シーンをEditor APIで生成する。もう一度実行しても同名要素を再利用する。
 3. `Imoni > Round Flow > Validate Saved Flow`。
 4. `Imoni > Effect > Record Success and Failure`。Gameビューを固定390×844にし、同じ描画処理から25fpsのPNG連番を取得する。録画中はGameタブを表示したままにする。
 5. `python tools/EffectReview/compare_videos.py --ffmpeg <ffmpeg.exeのパス>`。`design/videos/unity/` に録画MP4、左右比較MP4、比較PNG、計測JSONを保存する。
@@ -23,9 +23,9 @@
 
 ## 現在の検証状態
 
-- `dotnet test tools/CoreTests --nologo`：14件合格、失敗0。
+- `dotnet test tools/CoreTests --nologo`：15件合格、失敗0（M0 Smoke 1件＋既存演出14件）。
 - Unity 6000.3.21f1 DLLを用いたC#9静的コンパイル：Core/Game/新Editorは警告0・エラー0。全既存コードを含めた検証はエラー0（既存SerializeField警告37件）。
-- **未完了**：UnityでSetup実行、390×844録画、仕様8章の目視照合、実際の結果ボタン・再生し直し・採取終了フローの操作確認。現在、操作ツールからUnityのウィンドウが取得できないため、画面を再表示してもらうのを待っている。
+- **未完了**：UnityでSetup実行、390×844録画、仕様8章の目視照合、実際の結果ボタン・再生し直し・採取終了フローの操作確認。2026-11-25に作業方針を全体の再構築へ変更し、M0で区切ることが承認された。これらはM5で再開する。Unity画面の取得は復旧済み。
 - 従って、見た目が一致した／仕様8章を満たしたとはまだ判定していない。
 
 ## 比較で区別する差

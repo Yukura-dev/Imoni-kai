@@ -1,0 +1,268 @@
+{
+  "status": "passed",
+  "scope": "M0 saved assets and scene wiring; runtime Play Mode is checked separately",
+  "snapshot": {
+    "generatedAssets": [
+      {
+        "path": "Assets/Imoni/Scenes/Boot.unity",
+        "guid": "fcf84bf3bd49b2f47a625cb212ce978c"
+      },
+      {
+        "path": "Assets/Imoni/UI/ImoniPanelSettings.asset",
+        "guid": "bfb0c081ba6011549ad723497d4f7dfc"
+      },
+      {
+        "path": "Assets/Imoni/UI/UnityDefaultRuntimeTheme.tss",
+        "guid": "2e2d4def630d0de4a9109a752906a084"
+      },
+      {
+        "path": "Assets/Imoni/Fonts/Generated/DelaGothicOne SDF.asset",
+        "guid": "1afe87d7ae73d4d44a9ab718faec85d5"
+      },
+      {
+        "path": "Assets/Imoni/Fonts/Generated/ZenMaruGothic-Bold SDF.asset",
+        "guid": "a2f9430f43ce2144bb8f0397d84495a8"
+      },
+      {
+        "path": "Assets/Imoni/Fonts/Generated/ZenMaruGothic-Medium SDF.asset",
+        "guid": "b42352ab2b5a4d74cb8a7ecc54176ed6"
+      },
+      {
+        "path": "Assets/Imoni/Fonts/Generated/ZenMaruGothic-Black SDF.asset",
+        "guid": "481a4af72a26bf348b63f369e9b20f49"
+      }
+    ],
+    "panel": {
+      "referenceWidth": 390,
+      "referenceHeight": 844,
+      "match": 0.0,
+      "sortingOrder": 10.0,
+      "scaleMode": "ScaleWithScreenSize",
+      "theme": "Assets/Imoni/UI/UnityDefaultRuntimeTheme.tss"
+    },
+    "fonts": [
+      {
+        "path": "Assets/Imoni/Fonts/Generated/DelaGothicOne SDF.asset",
+        "source": "Assets/Imoni/Fonts/DelaGothicOne-Regular.ttf",
+        "population": "Dynamic",
+        "multiAtlas": true,
+        "atlasWidth": 1024,
+        "atlasHeight": 1024,
+        "samplingPointSize": 90.0,
+        "padding": 9,
+        "subAssets": [
+          {
+            "name": "DelaGothicOne SDF Material",
+            "type": "UnityEngine.Material",
+            "globalId": "GlobalObjectId_V1-3-1afe87d7ae73d4d44a9ab718faec85d5-1506723878104649982-0"
+          },
+          {
+            "name": "DelaGothicOne SDF Atlas",
+            "type": "UnityEngine.Texture2D",
+            "globalId": "GlobalObjectId_V1-3-1afe87d7ae73d4d44a9ab718faec85d5-8957866506981533866-0"
+          }
+        ]
+      },
+      {
+        "path": "Assets/Imoni/Fonts/Generated/ZenMaruGothic-Bold SDF.asset",
+        "source": "Assets/Imoni/Fonts/ZenMaruGothic-Bold.ttf",
+        "population": "Dynamic",
+        "multiAtlas": true,
+        "atlasWidth": 1024,
+        "atlasHeight": 1024,
+        "samplingPointSize": 90.0,
+        "padding": 9,
+        "subAssets": [
+          {
+            "name": "ZenMaruGothic-Bold SDF Material",
+            "type": "UnityEngine.Material",
+            "globalId": "GlobalObjectId_V1-3-a2f9430f43ce2144bb8f0397d84495a8-1325684044222427057-0"
+          },
+          {
+            "name": "ZenMaruGothic-Bold SDF Atlas",
+            "type": "UnityEngine.Texture2D",
+            "globalId": "GlobalObjectId_V1-3-a2f9430f43ce2144bb8f0397d84495a8-2635533365787946735-0"
+          }
+        ]
+      },
+      {
+        "path": "Assets/Imoni/Fonts/Generated/ZenMaruGothic-Medium SDF.asset",
+        "source": "Assets/Imoni/Fonts/ZenMaruGothic-Medium.ttf",
+        "population": "Dynamic",
+        "multiAtlas": true,
+        "atlasWidth": 1024,
+        "atlasHeight": 1024,
+        "samplingPointSize": 90.0,
+        "padding": 9,
+        "subAssets": [
+          {
+            "name": "ZenMaruGothic-Medium SDF Material",
+            "type": "UnityEngine.Material",
+            "globalId": "GlobalObjectId_V1-3-b42352ab2b5a4d74cb8a7ecc54176ed6-1426739975516745439-0"
+          },
+          {
+            "name": "ZenMaruGothic-Medium SDF Atlas",
+            "type": "UnityEngine.Texture2D",
+            "globalId": "GlobalObjectId_V1-3-b42352ab2b5a4d74cb8a7ecc54176ed6-4507571215211659647-0"
+          }
+        ]
+      },
+      {
+        "path": "Assets/Imoni/Fonts/Generated/ZenMaruGothic-Black SDF.asset",
+        "source": "Assets/Imoni/Fonts/ZenMaruGothic-Black.ttf",
+        "population": "Dynamic",
+        "multiAtlas": true,
+        "atlasWidth": 1024,
+        "atlasHeight": 1024,
+        "samplingPointSize": 90.0,
+        "padding": 9,
+        "subAssets": [
+          {
+            "name": "ZenMaruGothic-Black SDF Material",
+            "type": "UnityEngine.Material",
+            "globalId": "GlobalObjectId_V1-3-481a4af72a26bf348b63f369e9b20f49-3486740849897091692-0"
+          },
+          {
+            "name": "ZenMaruGothic-Black SDF Atlas",
+            "type": "UnityEngine.Texture2D",
+            "globalId": "GlobalObjectId_V1-3-481a4af72a26bf348b63f369e9b20f49-15047277185996374717-0"
+          }
+        ]
+      }
+    ],
+    "assemblies": [
+      {
+        "path": "Assets/Imoni/Scripts/Core/Imoni.Core.asmdef",
+        "guid": "70706a3981df832489844a1031d50a13"
+      },
+      {
+        "path": "Assets/Imoni/Scripts/Game/Imoni.Game.asmdef",
+        "guid": "a30c750145066ee4c98275c8c3d907d6"
+      },
+      {
+        "path": "Assets/Imoni/Editor/Imoni.Editor.asmdef",
+        "guid": "1df266e364c96f24597251f8eb93239f"
+      },
+      {
+        "path": "Assets/Imoni/Tests/EditMode/Imoni.Tests.asmdef",
+        "guid": "5492e1272d4456242aa13f9dd9f3ad20"
+      }
+    ],
+    "boot": {
+      "path": "Assets/Imoni/Scenes/Boot.unity",
+      "rootCount": 4,
+      "objectCount": 5,
+      "roots": [
+        "Bootstrap",
+        "Main Camera",
+        "UI Document",
+        "World Grid"
+      ],
+      "objects": [
+        {
+          "path": "Bootstrap",
+          "components": [
+            "Imoni.Game.Bootstrap",
+            "UnityEngine.Transform"
+          ]
+        },
+        {
+          "path": "Main Camera",
+          "components": [
+            "UnityEngine.Camera",
+            "UnityEngine.Transform"
+          ]
+        },
+        {
+          "path": "UI Document",
+          "components": [
+            "UnityEngine.Transform",
+            "UnityEngine.UIElements.UIDocument"
+          ]
+        },
+        {
+          "path": "World Grid",
+          "components": [
+            "UnityEngine.Grid",
+            "UnityEngine.Transform"
+          ]
+        },
+        {
+          "path": "World Grid/World Tilemap",
+          "components": [
+            "UnityEngine.Tilemaps.Tilemap",
+            "UnityEngine.Tilemaps.TilemapRenderer",
+            "UnityEngine.Transform"
+          ]
+        }
+      ],
+      "references": [
+        {
+          "name": "Bootstrap",
+          "type": "Imoni.Game.Bootstrap",
+          "globalId": "GlobalObjectId_V1-2-fcf84bf3bd49b2f47a625cb212ce978c-932220983-0"
+        },
+        {
+          "name": "UI Document",
+          "type": "UnityEngine.UIElements.UIDocument",
+          "globalId": "GlobalObjectId_V1-2-fcf84bf3bd49b2f47a625cb212ce978c-1950911473-0"
+        },
+        {
+          "name": "Main Camera",
+          "type": "UnityEngine.Camera",
+          "globalId": "GlobalObjectId_V1-2-fcf84bf3bd49b2f47a625cb212ce978c-1206563952-0"
+        },
+        {
+          "name": "World Grid",
+          "type": "UnityEngine.Grid",
+          "globalId": "GlobalObjectId_V1-2-fcf84bf3bd49b2f47a625cb212ce978c-1265951950-0"
+        },
+        {
+          "name": "World Tilemap",
+          "type": "UnityEngine.Tilemaps.Tilemap",
+          "globalId": "GlobalObjectId_V1-2-fcf84bf3bd49b2f47a625cb212ce978c-498482268-0"
+        },
+        {
+          "name": "World Tilemap",
+          "type": "UnityEngine.Tilemaps.TilemapRenderer",
+          "globalId": "GlobalObjectId_V1-2-fcf84bf3bd49b2f47a625cb212ce978c-498482269-0"
+        }
+      ]
+    },
+    "buildScenes": [
+      {
+        "path": "Assets/Imoni/Scenes/Boot.unity",
+        "enabled": true
+      },
+      {
+        "path": "Assets/Scenes/SampleScene.unity",
+        "enabled": false
+      },
+      {
+        "path": "Assets/Scenes/Loading.unity",
+        "enabled": true
+      },
+      {
+        "path": "Assets/Scenes/Home.unity",
+        "enabled": true
+      },
+      {
+        "path": "Assets/Scenes/Lobby.unity",
+        "enabled": true
+      },
+      {
+        "path": "Assets/Scenes/Game.unity",
+        "enabled": true
+      },
+      {
+        "path": "Assets/Scenes/WorldLoading.unity",
+        "enabled": true
+      },
+      {
+        "path": "Assets/Scenes/RoundResult.unity",
+        "enabled": true
+      }
+    ],
+    "orientation": "Portrait"
+  }
+}

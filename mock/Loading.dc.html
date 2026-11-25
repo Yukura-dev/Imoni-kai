@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>読み込み中</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Zen+Maru+Gothic:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#4A2E22}a:hover{color:#8B2310}
+@keyframes lSpin{to{transform:rotate(360deg)}}
+@keyframes lBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
+@keyframes lSteam{0%{transform:translateY(8px);opacity:0}40%{opacity:1}100%{transform:translateY(-18px);opacity:0}}
+@keyframes lPop{0%{transform:scale(0.6);opacity:0}70%{transform:scale(1.06);opacity:1}100%{transform:scale(1)}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F7B92B; font-family: 'Zen Maru Gothic', sans-serif; color: #4A2E22">
+<svg aria-hidden="true" width="390" height="844" style="position: absolute; inset: 0">
+<defs>
+<pattern id="taroL" width="96" height="104" patternUnits="userSpaceOnUse">
+<ellipse cx="22" cy="26" rx="11" ry="14" fill="none" stroke="#FFE3A3" stroke-width="2.5" transform="rotate(-18 22 26)"></ellipse>
+<path d="M18 20 q4 3 8 1 M17 28 q5 2 9 0" fill="none" stroke="#FFE3A3" stroke-width="1.5"></path>
+<ellipse cx="70" cy="74" rx="13" ry="10" fill="none" stroke="#FFE3A3" stroke-width="2.5" transform="rotate(24 70 74)"></ellipse>
+<circle cx="72" cy="22" r="4" fill="none" stroke="#FFE3A3" stroke-width="2"></circle>
+<circle cx="30" cy="84" r="3" fill="none" stroke="#FFE3A3" stroke-width="2"></circle>
+</pattern>
+</defs>
+<rect width="390" height="844" fill="url(#taroL)"></rect>
+</svg>
+
+<div style="position: absolute; left: 20px; right: 20px; top: 70px; bottom: 40px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+<svg aria-hidden="true" width="140" height="120" viewBox="0 0 140 120" style="animation: lBob 1.4s ease-in-out infinite">
+<path d="M46 34 c-6 -8 6 -12 0 -20" fill="none" stroke="#FFF3D6" stroke-width="5" stroke-linecap="round" style="animation: lSteam 1.6s ease-out infinite"></path>
+<path d="M70 30 c-6 -8 6 -12 0 -20" fill="none" stroke="#FFF3D6" stroke-width="5" stroke-linecap="round" style="animation: lSteam 1.6s ease-out infinite; animation-delay: 0.5s"></path>
+<path d="M94 34 c-6 -8 6 -12 0 -20" fill="none" stroke="#FFF3D6" stroke-width="5" stroke-linecap="round" style="animation: lSteam 1.6s ease-out infinite; animation-delay: 1s"></path>
+<path d="M14 50 h112 c0 40 -26 62 -56 62 s-56 -22 -56 -62z" fill="#4A2E22"></path>
+<ellipse cx="70" cy="50" rx="56" ry="10" fill="#C77A3A"></ellipse>
+<circle cx="54" cy="49" r="6" fill="#F3E2C0"></circle><circle cx="80" cy="51" r="5" fill="#F3E2C0"></circle><circle cx="94" cy="48" r="4" fill="#6B9B3A"></circle>
+<path d="M4 50 h12 M124 50 h12" stroke="#4A2E22" stroke-width="8" stroke-linecap="round"></path>
+</svg>
+<h1 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 28px; color: #8B2310; text-shadow: 3px 3px 0 #FFF3D6">{{headline}}</h1>
+<span style="font-size: 13px; font-weight: 900">チーム「鍋底同盟」 · 共通シード #2026-47</span>
+</div>
+
+<section aria-label="進み具合" style="background: #FFF3D6; border: 4px solid #4A2E22; border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+<div style="display: flex; align-items: center; gap: 10px; min-height: 28px">
+<sc-if value="{{s.done}}" hint-placeholder-val="{{ true }}">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" style="flex-shrink: 0"><circle cx="12" cy="12" r="11" fill="#34421C"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#FFF3D6" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</sc-if>
+<sc-if value="{{s.active}}" hint-placeholder-val="{{ false }}">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" style="flex-shrink: 0; animation: lSpin 0.8s linear infinite"><circle cx="12" cy="12" r="9" fill="none" stroke="#E9D5AE" stroke-width="3.5"></circle><path d="M12 3a9 9 0 0 1 9 9" fill="none" stroke="#8B2310" stroke-width="3.5" stroke-linecap="round"></path></svg>
+</sc-if>
+<sc-if value="{{s.pending}}" hint-placeholder-val="{{ false }}">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" style="flex-shrink: 0"><circle cx="12" cy="12" r="9" fill="none" stroke="#C9A27A" stroke-width="3" stroke-dasharray="3 4"></circle></svg>
+</sc-if>
+<span style="flex: 1; font-size: 14px; font-weight: 900; color: {{s.fg}}">{{s.label}}</span>
+<span style="font-size: 11px; font-weight: 700; color: #6B4A3A">{{s.note}}</span>
+</div>
+</sc-for>
+<div role="progressbar" aria-label="読み込み" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{pct}}" style="height: 16px; border-radius: 999px; background: #FFFFFF; border: 3px solid #4A2E22; overflow: hidden; margin-top: 4px">
+<div style="height: 100%; width: {{pct}}%; background: #6B9B3A; border-radius: 999px"></div>
+</div>
+<span style="text-align: right; font-size: 12px; font-weight: 900">{{pct}}%</span>
+</section>
+
+<div style="display: flex; justify-content: center; gap: 14px">
+<sc-for list="{{members}}" as="m" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 44px; height: 44px; border-radius: 50%; background: {{m.avatar}}; border: 3px solid #4A2E22; opacity: {{m.op}}"></div>
+<span style="font-size: 11px; font-weight: 900">{{m.name}}</span>
+<span style="font-size: 10px; font-weight: 900; padding: 1px 6px; border-radius: 999px; background: {{m.bg}}; color: {{m.fg}}">{{m.state}}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="flex: 1"></div>
+<sc-if value="{{loading}}" hint-placeholder-val="{{ true }}">
+<div style="background: rgba(255,243,214,0.92); border: 3px dashed #4A2E22; border-radius: 16px; padding: 10px 14px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 11px; font-weight: 900; color: #8B2310">ヒント</span>
+<span style="font-size: 13px; font-weight: 700; line-height: 1.5">{{tip}}</span>
+</div>
+</sc-if>
+<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}">
+<a href="Game.dc.html" style="height: 64px; border-radius: 999px; background: #34421C; color: #FFF3D6; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; text-decoration: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 0 #1E2610; animation: lPop 0.45s ease-out">ラウンド1 スタート!</a>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+const STEPS = [
+  { label: 'シードを決定', note: '#2026-47', end: 10 },
+  { label: '地形とバイオームを生成', note: '平野・森林・河川', end: 38 },
+  { label: '資源を配置', note: '214か所', end: 62 },
+  { label: '到達できるか確認', note: '必須素材OK', end: 80 },
+  { label: 'メンバーと同期', note: '3/3人', end: 100 }
+];
+const TIPS = [
+  '資源をタップすると、自動で歩いて採集してくれるよ',
+  '最高品質を続けて引くと、獲得数とポイントが倍々に増える!',
+  '売却した素材は芋煮会のスコアに入らないよ。ロックで守ろう',
+  'ボーナス素材は開始2分後に発表。150%以上でさらに報酬アップ'
+];
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { pct: 0, tip: 0 }; }
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      const p = Math.min(100, this.state.pct + 1 + Math.round(Math.random() * 2));
+      this.setState({ pct: p });
+      if (p >= 100) clearInterval(this.timer);
+    }, 60);
+    this.tipTimer = setInterval(() => this.setState({ tip: (this.state.tip + 1) % TIPS.length }), 2600);
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearInterval(this.tipTimer); }
+  renderVals() {
+    const pct = this.state.pct;
+    let start = 0;
+    const steps = STEPS.map((s) => {
+      const done = pct >= s.end; const active = !done && pct >= start; const pending = !done && !active;
+      start = s.end;
+      return { label: s.label, note: done ? s.note : '', done: done, active: active, pending: pending, fg: pending ? '#8C6A4A' : '#4A2E22' };
+    });
+    const synced = pct >= 100 ? 3 : pct >= 90 ? 2 : pct >= 82 ? 1 : 0;
+    const people = [['あなた', '#8FAFC4'], ['たろう', '#C9A27A'], ['はなこ', '#6B9B3A']];
+    return {
+      pct: pct, steps: steps, loading: pct < 100, ready: pct >= 100,
+      headline: pct < 100 ? 'ワールドを生成中…' : '準備ができたよ!',
+      tip: TIPS[this.state.tip],
+      members: people.map((p, i) => ({ name: p[0], avatar: p[1], op: i < synced ? 1 : 0.5, state: i < synced ? 'OK' : '読込中', bg: i < synced ? '#34421C' : '#EFD38A', fg: i < synced ? '#FFF3D6' : '#4A2E22' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

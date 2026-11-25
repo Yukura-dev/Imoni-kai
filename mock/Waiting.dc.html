@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>メンバー待ち</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Zen+Maru+Gothic:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#4A2E22}a:hover{color:#8B2310}
+button{font-family:inherit}
+@keyframes wPulse{0%{box-shadow:0 0 0 0 rgba(52,66,28,0.45)}100%{box-shadow:0 0 0 16px rgba(52,66,28,0)}}
+@keyframes wPop{0%{transform:scale(0.6);opacity:0}70%{transform:scale(1.06);opacity:1}100%{transform:scale(1)}}
+@keyframes wBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes wSteam{0%{transform:translateY(6px);opacity:0}40%{opacity:1}100%{transform:translateY(-14px);opacity:0}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 52px 18px 36px; background: #F7B92B; font-family: 'Zen Maru Gothic', sans-serif; color: #4A2E22; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="Lobby.dc.html" style="height: 44px; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 900; text-decoration: none">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A2E22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>
+キャンセル</a>
+<span style="font-size: 12px; font-weight: 900; background: #FFF3D6; border: 2px solid #4A2E22; border-radius: 999px; padding: 3px 10px">共通シード #2026-47</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<svg aria-hidden="true" width="64" height="58" viewBox="0 0 64 58" style="flex-shrink: 0; animation: wBob 1.6s ease-in-out infinite">
+<path d="M20 14 c-4 -5 4 -8 0 -13" fill="none" stroke="#FFF3D6" stroke-width="3" stroke-linecap="round" style="animation: wSteam 1.8s ease-out infinite"></path>
+<path d="M34 12 c-4 -5 4 -8 0 -13" fill="none" stroke="#FFF3D6" stroke-width="3" stroke-linecap="round" style="animation: wSteam 1.8s ease-out infinite; animation-delay: 0.6s"></path>
+<path d="M6 22 h52 c0 20 -12 30 -26 30 s-26 -10 -26 -30z" fill="#4A2E22"></path>
+<ellipse cx="32" cy="22" rx="26" ry="5" fill="#C77A3A"></ellipse>
+<path d="M2 22 h6 M56 22 h6" stroke="#4A2E22" stroke-width="5" stroke-linecap="round"></path>
+</svg>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 24px; line-height: 1.3; color: #34421C">{{headline}}</h1>
+<span style="font-size: 13px; font-weight: 700">{{subline}}</span>
+</div>
+</div>
+
+<section aria-labelledby="code-h" style="background: #4A2E22; color: #FFF3D6; border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<h2 id="code-h" style="margin: 0; font-size: 13px; font-weight: 900">招待コード</h2>
+<span style="font-size: 11px; font-weight: 700; color: #DCC9A8">チーム「鍋底同盟」</span>
+</div>
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 44px; letter-spacing: 6px; color: #F7B92B; text-align: center">IMO-482</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<button type="button" onClick="{{copy}}" style="height: 44px; border-radius: 999px; border: 0; background: #F7B92B; color: #4A2E22; font-size: 14px; font-weight: 900; cursor: pointer">{{copyLabel}}</button>
+<button type="button" style="height: 44px; border-radius: 999px; border: 2px solid #F7B92B; background: transparent; color: #FFF3D6; font-size: 14px; font-weight: 900; cursor: pointer">共有する</button>
+</div>
+</section>
+
+<section aria-labelledby="slot-h" style="background: #FFF3D6; border: 4px solid #4A2E22; border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 id="slot-h" style="margin: 0; font-size: 15px; font-weight: 900">メンバー</h2>
+<span aria-live="polite" style="font-family: 'Dela Gothic One', sans-serif; font-size: 18px; color: #8B2310">{{count}}/3人</span>
+</div>
+<sc-for list="{{slots}}" as="s" hint-placeholder-count="3">
+<sc-if value="{{s.filled}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 14px; background: #FFFFFF; border: 2px solid #4A2E22; animation: wPop 0.45s ease-out">
+<div style="width: 44px; height: 44px; border-radius: 50%; background: {{s.avatar}}; border: 3px solid #4A2E22; flex-shrink: 0"></div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 11px; font-weight: 900; color: #34421C">{{s.title}}</span>
+<span style="font-size: 16px; font-weight: 900">{{s.name}}</span>
+</div>
+<span style="font-size: 12px; font-weight: 900; padding: 4px 10px; border-radius: 999px; background: #34421C; color: #FFF3D6">{{s.tag}}</span>
+</div>
+</sc-if>
+<sc-if value="{{s.empty}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 14px; border: 2px dashed #8C6A2E; background: #FBEBC8">
+<div style="width: 44px; height: 44px; border-radius: 50%; border: 3px dashed #8C6A2E; flex-shrink: 0; animation: wPulse 1.4s ease-out infinite"></div>
+<span style="font-size: 14px; font-weight: 900; color: #5C4518">参加を待っています{{dots}}</span>
+</div>
+</sc-if>
+</sc-for>
+</section>
+
+<div style="flex: 1"></div>
+<sc-if value="{{full}}" hint-placeholder-val="{{ false }}">
+<a href="Loading.dc.html" style="height: 64px; border-radius: 999px; background: #8B2310; color: #FFF3D6; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; text-decoration: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 0 #5A1608; animation: wPop 0.45s ease-out">全員そろった!スタート</a>
+</sc-if>
+<sc-if value="{{notFull}}" hint-placeholder-val="{{ true }}">
+<button type="button" disabled style="height: 64px; border-radius: 999px; border: 3px dashed #8C6A2E; background: #EFD38A; color: #5C4518; font-size: 16px; font-weight: 900">あと{{rest}}人そろうとスタートできます</button>
+</sc-if>
+<span style="text-align: center; font-size: 11px; font-weight: 700">招待コードを仲間に送ってね。挑戦が始まると途中参加はできません</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"autoJoin":{"editor":"boolean","default":true},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { joined: 1, tick: 0, copied: false }; }
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState({ tick: this.state.tick + 1 }), 500);
+    if (this.props.autoJoin ?? true) {
+      this.t1 = setTimeout(() => this.setState({ joined: 2 }), 2500);
+      this.t2 = setTimeout(() => this.setState({ joined: 3 }), 5200);
+    }
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.t1); clearTimeout(this.t2); clearTimeout(this.t3); }
+  renderVals() {
+    const people = [
+      { name: 'ゆくらさん(あなた)', title: '芋煮会の初心者', avatar: '#8FAFC4', tag: 'ホスト' },
+      { name: 'たろう', title: '伝説の鍋奉行', avatar: '#C9A27A', tag: '参加!' },
+      { name: 'はなこ', title: '山の採集王', avatar: '#6B9B3A', tag: '参加!' }
+    ];
+    const n = this.state.joined;
+    const slots = people.map((p, i) => ({ ...p, filled: i < n, empty: i >= n }));
+    const full = n >= 3;
+    return {
+      slots: slots, count: n, rest: 3 - n, full: full, notFull: !full,
+      dots: '.'.repeat((this.state.tick % 3) + 1),
+      headline: full ? '全員そろったよ!' : 'メンバーを待っています',
+      subline: full ? '準備ができたらスタートしよう' : 'チームは3人で挑戦するよ',
+      copyLabel: this.state.copied ? 'コピーしました!' : 'コードをコピー',
+      copy: () => { this.setState({ copied: true }); clearTimeout(this.t3); this.t3 = setTimeout(() => this.setState({ copied: false }), 1600); }
+    };
+  }
+}
+</script>
+</body>
+</html>

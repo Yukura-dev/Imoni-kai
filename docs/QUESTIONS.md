@@ -24,3 +24,19 @@
 - 質問：失敗動画の完全なグレースケールと、仕様6章の半透明の覆いは同じ色になるか。
   - 判断：新しい実装仕様を優先して指定された茶灰色と黒の2枚を使う。動画のCSSフィルターとは残る色に差があることを比較報告に明記する。
   - 該当：`ImoniEffect.uxml`、`ImoniEffect.uss`。
+
+
+## 2026-11-25 — 作り直しのM0統合（ユーザー承認済み）
+
+- 質問：既存Unityと独立handoffのどちらを正本にするか。
+  - 決定：ユーザーの「全部作り直していい」「はい」を受け、今開いている `D:/UnityProjects/Imoni-kai` に統一する。別のUnityプロジェクトは作らない。旧handoffは仕様・素材・M0コードの受け取り元とする。
+  - 該当：`AGENTS.md`、`README.md`、`docs/SETUP.md`。
+- 質問：作り直しで採取の操作感や既存Prefabをどう扱うか。
+  - 仮決定：旧シーン・Prefab・移動／採取コードを比較用に保存し、M3でタップ地点への移動、カメラ追従、歩行の上下動、丸い手、資源の近くで停止して中心へ手を伸ばす動作、人同士の重なり許可を引き継ぐ。新UIは新しいAGENTSに従いUI Toolkitの共通部品とする。
+  - 該当：`Assets/Scenes/`、`Assets/Prefabs/`、`Assets/Scripts/`、今後の `Assets/Imoni/Scripts/Game/`。
+- 質問：以前の演出修正を先に完成させるか。
+  - 決定：今回の区切りはM0のみ。前節の「ゲーム全体の置換は行わない」は今回の再構築承認で更新された。既存演出は保管し、仕様8章の録画比較はM5で行う。M0完了を演出の完成とは扱わない。
+  - 該当：`docs/IMONI_EFFECT_REVIEW.md`、`Assets/Editor/ImoniLegacyEffectSetup.cs`。
+- 質問：Setupメニューの既存演出用処理と新しいBoot生成をどう分けるか。
+  - 仮決定：`Imoni > Setup Project` はM0のBoot生成とし、旧演出の生成は `Imoni > Legacy > Setup Effect` に残す。既存uGUI参照があるEditor処理は `Assets/Editor/`、新しい土台は `Assets/Imoni/Editor/` に置く。
+  - 該当：`ImoniSetup.cs`、`ImoniLegacyEffectSetup.cs`、`Imoni.Editor.asmdef`。

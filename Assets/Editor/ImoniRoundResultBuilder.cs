@@ -37,7 +37,7 @@ namespace Imoni.UI.Editor
             // The legacy generator must not replace the reviewed UI Toolkit effect with its old Canvas artwork.
             if (File.Exists("Assets/Imoni/Config/GameConfig.json") && AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath))
             {
-                global::Imoni.Editor.ImoniSetup.SetupProject();
+                global::Imoni.Editor.ImoniLegacyEffectSetup.SetupProject();
                 return;
             }
             heading = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Home/Home_DelaGothicOne.asset");

@@ -19,8 +19,8 @@ namespace Imoni.Editor
             File.Delete(Request);
             try
             {
-                if (command == "setup") ImoniSetup.SetupProject();
-                else if (command == "record") ImoniSetup.RecordBoth();
+                if (command == "setup") ImoniLegacyEffectSetup.SetupProject();
+                else if (command == "record") ImoniLegacyEffectSetup.RecordBoth();
                 else if (command == "game") EditorSceneManager.OpenScene("Assets/Scenes/Game.unity");
                 else if (command == "validate") global::Imoni.UI.Editor.ImoniRoundFlowValidation.Validate();
                 else throw new InvalidOperationException("Unknown effect review command.");

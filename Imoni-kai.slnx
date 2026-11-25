@@ -1,7 +1,8 @@
 ﻿<Solution>
   <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="Imoni.Tests.csproj" />
   <Project Path="Imoni.Game.csproj" />
+  <Project Path="Imoni.Tests.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Imoni.Editor.csproj" />
   <Project Path="Imoni.Core.csproj" />
 </Solution>

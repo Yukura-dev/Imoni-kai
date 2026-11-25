@@ -7,7 +7,9 @@ namespace Imoni.Editor
     {
         private void OnPreprocessTexture()
         {
-            if (!assetPath.StartsWith("Assets/Imoni/Art/Sprites/")) return;
+            if (!assetPath.StartsWith("Assets/Imoni/Art/Sprites/Effect/") &&
+                assetPath != "Assets/Imoni/Art/Sprites/Game/pot_effect.png" &&
+                assetPath != "Assets/Imoni/Art/Sprites/Game/fx_sparkle.png") return;
             var importer = (TextureImporter)assetImporter;
             importer.textureType = TextureImporterType.Default;
             importer.alphaIsTransparency = true;

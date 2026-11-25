@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>メインゲーム</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Zen+Maru+Gothic:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#4A2E22}a:hover{color:#8B2310}
+button{font-family:inherit}
+button:disabled{cursor:not-allowed}
+input:focus{outline:3px solid #34421C; outline-offset:1px}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F7B92B; font-family: 'Zen Maru Gothic', sans-serif; color: #4A2E22">
+
+<header style="height: 200px; box-sizing: border-box; padding: 46px 12px 8px; display: flex; flex-direction: column; gap: 8px; border-bottom: 3px solid #4A2E22">
+<div style="height: 44px; display: flex; align-items: center; justify-content: space-between">
+<span style="background: #4A2E22; color: #FFF3D6; font-size: 14px; font-weight: 900; padding: 6px 12px; border-radius: 999px">ラウンド {{round}}/5</span>
+<span aria-label="残り時間" style="font-family: 'Dela Gothic One', sans-serif; font-size: 34px; color: {{timerColor}}">{{timeText}}</span>
+<span style="display: flex; align-items: center; gap: 4px; background: #FFF3D6; border: 3px solid #4A2E22; font-size: 15px; font-weight: 900; padding: 4px 10px; border-radius: 999px">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#F7B92B" stroke="#4A2E22" stroke-width="2.5"></circle><rect x="9" y="9" width="6" height="6" fill="none" stroke="#4A2E22" stroke-width="2"></rect></svg>
+{{fundsText}}</span>
+</div>
+<div style="display: grid; grid-template-columns: 34px repeat(3, minmax(0, 1fr)); gap: 6px; align-items: stretch; height: 52px">
+<span style="writing-mode: vertical-rl; font-size: 11px; font-weight: 900; background: #34421C; color: #FFF3D6; border-radius: 8px; display: flex; align-items: center; justify-content: center">必須</span>
+<sc-for list="{{reqs}}" as="r" hint-placeholder-count="3">
+<div style="background: {{r.bg}}; border: 2px solid #4A2E22; border-radius: 10px; padding: 4px 8px; display: flex; flex-direction: column; justify-content: center; gap: 3px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<span style="font-size: 13px; font-weight: 900; color: {{r.fg}}">{{r.name}}</span>
+<span style="font-size: 12px; font-weight: 900; color: {{r.fg}}">{{r.cur}}/{{r.need}}</span>
+</div>
+<div style="height: 6px; background: #E9D5AE; border-radius: 999px; overflow: hidden"><div style="height: 100%; width: {{r.pct}}%; background: #6B9B3A"></div></div>
+</div>
+</sc-for>
+</div>
+<div style="height: 34px; display: flex; align-items: center; gap: 8px; background: #FFF3D6; border: 2px solid #4A2E22; border-radius: 10px; padding: 0 10px">
+<span style="font-size: 11px; font-weight: 900; background: #B5652B; color: #FFF3D6; padding: 2px 6px; border-radius: 6px">ボーナス</span>
+<sc-if value="{{bonusHidden}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 13px; font-weight: 900">あと {{bonusIn}} で発表!</span>
+</sc-if>
+<sc-if value="{{bonusShown}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 13px; font-weight: 900; flex: 1">キノコ {{bonusCur}}/{{bonusNeed}}</span>
+<span style="font-size: 12px; font-weight: 900; color: #8B2310">達成率 {{bonusPct}}% {{bonusStars}}</span>
+</sc-if>
+</div>
+</header>
+
+<main style="position: absolute; left: 0; right: 0; top: 200px; height: 560px; overflow: hidden; background: #DCE8C4">
+<svg aria-hidden="true" width="390" height="560" viewBox="0 0 390 560" style="position: absolute; inset: 0">
+<path d="M196 0 H390 V250 Q330 268 270 240 Q220 220 196 170z" fill="#B9D29A"></path>
+<path d="M0 300 Q100 280 200 305 T390 300 V352 Q290 362 200 350 T0 352z" fill="#8FC1DE"></path>
+<path d="M30 318 q20 -6 40 0 M250 322 q20 -6 40 0" stroke="#FFFFFF" stroke-width="2" fill="none" opacity="0.7"></path>
+<rect x="168" y="292" width="44" height="70" fill="#C9A27A" stroke="#6B4A3A" stroke-width="3"></rect>
+<path d="M168 306 h44 M168 320 h44 M168 334 h44 M168 348 h44" stroke="#6B4A3A" stroke-width="2"></path>
+<circle cx="70" cy="190" r="26" fill="#E8F0D3" stroke="#C9A27A" stroke-width="3" stroke-dasharray="4 4"></circle>
+<path d="M56 186 h28 c0 10 -6 14 -14 14 s-14 -4 -14 -14z" fill="#4A2E22"></path>
+<rect x="222" y="372" width="168" height="188" fill="#7D7466" opacity="0.55"></rect>
+</svg>
+<div style="position: absolute; left: 234px; top: 440px; width: 144px; display: flex; flex-direction: column; align-items: center; gap: 4px; color: #FFFFFF">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+<span style="font-size: 13px; font-weight: 900; text-align: center; background: #4A2E22; padding: 2px 8px; border-radius: 6px">R2で探索範囲が拡大</span>
+</div>
+<span style="position: absolute; left: 44px; top: 222px; font-size: 11px; font-weight: 900; background: #FFF3D6; border: 2px solid #4A2E22; padding: 1px 6px; border-radius: 6px">拠点</span>
+
+<sc-for list="{{mates}}" as="m" hint-placeholder-count="2">
+<div style="position: absolute; left: {{m.x}}px; top: {{m.y}}px; opacity: {{m.op}}; display: flex; flex-direction: column; align-items: center; gap: 1px; pointer-events: none">
+<svg aria-hidden="true" width="30" height="34" viewBox="0 0 30 34"><path d="M6 34 c0 -10 4 -14 9 -14 s9 4 9 14z" fill="{{m.color}}" stroke="#4A2E22" stroke-width="2"></path><circle cx="15" cy="12" r="9" fill="#FBE6C8" stroke="#4A2E22" stroke-width="2"></circle></svg>
+<span style="font-size: 10px; font-weight: 900; background: #FFFFFF; border: 1.5px solid #4A2E22; border-radius: 5px; padding: 0 4px; white-space: nowrap">{{m.label}}</span>
+</div>
+</sc-for>
+
+<sc-for list="{{objs}}" as="o" hint-placeholder-count="14">
+<button type="button" onClick="{{o.tap}}" aria-label="{{o.aria}}" style="position: absolute; left: {{o.x}}px; top: {{o.y}}px; width: 48px; height: 48px; padding: 0; border-radius: 12px; border: 3px solid {{o.ring}}; background: {{o.bg}}; cursor: pointer; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{o.isTree}}" hint-placeholder-val="{{ true }}">
+<svg aria-hidden="true" width="38" height="40" viewBox="0 0 38 40"><rect x="16" y="24" width="6" height="14" fill="#6B4A3A"></rect><circle cx="19" cy="16" r="13" fill="#4F7F2C" stroke="#34421C" stroke-width="2.5"></circle><circle cx="14" cy="12" r="3" fill="#6B9B3A"></circle></svg>
+</sc-if>
+<sc-if value="{{o.isTaro}}" hint-placeholder-val="{{ false }}">
+<svg aria-hidden="true" width="38" height="40" viewBox="0 0 38 40"><path d="M19 36 V18" stroke="#34421C" stroke-width="3"></path><path d="M19 20 C4 18 2 4 12 4 c4 0 6 4 7 8 c1 -4 3 -8 7 -8 c10 0 8 14 -7 16z" fill="#6B9B3A" stroke="#34421C" stroke-width="2.5"></path><ellipse cx="19" cy="36" rx="9" ry="4" fill="#8C6A4A"></ellipse></svg>
+</sc-if>
+<sc-if value="{{o.isNegi}}" hint-placeholder-val="{{ false }}">
+<svg aria-hidden="true" width="38" height="40" viewBox="0 0 38 40"><path d="M13 38 V10 M19 38 V4 M25 38 V12" stroke="#4F7F2C" stroke-width="5" stroke-linecap="round"></path><path d="M13 38 V26 M19 38 V24 M25 38 V27" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"></path></svg>
+</sc-if>
+<sc-if value="{{o.isMush}}" hint-placeholder-val="{{ false }}">
+<svg aria-hidden="true" width="38" height="40" viewBox="0 0 38 40"><rect x="14" y="20" width="10" height="16" rx="4" fill="#FFF3D6" stroke="#4A2E22" stroke-width="2.5"></rect><path d="M4 22 C4 6 34 6 34 22z" fill="#B5652B" stroke="#4A2E22" stroke-width="2.5"></path><circle cx="14" cy="15" r="2.5" fill="#FFF3D6"></circle><circle cx="23" cy="12" r="2" fill="#FFF3D6"></circle></svg>
+</sc-if>
+<sc-if value="{{o.isStump}}" hint-placeholder-val="{{ false }}">
+<svg aria-hidden="true" width="38" height="40" viewBox="0 0 38 40"><path d="M11 36 V24 h16 V36z" fill="#8C6A4A" stroke="#4A2E22" stroke-width="2.5"></path><ellipse cx="19" cy="24" rx="8" ry="3" fill="#C9A27A" stroke="#4A2E22" stroke-width="2"></ellipse><path d="M19 22 V12 M19 15 q-6 -4 -8 -1 M19 13 q6 -4 8 -1" stroke="#6B9B3A" stroke-width="2.5" fill="none" stroke-linecap="round"></path></svg>
+</sc-if>
+<sc-if value="{{o.showBar}}" hint-placeholder-val="{{ false }}">
+<span style="position: absolute; left: -2px; right: -2px; top: -12px; height: 8px; background: #FFF3D6; border: 2px solid #4A2E22; border-radius: 999px; overflow: hidden"><span style="display: block; height: 100%; width: {{o.barPct}}%; background: #8B2310"></span></span>
+</sc-if>
+<sc-if value="{{o.showGrow}}" hint-placeholder-val="{{ false }}">
+<span style="position: absolute; bottom: -14px; font-size: 9px; font-weight: 900; background: #FFFFFF; border: 1.5px solid #4A2E22; border-radius: 4px; padding: 0 3px; color: #4A2E22; white-space: nowrap">成長中 {{o.growIn}}</span>
+</sc-if>
+</button>
+</sc-for>
+
+<div style="position: absolute; left: {{px}}px; top: {{py}}px; transition: left {{moveDur}}s linear, top {{moveDur}}s linear; display: flex; flex-direction: column; align-items: center; gap: 1px; pointer-events: none">
+<svg aria-hidden="true" width="36" height="42" viewBox="0 0 36 42"><path d="M7 42 c0 -12 5 -17 11 -17 s11 5 11 17z" fill="#FFF3D6" stroke="#4A2E22" stroke-width="2.5"></path><circle cx="18" cy="14" r="11" fill="#FBE6C8" stroke="#4A2E22" stroke-width="2.5"></circle><path d="M7 11 q11 -5 22 0 l-1 4 q-10 -4 -20 0z" fill="#8B2310"></path></svg>
+<span style="font-size: 10px; font-weight: 900; background: #34421C; color: #FFF3D6; border-radius: 5px; padding: 0 5px">あなた</span>
+</div>
+
+<sc-if value="{{hasPop}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: {{popX}}px; top: {{popY}}px; background: {{popBg}}; color: {{popFg}}; border: 2px solid #4A2E22; border-radius: 10px; padding: 3px 8px; font-size: 13px; font-weight: 900; white-space: nowrap; pointer-events: none">{{popText}}</div>
+</sc-if>
+
+<div style="position: absolute; left: 10px; top: 10px; display: flex; align-items: center; gap: 6px; background: #4A2E22; color: #FFF3D6; border-radius: 999px; padding: 5px 12px; pointer-events: none">
+<span style="font-size: 11px; font-weight: 700">最高品質 連続</span>
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 18px; color: #F7B92B">{{streak}}</span>
+<span style="font-size: 11px; font-weight: 900">×{{streakMul}}</span>
+</div>
+
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: absolute; left: 12px; right: 12px; bottom: 12px; background: #FFF3D6; border: 2px solid #4A2E22; border-radius: 12px; padding: 8px 12px; font-size: 13px; font-weight: 900; display: flex; gap: 8px; align-items: center">
+<span style="width: 8px; height: 8px; border-radius: 50%; background: #6B9B3A; flex-shrink: 0"></span>{{toast}}</div>
+</sc-if>
+</main>
+
+<nav style="position: absolute; left: 0; right: 0; bottom: 0; height: 84px; box-sizing: border-box; padding: 8px 10px 14px; background: #FFF3D6; border-top: 3px solid #4A2E22; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{actions}}" as="a" hint-placeholder-count="4">
+<button type="button" onClick="{{a.tap}}" style="border-radius: 14px; border: 3px solid #4A2E22; background: {{a.bg}}; color: {{a.fg}}; font-size: 12px; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px">
+<sc-if value="{{a.isBox}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-4 9 4v10l-9 4-9-4z"></path><path d="M3 8l9 4 9-4M12 12v10"></path></svg></sc-if>
+<sc-if value="{{a.isSell}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></sc-if>
+<sc-if value="{{a.isUp}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V5M5 12l7-7 7 7"></path></svg></sc-if>
+<sc-if value="{{a.isMenu}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></sc-if>
+{{a.label}}</button>
+</sc-for>
+</nav>
+
+<sc-if value="{{showWarehouse}}" hint-placeholder-val="{{ false }}">
+<section aria-label="倉庫" style="position: absolute; left: 0; right: 0; bottom: 0; height: 620px; box-sizing: border-box; background: #FFF3D6; border-top: 4px solid #4A2E22; border-radius: 26px 26px 0 0; padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -8px 0 rgba(74,46,34,0.18)">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; color: #34421C">共有倉庫</h2>
+<div style="display: flex; align-items: center; gap: 6px">
+<span style="font-size: 13px; font-weight: 900">資金 {{fundsText}}</span>
+<button type="button" aria-label="閉じる" onClick="{{closePanel}}" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A2E22" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(4, minmax(0, 1fr)); gap: 4px; font-size: 10px; font-weight: 900; color: #6B4A3A; padding: 0 8px">
+<span>素材</span><span style="text-align: right">所持</span><span style="text-align: right">保護</span><span style="text-align: right">売却可</span><span style="text-align: right">単価</span>
+</div>
+<div style="flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; gap: 4px">
+<sc-if value="{{invEmpty}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 20px 0; text-align: center; font-size: 14px; font-weight: 700">まだ素材がないよ。マップの資源をタップしよう</p>
+</sc-if>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+<button type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" style="display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(4, minmax(0, 1fr)); gap: 4px; align-items: center; min-height: 44px; padding: 4px 8px; border-radius: 10px; border: 2px solid {{r.border}}; background: {{r.bg}}; cursor: pointer; color: #4A2E22; font-size: 13px; font-weight: 900; text-align: left">
+<span style="display: flex; align-items: center; gap: 4px; min-width: 0">{{r.name}}<span style="font-size: 10px; background: {{r.qBg}}; color: {{r.qFg}}; border: 1.5px solid #4A2E22; border-radius: 5px; padding: 0 4px">{{r.q}}</span></span>
+<span style="text-align: right">{{r.qty}}</span>
+<span style="text-align: right; color: #2F5D8A">{{r.lock}}</span>
+<span style="text-align: right">{{r.sellable}}</span>
+<span style="text-align: right">{{r.price}}</span>
+</button>
+</sc-for>
+</div>
+
+<sc-if value="{{hasSel}}" hint-placeholder-val="{{ false }}">
+<div style="background: #FFFFFF; border: 3px solid #4A2E22; border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-size: 14px; font-weight: 900">{{selName}}</span>
+<div style="display: flex; align-items: center; gap: 4px">
+<span style="font-size: 11px; font-weight: 900; color: #2F5D8A">保護</span>
+<button type="button" onClick="{{lockDown}}" aria-label="保護を5減らす" style="width: 36px; height: 36px; border-radius: 8px; border: 2px solid #2F5D8A; background: #FFFFFF; color: #2F5D8A; font-weight: 900; cursor: pointer">−</button>
+<span style="min-width: 28px; text-align: center; font-size: 14px; font-weight: 900; color: #2F5D8A">{{selLock}}</span>
+<button type="button" onClick="{{lockUp}}" aria-label="保護を5増やす" style="width: 36px; height: 36px; border-radius: 8px; border: 2px solid #2F5D8A; background: #FFFFFF; color: #2F5D8A; font-weight: 900; cursor: pointer">＋</button>
+<button type="button" onClick="{{lockAll}}" style="height: 36px; padding: 0 8px; border-radius: 8px; border: 0; background: #2F5D8A; color: #FFFFFF; font-size: 11px; font-weight: 900; cursor: pointer">{{lockAllLabel}}</button>
+</div>
+</div>
+<div style="display: flex; gap: 6px; align-items: center">
+<sc-for list="{{pcts}}" as="p" hint-placeholder-count="4">
+<button type="button" onClick="{{p.tap}}" style="flex: 1; height: 36px; border-radius: 8px; border: 2px solid #4A2E22; background: #FFF3D6; font-size: 12px; font-weight: 900; color: #4A2E22; cursor: pointer">{{p.label}}</button>
+</sc-for>
+<input type="number" min="0" aria-label="売却数量" value="{{sellQty}}" onChange="{{onQty}}" style="width: 64px; height: 36px; box-sizing: border-box; border: 2px solid #4A2E22; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 900; text-align: right; padding: 0 6px; color: #4A2E22">
+</div>
+<button type="button" onClick="{{sellSel}}" disabled="{{sellDisabled}}" style="height: 48px; border-radius: 999px; border: 0; background: {{sellBg}}; color: #FFF3D6; font-size: 16px; font-weight: 900; cursor: pointer">{{sellLabel}}</button>
+</div>
+</sc-if>
+
+<button type="button" onClick="{{sellAll}}" disabled="{{invEmpty}}" style="height: 44px; border-radius: 999px; border: 3px solid #8B2310; background: #FFF3D6; color: #8B2310; font-size: 14px; font-weight: 900; cursor: pointer">保護以外をまとめて売却</button>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 11px; font-weight: 900; color: #6B4A3A">操作履歴</span>
+<sc-for list="{{history}}" as="h" hint-placeholder-count="3">
+<span style="font-size: 11px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{h.text}}</span>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{showUpgrade}}" hint-placeholder-val="{{ false }}">
+<section aria-label="個人強化" style="position: absolute; left: 0; right: 0; bottom: 0; height: 560px; box-sizing: border-box; background: #FFF3D6; border-top: 4px solid #4A2E22; border-radius: 26px 26px 0 0; padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -8px 0 rgba(74,46,34,0.18)">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; color: #34421C">個人強化</h2>
+<div style="display: flex; align-items: center; gap: 6px">
+<span style="font-size: 13px; font-weight: 900">共有資金 {{fundsText}}</span>
+<button type="button" aria-label="閉じる" onClick="{{closePanel}}" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A2E22" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+</div>
+</div>
+<span style="font-size: 12px; font-weight: 700">強化は自分だけに効果。資金はチーム共通だから相談して使おう</span>
+<sc-for list="{{ups}}" as="u" hint-placeholder-count="4">
+<div style="background: #FFFFFF; border: 3px solid #4A2E22; border-radius: 16px; padding: 10px 12px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; align-items: center">
+<div style="display: flex; align-items: baseline; gap: 8px">
+<span style="font-size: 16px; font-weight: 900">{{u.name}}</span>
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 15px; color: #8B2310">Lv.{{u.lv}}</span>
+</div>
+<button type="button" onClick="{{u.buy}}" disabled="{{u.cant}}" style="grid-row: span 2; min-width: 96px; height: 52px; border-radius: 12px; border: 0; background: {{u.btnBg}}; color: {{u.btnFg}}; font-size: 13px; font-weight: 900; cursor: pointer; line-height: 1.3">強化<br>{{u.price}}</button>
+<span style="font-size: 12px; font-weight: 700; color: #6B4A3A">{{u.now}} → <span style="color: #34421C; font-weight: 900">{{u.next}}</span></span>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<sc-if value="{{showShop}}" hint-placeholder-val="{{ false }}">
+<section aria-label="ショップ" style="position: absolute; left: 0; right: 0; bottom: 0; height: 540px; box-sizing: border-box; background: #FFF3D6; border-top: 4px solid #4A2E22; border-radius: 26px 26px 0 0; padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -8px 0 rgba(74,46,34,0.18)">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; color: #34421C">ショップ</h2>
+<div style="display: flex; align-items: center; gap: 6px">
+<span style="font-size: 13px; font-weight: 900">共有資金 {{fundsText}}</span>
+<button type="button" aria-label="閉じる" onClick="{{closePanel}}" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A2E22" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+</div>
+</div>
+<span style="font-size: 12px; font-weight: 700">素材を購入して共有倉庫へ。購入品は普通品質。売却は倉庫から</span>
+<sc-for list="{{shopItems}}" as="p" hint-placeholder-count="4">
+<div style="background: #FFFFFF; border: 3px solid #4A2E22; border-radius: 16px; padding: 10px 12px; display: flex; align-items: center; gap: 8px">
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 16px; font-weight: 900">{{p.name}}</span>
+<span style="font-size: 11px; font-weight: 700; color: #6B4A3A">{{p.unit}}</span>
+</div>
+<button type="button" onClick="{{p.a.buy}}" disabled="{{p.a.cant}}" style="min-width: 88px; height: 44px; border-radius: 12px; border: 0; background: {{p.a.bg}}; color: {{p.a.fg}}; font-size: 12px; font-weight: 900; cursor: pointer">{{p.a.label}}</button>
+<button type="button" onClick="{{p.b.buy}}" disabled="{{p.b.cant}}" style="min-width: 88px; height: 44px; border-radius: 12px; border: 0; background: {{p.b.bg}}; color: {{p.b.fg}}; font-size: 12px; font-weight: 900; cursor: pointer">{{p.b.label}}</button>
+</div>
+</sc-for>
+<span style="font-size: 11px; font-weight: 700; color: #6B4A3A">購入価格は仮(売却単価の3倍)</span>
+</section>
+</sc-if>
+
+<sc-if value="{{showMenu}}" hint-placeholder-val="{{ false }}">
+<section aria-label="メニュー" style="position: absolute; left: 0; right: 0; bottom: 0; height: 440px; box-sizing: border-box; background: #FFF3D6; border-top: 4px solid #4A2E22; border-radius: 26px 26px 0 0; padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -8px 0 rgba(74,46,34,0.18)">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; color: #34421C">チーム</h2>
+<button type="button" aria-label="閉じる" onClick="{{closePanel}}" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A2E22" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+</div>
+<sc-for list="{{members}}" as="m" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 2px solid #4A2E22; border-radius: 12px; padding: 8px 10px">
+<span style="width: 10px; height: 10px; border-radius: 50%; background: {{m.dot}}"></span>
+<span style="flex: 1; font-size: 14px; font-weight: 900">{{m.name}}</span>
+<span style="font-size: 12px; font-weight: 700; color: #6B4A3A">{{m.doing}}</span>
+</div>
+</sc-for>
+<div style="flex: 1"></div>
+<a href="Home.dc.html" style="height: 48px; border-radius: 999px; border: 3px solid #4A2E22; color: #4A2E22; font-size: 15px; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center">ホームへ戻る(挑戦は中断)</a>
+</section>
+</sc-if>
+
+<sc-if value="{{ended}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; background: rgba(74,46,34,0.72); display: flex; align-items: center; justify-content: center; padding: 24px">
+<div style="width: 100%; background: #F7B92B; border: 4px solid #4A2E22; border-radius: 26px; padding: 24px 20px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center">
+<span style="font-size: 14px; font-weight: 900">5:00 タイムアップ</span>
+<h2 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 34px; color: #8B2310">芋煮会の時間だ!</h2>
+<span style="font-size: 13px; font-weight: 700">倉庫の素材をすべて鍋に投入したよ</span>
+<sc-if value="{{success}}" hint-placeholder-val="{{ true }}">
+<a href="Imoni.dc.html" style="width: 100%; height: 56px; border-radius: 999px; background: #34421C; color: #FFF3D6; font-size: 18px; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center">結果を見る</a>
+</sc-if>
+<sc-if value="{{failed}}" hint-placeholder-val="{{ false }}">
+<a href="ImoniFail.dc.html" style="width: 100%; height: 56px; border-radius: 999px; background: #34421C; color: #FFF3D6; font-size: 18px; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center">結果を見る</a>
+</sc-if>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"speed":{"editor":"range","min":1,"max":30,"step":1,"default":10,"unit":"倍速"},"initialPanel":{"editor":"enum","options":["none","warehouse","upgrade","menu"],"default":"none"},"demo":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+const MATS = {
+  wood: { name: '薪', price: 2, base: 3 },
+  taro: { name: '里芋', price: 10, base: 2 },
+  negi: { name: 'ねぎ', price: 6, base: 2 },
+  mush: { name: 'キノコ', price: 30, base: 1 }
+};
+const MAT_ORDER = ['wood', 'taro', 'negi', 'mush'];
+const QS = [
+  { name: '普通', mul: 1, bg: '#FFFFFF', fg: '#4A2E22' },
+  { name: '良質', mul: 2, bg: '#DCE8C4', fg: '#34421C' },
+  { name: '希少', mul: 5, bg: '#C8DCEB', fg: '#1F3E5C' }
+];
+const REQ = [['wood', 60], ['taro', 20], ['negi', 15]];
+const BONUS = ['mush', 30];
+const UPS = [
+  { id: 'move', name: '移動速度' }, { id: 'speed', name: '採集速度' },
+  { id: 'amount', name: '採集量' }, { id: 'luck', name: '採集運' }
+];
+const OBJS = [
+  ['t1', 'wood', 236, 30], ['t2', 'wood', 322, 70], ['t3', 'wood', 262, 150], ['t4', 'wood', 334, 180],
+  ['m1', 'mush', 300, 110], ['m2', 'mush', 214, 96],
+  ['r1', 'taro', 36, 56], ['r2', 'taro', 110, 100], ['r3', 'taro', 30, 246],
+  ['n1', 'negi', 126, 24], ['n2', 'negi', 160, 190],
+  ['t5', 'wood', 110, 384], ['r4', 'taro', 40, 440], ['n3', 'negi', 140, 470]
+];
+const STOCK = 3;
+
+function fmt(n) { return Math.floor(n).toLocaleString('ja-JP'); }
+function pTop(l) { return Math.min(1, 0.08 * (1 + 0.6 * l)); }
+function upPrice(lv) { return Math.round(150 * Math.pow(1.5, lv)); }
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var demo = !!props.demo;
+    var objs = OBJS.map(function (o) { return { id: o[0], type: o[1], x: o[2], y: o[3], stock: STOCK, regrowAt: null }; });
+    var inv = {};
+    if (demo) {
+      inv = { 'wood|0': { qty: 38, lock: 0 }, 'wood|1': { qty: 12, lock: 0 }, 'wood|2': { qty: 4, lock: 0 },
+        'taro|0': { qty: 9, lock: 5 }, 'taro|1': { qty: 4, lock: 0 }, 'negi|0': { qty: 10, lock: 0 },
+        'negi|2': { qty: 1, lock: 1 }, 'mush|0': { qty: 6, lock: 0 }, 'mush|1': { qty: 3, lock: 0 } };
+      objs[2].stock = 0; objs[2].regrowAt = 190;
+    }
+    var panel = props.initialPanel && props.initialPanel !== 'none' ? props.initialPanel : null;
+    this.state = {
+      t: demo ? 155 : 300, funds: demo ? 2840 : 1000, hanakoOff: demo, inv: inv, objs: objs,
+      px: 58, py: 196, moveDur: 0, target: null, phase: 'idle', arriveAt: 0, collectStart: 0, progress: 0,
+      streak: demo ? 4 : 0, ups: { move: demo ? 1 : 0, speed: 0, amount: demo ? 1 : 0, luck: demo ? 2 : 0 },
+      panel: panel, sel: demo && panel === 'warehouse' ? 'wood|0' : null, sellQty: demo ? 19 : 0,
+      pop: null, popUntil: 0, toastUntil: 0,
+      feed: demo ? ['[2:21] はなこが切断しました(再接続待ち)', '[2:14] たろうが採集運を強化(Lv.2) -225G', '[2:02] あなたが薪×20(普通)を売却 +40G'] : ['[0:00] ラウンド1開始!必須素材が公開されたよ'],
+      nextTeam: Date.now() + 2500, ended: false
+    };
+    if (!demo) this.state.toastUntil = Date.now() + 3000;
+  }
+  componentDidMount() { var self = this; this.timer = setInterval(function () { self.tick(); }, 100); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  speedMul() { return this.props.speed ?? 10; }
+  elapsed() { return 300 - this.state.t; }
+  conv(inv, mat) { var s = 0; for (var q = 0; q < QS.length; q++) { var it = inv[mat + '|' + q]; if (it) s += it.qty * QS[q].mul; } return s; }
+  addFeed(feed, text) { var el = Math.max(0, 300 - this.state.t); var m = Math.floor(el / 60), sc = Math.floor(el % 60); return ['[' + m + ':' + String(sc).padStart(2, '0') + '] ' + text].concat(feed).slice(0, 3); }
+
+  harvest(s, upd) {
+    var objs = s.objs.slice(); var idx = objs.findIndex(function (o) { return o.id === s.target; });
+    if (idx < 0) return;
+    var o = Object.assign({}, objs[idx]); var m = MATS[o.type];
+    var r = Math.random(); var pt = pTop(s.ups.luck);
+    var q = r < pt ? 2 : (r < pt + 0.3 ? 1 : 0);
+    var streak = q === 2 ? s.streak + 1 : 0;
+    var M = Math.pow(2, streak / 10);
+    var qty = Math.max(1, Math.floor(m.base * (1 + 0.5 * s.ups.amount) * M));
+    var inv = Object.assign({}, s.inv); var key = o.type + '|' + q; var cur = inv[key] || { qty: 0, lock: 0 };
+    inv[key] = { qty: cur.qty + qty, lock: cur.lock };
+    o.stock -= 1;
+    if (o.stock <= 0) { o.regrowAt = this.elapsed() + 40; upd.phase = 'idle'; upd.target = null; }
+    else { upd.collectStart = Date.now(); }
+    objs[idx] = o;
+    upd.objs = objs; upd.inv = inv; upd.streak = streak; upd.progress = 0;
+    upd.pop = { text: '+' + qty + ' ' + m.name + '(' + QS[q].name + ')' + (q === 2 ? ' 連続' + streak : ''), q: q };
+    upd.popUntil = Date.now() + 1300;
+  }
+
+  tick() {
+    var s = this.state; var now = Date.now(); var upd = {};
+    if (s.ended) return;
+    var t = Math.max(0, s.t - 0.1 * this.speedMul());
+    upd.t = t;
+    var el = 300 - t;
+    if (t <= 0) { upd.ended = true; upd.panel = null; this.setState(upd); return; }
+    if (s.objs.some(function (o) { return o.regrowAt !== null && el >= o.regrowAt; })) {
+      upd.objs = s.objs.map(function (o) { return o.regrowAt !== null && el >= o.regrowAt ? Object.assign({}, o, { stock: STOCK, regrowAt: null }) : o; });
+    }
+    if (s.phase === 'moving' && now >= s.arriveAt) { upd.phase = 'collecting'; upd.collectStart = now; upd.progress = 0; }
+    if (s.phase === 'collecting') {
+      var dur = 1600 / (1 + 0.25 * s.ups.speed);
+      var p = (now - s.collectStart) / dur;
+      if (p >= 1) this.harvest(Object.assign({}, s, upd.objs ? { objs: upd.objs } : {}), upd);
+      else upd.progress = p;
+    }
+    if (now >= s.nextTeam) {
+      var who = s.hanakoOff || Math.random() < 0.5 ? 'たろう' : 'はなこ';
+      var pool = el >= 120 ? ['wood', 'taro', 'negi', 'mush'] : ['wood', 'taro', 'negi'];
+      var mat = pool[Math.floor(Math.random() * pool.length)];
+      var q = Math.random() < 0.3 ? 1 : 0; var n = 2 + Math.floor(Math.random() * 4);
+      var inv = Object.assign({}, upd.inv || s.inv); var key = mat + '|' + q; var cur = inv[key] || { qty: 0, lock: 0 };
+      inv[key] = { qty: cur.qty + n, lock: cur.lock };
+      upd.inv = inv;
+      upd.feed = this.addFeed(s.feed, who + 'が' + MATS[mat].name + '×' + n + '(' + QS[q].name + ')を採集');
+      upd.toastUntil = now + 2200; upd.nextTeam = now + 3200;
+    }
+    if (el >= 120 && 300 - s.t < 120) { upd.feed = this.addFeed(upd.feed || s.feed, 'ボーナス素材「キノコ」が発表された!'); upd.toastUntil = now + 3000; }
+    this.setState(upd);
+  }
+
+  tapObj(o) {
+    var s = this.state; if (s.ended) return;
+    if (o.stock <= 0) { this.setState({ pop: { text: '成長中…', q: 0 }, popUntil: Date.now() + 900 }); return; }
+    var tx = o.x + 6, ty = o.y + 44;
+    var dist = Math.hypot(tx - s.px, ty - s.py);
+    var dur = dist / (140 * (1 + 0.25 * s.ups.move));
+    this.setState({ target: o.id, phase: 'moving', px: tx, py: ty, moveDur: dur.toFixed(2), arriveAt: Date.now() + dur * 1000, progress: 0 });
+  }
+
+  updItem(key, fn) {
+    var inv = Object.assign({}, this.state.inv); inv[key] = fn(Object.assign({}, inv[key])); this.setState({ inv: inv });
+  }
+
+  sellKey(key, n) {
+    var s = this.state; var it = s.inv[key]; if (!it) return;
+    var parts = key.split('|'); var mat = parts[0]; var q = +parts[1];
+    n = Math.max(0, Math.min(Math.floor(n), it.qty - it.lock)); if (n <= 0) return;
+    var gain = n * MATS[mat].price * QS[q].mul;
+    var inv = Object.assign({}, s.inv); inv[key] = { qty: it.qty - n, lock: it.lock };
+    this.setState({ inv: inv, funds: s.funds + gain, sellQty: Math.min(s.sellQty, it.qty - n - it.lock),
+      feed: this.addFeed(s.feed, 'あなたが' + MATS[mat].name + '×' + n + '(' + QS[q].name + ')を売却 +' + fmt(gain) + 'G') });
+  }
+
+  sellAllFn() {
+    var s = this.state; var inv = {}; var gain = 0; var cnt = 0;
+    Object.keys(s.inv).forEach(function (k) {
+      var it = s.inv[k]; var p = k.split('|'); var n = it.qty - it.lock;
+      gain += n * MATS[p[0]].price * QS[+p[1]].mul; cnt += n; inv[k] = { qty: it.lock, lock: it.lock };
+    });
+    if (cnt <= 0) return;
+    this.setState({ inv: inv, funds: s.funds + gain, sellQty: 0, feed: this.addFeed(s.feed, 'あなたが素材' + cnt + '個をまとめて売却 +' + fmt(gain) + 'G') });
+  }
+
+  renderVals() {
+    var self = this; var s = this.state; var el = 300 - s.t; var now = Date.now();
+    var reqs = REQ.map(function (r) {
+      var cur = self.conv(s.inv, r[0]); var done = cur >= r[1];
+      return { name: MATS[r[0]].name, cur: fmt(cur), need: r[1], pct: Math.min(100, Math.round(cur / r[1] * 100)), bg: done ? '#34421C' : '#FFF3D6', fg: done ? '#FFF3D6' : '#4A2E22' };
+    });
+    var success = REQ.every(function (r) { return self.conv(s.inv, r[0]) >= r[1]; });
+    var bCur = this.conv(s.inv, BONUS[0]); var bPct = Math.round(bCur / BONUS[1] * 100);
+    var T = bPct >= 300 ? 8 : bPct >= 200 ? 4 : bPct >= 150 ? 2 : bPct >= 100 ? 1 : 0; var nextTh = bPct >= 300 ? '' : ' / 次 ' + (bPct >= 200 ? 300 : bPct >= 150 ? 200 : bPct >= 100 ? 150 : 100) + '%'; var stars = '報酬×' + T;
+    var tl = Math.ceil(s.t); var bin = Math.max(0, Math.ceil(s.t - 180));
+    var objs = s.objs.map(function (o) {
+      var isT = s.target === o.id; var grow = o.stock <= 0;
+      return {
+        x: o.x, y: o.y, isTree: !grow && o.type === 'wood', isTaro: !grow && o.type === 'taro', isNegi: !grow && o.type === 'negi', isMush: !grow && o.type === 'mush', isStump: grow,
+        ring: isT ? '#8B2310' : 'transparent', bg: isT ? 'rgba(255,243,214,0.85)' : 'transparent',
+        showBar: isT && s.phase === 'collecting', barPct: Math.round(s.progress * 100),
+        showGrow: grow, growIn: grow ? Math.max(0, Math.ceil(o.regrowAt - el)) + '秒' : '',
+        aria: MATS[o.type].name + (grow ? '(成長中)' : '(残り' + o.stock + '回)'),
+        tap: function () { self.tapObj(o); }
+      };
+    });
+    var rows = [];
+    MAT_ORDER.forEach(function (mat) {
+      QS.forEach(function (q, qi) {
+        var key = mat + '|' + qi; var it = s.inv[key]; if (!it || it.qty <= 0) return;
+        var on = s.sel === key;
+        rows.push({ name: MATS[mat].name, q: q.name, qBg: q.bg, qFg: q.fg, qty: fmt(it.qty), lock: fmt(it.lock), sellable: fmt(it.qty - it.lock), price: fmt(MATS[mat].price * q.mul),
+          pressed: on ? 'true' : 'false', border: on ? '#8B2310' : '#E9D5AE', bg: on ? '#FFF7E6' : '#FFFFFF',
+          pick: function () { self.setState({ sel: key, sellQty: it.qty - it.lock }); } });
+      });
+    });
+    var selIt = s.sel ? s.inv[s.sel] : null; var hasSel = !!(selIt && selIt.qty > 0);
+    var selMat = hasSel ? s.sel.split('|')[0] : 'wood'; var selQ = hasSel ? +s.sel.split('|')[1] : 0;
+    var sellable = hasSel ? selIt.qty - selIt.lock : 0;
+    var n = Math.max(0, Math.min(s.sellQty || 0, sellable));
+    var ups = UPS.map(function (u) {
+      var lv = s.ups[u.id]; var price = upPrice(lv); var cant = s.funds < price;
+      var eff = function (l) {
+        if (u.id === 'move') return '移動 ×' + (1 + 0.25 * l).toFixed(2);
+        if (u.id === 'speed') return '採集 ' + (1.6 / (1 + 0.25 * l)).toFixed(2) + '秒';
+        if (u.id === 'amount') return '獲得量 ×' + (1 + 0.5 * l).toFixed(1);
+        return '最高品質 ' + (pTop(l) * 100).toFixed(1) + '%';
+      };
+      return { name: u.name, lv: lv, now: eff(lv), next: eff(lv + 1), price: fmt(price) + 'G', cant: cant,
+        btnBg: cant ? '#E9D5AE' : '#34421C', btnFg: cant ? '#6B4A3A' : '#FFF3D6',
+        buy: function () {
+          var st = self.state; if (st.funds < price) return;
+          var nu = Object.assign({}, st.ups); nu[u.id] = lv + 1;
+          self.setState({ ups: nu, funds: st.funds - price, feed: self.addFeed(st.feed, 'あなたが' + u.name + 'を強化(Lv.' + (lv + 1) + ') -' + fmt(price) + 'G') });
+        } };
+    });
+    var act = function (id, label, panel) {
+      var on = s.panel === panel;
+      return { label: label, isBox: id === 'box', isSell: id === 'shop', isUp: id === 'up', isMenu: id === 'menu', bg: on ? '#34421C' : '#F7B92B', fg: on ? '#FFF3D6' : '#4A2E22',
+        tap: function () { self.setState({ panel: on ? null : panel }); } };
+    };
+    var pop = s.pop && now < s.popUntil ? s.pop : null;
+    var phaseText = s.phase === 'moving' ? '移動中' : s.phase === 'collecting' ? '採集中' : '待機中';
+    return {
+      round: 1, timeText: Math.floor(tl / 60) + ':' + String(tl % 60).padStart(2, '0'), timerColor: tl <= 30 ? '#8B2310' : '#4A2E22',
+      fundsText: fmt(s.funds) + 'G', reqs: reqs,
+      bonusHidden: el < 120, bonusShown: el >= 120, bonusIn: Math.floor(bin / 60) + ':' + String(bin % 60).padStart(2, '0'),
+      bonusCur: fmt(bCur), bonusNeed: BONUS[1], bonusPct: bPct, bonusStars: stars,
+      mates: [{ label: 'たろう 採集中', x: 266, y: 200, color: '#C9A27A', op: 1 }, { label: s.hanakoOff ? 'はなこ 切断中' : 'はなこ 採集中', x: 82, y: 50, color: '#6B9B3A', op: s.hanakoOff ? 0.45 : 1 }],
+      objs: objs, px: s.px, py: s.py, moveDur: s.moveDur,
+      hasPop: !!pop, popText: pop ? pop.text : '', popX: Math.max(4, Math.min(260, s.px - 40)), popY: s.py - 30,
+      popBg: pop ? QS[pop.q].bg : '#FFFFFF', popFg: pop ? QS[pop.q].fg : '#4A2E22',
+      streak: s.streak, streakMul: Math.pow(2, s.streak / 10).toFixed(2),
+      hasToast: now < s.toastUntil && !s.panel, toast: s.feed[0] || '',
+      actions: [act('box', '倉庫', 'warehouse'), act('shop', 'ショップ', 'shop'), act('up', '強化', 'upgrade'), act('menu', 'メニュー', 'menu')],
+      showWarehouse: s.panel === 'warehouse', showUpgrade: s.panel === 'upgrade', showMenu: s.panel === 'menu', showShop: s.panel === 'shop',
+      shopItems: MAT_ORDER.map(function (mat) { var bp = MATS[mat].price * 3; var mk = function (n) { var cost = bp * n; var cant = s.funds < cost; return { label: '×' + n + '  ' + fmt(cost) + 'G', cant: cant, bg: cant ? '#E9D5AE' : '#34421C', fg: cant ? '#6B4A3A' : '#FFF3D6', buy: function () { var st = self.state; if (st.funds < cost) return; var inv = Object.assign({}, st.inv); var k = mat + '|0'; var c = inv[k] || { qty: 0, lock: 0 }; inv[k] = { qty: c.qty + n, lock: c.lock }; self.setState({ inv: inv, funds: st.funds - cost, feed: self.addFeed(st.feed, 'あなたが' + MATS[mat].name + '×' + n + '(普通)を購入 -' + fmt(cost) + 'G') }); } }; }; return { name: MATS[mat].name, unit: fmt(bp) + 'G / 個', a: mk(10), b: mk(50) }; }),
+      closePanel: function () { self.setState({ panel: null }); },
+      rows: rows, invEmpty: rows.length === 0, history: s.feed.map(function (f) { return { text: '・' + f }; }),
+      hasSel: hasSel, selName: hasSel ? MATS[selMat].name + '(' + QS[selQ].name + ')' : '', selLock: hasSel ? fmt(selIt.lock) : '0',
+      lockAllLabel: hasSel && selIt.lock >= selIt.qty ? '保護解除' : '全部保護',
+      lockUp: function () { self.updItem(s.sel, function (it) { it.lock = Math.min(it.qty, it.lock + 5); return it; }); },
+      lockDown: function () { self.updItem(s.sel, function (it) { it.lock = Math.max(0, it.lock - 5); return it; }); },
+      lockAll: function () { self.updItem(s.sel, function (it) { it.lock = it.lock >= it.qty ? 0 : it.qty; return it; }); },
+      pcts: [25, 50, 75, 100].map(function (p) { return { label: p + '%', tap: function () { self.setState({ sellQty: Math.floor(sellable * p / 100) }); } }; }),
+      sellQty: s.sellQty, onQty: function (e) { self.setState({ sellQty: Math.max(0, parseInt(e.target.value, 10) || 0) }); },
+      sellDisabled: n <= 0, sellBg: n <= 0 ? '#B8A586' : '#8B2310',
+      sellLabel: n + '個 売却 +' + fmt(n * MATS[selMat].price * QS[selQ].mul) + 'G',
+      sellSel: function () { self.sellKey(s.sel, n); },
+      sellAll: function () { self.sellAllFn(); },
+      ups: ups,
+      members: [{ name: 'ゆくらさん(あなた)', doing: phaseText, dot: '#6B9B3A' }, { name: 'たろう', doing: '採集中・薪', dot: '#6B9B3A' }, { name: 'はなこ', doing: s.hanakoOff ? '切断中・再接続待ち' : '採集中・里芋', dot: s.hanakoOff ? '#B8A586' : '#6B9B3A' }],
+      ended: s.ended, success: s.ended && success, failed: s.ended && !success
+    };
+  }
+}
+</script>
+</body>
+</html>
