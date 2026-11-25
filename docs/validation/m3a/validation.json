@@ -4,16 +4,16 @@
   "baseCommit": "dacbdc9695392bceca5f06bc08d219bab56c966d",
   "testCommand": "dotnet test tools/CoreTests --verbosity minimal --logger \"trx;LogFileName=dotnet-test.trx\" --results-directory docs/validation/m3a",
   "tests": {
-    "total": 200,
-    "passed": 200,
+    "total": 211,
+    "passed": 211,
     "failed": 0,
     "skipped": 0,
-    "added": 58,
+    "added": 69,
     "byNewClass": {
       "GatheringSimulationTests": 16,
-      "WorldGenTests": 23,
+      "WorldGenTests": 31,
       "WorldMapExportTests": 3,
-      "WorldObjectiveTests": 11,
+      "WorldObjectiveTests": 14,
       "WorldQualityTests": 5
     }
   },
@@ -39,7 +39,15 @@
         "resources",
         "unlock"
       ],
-      "sha256": "31f53841a4e4c7d679e9248f8a9b7fbfb7eda723170c360e0a11f28bd628e640"
+      "sha256": "e1f47f59fcb0942253c9f9c0d3cf8c0b06af0998ca922c2483ed0569067726bf",
+      "statisticsFile": "map_seed_482.json",
+      "objectivesRounds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "seed": 777,
@@ -51,7 +59,15 @@
         "resources",
         "unlock"
       ],
-      "sha256": "52e970c5616ddab50ac8561b2fc129d2b7e79a907dc83d54a42310085a2031cf"
+      "sha256": "f967515e848ef9a7a7c2fa5e57acdd999cdd830d53d53733419a11cdfa8de30c",
+      "statisticsFile": "map_seed_777.json",
+      "objectivesRounds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "seed": 202647,
@@ -63,7 +79,23 @@
         "resources",
         "unlock"
       ],
-      "sha256": "4e14ef1c76f91a3b1fd07efb4ebec93b2629b41c7c1cc7799950f4a6c371fe9b"
+      "sha256": "0712289e78f595e0cab35d4262bfc86b25ed8f6021fc1fb50e65ae96e24971cb",
+      "statisticsFile": "map_seed_202647.json",
+      "objectivesRounds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     }
-  ]
+  ],
+  "balanceAdjustment": {
+    "baseCommit": "7452a372513b883472f530da270f17f7e66d9a70",
+    "testsAdded": 11,
+    "testsFile": "balance-tests.txt",
+    "statistics": "balance_summary.json",
+    "report": "balance_summary.md",
+    "unityRecompile": "Pending final M3b Unity verification; unityRecompile above records the earlier M3a checkpoint."
+  }
 }

@@ -12,35 +12,23 @@ namespace Imoni.Core
             WorldConfig settings = config.World;
             var rng = new Rng(seed);
             var start = new GridPosition(settings.Width / 2, settings.Height / 2);
-            WorldTile[,] tiles = GenerateLand(settings, rng);
-            AddRiver(settings, rng, tiles, start);
-            foreach (GridPosition point in Positions(settings))
-                if (InClearing(point, start, settings.StartClearRadius)) tiles[point.X, point.Y] = new WorldTile("plain");
+            WorldTile[,] tiles = GenerateTerrain(settings, rng, start);
 
             var resources = new List<ResourceNode>();
             var occupied = new HashSet<GridPosition>();
             WorldMap terrain = new WorldMap(settings, seed, tiles, resources, start);
-            foreach (GridPosition point in Positions(settings))
-            {
-                if (InClearing(point, start, settings.StartClearRadius) || tiles[point.X, point.Y].IsBridge) continue;
-                if ((decimal)rng.NextBelow(settings.NoiseResolution) / settings.NoiseResolution >= settings.ResourceChance) continue;
-                MaterialDefinition[] materials = config.Materials.Where(material => material.Biomes.Contains(tiles[point.X, point.Y].BiomeId)).ToArray();
-                if (materials.Length == 0) continue;
-                MaterialDefinition chosen = materials[(int)rng.NextBelow(materials.Length)];
-                ResourceNode node = CreateNode(config, chosen, tiles, point);
-                if (!Pathfinding.FindPathToResource(terrain, start, node, int.MaxValue).Reachable) continue;
-                resources.Add(node); occupied.Add(point);
-            }
-
             // R1 supplies enough distinct types for the generated required/bonus set. Other types
             // are guaranteed somewhere in the world and become eligible when their route unlocks.
             foreach (string id in settings.StartingMaterials) config.Material(id);
             foreach (MaterialDefinition material in config.Materials)
             {
                 int round = settings.StartingMaterials.Contains(material.Id) ? 1 : int.MaxValue;
+                int minimum = config.ObjectiveGeneration.FirstRoundRequiredMaterials.Contains(material.Id)
+                    ? Math.Max(settings.MinimumStartingRequiredNodes, settings.MinimumNodesPerMaterial)
+                    : settings.MinimumNodesPerMaterial;
                 int present = resources.Count(node => node.MaterialId == material.Id &&
                     Pathfinding.FindPathToResource(terrain, start, node, round).Reachable);
-                if (present >= settings.MinimumNodesPerMaterial) continue;
+                if (present >= minimum) continue;
                 List<GridPosition> candidates = Positions(settings).Where(point => !occupied.Contains(point) &&
                     !InClearing(point, start, settings.StartClearRadius) && !tiles[point.X, point.Y].IsBridge &&
                     terrain.IsUnlocked(point, round)).ToList();
@@ -52,14 +40,14 @@ namespace Imoni.Core
                     ResourceNode node = CreateNode(config, material, tiles, point);
                     if (!Pathfinding.FindPathToResource(terrain, start, node, round).Reachable) continue;
                     resources.Add(node); occupied.Add(point);
-                    if (++present >= settings.MinimumNodesPerMaterial) break;
+                    if (++present >= minimum) break;
                 }
-                if (present >= settings.MinimumNodesPerMaterial) continue;
+                if (present >= minimum) continue;
 
                 // Repair a sparse land biome locally without violating its material table.
                 string landBiome = material.Biomes.FirstOrDefault(biome => biome != "river");
                 if (landBiome != null)
-                    foreach (GridPosition point in candidates)
+                    foreach (GridPosition point in candidates.OrderBy(point => tiles[point.X, point.Y].BiomeId == "plain"))
                     {
                         if (occupied.Contains(point) || tiles[point.X, point.Y].IsWater ||
                             !Pathfinding.FindPath(terrain, start, point, round).Reachable) continue;
@@ -68,16 +56,38 @@ namespace Imoni.Core
                         ResourceNode node = CreateNode(config, material, tiles, point);
                         if (!Pathfinding.FindPathToResource(terrain, start, node, round).Reachable) continue;
                         resources.Add(node); occupied.Add(point);
-                        if (++present >= settings.MinimumNodesPerMaterial) break;
+                        if (++present >= minimum) break;
                     }
-                if (present < settings.MinimumNodesPerMaterial)
+                if (present < minimum)
                     throw new ArgumentException("World configuration cannot provide reachable " + material.Id + " nodes.");
+            }
+
+            // Allocate global material budgets before selecting eligible positions. Sampling a
+            // material independently inside each biome would make a swamp-only crop abundant
+            // regardless of its weight. Minimum supply guarantees take precedence in sparse maps.
+            int total = (int)decimal.Round(settings.Width * settings.Height * settings.ResourceChance);
+            Dictionary<string, int> budgets = AllocateCounts(config.Materials.Select(material =>
+                (material.Id, material.SpawnWeight)).ToArray(), total);
+            foreach (MaterialDefinition material in config.Materials)
+            {
+                int present = resources.Count(node => node.MaterialId == material.Id);
+                var candidates = Positions(settings).Where(point => !occupied.Contains(point) &&
+                    !InClearing(point, start, settings.StartClearRadius) && !tiles[point.X, point.Y].IsBridge &&
+                    material.Biomes.Contains(tiles[point.X, point.Y].BiomeId)).ToList();
+                Shuffle(candidates, rng);
+                foreach (GridPosition point in candidates)
+                {
+                    if (present >= budgets[material.Id]) break;
+                    ResourceNode node = CreateNode(config, material, tiles, point);
+                    if (!Pathfinding.FindPathToResource(terrain, start, node, int.MaxValue).Reachable) continue;
+                    resources.Add(node); occupied.Add(point); present++;
+                }
             }
             return new WorldMap(settings, seed, tiles,
                 resources.OrderBy(node => node.Position.Y).ThenBy(node => node.Position.X), start);
         }
 
-        private static WorldTile[,] GenerateLand(WorldConfig settings, Rng rng)
+        private static WorldTile[,] GenerateTerrain(WorldConfig settings, Rng rng, GridPosition start)
         {
             int columns = (settings.Width + settings.NoiseCellSize - 1) / settings.NoiseCellSize + 1;
             int rows = (settings.Height + settings.NoiseCellSize - 1) / settings.NoiseCellSize + 1;
@@ -86,6 +96,7 @@ namespace Imoni.Core
                 for (int x = 0; x < columns; x++)
                     noise[x, y] = (decimal)rng.NextBelow(settings.NoiseResolution) / settings.NoiseResolution;
             var tiles = new WorldTile[settings.Width, settings.Height];
+            var values = new Dictionary<GridPosition, decimal>();
             foreach (GridPosition point in Positions(settings))
             {
                 int cellX = point.X / settings.NoiseCellSize, cellY = point.Y / settings.NoiseCellSize;
@@ -94,10 +105,49 @@ namespace Imoni.Core
                 decimal top = noise[cellX, cellY] * (1 - fx) + noise[cellX + 1, cellY] * fx;
                 decimal bottom = noise[cellX, cellY + 1] * (1 - fx) + noise[cellX + 1, cellY + 1] * fx;
                 decimal value = top * (1 - fy) + bottom * fy;
-                string biome = settings.BiomeThresholds.First(threshold => value <= threshold.Maximum).Id;
-                tiles[point.X, point.Y] = new WorldTile(biome);
+                values.Add(point, value);
+                tiles[point.X, point.Y] = new WorldTile("plain");
             }
+            AddRiver(settings, rng, tiles, start);
+            GridPosition[] dry = Positions(settings).Where(point => !tiles[point.X, point.Y].IsWater).ToArray();
+            BiomeTarget[] landTargets = settings.BiomeTargets.Where(target => target.Id != "river").ToArray();
+            Dictionary<string, int> budgets = AllocateCounts(landTargets.Select(target => (target.Id, target.Fraction)).ToArray(), dry.Length);
+            var plain = new HashSet<GridPosition>(dry.Where(point => InClearing(point, start, settings.StartClearRadius)));
+            long firstRadius = settings.UnlockRadius(1);
+            GridPosition[] firstArea = Positions(settings).Where(point => InClearing(point, start, firstRadius)).ToArray();
+            int startingPlain = (int)decimal.Ceiling(firstArea.Length * settings.StartingPlainFraction);
+            foreach (GridPosition point in dry.Where(point => InClearing(point, start, firstRadius))
+                .OrderBy(point => values[point]).ThenBy(point => point.Y).ThenBy(point => point.X))
+            {
+                if (plain.Count >= startingPlain) break;
+                plain.Add(point);
+            }
+            if (plain.Count < startingPlain || plain.Count > budgets["plain"])
+                throw new ArgumentException("Biome fractions cannot provide the configured starting plains.");
+            budgets["plain"] -= plain.Count;
+            // Quantiles preserve coherent noise contours, unlike independent tile draws, while
+            // correcting the central bias of interpolated value-noise thresholds.
+            GridPosition[] ordered = dry.Where(point => !plain.Contains(point)).OrderBy(point => values[point])
+                .ThenBy(point => point.Y).ThenBy(point => point.X).ToArray();
+            int next = 0;
+            foreach (BiomeTarget target in landTargets)
+                for (int index = 0; index < budgets[target.Id]; index++)
+                {
+                    GridPosition point = ordered[next++];
+                    tiles[point.X, point.Y] = new WorldTile(target.Id);
+                }
             return tiles;
+        }
+
+        private static Dictionary<string, int> AllocateCounts(IReadOnlyList<(string Id, decimal Weight)> weights, int total)
+        {
+            decimal sum = weights.Sum(item => item.Weight);
+            var exact = weights.ToDictionary(item => item.Id, item => total * item.Weight / sum, StringComparer.Ordinal);
+            var counts = exact.ToDictionary(item => item.Key, item => (int)decimal.Floor(item.Value), StringComparer.Ordinal);
+            int remaining = total - counts.Values.Sum();
+            foreach (string id in exact.OrderByDescending(item => item.Value - counts[item.Key])
+                .ThenBy(item => item.Key, StringComparer.Ordinal).Take(remaining).Select(item => item.Key)) counts[id]++;
+            return counts;
         }
 
         private static void AddRiver(WorldConfig settings, Rng rng, WorldTile[,] tiles, GridPosition start)
@@ -124,7 +174,7 @@ namespace Imoni.Core
         private static ResourceNode CreateNode(GameConfig config, MaterialDefinition material, WorldTile[,] tiles, GridPosition point) =>
             new ResourceNode(config, "resource-" + point.X + "-" + point.Y, material.Id, tiles[point.X, point.Y].BiomeId, point);
 
-        private static bool InClearing(GridPosition point, GridPosition start, int radius)
+        private static bool InClearing(GridPosition point, GridPosition start, long radius)
         {
             long dx = point.X - start.X, dy = point.Y - start.Y;
             return dx * dx + dy * dy <= (long)radius * radius;

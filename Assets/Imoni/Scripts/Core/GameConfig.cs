@@ -103,7 +103,8 @@ namespace Imoni.Core
                 Text(token, "id"), Text(token, "name"), Integer(token, "basePoint", true),
                 Integer(token, "basePrice", true), Integer(token, "baseYield", true),
                 Array(token, "biomes").Select(value => value.Value<string>()),
-                PositiveDecimal(token, "qualityMultiplier"), PositiveDecimal(token, "efficiencyMultiplier"))));
+                PositiveDecimal(token, "qualityMultiplier"), PositiveDecimal(token, "efficiencyMultiplier"),
+                PositiveDecimal(token, "spawnWeight"))));
             foreach (MaterialDefinition material in Materials)
             {
                 Require(material.Biomes.Count > 0, "Every material needs at least one biome.");
@@ -114,6 +115,8 @@ namespace Imoni.Core
             Require(World.StartingMaterials.Count >= ObjectiveGeneration.RequiredCount + 1,
                 "Starting materials must cover distinct required objectives plus one bonus.");
             foreach (string materialId in World.StartingMaterials) Material(materialId);
+            foreach (string materialId in ObjectiveGeneration.FirstRoundRequiredMaterials)
+                Require(World.StartingMaterials.Contains(Material(materialId).Id), "First-round required materials must be guaranteed starting materials.");
             Qualities = ReadOnly(Array(data, "qualities").Select(token => new QualityDefinition(
                 Text(token, "id"), Text(token, "name"), Integer(token, "multiplier", true),
                 PositiveInt(token, "unlockRound"), PositiveDecimal(token, "weight"))));
@@ -221,14 +224,16 @@ namespace Imoni.Core
         public BigInteger BasePrice { get; }
         public BigInteger BaseYield { get; }
         public IReadOnlyList<string> Biomes { get; }
+        public decimal SpawnWeight { get; }
         public decimal QualityMultiplier { get; }
         public decimal EfficiencyMultiplier { get; }
         internal MaterialDefinition(string id, string name, BigInteger point, BigInteger price, BigInteger yield,
-            IEnumerable<string> biomes, decimal qualityMultiplier, decimal efficiencyMultiplier)
+            IEnumerable<string> biomes, decimal qualityMultiplier, decimal efficiencyMultiplier, decimal spawnWeight)
         {
             Id = id; Name = name; BasePoint = point; BasePrice = price; BaseYield = yield;
             Biomes = System.Array.AsReadOnly(biomes.ToArray());
             QualityMultiplier = qualityMultiplier; EfficiencyMultiplier = efficiencyMultiplier;
+            SpawnWeight = spawnWeight;
         }
     }
 

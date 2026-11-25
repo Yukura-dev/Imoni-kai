@@ -45,7 +45,16 @@ namespace Imoni.Core
             int count = config.ObjectiveGeneration.RequiredCount + 1;
             while (candidates.Count >= count)
             {
-                string[] chosen = candidates.Take(count).ToArray();
+                string[] chosen;
+                if (round == 1)
+                {
+                    string[] required = candidates.Where(id => config.ObjectiveGeneration.FirstRoundRequiredMaterials.Contains(id))
+                        .Take(count - 1).ToArray();
+                    string bonus = candidates.FirstOrDefault(id => !required.Contains(id));
+                    if (required.Length != count - 1 || bonus == null) break;
+                    chosen = required.Concat(new[] { bonus }).ToArray();
+                }
+                else chosen = candidates.Take(count).ToArray();
                 var capacities = new Dictionary<string, BigInteger>(StringComparer.Ordinal);
                 string unsuitable = null;
                 for (int index = 0; index < chosen.Length; index++)

@@ -103,3 +103,9 @@
 - 品質補正（品質/効率）はplain1/1、forest1.05/1、river1.1/1、mountain1.2/1.15、swamp1.15/0.9。素材はsansaiの品質1.1以外すべて1。ノード固有補正は中立値1で生成し、Coreモデルは個別補正も扱える。元確率へ総品質係数の品質順位乗を掛けて正規化する。
 - `qualityRoll.luckPerLevel`を削除。`upgrades.items[luck].effectPerLevel=0.6`を唯一の採集運係数として品質抽選も参照する。
 - 生成・目標・採集の乱数列は分離し、目標のseedはworld seed+round（整数のunchecked加算）。A*は上下左右・同距離の順序固定。採集同時完了はメンバー順、5:00は採集完了より先に確定する。
+
+## M3a バランス調整（2026-11-25）
+
+- `materials[].spawnWeight` は薪40・里芋20・ねぎ20・キノコ10・魚6・山菜4。配置密度からマップ全体のノード数を求め、重みで個数を配分してから、その素材に適したバイオームへ配置する。最低供給保証は重みより優先する。
+- `world.biomeTargets` は平野35%・森林30%・山岳15%・湿地12%・河川8%。補間ノイズの順位で地形を割り当てる。川の幅は目標割合から算出し、蛇行の接続部分で生じる小さな差を許容する。
+- `world.startingPlainFraction=0.6`、`world.minimumStartingRequiredNodes=6`。R1の平野を60%以上とし、R1必須候補は `objectiveGeneration.firstRoundRequiredMaterials` の薪・里芋・ねぎ、各6か所以上を保証する。R2以降の必須候補は従来どおり解放範囲にある全素材。

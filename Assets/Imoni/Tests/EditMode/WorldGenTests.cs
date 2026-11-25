@@ -129,7 +129,15 @@ namespace Imoni.Core.Tests
         [TestCase(2)]
         public void MeanderingRiverStaysConnectedAndHasCrossings(int width)
         {
-            GameConfig config = Config(json => json["world"]["riverWidth"] = width);
+            GameConfig config = Config(json =>
+            {
+                var targets = (JArray)json["world"]["biomeTargets"];
+                JToken river = targets.Single(item => (string)item["id"] == "river");
+                JToken plain = targets.Single(item => (string)item["id"] == "plain");
+                decimal fraction = (decimal)width / (int)json["world"]["width"];
+                plain["fraction"] = (decimal)plain["fraction"] + (decimal)river["fraction"] - fraction;
+                river["fraction"] = fraction;
+            });
             WorldMap world = WorldGen.Generate(config, 777);
             var water = new HashSet<GridPosition>();
             for (int y = 0; y < world.Height; y++)
@@ -150,6 +158,72 @@ namespace Imoni.Core.Tests
             }
             Assert.That(visited, Is.EquivalentTo(water));
             Assert.That(water.Any(point => world.TileAt(point).IsBridge), Is.True);
+            Assert.That(config.World.RiverWidth, Is.EqualTo(width));
+        }
+
+        [TestCase(482)]
+        [TestCase(777)]
+        [TestCase(202647)]
+        public void BiomeAreasFollowTargetsAndStartingAreaIsMostlyPlain(int seed)
+        {
+            GameConfig config = Config();
+            WorldMap world = WorldGen.Generate(config, seed);
+            GridPosition[] positions = Enumerable.Range(0, world.Height).SelectMany(y =>
+                Enumerable.Range(0, world.Width).Select(x => new GridPosition(x, y))).ToArray();
+            foreach (BiomeTarget target in config.World.BiomeTargets)
+            {
+                decimal fraction = (decimal)positions.Count(point => world.TileAt(point).BiomeId == target.Id) / positions.Length;
+                Assert.That(Math.Abs(fraction - target.Fraction), Is.LessThanOrEqualTo(0.015m), target.Id);
+            }
+            GridPosition[] first = positions.Where(point => world.IsUnlocked(point, 1)).ToArray();
+            decimal startingPlain = (decimal)first.Count(point => world.TileAt(point).BiomeId == "plain") / first.Length;
+            Assert.That(startingPlain, Is.GreaterThanOrEqualTo(config.World.StartingPlainFraction));
+        }
+
+        [TestCase(482)]
+        [TestCase(777)]
+        [TestCase(202647)]
+        public void MaterialAbundanceFollowsGlobalWeightsAndFirstRoundHasSixOfEveryRequiredSupply(int seed)
+        {
+            GameConfig config = Config();
+            WorldMap world = WorldGen.Generate(config, seed);
+            decimal totalWeight = config.Materials.Sum(material => material.SpawnWeight);
+            foreach (MaterialDefinition material in config.Materials)
+            {
+                decimal expected = world.Resources.Count * material.SpawnWeight / totalWeight;
+                int actual = world.Resources.Count(node => node.MaterialId == material.Id);
+                Assert.That(Math.Abs(actual - expected), Is.LessThanOrEqualTo(1m), material.Id);
+            }
+            Assert.That(world.Resources.Count(node => node.MaterialId == "wood"),
+                Is.GreaterThan(world.Resources.Count(node => node.MaterialId == "mushroom")));
+            foreach (string material in config.ObjectiveGeneration.FirstRoundRequiredMaterials)
+                Assert.That(world.ResourcesAvailable(1).Count(node => node.MaterialId == material),
+                    Is.GreaterThanOrEqualTo(config.World.MinimumStartingRequiredNodes), material);
+        }
+
+        [Test]
+        public void ChangingWeightsAndStartingGuaranteeChangesGeneration()
+        {
+            GameConfig config = Config(json =>
+            {
+                ((JArray)json["materials"]).Single(item => (string)item["id"] == "wood")["spawnWeight"] = 10;
+                ((JArray)json["materials"]).Single(item => (string)item["id"] == "mushroom")["spawnWeight"] = 40;
+                json["world"]["minimumStartingRequiredNodes"] = 9;
+            });
+            WorldMap world = WorldGen.Generate(config, 482);
+            Assert.That(world.Resources.Count(node => node.MaterialId == "mushroom"),
+                Is.GreaterThan(world.Resources.Count(node => node.MaterialId == "wood")));
+            foreach (string material in config.ObjectiveGeneration.FirstRoundRequiredMaterials)
+                Assert.That(world.ResourcesAvailable(1).Count(node => node.MaterialId == material), Is.GreaterThanOrEqualTo(9));
+        }
+
+        [Test]
+        public void InvalidBiomeFractionsWeightsAndStartingGuaranteeFailAtConfigLoad()
+        {
+            Assert.Throws<ArgumentException>(() => Config(json => json["world"]["biomeTargets"][0]["fraction"] = 0.9m));
+            Assert.Throws<ArgumentException>(() => Config(json => json["materials"][0]["spawnWeight"] = 0));
+            Assert.Throws<ArgumentException>(() => Config(json => json["world"]["minimumStartingRequiredNodes"] = 0));
+            Assert.Throws<ArgumentException>(() => Config(json => json["world"]["startingPlainFraction"] = 1));
         }
 
         [Test]

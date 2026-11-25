@@ -51,10 +51,14 @@ GameSnapshot state = server.Snapshot();
 |---|---|
 | `world` | サイズ、チャンク、タイル32px、解放半径、ノイズ、河川、橋、配置確率、初期最低供給 |
 | `materials[].biomes` | 配置可能バイオーム |
+| `materials[].spawnWeight` | 全マップの出現重み。薪40・里芋20・ねぎ20・キノコ10・魚6・山菜4 |
+| `world.biomeTargets` | 平野35%・森林30%・山岳15%・湿地12%・河川8%の目安 |
+| `world.startingPlainFraction` / `world.minimumStartingRequiredNodes` | R1平野60%以上、必須候補を各6か所以上 |
 | `gathering.nodeStockPerCycle/regrowSec/growthStageFractions` | 在庫3、40秒再生、成長境界25/50/75/100% |
 | `gathering.botIntervalSec` | ボットの思考間隔2秒 |
 | `gathering.biomeModifiers` / `materials[].qualityMultiplier,efficiencyMultiplier` | 品質と採集効率の補正 |
 | `objectiveGeneration` | 必須数3、数量の下限40%・上限70% |
+| `objectiveGeneration.firstRoundRequiredMaterials` | R1必須候補は薪・里芋・ねぎ。数量はワールドから生成 |
 | `upgrades.items`の`luck.effectPerLevel` | 採集運の唯一の係数0.6 |
 
 品質抽選はM1のpTopと下位重みを中立分布とし、品質順位r（普通=0）の重みへ `(バイオーム係数×素材係数×ノード係数)^r` を掛けて正規化する。整数比とBigIntegerを使い、未解放品質を含めない。100%未満の人為的上限は追加しない。
@@ -65,7 +69,7 @@ GameSnapshot state = server.Snapshot();
 dotnet test tools/CoreTests --verbosity minimal
 ```
 
-2026-11-25の最終結果：**200件成功、失敗0、スキップ0（追加58件）**。実行結果と全テスト一覧は `validation/m3a/dotnet-test.trx`、追加テストの全名称は `validation/m3a/added-tests.txt`、集計とマップのハッシュは `validation/m3a/validation.json`。Unity 6000.3.21f1の再コンパイルもエラー0・警告0を確認した。新しい.metaはUnityのインポーターが生成し、手書きしていない。
+2026-11-25のバランス調整後：**211件成功、失敗0、スキップ0（初回M3aで58件、調整で11件追加）**。実行結果と全テスト一覧は `validation/m3a/dotnet-test.trx`、追加テストの全名称は `validation/m3a/added-tests.txt`、集計とマップのハッシュは `validation/m3a/validation.json`。初回M3aではUnity 6000.3.21f1の再コンパイルもエラー0・警告0を確認した。今回の画面接続後のUnity検証はM3bに記録する。新しい.metaはUnityのインポーターが生成し、手書きしていない。
 
 3シードの出力：`validation/m3a/map_seed_482.txt`、`map_seed_777.txt`、`map_seed_202647.txt`。各ファイルに64×64の地形、資源、ラウンド解放範囲の3面と、各ラウンドに到達できる素材別ノード数がある。`@`が拠点、`=`が橋、`~`が川。資源記号はファイル冒頭の凡例を参照。
 
@@ -78,6 +82,18 @@ Remove-Item Env:IMONI_MAP_EXPORT_DIR
 ```
 
 通常のテスト実行ではファイルを出力しない。環境変数を指定したときだけ指定ディレクトリに書き出す。
+
+### レビュー後のバランス調整
+
+3シードを再出力し、各マップにR1〜5の必須・ボーナス目標（素材・数量・採集シミュレーション上限）を追記した。同名JSONには地形割合、素材数、R1内の集計も保存している。後半ラウンドの書き出しは比較用に「初期在庫・強化なし・拠点から開始」で生成する。実プレイの次ラウンドでは引き継いだ状態を使用する。
+
+| seed | 平野 | 森林 | 山岳 | 湿地 | 河川 | R1平野 | R1 薪/里芋/ねぎ |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 482 | 34.99% | 29.98% | 14.99% | 11.99% | 8.06% | 60.25% | 8 / 14 / 17 |
+| 777 | 34.96% | 29.98% | 14.99% | 11.99% | 8.08% | 60.25% | 7 / 16 / 20 |
+| 202647 | 34.96% | 29.96% | 14.97% | 11.99% | 8.13% | 60.88% | 11 / 19 / 19 |
+
+全体は各シード492ノード：薪197・里芋98・ねぎ98・キノコ49・魚30・山菜20。出現数は重みから配分し、配置座標と目標数量にシード差を持たせる。旧版のキノコ偏重は解消した。
 
 追加テストの範囲：
 

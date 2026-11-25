@@ -17,7 +17,8 @@ namespace Imoni.Core
         public int EndlessRadiusStep { get; }
         public int NoiseCellSize { get; }
         public int NoiseResolution { get; }
-        public IReadOnlyList<BiomeThreshold> BiomeThresholds { get; }
+        public IReadOnlyList<BiomeTarget> BiomeTargets { get; }
+        public decimal StartingPlainFraction { get; }
         public int RiverWidth { get; }
         public int RiverOffsetTiles { get; }
         public int RiverMeanderTiles { get; }
@@ -25,6 +26,7 @@ namespace Imoni.Core
         public int BridgeSpacing { get; }
         public decimal ResourceChance { get; }
         public int MinimumNodesPerMaterial { get; }
+        public int MinimumStartingRequiredNodes { get; }
         public IReadOnlyList<string> StartingMaterials { get; }
 
         public WorldConfig(JObject data)
@@ -48,27 +50,23 @@ namespace Imoni.Core
             EndlessRadiusStep = PositiveInt(world, "endlessRadiusStep");
             NoiseCellSize = PositiveInt(world, "noiseCellSize");
             NoiseResolution = PositiveInt(world, "noiseResolution");
-            BiomeThresholds = Array.AsReadOnly(RequiredArray(world, "biomeThresholds").Select(token =>
-                new BiomeThreshold(RequiredText(token, "id"), PositiveDecimal(token, "max"))).ToArray());
-            Require(BiomeThresholds.Count > 0 && BiomeThresholds.Last().Maximum == 1,
-                "Biome thresholds must end at one.");
-            decimal previous = 0;
-            var biomes = new HashSet<string>(StringComparer.Ordinal);
-            foreach (BiomeThreshold threshold in BiomeThresholds)
-            {
-                Require(threshold.Maximum > previous && threshold.Maximum <= 1 && biomes.Add(threshold.Id),
-                    "Biome thresholds must be unique and increasing.");
-                previous = threshold.Maximum;
-            }
-            Require(biomes.SetEquals(new[] { "plain", "forest", "swamp", "mountain" }), "Configure all four land biomes.");
-            RiverWidth = PositiveInt(world, "riverWidth");
+            BiomeTargets = Array.AsReadOnly(RequiredArray(world, "biomeTargets").Select(token =>
+                new BiomeTarget(RequiredText(token, "id"), PositiveDecimal(token, "fraction"))).ToArray());
+            Require(BiomeTargets.Count == 5 && BiomeTargets.Select(target => target.Id).Distinct().Count() == 5 &&
+                new HashSet<string>(BiomeTargets.Select(target => target.Id)).SetEquals(new[] { "plain", "forest", "swamp", "mountain", "river" }) &&
+                BiomeTargets.Sum(target => target.Fraction) == 1, "Configure all five biome fractions, summing to one.");
+            StartingPlainFraction = PositiveDecimal(world, "startingPlainFraction");
+            Require(StartingPlainFraction < 1, "Starting plain fraction must leave room for other biomes.");
+            // A north-south river covers approximately width / map width of the world.
+            // Rounded width and bend connector cells account for the small ratio tolerance.
+            RiverWidth = Math.Max(1, (int)decimal.Round(Width * BiomeTargets.Single(target => target.Id == "river").Fraction));
             RiverOffsetTiles = PositiveInt(world, "riverOffsetTiles");
             RiverMeanderTiles = PositiveInt(world, "riverMeanderTiles");
             RiverBendStep = PositiveInt(world, "riverBendStep");
             BridgeSpacing = PositiveInt(world, "bridgeSpacing");
             Require(RiverOffsetTiles - RiverMeanderTiles > StartClearRadius,
                 "River must leave the starting clearing dry.");
-            Require(RiverOffsetTiles + RiverWidth < UnlockRadii[0], "The first area needs an accessible river bank.");
+            Require(RiverOffsetTiles + RiverWidth <= UnlockRadii[0], "The first area needs an accessible river bank.");
             Require(RiverOffsetTiles + RiverMeanderTiles + RiverWidth < Width / 2, "River must fit inside the map.");
             JToken chance = world["resourceChance"];
             Require(chance != null && (chance.Type == JTokenType.Integer || chance.Type == JTokenType.Float),
@@ -76,6 +74,7 @@ namespace Imoni.Core
             ResourceChance = chance.Value<decimal>();
             Require(ResourceChance >= 0 && ResourceChance <= 1, "Resource chance must be a probability.");
             MinimumNodesPerMaterial = PositiveInt(world, "minimumNodesPerMaterial");
+            MinimumStartingRequiredNodes = PositiveInt(world, "minimumStartingRequiredNodes");
             StartingMaterials = Array.AsReadOnly(RequiredArray(world, "startingMaterials")
                 .Select(token => token.Value<string>()).ToArray());
             Require(StartingMaterials.Count > 0 && StartingMaterials.All(id => !string.IsNullOrWhiteSpace(id)) &&
@@ -118,10 +117,10 @@ namespace Imoni.Core
         }
     }
 
-    public sealed class BiomeThreshold
+    public sealed class BiomeTarget
     {
         public string Id { get; }
-        public decimal Maximum { get; }
-        internal BiomeThreshold(string id, decimal maximum) { Id = id; Maximum = maximum; }
+        public decimal Fraction { get; }
+        internal BiomeTarget(string id, decimal fraction) { Id = id; Fraction = fraction; }
     }
 }

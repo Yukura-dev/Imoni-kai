@@ -1,0 +1,256 @@
+{
+  "seed": 202647,
+  "width": 64,
+  "height": 64,
+  "totalResourceNodes": 492,
+  "firstRoundTiles": 317,
+  "firstRoundResourceNodes": 60,
+  "biomes": [
+    {
+      "id": "plain",
+      "targetFraction": 0.35,
+      "tiles": 1432,
+      "fraction": 0.349609375,
+      "firstRoundTiles": 193,
+      "firstRoundFraction": 0.6088328075709779179810725552
+    },
+    {
+      "id": "forest",
+      "targetFraction": 0.3,
+      "tiles": 1227,
+      "fraction": 0.299560546875,
+      "firstRoundTiles": 37,
+      "firstRoundFraction": 0.1167192429022082018927444795
+    },
+    {
+      "id": "mountain",
+      "targetFraction": 0.15,
+      "tiles": 613,
+      "fraction": 0.149658203125,
+      "firstRoundTiles": 9,
+      "firstRoundFraction": 0.0283911671924290220820189274
+    },
+    {
+      "id": "swamp",
+      "targetFraction": 0.12,
+      "tiles": 491,
+      "fraction": 0.119873046875,
+      "firstRoundTiles": 13,
+      "firstRoundFraction": 0.0410094637223974763406940063
+    },
+    {
+      "id": "river",
+      "targetFraction": 0.08,
+      "tiles": 333,
+      "fraction": 0.081298828125,
+      "firstRoundTiles": 65,
+      "firstRoundFraction": 0.2050473186119873817034700315
+    }
+  ],
+  "materials": [
+    {
+      "id": "wood",
+      "spawnWeight": 40.0,
+      "nodes": 197,
+      "firstRoundNodes": 11
+    },
+    {
+      "id": "negi",
+      "spawnWeight": 20.0,
+      "nodes": 98,
+      "firstRoundNodes": 19
+    },
+    {
+      "id": "taro",
+      "spawnWeight": 20.0,
+      "nodes": 98,
+      "firstRoundNodes": 19
+    },
+    {
+      "id": "mushroom",
+      "spawnWeight": 10.0,
+      "nodes": 49,
+      "firstRoundNodes": 6
+    },
+    {
+      "id": "fish",
+      "spawnWeight": 6.0,
+      "nodes": 30,
+      "firstRoundNodes": 5
+    },
+    {
+      "id": "sansai",
+      "spawnWeight": 4.0,
+      "nodes": 20,
+      "firstRoundNodes": 0
+    }
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "availableResources": {
+        "wood": 11,
+        "negi": 19,
+        "taro": 19,
+        "mushroom": 6,
+        "fish": 5,
+        "sansai": 0
+      },
+      "required": [
+        {
+          "material": "wood",
+          "quantity": "88",
+          "simulatedCapacity": "135"
+        },
+        {
+          "material": "taro",
+          "quantity": "65",
+          "simulatedCapacity": "114"
+        },
+        {
+          "material": "negi",
+          "quantity": "53",
+          "simulatedCapacity": "102"
+        }
+      ],
+      "bonus": {
+        "material": "fish",
+        "quantity": "19",
+        "simulatedCapacity": "30"
+      }
+    },
+    {
+      "round": 2,
+      "availableResources": {
+        "wood": 33,
+        "negi": 30,
+        "taro": 39,
+        "mushroom": 9,
+        "fish": 15,
+        "sansai": 2
+      },
+      "required": [
+        {
+          "material": "fish",
+          "quantity": "15",
+          "simulatedCapacity": "33"
+        },
+        {
+          "material": "mushroom",
+          "quantity": "24",
+          "simulatedCapacity": "36"
+        },
+        {
+          "material": "sansai",
+          "quantity": "7",
+          "simulatedCapacity": "12"
+        }
+      ],
+      "bonus": {
+        "material": "negi",
+        "quantity": "44",
+        "simulatedCapacity": "102"
+      }
+    },
+    {
+      "round": 3,
+      "availableResources": {
+        "wood": 90,
+        "negi": 45,
+        "taro": 54,
+        "mushroom": 19,
+        "fish": 24,
+        "sansai": 4
+      },
+      "required": [
+        {
+          "material": "mushroom",
+          "quantity": "20",
+          "simulatedCapacity": "36"
+        },
+        {
+          "material": "sansai",
+          "quantity": "11",
+          "simulatedCapacity": "21"
+        },
+        {
+          "material": "taro",
+          "quantity": "55",
+          "simulatedCapacity": "114"
+        }
+      ],
+      "bonus": {
+        "material": "negi",
+        "quantity": "66",
+        "simulatedCapacity": "102"
+      }
+    },
+    {
+      "round": 4,
+      "availableResources": {
+        "wood": 163,
+        "negi": 75,
+        "taro": 84,
+        "mushroom": 36,
+        "fish": 29,
+        "sansai": 14
+      },
+      "required": [
+        {
+          "material": "taro",
+          "quantity": "48",
+          "simulatedCapacity": "114"
+        },
+        {
+          "material": "negi",
+          "quantity": "52",
+          "simulatedCapacity": "102"
+        },
+        {
+          "material": "mushroom",
+          "quantity": "15",
+          "simulatedCapacity": "36"
+        }
+      ],
+      "bonus": {
+        "material": "sansai",
+        "quantity": "11",
+        "simulatedCapacity": "24"
+      }
+    },
+    {
+      "round": 5,
+      "availableResources": {
+        "wood": 197,
+        "negi": 98,
+        "taro": 98,
+        "mushroom": 49,
+        "fish": 30,
+        "sansai": 20
+      },
+      "required": [
+        {
+          "material": "wood",
+          "quantity": "65",
+          "simulatedCapacity": "135"
+        },
+        {
+          "material": "fish",
+          "quantity": "23",
+          "simulatedCapacity": "33"
+        },
+        {
+          "material": "taro",
+          "quantity": "49",
+          "simulatedCapacity": "114"
+        }
+      ],
+      "bonus": {
+        "material": "sansai",
+        "quantity": "16",
+        "simulatedCapacity": "24"
+      }
+    }
+  ],
+  "objectiveProjection": "Fresh stock, base-level team at the starting base for each round; same objective seed derivation as LocalGameServer. Live later-round quantities also reflect upgrades and current resources."
+}

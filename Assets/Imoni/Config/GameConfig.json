@@ -33,7 +33,8 @@
         "mountain"
       ],
       "qualityMultiplier": 1.0,
-      "efficiencyMultiplier": 1.0
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 40
     },
     {
       "id": "negi",
@@ -45,7 +46,8 @@
         "plain"
       ],
       "qualityMultiplier": 1.0,
-      "efficiencyMultiplier": 1.0
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 20
     },
     {
       "id": "taro",
@@ -57,7 +59,8 @@
         "plain"
       ],
       "qualityMultiplier": 1.0,
-      "efficiencyMultiplier": 1.0
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 20
     },
     {
       "id": "mushroom",
@@ -70,7 +73,8 @@
         "swamp"
       ],
       "qualityMultiplier": 1.0,
-      "efficiencyMultiplier": 1.0
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 10
     },
     {
       "id": "fish",
@@ -82,7 +86,8 @@
         "river"
       ],
       "qualityMultiplier": 1.0,
-      "efficiencyMultiplier": 1.0
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 6
     },
     {
       "id": "sansai",
@@ -94,7 +99,8 @@
         "mountain"
       ],
       "qualityMultiplier": 1.1,
-      "efficiencyMultiplier": 1.0
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 4
     }
   ],
   "qualities": [
@@ -1222,25 +1228,6 @@
     "endlessRadiusStep": 7,
     "noiseCellSize": 8,
     "noiseResolution": 10000,
-    "biomeThresholds": [
-      {
-        "id": "plain",
-        "max": 0.35
-      },
-      {
-        "id": "forest",
-        "max": 0.62
-      },
-      {
-        "id": "swamp",
-        "max": 0.78
-      },
-      {
-        "id": "mountain",
-        "max": 1.0
-      }
-    ],
-    "riverWidth": 2,
     "riverOffsetTiles": 5,
     "riverMeanderTiles": 2,
     "riverBendStep": 4,
@@ -1252,12 +1239,42 @@
       "negi",
       "taro",
       "mushroom"
-    ]
+    ],
+    "biomeTargets": [
+      {
+        "id": "plain",
+        "fraction": 0.35
+      },
+      {
+        "id": "forest",
+        "fraction": 0.3
+      },
+      {
+        "id": "mountain",
+        "fraction": 0.15
+      },
+      {
+        "id": "swamp",
+        "fraction": 0.12
+      },
+      {
+        "id": "river",
+        "fraction": 0.08
+      }
+    ],
+    "startingPlainFraction": 0.6,
+    "minimumStartingRequiredNodes": 6,
+    "_comment": "地形割合はマップ全体（橋も河川に含む）の目安。河川幅を割合から求め、残りの土地を連続ノイズの順位で配分。R1は平野60%以上を優先。resourceChanceは全タイルに対する資源ノード密度、素材別の個数はmaterials[].spawnWeightで配分し、最低保証が優先される。"
   },
   "objectiveGeneration": {
     "requiredCount": 3,
     "minimumFraction": 0.4,
     "maximumFraction": 0.7,
-    "_comment": "各候補に5分を重複配分せず、必須+ボーナスでチームの作業時間を等分。往復移動・在庫・再生・強化を含む保守的な採集シミュレーションの40〜70%を要求する。"
+    "_comment": "各候補に5分を重複配分せず、必須+ボーナスでチームの作業時間を等分。往復移動・在庫・再生・強化を含む保守的な採集シミュレーションの40〜70%を要求する。",
+    "firstRoundRequiredMaterials": [
+      "wood",
+      "taro",
+      "negi"
+    ]
   }
 }

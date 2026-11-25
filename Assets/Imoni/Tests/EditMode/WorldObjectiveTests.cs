@@ -11,6 +11,19 @@ namespace Imoni.Core.Tests
 {
     public sealed class WorldObjectiveTests
     {
+        [TestCase(482)]
+        [TestCase(777)]
+        [TestCase(202647)]
+        public void FirstRoundRequiredGoalsUseTheConfiguredBeginnerMaterials(int seed)
+        {
+            GameConfig config = Config();
+            WorldMap world = WorldGen.Generate(config, seed);
+            RoundObjectives goals = new ObjectiveGenerator(config).Generate(world, 1, new Rng(seed + 1));
+            Assert.That(goals.Required.Select(goal => goal.MaterialId),
+                Is.EquivalentTo(config.ObjectiveGeneration.FirstRoundRequiredMaterials));
+            Assert.That(goals.Required.Select(goal => goal.MaterialId), Has.No.Member(goals.Bonus.MaterialId));
+        }
+
         private static GameConfig Config(Action<JObject> change = null)
         {
 #if UNITY_EDITOR
