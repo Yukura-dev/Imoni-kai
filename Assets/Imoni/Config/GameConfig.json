@@ -16,7 +16,10 @@
     "startFunds": 1000,
     "currencyUnit": "G",
     "buyPriceMultiplier": 3,
-    "_buyPriceMultiplier": "ショップ購入価格 = 基本売却価格 × この値(仮)。購入品は常に『普通』品質"
+    "_buyPriceMultiplier": "ショップ購入価格 = 基本売却価格 × この値(仮)。購入品は常に『普通』品質",
+    "purchasedQualityId": "normal",
+    "bonusFundsPerPoint": 0.1,
+    "_bonusFundsPerPoint": "M1仮決定：成功時に floor(ボーナス素材ポイント × 段階倍率 × この係数) を資金へ加算。失敗時は0。"
   },
   "materials": [
     {
@@ -808,5 +811,33 @@
     "failureScore": "7350",
     "failureMissing": "魚",
     "failureScoreRatio": 0.4
+  },
+  "numeric": {
+    "fixedScale": 1000000,
+    "_comment": "倍率はこの整数スケールで切り捨て。ポイントの中間値は倍率を保持し、合計スコア確定時のみ切り捨て。強化価格は正数の四捨五入。"
+  },
+  "format": {
+    "unitBase": 10000,
+    "decimalPlaces": 2,
+    "units": [
+      "",
+      "万",
+      "億",
+      "兆",
+      "京",
+      "垓",
+      "秭",
+      "穣",
+      "溝",
+      "澗",
+      "正",
+      "載",
+      "極",
+      "恒河沙",
+      "阿僧祇",
+      "那由他",
+      "不可思議",
+      "無量大数"
+    ]
   }
 }

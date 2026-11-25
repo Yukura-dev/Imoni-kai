@@ -70,3 +70,13 @@
 - 作業先を `D:/UnityProjects/Imoni-kai` に固定。`unity/Assets/` は `Assets/` と読み替える。
 - M0の生成値は既存 `GameConfig.setup` を使用する：Panel390×844・Match0・Sort10、Dynamic Font90pt／Padding9／Atlas1024×1024、Orthographic Camera8／位置(0,0,-10)／Clip0.3〜1000、Grid(1,1,0)。今回、新しいゲームバランス値は追加・変更しない。
 - `Imoni > Setup Project` はBootの土台を生成する。旧uGUIプロトタイプは比較用に保存し、新Bootには組み込まない。次の実装はM1。
+
+
+## M1 Core（2026-11-25）
+
+- `numeric.fixedScale=1000000` を追加。連続倍率は整数n乗根で切り捨て、ポイント中間値は整数の固定小数、スコアと報酬は合算後に切り捨て。強化価格はモックと同じ正数の四捨五入。採集時間の下限は固定小数の最小表現単位1/scale秒。
+- `economy.purchasedQualityId=normal`、`economy.bonusFundsPerPoint=0.1` を追加。成功時の資金報酬はボーナスポイント×段階倍率×係数を切り捨て。失敗時は0。購入のポイント倍率は1で、採集の連続記録を変えない。
+- `format.unitBase=10000`、`format.decimalPlaces=2`、`format.units`（空単位・万・億・兆から無量大数まで）を追加。`Format.Big` は整数のまま最大2桁の小数を切り捨て表示する。
+- 乱数はSplitMix64＋棄却抽選。アルゴリズム定数・整数/百分率/10進表現の単位はコード、ゲームの調整値はGameConfigで管理する。
+- シミュレーション時間はdecimal秒。`round.mockTimeScale` はCoreでは適用せず、表示・開発側で実時間に掛ける。
+- M1は外部注入の目標と採集完了コマンドを用意。マップ由来の目標生成・経路・資源・ボットはM3で接続する。判断の詳細はQUESTIONSのM1節を参照。

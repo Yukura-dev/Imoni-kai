@@ -40,3 +40,28 @@
 - 質問：Setupメニューの既存演出用処理と新しいBoot生成をどう分けるか。
   - 仮決定：`Imoni > Setup Project` はM0のBoot生成とし、旧演出の生成は `Imoni > Legacy > Setup Effect` に残す。既存uGUI参照があるEditor処理は `Assets/Editor/`、新しい土台は `Assets/Imoni/Editor/` に置く。
   - 該当：`ImoniSetup.cs`、`ImoniLegacyEffectSetup.cs`、`Imoni.Editor.asmdef`。
+
+
+## 2026-11-25 — M1 Core
+
+- 質問：端数のある連続倍率と巨大数量をどう確定するか。
+  - 仮決定：`numeric.fixedScale=1000000`。連続倍率は `floor(scale × base^(n/divisor))` をBigIntegerの整数n乗根で求め、獲得数量は採集量倍率と連続倍率を両方掛けた後に切り捨てる。ロットのポイント倍率を固定し、スコアはR/Bを整数比の係数で合算した最後に一度だけ切り捨てる。
+  - 該当：`GameMath.cs`、`StreakCalc.cs`、`Inventory.cs`、`Scoring.cs`、`GameConfig.json`。
+- 質問：強化価格の端数はどう丸めるか。
+  - 仮決定：モックの `Math.round` に合わせ、正数の四捨五入。Lv2=338、Lv3=506。価格は元の基本価格と成長率から毎回求め、前の丸めた価格を掛け直さない。
+  - 該当：`UpgradeRules.cs`。
+- 質問：ボーナスの資金報酬は別式とあるが係数が未定。
+  - 仮決定：成功時に `floor(ボーナス素材ポイント × 段階倍率 × economy.bonusFundsPerPoint)` を加算し、係数は0.1。失敗時の資金報酬は0。購入品は `economy.purchasedQualityId=normal`、ポイント倍率1。購入価格は数量×基本売価×品質倍率×buyPriceMultiplierを掛けて切り捨てる。
+  - 該当：`GameConfig.json`、`Scoring.cs`、`LocalGameServer.cs`。
+- 質問：M1でワールド未実装の目標と採集をどう扱うか。
+  - 仮決定：目標は `RoundObjectives` を外部から受け取り、省略時は `round1Mock` を使う。到達可能性を考慮した目標生成・移動・資源在庫・ボットはM3。M1の `Gather` は採集完了を確定するCoreの入口であり、M3でワールドの採集検証を接続する。
+  - 該当：`Objectives.cs`、`LocalGameServer.cs`。M2の画面はまだ作らない。
+- 質問：失敗直後の初期化と結果表示を両立するには。
+  - 仮決定：即座にR1・初期資金・強化0・連続0・在庫/保護/累積スコア0へ初期化し、状態をFailedにして入力を止める。確定結果と履歴のコピーをLastResultへ保持し、診断イベントはRetryまで保持。`Retry(newSeed)` で新挑戦を明示開始する。成功後も `StartNextRound` まで入力を止め、資金・強化・seedを引き継ぐ。
+  - 該当：`LocalGameServer.cs`。
+- 質問：非常に高い採集速度で固定小数の時間が0になる。
+  - 仮決定：時間の最小表現単位1/scale秒を下限とする。強化レベル自体にゲーム上の上限は追加しない。
+  - 該当：`UpgradeRules.CollectDurationRaw`、`RulesMathTests.UnlimitedSpeedRetainsAPositiveRepresentableDuration`。
+- 質問：Theme.ussの先頭タブ警告と今後の部品の指定。
+  - 決定：ユーザーの修正内容を反映して `.tabbar__item--first` を採用。非対応の構造擬似クラスは使用しない。M2のTabBarが先頭タブに明示クラスを付ける。
+  - 該当：`Theme.uss`、`AGENTS.md`、`docs/COMPONENTS.md`。

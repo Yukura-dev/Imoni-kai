@@ -21,6 +21,9 @@ unity/Assets/Imoni/
   Scripts/Core/                  … ★UnityEngine を参照しない純C#(ゲームのルール)
      Imoni.Core.asmdef (noEngineReferences: true)
   Scripts/Game/                  … MonoBehaviour(表示・入力・音・演出)
+     UI/Components/              … 再利用するUI部品([UxmlElement] カスタムコントロール。docs/COMPONENTS.md)
+  Resources/UI/Components/       … 部品用の UXML/USS
+  Prefabs/                       … ImoniSetup が生成するプレハブ(手書き禁止)
      Imoni.Game.asmdef (Imoni.Core を参照)
   Editor/                        … ImoniSetup.cs(セットアップメニュー), ImoniUISpritePostprocessor.cs
   Tests/EditMode/                … Unity Test Framework(Core のテストを流用可)

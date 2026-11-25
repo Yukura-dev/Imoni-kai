@@ -9,8 +9,9 @@
 3. `docs/UI_SPEC.md` … 画面ごとの仕様と遷移。`design/screenshots/*.png` が正解の見た目
 4. `docs/UNITY_GUIDE.md` … 設計方針・フォルダ構成・CSS→USS の置き換え
 5. `Assets/Imoni/Config/GameConfig.json` … すべての数値
-6. `docs/IMONI_EFFECT_SPEC.md` … 芋煮会演出の詳細（M5 の前に必ず読む）
-7. `mock/*.dc.html` … 動くモック。`<x-dc>` 内がレイアウト、`<script data-dc-script>` 内がロジック
+6. `docs/COMPONENTS.md` … 部品カタログ。**2画面以上で使う見た目は必ず部品にする**（UI はカスタムコントロール、ワールドはプレハブ）
+7. `docs/IMONI_EFFECT_SPEC.md` … 芋煮会演出の詳細（M5 の前に必ず読む）
+8. `mock/*.dc.html` … 動くモック。`<x-dc>` 内がレイアウト、`<script data-dc-script>` 内がロジック
    - `cd mock && python3 -m http.server 8000` で開ける（`mock/README.md`）
    - 細かい px や挙動は、ここに書かれている数値が正
 
@@ -24,6 +25,8 @@
   - Unity の C# バージョンに合わせて **C# 9 まで**の構文を使う（`LangVersion 9.0`）。
 - **数値を直書きしない**。`GameConfig.json` から読む。足りない値は GameConfig に追加し、`DECISIONS.md` に1行書く。
 - **UI は UI Toolkit（UXML/USS）だけ**。uGUI・TextMeshPro の Canvas は使わない。
+- **部品を再利用する**：`docs/COMPONENTS.md` の部品を `[UxmlElement]` のカスタムコントロールとして作り、画面はそれを並べて組み立てる。ボタン・カード・二つ名・アバター・メンバー行・進捗バーなどを画面ごとにベタ書きしない。
+  - ワールドの物（資源・キャラ・ポップアップ）は `ImoniSetup` がコードからプレハブを生成し、同じプレハブを使い回す。
   - 色・フォント・部品は `Assets/Imoni/UI/Theme.uss` の変数とクラスを使う。
 - **文言**：画面の日本語はモックと一字一句同じにする（「JACKPOT」は使わない）。
 - **乱数**：シード付き。同じシード・同じ操作列なら同じ結果になること。
@@ -64,6 +67,7 @@
 - **完了条件**：`docs/UNITY_GUIDE.md` 10章の必須テストがすべて `dotnet test` で通る。
 
 ### M2 画面の枠組み＋アウトゲーム
+- **最初に** `docs/COMPONENTS.md` 2章の UI 部品を作り、全部品を並べた `ComponentGallery` 画面（開発用）を用意する。
 - 作るもの：Theme.uss の読み込み、`ScreenRouter`、Safe Area 対応。
 - UXML と C# を作る画面：Main、Tutorial1〜3、Home、Lobby、Waiting、Loading、Member、Ranking。
 - 動きとして作るもの
@@ -75,6 +79,8 @@
   - 会員証の表裏・二つ名の組み合わせ・キャラの色変え（保存する）
   - ランキングの切り替え（データはローカルのダミーで可）
 - **完了条件**：
+  - 画面の UXML が部品の組み合わせだけでできている（同じ見た目のベタ書きがない）。
+  - `ComponentGallery` で全部品を確認できる。
   - 各画面が `design/screenshots/` と並べて見分けがつかない程度に一致する（人間が確認）。
   - モックと同じボタンで同じ画面へ進む。
 
@@ -85,6 +91,7 @@
   - ResourceNode（在庫3回分、切り株、40秒で再生、段階成長）
   - Bots
 - **Game**：
+  - `ImoniSetup` に、プレハブ（ResourceNode / Character / GatherPopup / LockedAreaOverlay）と TileSet の生成を追加する（COMPONENTS 3章）。
   - Tilemap 描画、資源のスプライト、未開放エリアの覆い
   - タップ → 経路に沿って移動 → 採集バー → 獲得ポップアップ
   - 連続表示、チームメイト表示（切断中の半透明表示を含む）、トースト
@@ -144,12 +151,17 @@
 ## 5. よくある失敗（前回うまくいかなかった点の対策）
 - **モックの `.dc.html` を Unity に取り込もうとしない**。あれは見本で、UI Toolkit で作り直す。
 - **シーンや Prefab の YAML を手書きしない**。必ず `ImoniSetup` から生成する。
+- **画面ごとに同じ見た目をコピペしない**。COMPONENTS.md の部品を使う。
 - **ルールを MonoBehaviour の中に書かない**。Core に書いてテストする。
 - **USS に gap・grid・box-shadow・グラデーションはない**。`docs/UNITY_GUIDE.md` 4章の置き換え表を使う。
 - **タップがUIに吸われてマップに届かない**：マップ部分の要素は `picking-mode="Ignore"` にする。
 - **大きい数値が float で崩れる**：BigInteger と固定小数点を使う。
 - **芋煮会演出が不格好になる**：モックの座標は20px外側に広げた枠が基準。CSS の光彩・グラデーション・ぼかしは UI Toolkit で再現できないので、`docs/IMONI_EFFECT_SPEC.md` の画面座標の式と `Sprites/Effect/` の画像を使う。
 
-## このリポジトリの作業先
+## このリポジトリの作業先と現在の区切り
 
-ユーザー合意（2026-11-25）により、正本は `D:/UnityProjects/Imoni-kai`。ここがUnityプロジェクトのルートで、`unity/` の入れ子は作らない。旧handoffフォルダは受け取り元であり、並行して開発しない。既存プロトタイプは比較用に残し、新実装は `Assets/Imoni/` に集約する。現在の区切りはM0であり、完了後はコミットして停止する。仕様書内に `unity/Assets/` とあればこのリポジトリの `Assets/` と読み替える。
+正本は `D:/UnityProjects/Imoni-kai`。ここがUnityプロジェクトのルートで、`unity/` の入れ子は作らない。旧handoffは資料の受け取り元のみ。既存プロトタイプは比較用に残し、新実装は `Assets/Imoni/` に集約する。仕様書の `unity/Assets/` はこのリポジトリの `Assets/` と読み替える。
+
+2026-11-25：ユーザーがM0のSetup・Boot起動を確認し、M1を承認した。M1の完了条件を満たしたらコミット・報告して停止し、M2へ進まない。
+
+USS非対応の構造擬似クラス（`:first-child`、`:last-child`、`:nth-child`など）は使わない。`Theme.uss` の先頭タブ用クラスは `.tabbar__item--first`。M2のTabBarは先頭のタブにこのクラスを付ける。

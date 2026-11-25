@@ -167,7 +167,7 @@
 /* ---------- 下タブ(ホーム/ランキング/会員証) ---------- */
 .tabbar { height: 76px; flex-direction: row; border-top-width: 3px; border-color: var(--c-brown); background-color: var(--c-cream); }
 .tabbar__item { flex-grow: 1; align-items: center; justify-content: center; border-left-width: 3px; border-color: var(--c-brown); font-size: 12px; -unity-font-definition: var(--font-body-black); }
-.tabbar__item:first-child { border-left-width: 0; }
+.tabbar__item--first { border-left-width: 0; }
 .tabbar__item--on { background-color: var(--c-yellow); }
 
 /* ---------- 下から出るパネル(倉庫・ショップ・強化・メニュー) ---------- */
