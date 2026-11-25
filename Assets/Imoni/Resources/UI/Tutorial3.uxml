@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+    <ui:VisualElement class="onboarding-page onboarding-page--third">
+        <c:StepTitle title="自分を強化して、&#10;とんでもない芋煮をつくろう!" step="3" count="3" stacked="true" class="tutorial-block" />
+        <c:Card class="tutorial-quality-card tutorial-block">
+            <c:ImoniText text="品質で価値が何倍にも" class="tutorial-card-heading" />
+            <ui:VisualElement name="quality-chips" class="tutorial-qualities" />
+            <c:ImoniText text="上位の品質はラウンドが進むと解放されるよ" class="tutorial-quality-caption" />
+        </c:Card>
+        <c:Card class="tutorial-streak tutorial-block">
+            <c:Artwork source="mascot" class="tutorial-mascot" picking-mode="Ignore" />
+            <ui:VisualElement class="tutorial-streak-copy">
+                <c:ImoniText text="最高品質の連続ボーナス" class="tutorial-card-heading" />
+                <c:ImoniText text="最高品質を続けて引くほど、獲得数とポイントが倍々に増える!途切れると0から。" class="tutorial-streak-description" />
+            </ui:VisualElement>
+        </c:Card>
+        <c:Card class="tutorial-upgrades tutorial-block">
+            <ui:VisualElement class="tutorial-upgrades-row tutorial-upgrades-row--first">
+                <c:UpgradeHint name="upgrade-move" heading="移動速度" body="目的地まで早く着く" class="tutorial-upgrade--first" />
+                <c:UpgradeHint name="upgrade-speed" heading="採集速度" body="採集が早く終わる" />
+            </ui:VisualElement>
+            <ui:VisualElement class="tutorial-upgrades-row">
+                <c:UpgradeHint name="upgrade-amount" heading="採集量" body="1回でたくさん取れる" class="tutorial-upgrade--first" />
+                <c:UpgradeHint name="upgrade-luck" heading="採集運" body="高品質が出やすい" />
+            </ui:VisualElement>
+        </c:Card>
+        <c:ImoniText text="ねばれ、きばれ、がんばれ!" class="tutorial-cheer tutorial-block" />
+        <ui:VisualElement class="onboarding-spacer tutorial-block" />
+        <c:PagerDots count="3" index="2" class="tutorial-block" />
+        <c:ImoniButton name="next" variant="Primary" text="はじめる" />
+    </ui:VisualElement>
+</ui:UXML>

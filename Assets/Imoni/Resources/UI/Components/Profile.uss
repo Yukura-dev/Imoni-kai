@@ -11,7 +11,8 @@
 .title-part-picker__heading { -unity-font-definition: var(--font-body-black); font-size: 16px; color: var(--c-green); }
 .title-part-picker__summary { font-size: 11px; color: var(--c-brown-soft); }
 .title-part-picker__label { -unity-font-definition: var(--font-body-black); font-size: 12px; margin-bottom: 8px; }
-.title-part-picker__parts { flex-direction: row; flex-wrap: wrap; margin-bottom: 2px; }
+.title-part-picker__parts { flex-direction: row; flex-wrap: wrap; margin-bottom: 2px; margin-right: -6px; }
+.title-part-picker__parts--last { margin-bottom: -6px; }
 .title-part-picker__part { min-height: 36px; margin: 0 6px 6px 0; padding: 0 10px; border-width: 2px; border-color: var(--c-brown); border-radius: 10px; background-color: var(--c-white); color: var(--c-brown); -unity-font-definition: var(--font-body-black); font-size: 13px; }
 .title-part-picker__part--first.title-part-picker__part--selected { background-color: var(--c-green); border-color: var(--c-green); color: var(--c-cream); }
 .title-part-picker__part--second.title-part-picker__part--selected { background-color: var(--c-red); border-color: var(--c-red); color: var(--c-cream); }
@@ -35,7 +36,7 @@
 .badge-grid { padding: 10px 14px; }
 .badge-grid__row { flex-direction: row; }
 .badge-grid__row--spaced { margin-top: 8px; }
-.badge-grid__badge { flex-grow: 1; flex-basis: 0; min-width: 0; height: 60px; border-radius: 12px; border-width: 3px; border-color: var(--c-brown); background-color: var(--c-yellow); align-items: center; justify-content: center; }
+.badge-grid__badge { flex-grow: 1; flex-basis: 0; min-width: 0; height: 66px; border-radius: 12px; border-width: 3px; border-color: var(--c-brown); background-color: var(--c-yellow); align-items: center; justify-content: center; }
 .badge-grid__badge--spaced { margin-left: 8px; }
 .badge-grid__icon { width: 20px; height: 20px; background-size: contain; -unity-background-image-tint-color: var(--c-brown); margin-bottom: 2px; }
 .badge-grid__text { font-size: 10px; -unity-font-definition: var(--font-body-black); color: var(--c-brown); -unity-text-align: middle-center; }

@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="game-placeholder" class="screen" picking-mode="Ignore" />
+</ui:UXML>

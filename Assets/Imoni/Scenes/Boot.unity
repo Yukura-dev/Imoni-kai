@@ -279,7 +279,7 @@ MonoBehaviour:
   worldCamera: {fileID: 1206563952}
   worldGrid: {fileID: 1265951950}
   worldTilemap: {fileID: 498482268}
-  showComponentGallery: 1
+  showComponentGallery: 0
 --- !u!4 &932220984
 Transform:
   m_ObjectHideFlags: 0

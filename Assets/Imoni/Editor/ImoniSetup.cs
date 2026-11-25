@@ -79,7 +79,20 @@ namespace Imoni.Editor
             }
             SetupProject();
             if (SceneManager.GetActiveScene().path == BootPath)
+            {
+                SessionState.SetString("Imoni.StartScreen", "ComponentGallery");
                 EditorApplication.delayCall += () => EditorApplication.isPlaying = true;
+            }
+        }
+
+        [MenuItem("Imoni/Open App")]
+        public static void OpenApp()
+        {
+            if (EditorApplication.isPlaying)
+            { Object.FindFirstObjectByType<Bootstrap>()?.Router?.Show("Main"); return; }
+            SetupProject();
+            SessionState.SetString("Imoni.StartScreen", "Main");
+            EditorApplication.delayCall += () => EditorApplication.isPlaying = true;
         }
 
         private static void EnsureUiRuntimeAssets()

@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+  <ui:VisualElement name="WaitingRoot" class="lobby-screen waiting-root">
+    <c:ScreenHeader name="WaitingHeader" back-text="キャンセル" />
+    <ui:VisualElement class="waiting-heading lobby-gap14">
+      <c:AnimatedPot variant="Small" steam="true" sway="true" />
+      <ui:VisualElement class="waiting-heading__copy">
+        <c:ImoniText name="WaitingHeadline" text="メンバーを待っています" class="waiting-headline" />
+        <c:ImoniText name="WaitingSubline" class="waiting-subline" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <c:InviteCodeCard name="WaitingCode" variant="Large" class="lobby-gap14" />
+    <c:Card class="waiting-members lobby-gap14">
+      <ui:VisualElement class="waiting-members__heading">
+        <c:ImoniText text="メンバー" class="lobby-card-heading" />
+        <c:ImoniText name="WaitingMemberCount" class="waiting-count" />
+      </ui:VisualElement>
+      <c:WaitingMemberSlot name="WaitingMember0" class="lobby-gap10" />
+      <c:WaitingMemberSlot name="WaitingMember1" class="lobby-gap10" />
+      <c:WaitingMemberSlot name="WaitingMember2" class="lobby-gap10" />
+    </c:Card>
+    <ui:VisualElement class="lobby-flex-spacer" />
+    <c:ImoniButton name="WaitingStart" variant="Danger" disabled="true" class="waiting-start lobby-gap14" />
+    <c:ImoniText text="招待コードを仲間に送ってね。挑戦が始まると途中参加はできません" class="waiting-footnote lobby-gap14" />
+    <c:Toast name="WaitingToast" class="lobby-toast" />
+  </ui:VisualElement>
+</ui:UXML>

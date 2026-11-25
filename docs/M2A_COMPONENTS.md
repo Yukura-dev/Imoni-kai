@@ -101,7 +101,7 @@ memberCard.NameChanged += name => presenter.OnNameEdited(name);
 
 ## 4. ScreenRouterとSafe Area
 
-`Bootstrap`はUIDocumentの下に `SafeArea > ScreenHost` を作り、ScreenRouterをScreenHostに接続する。`Register(name, factory)` または `RegisterResource(name, resourcePath)` で登録し、`Show(name)` で表示を置き換える。未登録のルートは `false` を返して現在の表示を維持する。表示中の画面が `IDisposable` の場合は切り替え・終了時に破棄する。
+`Bootstrap`はUIDocumentの下に `ScreenHost > SafeArea > ScreenContent` を作り、ScreenRouterをScreenContentに接続する。ScreenHostでThemeと全部品USS・共通画面USSを一度だけ読み込む。部品の`UiTheme.Apply`はパネル接続時に祖先を調べ、必要なUSSが無い場合だけ自分に追加する（UI Builder等で単独配置するときのフォールバック）。`Register(name, factory)` または `RegisterResource(name, resourcePath)` で登録し、`Show(name)` で表示を置き換える。未登録のルートは `false` を返して現在の表示を維持する。表示中の画面が `IDisposable` の場合は切り替え・終了時に破棄する。
 
 TabBarはルート名を `NavigateRequested` で通知する。M2b以降は登録済み画面に対して `tabBar.NavigateRequested += route => router.Show(route);` を接続する。Gallery内のTabBarは表示・選択イベントの見本として扱う。
 
@@ -123,3 +123,9 @@ SafeAreaAdapterは `Screen.safeArea` の物理ピクセルを `RuntimePanelUtils
 今回追加した `DisplayProjectionTests` は8件：巨大数量の比率とConfig表示精度1件、進捗のゼロ／途中／一致／超過4件、巨大なボーナス閾値とConfig変更1件、増加・減少・両端を含む巨大整数補間1件、不正入力1件。既存M1のテストも継続して実行する。
 
 Safe Areaの端末固有確認ではDevice Simulator等でノッチ・ホームインジケーターのある画面を選び、上下左右の安全領域の内側にGalleryが配置されることを確認する。
+
+## M2b着手時のレビュー修正
+
+大ボタンのdisabledは背景`#EFD38A`・文字と実線枠`#5C4518`・影なし、小ボタンは背景`#E9D5AE`・文字`#6B4A3A`。Themeの専用変数を参照し、opacityは1のままにする。GalleryではYellow/Outline/Small/InventoryRow等をクリームカードに、InviteCodeCard等を黄色背景に配置した。
+
+390×844の撮影画像は [validation/m2a/](validation/m2a/) に保存。縦長のセクションは`_02`・`_03`ページまで収録し、35部品・全バリエーションを46枚で確認できる。

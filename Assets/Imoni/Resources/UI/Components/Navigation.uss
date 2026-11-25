@@ -3,6 +3,9 @@
 /* Rounded bottom shadows must not interpolate with the default Button side-border colors. */
 .imoni-button.btn-primary { border-color: var(--c-green-dark); }
 .imoni-button.btn-danger { border-color: var(--c-red-dark); }
+.imoni-button.btn-primary:disabled, .imoni-button.btn-danger:disabled { border-color: var(--c-disabled-large-fg); }
+.imoni-button:disabled > .imoni-button__icon { -unity-background-image-tint-color: var(--c-disabled-large-fg); }
+.imoni-button.btn-small:disabled > .imoni-button__icon, .imoni-button.btn-action:disabled > .imoni-button__icon, .imoni-button.btn-icon:disabled > .imoni-button__icon { -unity-background-image-tint-color: var(--c-disabled-small-fg); }
 .imoni-button--has-icon { padding-left: 50px; }
 .imoni-button__icon { position: absolute; left: 18px; top: 50%; translate: 0 -50%; width: 24px; height: 24px; -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: var(--c-brown); }
 .imoni-button.btn-primary > .imoni-button__icon, .imoni-button.btn-danger > .imoni-button__icon, .imoni-button.btn-action--on > .imoni-button__icon { -unity-background-image-tint-color: var(--c-cream); }

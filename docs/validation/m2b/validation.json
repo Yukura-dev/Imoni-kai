@@ -1,0 +1,143 @@
+{
+  "passed": true,
+  "validatedAtUtc": "2026-11-25T11:29:52.8757219Z",
+  "unityVersion": "6000.3.21f1",
+  "scope": "Detached resource checks plus a temporary hidden attached tree for field/input integration; waiting/loading completion uses Core presentation values. Real-time animation, pointer hit testing, and screenshots are checked separately.",
+  "isolatedSavePath": "D:\\UnityProjects\\Imoni-kai\\Library\\M2B-validation-profile.json",
+  "uxmlComposition": [
+    {
+      "screen": "Main",
+      "customControlTags": 6,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Tutorial1",
+      "customControlTags": 6,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Tutorial2",
+      "customControlTags": 10,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Tutorial3",
+      "customControlTags": 16,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Home",
+      "customControlTags": 18,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Lobby",
+      "customControlTags": 26,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Waiting",
+      "customControlTags": 14,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Loading",
+      "customControlTags": 19,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Member",
+      "customControlTags": 4,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Ranking",
+      "customControlTags": 11,
+      "cloneSucceeded": true
+    },
+    {
+      "screen": "Game",
+      "customControlTags": 0,
+      "cloneSucceeded": true
+    }
+  ],
+  "screens": [
+    {
+      "screen": "Main",
+      "controller": "MainScreen",
+      "lifetimeTimers": 1
+    },
+    {
+      "screen": "Tutorial1",
+      "controller": "Tutorial1Screen",
+      "lifetimeTimers": 0
+    },
+    {
+      "screen": "Tutorial2",
+      "controller": "Tutorial2Screen",
+      "lifetimeTimers": 0
+    },
+    {
+      "screen": "Tutorial3",
+      "controller": "Tutorial3Screen",
+      "lifetimeTimers": 0
+    },
+    {
+      "screen": "Home",
+      "controller": "HomeScreen",
+      "lifetimeTimers": 0
+    },
+    {
+      "screen": "Lobby",
+      "controller": "LobbyScreen",
+      "lifetimeTimers": 0
+    },
+    {
+      "screen": "Waiting",
+      "controller": "WaitingScreen",
+      "lifetimeTimers": 1
+    },
+    {
+      "screen": "Loading",
+      "controller": "LoadingScreen",
+      "lifetimeTimers": 1
+    },
+    {
+      "screen": "Member",
+      "controller": "MemberScreen",
+      "lifetimeTimers": 0
+    },
+    {
+      "screen": "Ranking",
+      "controller": "RankingScreen",
+      "lifetimeTimers": 0
+    },
+    {
+      "screen": "Game",
+      "controller": "GamePlaceholderScreen",
+      "lifetimeTimers": 0
+    }
+  ],
+  "flow": {
+    "passedChecks": [
+      "Main configured progress and start -> Tutorial1",
+      "Tutorial1 name save -> Tutorial2 -> Tutorial3 quality list -> Home completion save",
+      "Home sound/settings and Member title/colour/flip controls",
+      "Member/Ranking/Home tabs, ranking combinations, all profile fields survive reload",
+      "Joined lobby -> back Home -> Play restores team selection and resets membership",
+      "Play -> Lobby empty/bad/busy/success, ready/cancel, free seed, Loading -> Game placeholder",
+      "Create -> Waiting disabled, cancel, configured full presentation -> Loading -> Game placeholder"
+    ],
+    "checkCount": 7,
+    "livePlayerSaveTouched": false
+  },
+  "attachedStyles": {
+    "screen": "Main",
+    "hostWidth": 390.0,
+    "hostHeight": 844.0,
+    "sharedSheets": 10,
+    "componentCount": 6,
+    "componentOwnedSheets": 0,
+    "standaloneFallbackSheets": 2
+  }
+}

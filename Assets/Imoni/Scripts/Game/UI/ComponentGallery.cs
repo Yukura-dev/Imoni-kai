@@ -38,10 +38,10 @@ namespace Imoni.Game.UI
 #endif
         }
 
-        public bool ScrollToSection(string section)
+        public bool ScrollToSection(string section, float pageOffset = 0)
         {
             if (!sections.TryGetValue(section, out VisualElement target)) return false;
-            scroll.scrollOffset = new UnityEngine.Vector2(0, target.layout.y);
+            scroll.scrollOffset = new UnityEngine.Vector2(0, target.layout.y + pageOffset);
             jump?.SetValueWithoutNotify(section); return true;
         }
 
@@ -56,7 +56,18 @@ namespace Imoni.Game.UI
         private void Sample(VisualElement section, string caption, VisualElement element)
         {
             var sample = new VisualElement(); sample.AddToClassList("gallery-sample");
-            sample.Add(UiTheme.Label(caption, "gallery-caption")); sample.Add(element); section.Add(sample);
+            sample.Add(UiTheme.Label(caption, "gallery-caption"));
+            bool cream = element is InventoryRow || element is ShopRow || element is UpgradeRow || element is RankingRow ||
+                element is QualityChip || element is ChecklistStep || element is BonusTierChips || element is TitlePartPicker ||
+                element is MemberRow || element is StatusBadge || element is ProgressBar || element is TitleChips || element is BadgeGrid ||
+                (element is ImoniButton button && (button.Variant == ImoniButtonVariant.Yellow || button.Variant == ImoniButtonVariant.Outline || button.Variant == ImoniButtonVariant.Small || button.Variant == ImoniButtonVariant.Icon || button.Variant == ImoniButtonVariant.Action));
+            if (cream)
+            {
+                var surface = new Card { Variant = CardVariant.Cream }; surface.AddToClassList("gallery-preview-card");
+                surface.Add(element); sample.Add(surface);
+            }
+            else sample.Add(element);
+            section.Add(sample);
         }
 
         private void Intent(string text) => feedback.text = text;

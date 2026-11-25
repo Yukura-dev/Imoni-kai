@@ -1,0 +1,3 @@
+.imoni-text { margin: 0; padding: 0; white-space: normal; }
+.artwork { -unity-background-scale-mode: scale-to-fit; flex-shrink: 0; }
+.input-entry { margin: 0; padding: 0; }

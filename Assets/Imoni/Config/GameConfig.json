@@ -864,6 +864,301 @@
     "smallSteamStartPx": 6,
     "largeSteamStartPx": 8,
     "resultPopPeak": 1.15,
-    "resultPopRiseFraction": 0.6666666666666666
+    "resultPopRiseFraction": 0.6666666666666666,
+    "mainLoadingTickMs": 80,
+    "mainLoadingStepPercent": 4,
+    "profileNameMaxLength": 10,
+    "smallSteamPhaseDelaySeconds": 0.6,
+    "largeSteamPhaseDelaySeconds": 0.5
+  },
+  "outGame": {
+    "lobby": {
+      "successCode": "IMO-482",
+      "busyCode": "IMO-777",
+      "codeMaxLength": 7,
+      "botJoinSeconds": [
+        2.5,
+        5.2
+      ],
+      "waitingDotSeconds": 0.5,
+      "waitingDotCount": 3,
+      "slotPopSeconds": 0.45,
+      "slotPulseSeconds": 1.4,
+      "slotPulseSpread": 16,
+      "slotPulseAlpha": 0.45,
+      "slotPopInitialScale": 0.6,
+      "slotPopOvershootScale": 1.06,
+      "slotPopOvershootPoint": 0.7,
+      "commonSeedLabel": "#2026-47"
+    },
+    "loading": {
+      "durationSeconds": 3,
+      "stepEnds": [
+        10,
+        38,
+        62,
+        80,
+        100
+      ],
+      "syncThresholds": [
+        82,
+        90,
+        100
+      ],
+      "tipSeconds": 2.6,
+      "resourceCount": 214
+    },
+    "profile": {
+      "bestRound": 3,
+      "memberNumber": "123456",
+      "initialOwnedFirst": [
+        "芋煮会の",
+        "山の",
+        "連続の"
+      ],
+      "initialOwnedSecond": [
+        "初心者",
+        "薪割り職人",
+        "里芋ハンター"
+      ],
+      "badges": [
+        {
+          "text": "はじめの一歩",
+          "acquired": true
+        },
+        {
+          "text": "R3到達",
+          "acquired": true
+        },
+        {
+          "text": "10連続",
+          "acquired": true
+        },
+        {
+          "text": "5連続成功",
+          "acquired": false
+        },
+        {
+          "text": "1億点",
+          "acquired": false
+        },
+        {
+          "text": "究極品質",
+          "acquired": false
+        }
+      ],
+      "defaultName": "ゆくらさん",
+      "defaultBandColor": "#8B2310",
+      "defaultOutfitColor": "#FFF3D6",
+      "bandColors": [
+        "#8B2310",
+        "#34421C",
+        "#2F5D8A",
+        "#FFFFFF"
+      ],
+      "outfitColors": [
+        "#FFF3D6",
+        "#6B9B3A",
+        "#C9A27A",
+        "#8FAFC4"
+      ]
+    },
+    "ranking": {
+      "_comment": "M2b表示用ダミー。数値scoreとモックの表示displayScoreを併記する。通常のFormat.Big仕様は変更しない。",
+      "commonSeed": "#2026-47",
+      "podiumRanks": 3,
+      "commonTeams": [
+        "芋煮の極み",
+        "鍋底から愛を",
+        "山形本場勢",
+        "ねぎ多め",
+        "きのこ党",
+        "里芋ころころ",
+        "薪くべ隊",
+        "夜の芋煮"
+      ],
+      "freeTeams": [
+        "無限鍋",
+        "芋煮の極み",
+        "当たりマップ勢",
+        "川べり司令部",
+        "きのこ党",
+        "こんにゃく三兄弟",
+        "鍋底から愛を",
+        "たきび屋"
+      ],
+      "commonNormal": [
+        {
+          "score": "1234560000",
+          "displayScore": "12億3,456万"
+        },
+        {
+          "score": "810200000",
+          "displayScore": "8億1,020万"
+        },
+        {
+          "score": "398700000",
+          "displayScore": "3億9,870万"
+        },
+        {
+          "score": "123000000",
+          "displayScore": "1億2,300万"
+        },
+        {
+          "score": "98400000",
+          "displayScore": "9,840万"
+        },
+        {
+          "score": "42100000",
+          "displayScore": "4,210万"
+        },
+        {
+          "score": "19800000",
+          "displayScore": "1,980万"
+        },
+        {
+          "score": "7600000",
+          "displayScore": "760万"
+        }
+      ],
+      "freeNormal": [
+        {
+          "score": "3120000000",
+          "displayScore": "31億2,000万"
+        },
+        {
+          "score": "1588000000",
+          "displayScore": "15億8,800万"
+        },
+        {
+          "score": "915000000",
+          "displayScore": "9億1,500万"
+        },
+        {
+          "score": "432100000",
+          "displayScore": "4億3,210万"
+        },
+        {
+          "score": "200400000",
+          "displayScore": "2億0,040万"
+        },
+        {
+          "score": "88700000",
+          "displayScore": "8,870万"
+        },
+        {
+          "score": "33300000",
+          "displayScore": "3,330万"
+        },
+        {
+          "score": "11200000",
+          "displayScore": "1,120万"
+        }
+      ],
+      "commonEndless": [
+        {
+          "round": 14,
+          "score": "3200000000000",
+          "displayScore": "3.2兆"
+        },
+        {
+          "round": 12,
+          "score": "870000000000",
+          "displayScore": "8,700億"
+        },
+        {
+          "round": 11,
+          "score": "124000000000",
+          "displayScore": "1,240億"
+        },
+        {
+          "round": 9,
+          "score": "9800000000",
+          "displayScore": "98億"
+        },
+        {
+          "round": 8,
+          "score": "3100000000",
+          "displayScore": "31億"
+        },
+        {
+          "round": 7,
+          "score": "960000000",
+          "displayScore": "9.6億"
+        },
+        {
+          "round": 6,
+          "score": "210000000",
+          "displayScore": "2.1億"
+        },
+        {
+          "round": 6,
+          "score": "140000000",
+          "displayScore": "1.4億"
+        }
+      ],
+      "freeEndless": [
+        {
+          "round": 17,
+          "score": "41000000000000",
+          "displayScore": "41兆"
+        },
+        {
+          "round": 15,
+          "score": "6800000000000",
+          "displayScore": "6.8兆"
+        },
+        {
+          "round": 13,
+          "score": "990000000000",
+          "displayScore": "9,900億"
+        },
+        {
+          "round": 12,
+          "score": "205000000000",
+          "displayScore": "2,050億"
+        },
+        {
+          "round": 10,
+          "score": "33000000000",
+          "displayScore": "330億"
+        },
+        {
+          "round": 9,
+          "score": "7200000000",
+          "displayScore": "72億"
+        },
+        {
+          "round": 7,
+          "score": "880000000",
+          "displayScore": "8.8億"
+        },
+        {
+          "round": 6,
+          "score": "190000000",
+          "displayScore": "1.9億"
+        }
+      ],
+      "dates": [
+        "11/24 21:14",
+        "11/23 22:40",
+        "11/24 19:02",
+        "11/22 23:51",
+        "11/21 20:33",
+        "11/24 12:08",
+        "11/20 21:47",
+        "11/23 01:15"
+      ],
+      "freeSeeds": [
+        "#58213",
+        "#90417",
+        "#11872",
+        "#77302",
+        "#40196",
+        "#63558",
+        "#25014",
+        "#81920"
+      ]
+    }
   }
 }

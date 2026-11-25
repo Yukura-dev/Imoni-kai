@@ -13,7 +13,8 @@ namespace Imoni.Game.UI.Components
     public partial class AnimatedPot : VisualElement
     {
         private readonly VisualElement body;
-        private readonly VisualElement steam;
+        private readonly VisualElement[] steam = new VisualElement[3];
+        private readonly VisualElement ingredients;
         private IVisualElementScheduledItem animation;
         private PotVariant variant;
         private bool steamEnabled = true;
@@ -26,7 +27,23 @@ namespace Imoni.Game.UI.Components
             AddToClassList("animated-pot");
             UiTheme.Apply(this, "UI/Components/Effects");
             body = new VisualElement { pickingMode = PickingMode.Ignore }; body.AddToClassList("animated-pot__body"); Add(body);
-            steam = new VisualElement { pickingMode = PickingMode.Ignore }; steam.AddToClassList("animated-pot__steam"); Add(steam);
+            ingredients = new VisualElement { pickingMode = PickingMode.Ignore }; ingredients.AddToClassList("animated-pot__ingredients");
+            ingredients.generateVisualContent += context =>
+            {
+                // Loading.dc.html's three soup ingredients, in its original 140x120 artwork coordinates.
+                var painter = context.painter2D;
+                painter.fillColor = UiTheme.Color("#F3E2C0");
+                painter.BeginPath(); painter.Arc(new Vector2(54, 49), 6, 0, 360); painter.Fill();
+                painter.BeginPath(); painter.Arc(new Vector2(80, 51), 5, 0, 360); painter.Fill();
+                painter.fillColor = UiTheme.Color("#6B9B3A");
+                painter.BeginPath(); painter.Arc(new Vector2(94, 48), 4, 0, 360); painter.Fill();
+            };
+            Add(ingredients);
+            for (int index = 0; index < steam.Length; index++)
+            {
+                steam[index] = new VisualElement { pickingMode = PickingMode.Ignore };
+                steam[index].AddToClassList("animated-pot__steam"); steam[index].AddToClassList("animated-pot__steam--" + index); Add(steam[index]);
+            }
             RegisterCallback<AttachToPanelEvent>(_ =>
             {
                 Refresh();
@@ -40,8 +57,12 @@ namespace Imoni.Game.UI.Components
             if (body == null) return;
             UiTheme.SetVariant(this, "animated-pot--", variant);
             body.style.backgroundImage = UiTheme.Texture(variant == PotVariant.Campfire ? "pot_campfire" : "pot_small");
-            steam.style.backgroundImage = UiTheme.Texture("steam");
-            steam.style.display = steamEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+            ingredients.style.display = variant == PotVariant.Large ? DisplayStyle.Flex : DisplayStyle.None;
+            for (int index = 0; index < steam.Length; index++)
+            {
+                steam[index].style.backgroundImage = UiTheme.Texture("steam");
+                steam[index].style.display = steamEnabled && (variant != PotVariant.Small || index < 2) ? DisplayStyle.Flex : DisplayStyle.None;
+            }
         }
         private void ResetPose()
         { style.translate = new Translate(0, 0); style.rotate = new Rotate(0); }
@@ -60,9 +81,12 @@ namespace Imoni.Game.UI.Components
             else ResetPose();
             if (steamEnabled)
             {
-                double progress = time / UiTheme.Number(size + "SteamSeconds") % 1;
-                steam.style.translate = new Translate(0, (float)(UiTheme.Number(size + "SteamStartPx") - progress * UiTheme.Number(size + "SteamTravelPx")));
-                steam.style.opacity = (float)Math.Sin(progress * Math.PI);
+                for (int index = 0; index < steam.Length; index++)
+                {
+                    double progress = ((time - index * UiTheme.Number(size + "SteamPhaseDelaySeconds")) / UiTheme.Number(size + "SteamSeconds") % 1 + 1) % 1;
+                    steam[index].style.translate = new Translate(0, (float)(UiTheme.Number(size + "SteamStartPx") - progress * UiTheme.Number(size + "SteamTravelPx")));
+                    steam[index].style.opacity = (float)Math.Sin(progress * Math.PI);
+                }
             }
         }
     }

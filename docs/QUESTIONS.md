@@ -79,3 +79,18 @@
   - 仮決定：指定どおりTitleChipsと4レイヤーAvatarを再利用し、画面ごとの描き直しを避ける。対象：ProfileControls.cs、docs/M2A_COMPONENTS.md。
 - 質問：CSSの999px角丸・line-heightのままではUnityの形と行間が一致しない。
   - 仮決定：pillは高さの半分相当の半径、ResultBannerはCSSのline-heightに相当する高さの単行Labelを2段にする。対象：Data.uss、Profile.uss、EffectsControls.cs、Effects.uss。
+
+## M2bの仮決定（2026-11-25）
+
+- 質問：ワールド未実装のLoadingをどう進めるか。
+  - 仮決定：モック相当の3秒で進む決定的な表示用進捗とし、Gameは空画面にする。M3で実際のワールド生成・同期進捗へ接続する。対象：LobbyPresentation.cs、LobbyScreens.cs、Game.uxml。
+- 質問：ランキングの複合単位（12億3,456万）とM1承認済みFormat.Big（12.34億）の表示が異なる。
+  - 仮決定：許可されたローカルダミーに数値scoreとモックのdisplayScoreを併記して表示する。M1の書式・ルールは変更しない。対象：GameConfig.outGame.ranking、ProfileScreens.cs。
+- 質問：設定画面とOS共有のモックが未定。
+  - 仮決定：Homeの設定は既存CardとImoniButtonで音ON/OFF・閉じるを表示して保存する。共有は招待文のクリップボードコピーまでにし外部送信しない。対象：ProfileScreens.cs、LobbyScreens.cs。
+- 質問：チュートリアル完了後の再起動経路。
+  - 仮決定：今回指定されたUI_SPEC0章の経路を優先し、Main→Tutorial1〜3→Homeを毎回たどれる。名前・二つ名・色・音の保存値は引き継ぐ。対象：OnboardingScreens.cs、ScreenContext.cs。
+- 質問：Lobbyを離れてHomeから入り直したときの参加状態。
+  - 仮決定：戻る操作で退出し、再入場はチーム選択から始める。モックの初期modeと合わせ、作成経路へ戻れるようにする。対象：LobbyScreens.cs、ImoniM2BValidation.cs。
+- 質問：M2aのAvatar表示とモックの塗り円をM2bでどう合わせるか。
+  - 仮決定：同じAvatar部品を継続利用し、Lobby／Waiting／Loadingではレイヤーを隠して枠と単色だけ表示する。Home／Memberのキャラ編集は4レイヤー表示を維持する。対象：LobbyScreens.uss、LobbyScreenData.SetAvatar。

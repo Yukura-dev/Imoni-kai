@@ -123,7 +123,8 @@ namespace Imoni.Game.UI.Components
             Add(ProfileElements.Label("前半", "title-part-picker__label"));
             firstParts = ProfileElements.Box("title-part-picker__parts"); Add(firstParts);
             Add(ProfileElements.Label("後半", "title-part-picker__label"));
-            secondParts = ProfileElements.Box("title-part-picker__parts"); Add(secondParts);
+            secondParts = ProfileElements.Box("title-part-picker__parts");
+            secondParts.AddToClassList("title-part-picker__parts--last"); Add(secondParts);
         }
 
         public void Bind(IEnumerable<TitlePartViewModel> first, IEnumerable<TitlePartViewModel> second,

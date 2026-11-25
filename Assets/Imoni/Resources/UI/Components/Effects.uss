@@ -3,9 +3,20 @@
 .animated-pot--small { width: 64px; height: 58px; }
 .animated-pot--large { width: 140px; height: 120px; }
 .animated-pot__body { position: absolute; left: 0; right: 0; top: 0; bottom: 0; -unity-background-scale-mode: scale-to-fit; }
-.animated-pot__steam { position: absolute; left: 28%; right: 28%; top: 0; height: 30%; -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: var(--c-cream); }
-.animated-pot--campfire .animated-pot__steam { -unity-background-image-tint-color: #C9A27A; }
-.pattern-background { background-repeat: repeat repeat; background-size: 96px 104px; }
+.animated-pot__ingredients { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.animated-pot__steam { position: absolute; top: 0; width: 10px; height: 16px; -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: var(--c-cream); }
+.animated-pot__steam--0 { left: 15px; }
+.animated-pot__steam--1 { left: 29px; top: -2px; }
+.animated-pot--large .animated-pot__body { top: 5px; bottom: -5px; background-size: 100% 100%; }
+.animated-pot--large .animated-pot__steam { width: 16px; height: 24px; top: 10px; }
+.animated-pot--large .animated-pot__steam--0 { left: 38px; }
+.animated-pot--large .animated-pot__steam--1 { left: 62px; top: 6px; }
+.animated-pot--large .animated-pot__steam--2 { left: 86px; }
+.animated-pot--campfire .animated-pot__steam { width: 12px; height: 20px; top: 7px; -unity-background-image-tint-color: #C9A27A; }
+.animated-pot--campfire .animated-pot__steam--0 { left: 66px; }
+.animated-pot--campfire .animated-pot__steam--1 { left: 108px; top: 3px; }
+.animated-pot--campfire .animated-pot__steam--2 { left: 150px; }
+.pattern-background { background-repeat: repeat repeat; background-size: 96px 104px; background-position: left top; }
 .pattern-background--yellow { background-color: var(--c-yellow); }
 .pattern-background--transparent { background-color: rgba(0, 0, 0, 0); }
 .result-banner { align-items: center; justify-content: center; padding: 12px 0; }

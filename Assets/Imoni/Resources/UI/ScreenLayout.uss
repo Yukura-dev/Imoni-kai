@@ -1,0 +1,4 @@
+.imoni-app { flex-grow: 1; min-height: 0; background-color: var(--c-yellow); -unity-font-definition: var(--font-body); color: var(--c-brown); font-size: 14px; }
+.screen-view { flex-grow: 1; min-height: 0; }
+.screen-view > .screen { flex-grow: 1; min-height: 0; }
+.screen-view .tabbar { flex-shrink: 0; }

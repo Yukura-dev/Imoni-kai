@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+  <ui:VisualElement name="LoadingRoot" class="lobby-screen loading-root">
+    <c:PatternBackground variant="Yellow" class="loading-pattern" picking-mode="Ignore" />
+    <ui:VisualElement class="loading-page">
+      <ui:VisualElement class="loading-heading">
+        <c:AnimatedPot variant="Large" steam="true" sway="true" />
+        <c:ImoniText name="LoadingHeadline" text="ワールドを生成中…" class="loading-headline" />
+        <c:ImoniText name="LoadingTeam" class="loading-team-caption" />
+      </ui:VisualElement>
+      <c:Card class="loading-progress-card lobby-gap16">
+        <c:ChecklistStep name="LoadingStep0" label="シードを決定" />
+        <c:ChecklistStep name="LoadingStep1" label="地形とバイオームを生成" class="lobby-gap10" />
+        <c:ChecklistStep name="LoadingStep2" label="資源を配置" class="lobby-gap10" />
+        <c:ChecklistStep name="LoadingStep3" label="到達できるか確認" class="lobby-gap10" />
+        <c:ChecklistStep name="LoadingStep4" label="メンバーと同期" class="lobby-gap10" />
+        <c:ProgressBar name="LoadingProgress" variant="Thick" class="loading-progress-bar" />
+        <c:ImoniText name="LoadingPercent" text="0%" class="loading-percent lobby-gap10" />
+      </c:Card>
+      <ui:VisualElement class="loading-members lobby-gap16">
+        <c:LoadingMember name="LoadingMember0" player-name="あなた" />
+        <c:LoadingMember name="LoadingMember1" player-name="たろう" class="loading-member--spaced" />
+        <c:LoadingMember name="LoadingMember2" player-name="はなこ" class="loading-member--spaced" />
+      </ui:VisualElement>
+      <ui:VisualElement class="lobby-flex-spacer" />
+      <c:Card name="LoadingHint" variant="Dashed" class="loading-hint">
+        <c:ImoniText text="ヒント" class="loading-hint__caption" />
+        <c:ImoniText name="LoadingTip" class="loading-hint__text" />
+      </c:Card>
+      <c:ImoniButton name="LoadingStart" variant="Primary" text="ラウンド1 スタート!" class="loading-start" />
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>

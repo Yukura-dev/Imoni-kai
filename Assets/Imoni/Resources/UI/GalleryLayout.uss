@@ -13,3 +13,4 @@
 .gallery-caption { font-size: 12px; margin-bottom: 6px; color: var(--c-brown-soft); }
 .gallery-row { flex-direction: row; align-items: center; justify-content: space-between; }
 .gallery-pattern { height: 156px; position: relative; }
+.gallery-preview-card { padding: 12px; }

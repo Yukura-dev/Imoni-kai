@@ -2,10 +2,11 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using Imoni.Game.UI;
+using Imoni.Game.UI.Screens;
 
 namespace Imoni.Game
 {
-    /// <summary>Boot references and UI Toolkit lifetime. M2a exposes only the development gallery.</summary>
+    /// <summary>Boot references, shared style scope, and out-of-game screen lifetime.</summary>
     [DisallowMultipleComponent]
     public sealed class Bootstrap : MonoBehaviour
     {
@@ -13,7 +14,7 @@ namespace Imoni.Game
         [SerializeField] private Camera worldCamera;
         [SerializeField] private Grid worldGrid;
         [SerializeField] private Tilemap worldTilemap;
-        [SerializeField] private bool showComponentGallery = true;
+        [SerializeField] private bool showComponentGallery;
         private ScreenRouter router;
         private SafeAreaAdapter safeArea;
 
@@ -22,32 +23,42 @@ namespace Imoni.Game
         public Grid WorldGrid => worldGrid;
         public Tilemap WorldTilemap => worldTilemap;
         public ScreenRouter Router => router;
+        public ScreenContext Context { get; private set; }
 
         private void OnEnable()
         {
             if (!uiDocument) return;
             VisualElement root = uiDocument.rootVisualElement;
             root.Clear();
-            UiTheme.Apply(root, "UI/GalleryLayout");
             root.style.flexGrow = 1;
-            root.AddToClassList("imoni-app");
-            var safe = new VisualElement { name = "SafeArea" };
-            safe.style.flexGrow = 1;
             var host = new VisualElement { name = "ScreenHost" };
-            host.style.flexGrow = 1; host.style.minHeight = 0;
-            safe.Add(host); root.Add(safe);
+            UiTheme.InstallRoot(host);
+            var safe = new VisualElement { name = "SafeArea" };
+            safe.style.flexGrow = 1; safe.style.minHeight = 0;
+            var content = new VisualElement { name = "ScreenContent" };
+            content.style.flexGrow = 1; content.style.minHeight = 0;
+            safe.Add(content); host.Add(safe); root.Add(host);
             safeArea = new SafeAreaAdapter(safe);
-            router = new ScreenRouter(host);
+            router = new ScreenRouter(content);
+            Context = new ScreenContext(router);
+            ScreenCatalog.Register(router, Context);
+            string start = "Main";
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             router.RegisterResource("ComponentGallery", "UI/ComponentGallery");
-            if (showComponentGallery) router.Show("ComponentGallery");
+            if (showComponentGallery) start = "ComponentGallery";
 #endif
+#if UNITY_EDITOR
+            start = UnityEditor.SessionState.GetString("Imoni.StartScreen", start);
+            UnityEditor.SessionState.EraseString("Imoni.StartScreen");
+#endif
+            router.Show(start);
         }
 
         private void OnDisable()
         {
             safeArea?.Dispose(); safeArea = null;
             router?.Dispose(); router = null;
+            Context = null;
         }
 
         public void ShowComponentGallery()
@@ -64,6 +75,7 @@ namespace Imoni.Game
             worldCamera = camera;
             worldGrid = grid;
             worldTilemap = tilemap;
+            showComponentGallery = false;
         }
 #endif
     }

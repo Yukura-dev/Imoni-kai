@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+    <ui:VisualElement class="profile-screen ranking-screen">
+        <ui:VisualElement class="ranking-main">
+            <c:ImoniText text="チームランキング" class="ranking-title" />
+            <c:SegmentedControl name="ranking-mode" variant="Pill" options="通常モード|エンドレス" class="ranking-section" />
+            <c:SegmentedControl name="ranking-seed" variant="Tabs" options="共通シード|自由シード" class="ranking-section" />
+            <ui:VisualElement class="ranking-caption-row ranking-section">
+                <c:ImoniText name="ranking-caption" class="ranking-caption" />
+                <c:ImoniText name="ranking-team-size" class="ranking-team-size" />
+            </ui:VisualElement>
+            <c:RankingList name="ranking-list" class="ranking-section" />
+            <c:Card class="ranking-mine ranking-section">
+                <ui:VisualElement class="ranking-mine-description">
+                    <c:ImoniText name="ranking-mine-team" class="ranking-mine-team" />
+                    <c:ImoniText name="ranking-mine-note" class="ranking-mine-note" />
+                </ui:VisualElement>
+                <c:ImoniText text="未登録" class="ranking-mine-state" />
+            </c:Card>
+        </ui:VisualElement>
+        <c:TabBar name="tabs" selected="Ranking" class="profile-tabs" />
+    </ui:VisualElement>
+</ui:UXML>

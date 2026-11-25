@@ -20,7 +20,8 @@ namespace Imoni.Editor
         private const string RequestPath = "Library/M2AVisualReview.request";
         private const string ResultPath = "Library/M2AVisualReview.result";
         private const string RenderedPath = "Library/M2ARendered.json";
-        private static readonly Queue<string> pending = new Queue<string>();
+        private sealed class Page { public string Section; public int Number; public float Offset; }
+        private static readonly Queue<Page> pending = new Queue<Page>();
         private static readonly List<string> captured = new List<string>();
         private static string command, currentSection, screenshotPath;
         private static int captureAfterFrame;
@@ -59,12 +60,18 @@ namespace Imoni.Editor
                     return;
                 }
                 captured.Clear(); pending.Clear();
-                if (request == "all") foreach (string section in gallery.Sections.Keys) pending.Enqueue(section);
+                if (request == "all")
+                {
+                    float height = gallery.Q<ScrollView>("gallery-scroll").contentViewport.layout.height;
+                    foreach (var section in gallery.Sections)
+                        for (int page = 0; page < Math.Max(1, Mathf.CeilToInt(section.Value.layout.height / height)); page++)
+                            pending.Enqueue(new Page { Section = section.Key, Number = page + 1, Offset = page * height });
+                }
                 else if (request.StartsWith("capture:", StringComparison.Ordinal))
                 {
                     string section = request.Substring("capture:".Length);
                     if (!gallery.Sections.ContainsKey(section)) throw new ArgumentException("Unknown gallery section: " + section);
-                    pending.Enqueue(section);
+                    pending.Enqueue(new Page { Section = section, Number = 1 });
                 }
                 else throw new ArgumentException("Unknown M2a visual review request: " + request);
                 command = request; currentSection = null;
@@ -98,10 +105,10 @@ namespace Imoni.Editor
                     WriteResult(command, "complete", new JObject { ["captures"] = new JArray(captured), ["console"] = ConsoleCounts() });
                     command = null; return;
                 }
-                currentSection = pending.Dequeue();
-                if (!gallery.ScrollToSection(currentSection)) throw new InvalidOperationException("The gallery section disappeared: " + currentSection);
+                Page page = pending.Dequeue(); currentSection = page.Section;
+                if (!gallery.ScrollToSection(currentSection, page.Offset)) throw new InvalidOperationException("The gallery section disappeared: " + currentSection);
                 string safeName = string.Concat(currentSection.Select(character => Path.GetInvalidFileNameChars().Contains(character) ? '_' : character));
-                screenshotPath = Path.GetFullPath("Library/M2A-" + safeName + ".png");
+                screenshotPath = Path.GetFullPath("Library/M2A-" + safeName + (page.Number > 1 ? "_" + page.Number.ToString("00") : "") + ".png");
                 if (File.Exists(screenshotPath)) File.Delete(screenshotPath);
                 screenshotRequested = false;
                 captureAfterFrame = Time.frameCount + 3;

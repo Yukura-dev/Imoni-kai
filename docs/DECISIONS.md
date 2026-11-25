@@ -86,3 +86,10 @@
 - `GameConfig.ui` に、表示用更新間隔16ms／Safe Area再確認100ms、コピー表示1.6秒・チェック回転0.8秒・カウントアップ0.6秒・トースト2.2秒を集約。鍋の上下移動（Small 1.6秒/6px、Large 1.4秒/10px/±4度）と湯気（Small 1.8秒/20px、Large 1.6秒/26px）、バナーpop0.45秒・drop0.4秒・fade1.4秒・peak1.15もモックから移す。M5の演出進行は今回実装しない。
 - UIの色・フォント・寸法はユーザー指示に従いThemeとモックのstyleをUSSへ移す。Galleryのサンプル数量・名前は表示確認のfixtureであり、ゲーム状態・バランスには使わない。GameConfigのルール値は変更しない。
 - RuntimeAssetsの参照はSetupで生成する。UXMLの埋込StyleSheetとのResources名競合を避け、GalleryのUSSはGalleryLayoutとする。Safe Areaは端末のScreen.safeAreaから換算し、画面デザイン固有の余白とは別に適用する。
+
+## M2b アウトゲーム画面（2026-11-25）
+
+- `GameConfig.ui`へタイトル読み込み80msごと4%、名前上限10文字を追加。`outGame.lobby`へIMO-482/IMO-777、入力上限7、ボット参加2.5/5.2秒、点滅0.5秒・参加pop0.45秒・空枠pulse1.4秒を追加。`outGame.loading`は表示用3秒、step閾値10/38/62/80/100%、同期82/90/100%、ヒント2.6秒。ゲームのラウンドルールは変更しない。
+- `outGame.profile/ranking`はモックの初期プロフィール、取得済みパーツ/バッジ、最高R3とランキング表示用ダミーを集約。プロフィール保存はpersistentDataPath/imoni-profile.json、検証は別のLibrary内ファイルを使う。
+- disabled色はThemeの専用変数（大: #EFD38A/#5C4518、小: #E9D5AE/#6B4A3A）、opacity1。画面ルートScreenHostでThemeと部品USSを一度読み、部品はattach時に親のシートがない場合だけフォールバックする。
+- M2b湯気画像の複製位相差: `ui.smallSteamPhaseDelaySeconds=0.6`・`ui.largeSteamPhaseDelaySeconds=0.5`秒。モックの2本／3本の遅延をAnimatedPotで再利用する。

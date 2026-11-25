@@ -106,3 +106,19 @@ public partial class TitleChips : VisualElement
 ## USSの制約（ユーザー指示、2026-11-25）
 
 `:first-child`、`:last-child`、`:nth-child`など、USS非対応の構造擬似クラスは使わない。TabBarの先頭タブには `tabbar__item--first` クラスを付ける。共通Themeは `.tabbar__item--first` で先頭の左罫線を消す。
+
+## M2bで追加した構成部品
+
+| カスタムコントロール | 表示・再利用する内容 |
+|---|---|
+| `ImoniText` | Themeを継承する共通画面文言 |
+| `Artwork` | 配布画像を素材キーで配置する装飾 |
+| `InputEntry` | Themeの入力欄。`placeholder`属性 |
+| `TutorialTimelineStep` | 時刻・見出し・説明。`tone`: Start / Bonus / Finish |
+| `TutorialInfo` | Card内の見出し・説明。`tone`: Green / Red / Compact |
+| `UpgradeHint` | 強化の見出し・説明 |
+| `WaitingMemberSlot` | MemberRowと空の待機枠。`filled`と待機点の表示 |
+| `LoadingMember` | Avatar・名前・同期状態 |
+| `RankingList` | ScrollView内にRankingRowを配置。順位計算はしない |
+
+ScreenHostがThemeと全部品USSを共有し、個々の部品には祖先に未読込の場合だけUSSを追加する。M2bの画面・部品対応と使い方は `M2B_SCREENS.md` に記載。

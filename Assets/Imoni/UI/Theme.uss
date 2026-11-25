@@ -29,6 +29,10 @@
     --c-locked-bg: #EFE3C8;
     --c-locked-fg: #5C4518;
     --c-white: #FFFFFF;
+    --c-disabled-large-bg: #EFD38A;
+    --c-disabled-large-fg: #5C4518;
+    --c-disabled-small-bg: #E9D5AE;
+    --c-disabled-small-fg: #6B4A3A;
 
     --font-title: url("project://database/Assets/Imoni/Fonts/Generated/DelaGothicOne SDF.asset");
     --font-body: url("project://database/Assets/Imoni/Fonts/Generated/ZenMaruGothic-Bold SDF.asset");
@@ -39,6 +43,9 @@
     color: var(--c-brown);
     font-size: 14px;
 }
+
+/* Reset before component sheets so their label spacing remains authoritative. */
+.unity-label { margin: 0; padding: 0; }
 
 /* ---------- 画面の土台 ---------- */
 .screen {
@@ -95,7 +102,7 @@
     transition-property: translate; transition-duration: 0.08s;
 }
 .btn:active { translate: 0 3px; }
-.btn:disabled { opacity: 0.55; }
+.btn:disabled { opacity: 1; }
 .btn-primary {                                          /* 登録する・次へ・プレイ開始 */
     height: 64px; border-radius: 32px;
     background-color: var(--c-green); color: var(--c-cream);
@@ -132,6 +139,14 @@
     background-color: var(--c-cream); border-width: 2px; border-color: var(--c-brown); font-size: 12px;
 }
 .btn-icon { width: 44px; height: 44px; padding: 0; background-color: rgba(0, 0, 0, 0); border-width: 0; }
+.btn-primary:disabled, .btn-danger:disabled, .btn-yellow:disabled, .btn-outline:disabled {
+    opacity: 1; background-color: var(--c-disabled-large-bg); color: var(--c-disabled-large-fg);
+    border-width: 2px; border-color: var(--c-disabled-large-fg);
+}
+.btn-small:disabled, .btn-action:disabled, .btn-icon:disabled {
+    opacity: 1; background-color: var(--c-disabled-small-bg); color: var(--c-disabled-small-fg);
+    border-color: var(--c-disabled-small-fg);
+}
 
 /* ---------- ラベル・チップ ---------- */
 .chip { border-radius: 6px; padding: 2px 8px; font-size: 12px; -unity-font-definition: var(--font-body-black); color: var(--c-cream); }

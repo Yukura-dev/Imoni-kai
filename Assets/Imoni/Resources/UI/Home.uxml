@@ -1,0 +1,36 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+    <ui:VisualElement class="profile-screen home-screen">
+        <ui:VisualElement class="home-header">
+            <c:Avatar name="home-avatar" size="54" />
+            <ui:VisualElement class="home-profile">
+                <c:TitleChips name="home-titles" size="Compact" />
+                <c:ImoniText name="home-name" class="home-name" />
+            </ui:VisualElement>
+            <c:ImoniButton name="settings" variant="Icon" icon="icon_settings" tooltip="設定" class="home-settings" />
+        </ui:VisualElement>
+        <ui:VisualElement class="home-main">
+            <c:Card class="home-hero">
+                <c:AnimatedPot variant="Campfire" steam="true" sway="false" />
+                <c:ImoniText text="みんなで芋煮会" class="home-title" />
+                <c:ImoniText name="home-team" class="home-team" />
+            </c:Card>
+            <ui:VisualElement class="home-stats">
+                <c:StatCard name="best-round" label="最高到達" variant="Home" />
+                <c:StatCard label="通常クリア" value="未達成" variant="Home" class="home-stat-spaced" />
+                <c:StatCard label="ランキング" value="未登録" variant="Home" class="home-stat-spaced" />
+            </ui:VisualElement>
+            <c:ImoniButton name="play" variant="Primary" icon="icon_play" text="プレイ開始" class="home-play" />
+            <ui:VisualElement class="home-modes">
+                <c:ImoniText text="通常モード" class="home-mode-pill" />
+                <c:ImoniText name="endless-locked" class="home-mode-pill home-mode-pill--locked" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <c:TabBar name="tabs" selected="Home" class="profile-tabs" />
+        <ui:VisualElement name="settings-overlay" class="home-settings-overlay">
+            <c:Card header="設定" class="home-settings-card">
+                <c:ImoniButton name="sound-toggle" variant="Outline" class="home-sound-toggle" />
+                <c:ImoniButton name="settings-close" variant="Primary" text="閉じる" class="home-settings-close" />
+            </c:Card>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
