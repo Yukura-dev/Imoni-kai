@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Imoni.Game;
+using Imoni.Game.UI;
 using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -55,6 +56,7 @@ namespace Imoni.Editor
                 EnsureFont(sourceFonts[index], Fonts[index].Asset, settings);
 
             PanelSettings panel = EnsurePanel(settings);
+            EnsureUiRuntimeAssets();
             EnsureBootScene(panel, settings);
             RegisterBootScene();
             SetPortrait(settings);
@@ -63,7 +65,36 @@ namespace Imoni.Editor
             // Resolve Theme.uss URLs that were imported before their FontAssets existed.
             AssetDatabase.ImportAsset(Root + "/UI/Theme.uss", ImportAssetOptions.ForceUpdate);
             Selection.activeObject = AssetDatabase.LoadAssetAtPath<SceneAsset>(BootPath);
-            Debug.Log("Imoni M0 setup complete. Boot scene and generated assets are ready. Screens are added in M2.");
+            Debug.Log("Imoni setup complete. Boot and ComponentGallery resources are ready.");
+        }
+
+        [MenuItem("Imoni/Open Component Gallery")]
+        public static void OpenComponentGallery()
+        {
+            if (EditorApplication.isPlaying)
+            {
+                var bootstrap = Object.FindFirstObjectByType<Bootstrap>();
+                if (bootstrap) bootstrap.ShowComponentGallery();
+                return;
+            }
+            SetupProject();
+            if (SceneManager.GetActiveScene().path == BootPath)
+                EditorApplication.delayCall += () => EditorApplication.isPlaying = true;
+        }
+
+        private static void EnsureUiRuntimeAssets()
+        {
+            EnsureFolder(Root + "/Resources/UI");
+            const string path = Root + "/Resources/UI/UIRuntimeAssets.asset";
+            UIRuntimeAssets assets = LoadGenerated<UIRuntimeAssets>(path);
+            if (!assets) { assets = ScriptableObject.CreateInstance<UIRuntimeAssets>(); AssetDatabase.CreateAsset(assets, path); }
+            assets.config = LoadRequired<TextAsset>(ConfigPath);
+            assets.theme = LoadRequired<StyleSheet>(Root + "/UI/Theme.uss");
+            assets.textures = Directory.GetFiles(Root + "/Art", "*.png", SearchOption.AllDirectories)
+                .OrderBy(file => file, StringComparer.Ordinal)
+                .Select(file => new NamedTexture { key = Path.GetFileNameWithoutExtension(file), texture = LoadRequired<Texture2D>(file.Replace('\\', '/')) }).ToArray();
+            EditorUtility.SetDirty(assets);
+            AssetDatabase.ImportAsset(Root + "/Resources/UI/ComponentGallery.uxml", ImportAssetOptions.ForceUpdate);
         }
 
         private static SetupSettings ReadSettings()

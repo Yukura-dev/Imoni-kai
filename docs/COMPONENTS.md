@@ -90,6 +90,19 @@ public partial class TitleChips : VisualElement
 - 部品の属性名・バリエーション名は、この表の名前に合わせる（増やすのはよい。ここに追記すること）。
 
 
+## M2aで追加した表示属性
+
+カタログの基本属性に加え、モックの画面差を共通部品内で表す。各値の対応箇所は `M2A_COMPONENTS.md` に記載する。
+
+- `Card.header`、`StepTitle.stacked`、`ImoniButton.selected`。
+- `TitleChips.size`: Compact / Regular / Large。
+- `SegmentedControl.variant`: Pill / Tabs / Seed。`InviteCodeCard.variant`: Compact / Large。
+- `StatCard.variant`: Home / Result / GameOver。`MaterialGoalChip.variant`: Chip / Row / FailureRow。
+- `RankingRow.rankStyle`: First / Podium / Normal、`alternating`。
+- `PatternBackground.variant`: Yellow / Transparent。`AnimatedPot.steam / sway`。
+- `QualityChip.showMultiplier`、`ResultBanner.subtitle / missingMaterial`。
+- `BottomSheet.inline`: Gallery内で通常のレイアウトフローに並べるための開発用属性。
+
 ## USSの制約（ユーザー指示、2026-11-25）
 
 `:first-child`、`:last-child`、`:nth-child`など、USS非対応の構造擬似クラスは使わない。TabBarの先頭タブには `tabbar__item--first` クラスを付ける。共通Themeは `.tabbar__item--first` で先頭の左罫線を消す。

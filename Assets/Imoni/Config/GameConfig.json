@@ -839,5 +839,31 @@
       "不可思議",
       "無量大数"
     ]
+  },
+  "ui": {
+    "animationFrameMs": 16,
+    "safeAreaPollMs": 100,
+    "inviteCopiedSeconds": 1.6,
+    "checklistSpinSeconds": 0.8,
+    "resultPopSeconds": 0.45,
+    "resultDropSeconds": 0.4,
+    "bannerFadeSeconds": 1.4,
+    "countUpSeconds": 0.6,
+    "toastSeconds": 2.2,
+    "referenceWidth": 390,
+    "referenceHeight": 844,
+    "smallPotBobSeconds": 1.6,
+    "smallPotBobPx": 6,
+    "largePotBobSeconds": 1.4,
+    "largePotBobPx": 10,
+    "largePotSwayDegrees": 4,
+    "smallSteamSeconds": 1.8,
+    "largeSteamSeconds": 1.6,
+    "smallSteamTravelPx": 20,
+    "largeSteamTravelPx": 26,
+    "smallSteamStartPx": 6,
+    "largeSteamStartPx": 8,
+    "resultPopPeak": 1.15,
+    "resultPopRiseFraction": 0.6666666666666666
   }
 }

@@ -162,6 +162,6 @@
 
 正本は `D:/UnityProjects/Imoni-kai`。ここがUnityプロジェクトのルートで、`unity/` の入れ子は作らない。旧handoffは資料の受け取り元のみ。既存プロトタイプは比較用に残し、新実装は `Assets/Imoni/` に集約する。仕様書の `unity/Assets/` はこのリポジトリの `Assets/` と読み替える。
 
-2026-11-25：ユーザーがM0のSetup・Boot起動を確認し、M1を承認した。M1の完了条件を満たしたらコミット・報告して停止し、M2へ進まない。
+2026-11-25：M1レビュー承認済み。今回はM2aのみ（Theme/ScreenRouter/Safe Area、COMPONENTS2章の全部品、ComponentGallery）。rebuild/m1-coreからrebuild/m2a-componentsを切る。Unity再コンパイルのエラー・警告0、dotnet test全成功、docs/M2A_COMPONENTS.mdを揃え、コミット・pushして停止。Main/Tutorial/Home等の画面はM2bで実装する。
 
 USS非対応の構造擬似クラス（`:first-child`、`:last-child`、`:nth-child`など）は使わない。`Theme.uss` の先頭タブ用クラスは `.tabbar__item--first`。M2のTabBarは先頭のタブにこのクラスを付ける。

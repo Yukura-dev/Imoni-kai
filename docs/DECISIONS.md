@@ -80,3 +80,9 @@
 - 乱数はSplitMix64＋棄却抽選。アルゴリズム定数・整数/百分率/10進表現の単位はコード、ゲームの調整値はGameConfigで管理する。
 - シミュレーション時間はdecimal秒。`round.mockTimeScale` はCoreでは適用せず、表示・開発側で実時間に掛ける。
 - M1は外部注入の目標と採集完了コマンドを用意。マップ由来の目標生成・経路・資源・ボットはM3で接続する。判断の詳細はQUESTIONSのM1節を参照。
+
+## M2a 共通UI（2026-11-25）
+
+- `GameConfig.ui` に、表示用更新間隔16ms／Safe Area再確認100ms、コピー表示1.6秒・チェック回転0.8秒・カウントアップ0.6秒・トースト2.2秒を集約。鍋の上下移動（Small 1.6秒/6px、Large 1.4秒/10px/±4度）と湯気（Small 1.8秒/20px、Large 1.6秒/26px）、バナーpop0.45秒・drop0.4秒・fade1.4秒・peak1.15もモックから移す。M5の演出進行は今回実装しない。
+- UIの色・フォント・寸法はユーザー指示に従いThemeとモックのstyleをUSSへ移す。Galleryのサンプル数量・名前は表示確認のfixtureであり、ゲーム状態・バランスには使わない。GameConfigのルール値は変更しない。
+- RuntimeAssetsの参照はSetupで生成する。UXMLの埋込StyleSheetとのResources名競合を避け、GalleryのUSSはGalleryLayoutとする。Safe Areaは端末のScreen.safeAreaから換算し、画面デザイン固有の余白とは別に適用する。

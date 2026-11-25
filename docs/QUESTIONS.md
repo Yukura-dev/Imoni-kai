@@ -65,3 +65,17 @@
 - 質問：Theme.ussの先頭タブ警告と今後の部品の指定。
   - 決定：ユーザーの修正内容を反映して `.tabbar__item--first` を採用。非対応の構造擬似クラスは使用しない。M2のTabBarが先頭タブに明示クラスを付ける。
   - 該当：`Theme.uss`、`AGENTS.md`、`docs/COMPONENTS.md`。
+
+
+## M3で対応するメモ（ユーザー指示、2026-11-25）
+
+- R2以降の目標がR1の固定目標（round1Mock）のままなので、M3でワールドからの目標生成につなぐ。M2aでは変更しない。
+- 品質抽選にバイオーム・資源ごとの補正（仕様5.2）を追加する。M2aでは変更しない。
+- 採集運の係数がGameConfigのqualityRoll.luckPerLevelとupgradesのluck.effectPerLevelに重複しているので、M3で1か所にまとめる。M2aでは変更しない。
+
+## M2aの表示上の判断（2026-11-25）
+
+- 質問：モックのMemberRowの単色の二つ名・円形プレースホルダーとCOMPONENTSの指定が異なる。
+  - 仮決定：指定どおりTitleChipsと4レイヤーAvatarを再利用し、画面ごとの描き直しを避ける。対象：ProfileControls.cs、docs/M2A_COMPONENTS.md。
+- 質問：CSSの999px角丸・line-heightのままではUnityの形と行間が一致しない。
+  - 仮決定：pillは高さの半分相当の半径、ResultBannerはCSSのline-heightに相当する高さの単行Labelを2段にする。対象：Data.uss、Profile.uss、EffectsControls.cs、Effects.uss。

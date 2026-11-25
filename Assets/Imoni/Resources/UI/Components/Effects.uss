@@ -1,0 +1,21 @@
+.animated-pot { position: relative; align-self: center; flex-shrink: 0; }
+.animated-pot--campfire { width: 230px; height: 150px; }
+.animated-pot--small { width: 64px; height: 58px; }
+.animated-pot--large { width: 140px; height: 120px; }
+.animated-pot__body { position: absolute; left: 0; right: 0; top: 0; bottom: 0; -unity-background-scale-mode: scale-to-fit; }
+.animated-pot__steam { position: absolute; left: 28%; right: 28%; top: 0; height: 30%; -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: var(--c-cream); }
+.animated-pot--campfire .animated-pot__steam { -unity-background-image-tint-color: #C9A27A; }
+.pattern-background { background-repeat: repeat repeat; background-size: 96px 104px; }
+.pattern-background--yellow { background-color: var(--c-yellow); }
+.pattern-background--transparent { background-color: rgba(0, 0, 0, 0); }
+.result-banner { align-items: center; justify-content: center; padding: 12px 0; }
+.result-banner__lead, .result-banner__title { -unity-font-definition: var(--font-title); -unity-text-align: middle-center; white-space: normal; margin: 0; padding: 0; -unity-text-outline-width: 3px; -unity-text-outline-color: var(--c-red); text-shadow: 4px 4px 0 var(--c-red); }
+.result-banner__lead { color: var(--c-white); font-size: 26px; margin-bottom: 10px; }
+/* Two single-line labels reproduce CSS line-height without unsupported line-height syntax. */
+.result-banner__title { color: #FFE95C; font-size: 58px; height: 63.8px; white-space: nowrap; }
+.result-banner__note { background-color: rgba(74, 46, 34, .85); color: var(--c-white); border-radius: 20px; padding: 6px 14px; font-size: 15px; margin-top: 10px; white-space: normal; }
+.result-banner--levelup { rotate: -6deg; }
+.result-banner--levelup .result-banner__lead { color: var(--c-white); font-size: 22px; margin-bottom: 4px; }
+.result-banner--levelup .result-banner__title { font-size: 44px; color: #FFE95C; height: auto; }
+.result-banner--fail .result-banner__lead { font-size: 22px; -unity-text-outline-color: var(--c-brown); text-shadow: 4px 4px 0 var(--c-brown); }
+.result-banner--fail .result-banner__title { font-size: 52px; height: 59.8px; color: #DCD6CC; -unity-text-outline-color: var(--c-brown); text-shadow: 5px 5px 0 var(--c-brown); }

@@ -50,6 +50,8 @@ namespace Imoni.Editor
             {
                 if (command == "setup") ImoniSetup.SetupProject();
                 else if (command == "validate") ImoniM0Validation.Validate();
+                else if (command == "m2a-validate") ImoniM2AValidation.Validate();
+                else if (command == "gallery") { ConfigureGameView(); ImoniSetup.OpenComponentGallery(); }
                 else if (command == "play")
                 {
                     if (SceneManager.GetActiveScene().path != "Assets/Imoni/Scenes/Boot.unity")

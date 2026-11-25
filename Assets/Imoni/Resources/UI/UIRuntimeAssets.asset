@@ -1,0 +1,197 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e324954a6f82c274499ccb80d4139519, type: 3}
+  m_Name: UIRuntimeAssets
+  m_EditorClassIdentifier: Imoni.Game::Imoni.Game.UI.UIRuntimeAssets
+  config: {fileID: 4900000, guid: 63553f0000392e34e884f28d4d645d95, type: 3}
+  theme: {fileID: 7433441132597879392, guid: 67cb1a145e112cb478273500df648a26, type: 3}
+  textures:
+  - key: imoni_tile_transparent_384x416
+    texture: {fileID: 2800000, guid: c88c01cd8f320174d840cd515876b3f5, type: 3}
+  - key: imoni_tile_yellow_384x416
+    texture: {fileID: 2800000, guid: 4e8bd4a8ae60e66479b9a607a20281c4, type: 3}
+  - key: title_logo@3x
+    texture: {fileID: 2800000, guid: ae7fcea7922b3384f866fead61ed28c7, type: 3}
+  - key: fx_broth_glow
+    texture: {fileID: 2800000, guid: bf5bc05085f129c4cbe84a0ad6968ae2, type: 3}
+  - key: fx_flash
+    texture: {fileID: 2800000, guid: 88f65e2fa4df6c34bb58573a4d4a9fa3, type: 3}
+  - key: fx_pillar
+    texture: {fileID: 2800000, guid: 4996f135e260da74e9ef2bf73e08cb8e, type: 3}
+  - key: fx_rainbow_glow
+    texture: {fileID: 2800000, guid: 4d2cc10bedb8f4145a2e3d83d8367281, type: 3}
+  - key: fx_rainbow_scroll
+    texture: {fileID: 2800000, guid: 8725733c608391f4c861f2c2d3affee4, type: 3}
+  - key: fx_ring_glow
+    texture: {fileID: 2800000, guid: cf467104578974d4a859470065a19ee3, type: 3}
+  - key: fx_star_blue
+    texture: {fileID: 2800000, guid: a23cb1d84fd59ea4eb82855c6cbd44cc, type: 3}
+  - key: fx_star_green
+    texture: {fileID: 2800000, guid: 257062e1e3913f543ac811f73b489721, type: 3}
+  - key: fx_star_orange
+    texture: {fileID: 2800000, guid: f1e0b2aca97236049866b7441011db9b, type: 3}
+  - key: fx_star_pink
+    texture: {fileID: 2800000, guid: 64c556b77cb872d40ab1354ac1eb992c, type: 3}
+  - key: fx_star_purple
+    texture: {fileID: 2800000, guid: 9cad83b3c4d668841a2ec772074d177c, type: 3}
+  - key: fx_star_yellow
+    texture: {fileID: 2800000, guid: 4e9f2a16ab3dcd5429ebc750384c3e0a, type: 3}
+  - key: fx_sunburst
+    texture: {fileID: 2800000, guid: b286f2bfbf841df4ca323c86ba585cbb, type: 3}
+  - key: ingredient_beef_glow
+    texture: {fileID: 2800000, guid: 957d3d28fdda40b4ba4f37b036c0a1b2, type: 3}
+  - key: ingredient_konnyaku_glow
+    texture: {fileID: 2800000, guid: c7648dae67da59a478d5ecdbe56fa8cb, type: 3}
+  - key: ingredient_mushroom_glow
+    texture: {fileID: 2800000, guid: c1dddea7713fe724da15185a943bbfbe, type: 3}
+  - key: ingredient_negi_glow
+    texture: {fileID: 2800000, guid: 5fa861f0518936e42852c57ae4dd759a, type: 3}
+  - key: ingredient_taro_glow
+    texture: {fileID: 2800000, guid: 5d946227582fc91468eeccf11adffe1e, type: 3}
+  - key: avatar_1_outfit_white
+    texture: {fileID: 2800000, guid: a69f9026a1e598c43933695d3078afc9, type: 3}
+  - key: avatar_2_base
+    texture: {fileID: 2800000, guid: 32cd88ab873845044a3b4e2c8b5944fa, type: 3}
+  - key: avatar_3_band_white
+    texture: {fileID: 2800000, guid: c675776051463974f9380b0538170615, type: 3}
+  - key: avatar_4_band_line
+    texture: {fileID: 2800000, guid: 5bd700d53a488314f82ac20ec718a006, type: 3}
+  - key: fx_ring
+    texture: {fileID: 2800000, guid: 45f273cfd5bad2d4697e6b6a79d568b5, type: 3}
+  - key: fx_sparkle
+    texture: {fileID: 2800000, guid: acd4e41e4dcbdef45826c2034e28cef0, type: 3}
+  - key: fx_star
+    texture: {fileID: 2800000, guid: f95f96bbe9a95b54990d5da03baa59d6, type: 3}
+  - key: fx_streak
+    texture: {fileID: 2800000, guid: 69d3e334c891bd94b89b30443ca9986e, type: 3}
+  - key: ingredient_beef
+    texture: {fileID: 2800000, guid: acf6f4a3ff017984eb01ddf2c0b77036, type: 3}
+  - key: ingredient_konnyaku
+    texture: {fileID: 2800000, guid: 167ff0cc7a528e448939a3d5b4e49691, type: 3}
+  - key: ingredient_mushroom
+    texture: {fileID: 2800000, guid: d1d5d53720bdd5d49ad828a9f022bc45, type: 3}
+  - key: ingredient_negi
+    texture: {fileID: 2800000, guid: 6e07089f1b65dc44a885698657fe0343, type: 3}
+  - key: ingredient_taro
+    texture: {fileID: 2800000, guid: a9aebd46971ee464fb6d2fae79661969, type: 3}
+  - key: mascot
+    texture: {fileID: 2800000, guid: b6574edb374ea2e49ab44480f5c28a09, type: 3}
+  - key: player
+    texture: {fileID: 2800000, guid: c5b38147ec17ff942b271fdf12d29e1c, type: 3}
+  - key: pot_campfire
+    texture: {fileID: 2800000, guid: 71a79517b0c4ae341941a23d37cfdb1d, type: 3}
+  - key: pot_effect
+    texture: {fileID: 2800000, guid: c72658fec7a70dd42a59788d93f5f618, type: 3}
+  - key: pot_small
+    texture: {fileID: 2800000, guid: 27e7ea9e474b0ed47ba40ad7ebd8fc6c, type: 3}
+  - key: resource_mushroom
+    texture: {fileID: 2800000, guid: a372fbbcefb555946bb8490043479290, type: 3}
+  - key: resource_negi
+    texture: {fileID: 2800000, guid: e2486711ada38e848b3301619b8ce7ee, type: 3}
+  - key: resource_stump
+    texture: {fileID: 2800000, guid: 6008ed4dfa1e132409c69d511c50cdcc, type: 3}
+  - key: resource_taro
+    texture: {fileID: 2800000, guid: 5a7ea2c1c10673a428eb4e75bba00dde, type: 3}
+  - key: resource_tree
+    texture: {fileID: 2800000, guid: 17a816ca1d033164381a73f81b1603f9, type: 3}
+  - key: steam
+    texture: {fileID: 2800000, guid: 29cca7fcdde398648a0fcad12bda65a1, type: 3}
+  - key: teammate_white
+    texture: {fileID: 2800000, guid: 934e3402bcd86c140860c7fff7dec218, type: 3}
+  - key: icon_back
+    texture: {fileID: 2800000, guid: 6f5876e39660b2d44b68113f1c948d30, type: 3}
+  - key: icon_badge
+    texture: {fileID: 2800000, guid: bd984712eb98108429543d70a9a5399b, type: 3}
+  - key: icon_camera
+    texture: {fileID: 2800000, guid: 0f4445abb6c9a894c947417edd1c4782, type: 3}
+  - key: icon_check
+    texture: {fileID: 2800000, guid: d5afb483340834d468f37873cad40322, type: 3}
+  - key: icon_check_circle
+    texture: {fileID: 2800000, guid: 102b4eaf54464ae408638fa1c3a9362b, type: 3}
+  - key: icon_close
+    texture: {fileID: 2800000, guid: d74ebdc1fad49584b9747343642cf5d9, type: 3}
+  - key: icon_coin
+    texture: {fileID: 2800000, guid: 8e4b54c5d0d308f46a09cfad689c399b, type: 3}
+  - key: icon_home
+    texture: {fileID: 2800000, guid: 043e526f9ee40d54aac27922624a263e, type: 3}
+  - key: icon_lock
+    texture: {fileID: 2800000, guid: ad946902f6385fe45b54b674dd6dab7f, type: 3}
+  - key: icon_member_card
+    texture: {fileID: 2800000, guid: 324d22269985c4a4bbdb89ce462e8715, type: 3}
+  - key: icon_menu
+    texture: {fileID: 2800000, guid: ee774eccd8cacc149a059ab815388b0a, type: 3}
+  - key: icon_play
+    texture: {fileID: 2800000, guid: 5a438bddcc08da6429ca5d2e468df406, type: 3}
+  - key: icon_ranking
+    texture: {fileID: 2800000, guid: b97ec2889cbc47d44bdf97a716db44ed, type: 3}
+  - key: icon_settings
+    texture: {fileID: 2800000, guid: caf475299a8195c429d8a305e9661f2e, type: 3}
+  - key: icon_shop
+    texture: {fileID: 2800000, guid: 292baca7085a03c4aa88a6714ca712ab, type: 3}
+  - key: icon_sound_off
+    texture: {fileID: 2800000, guid: 881f0f2a42200a843a5ae0241f4892c4, type: 3}
+  - key: icon_sound_on
+    texture: {fileID: 2800000, guid: 7b1fcd475545d9b4e9a6b78c6589c925, type: 3}
+  - key: icon_upgrade
+    texture: {fileID: 2800000, guid: 69c44fd1bef26fc4e97a9cb67fc0f701, type: 3}
+  - key: icon_warehouse
+    texture: {fileID: 2800000, guid: 2f7ca290e7d14314399cef934505cd74, type: 3}
+  - key: tile_bridge
+    texture: {fileID: 2800000, guid: fd720bcc447d339429c60edf5d148ef1, type: 3}
+  - key: tile_field
+    texture: {fileID: 2800000, guid: 442dc3674c33f614f84971a7f3625029, type: 3}
+  - key: tile_forest
+    texture: {fileID: 2800000, guid: 4b9205c4b4a581f4896ca8ad6d40244c, type: 3}
+  - key: tile_locked_overlay
+    texture: {fileID: 2800000, guid: 293529fa5aa7ff54b95e27951b45d127, type: 3}
+  - key: tile_plain
+    texture: {fileID: 2800000, guid: 7f3fe15e72c58f546a5b76f4d89cd87c, type: 3}
+  - key: tile_water
+    texture: {fileID: 2800000, guid: 61c04945c9bbd0845a6be505efcadc02, type: 3}
+  - key: bar_bg
+    texture: {fileID: 2800000, guid: 5350f75813fc4f542a5169ae7ba1cc94, type: 3}
+  - key: bar_fill
+    texture: {fileID: 2800000, guid: 3be3b2cca5c88664aaf722a0e5f7220b, type: 3}
+  - key: btn_pill_green
+    texture: {fileID: 2800000, guid: d65ed7404abb2384390391f41aaef018, type: 3}
+  - key: btn_pill_outline
+    texture: {fileID: 2800000, guid: d659b3edc8a72a64196c6ed4eb0b345e, type: 3}
+  - key: btn_pill_red
+    texture: {fileID: 2800000, guid: f5610650e06b1f247af3d6756450a940, type: 3}
+  - key: btn_pill_yellow
+    texture: {fileID: 2800000, guid: 4242cc80d84925744adca90368a468e4, type: 3}
+  - key: btn_square_green
+    texture: {fileID: 2800000, guid: 220117530f04f1949a169cc03c52e3f6, type: 3}
+  - key: btn_square_yellow
+    texture: {fileID: 2800000, guid: 20f62290431f1b44895d76edfc3860bb, type: 3}
+  - key: card_cream
+    texture: {fileID: 2800000, guid: 1dc92971e1c29364c90d76277cf24dd9, type: 3}
+  - key: card_shadow
+    texture: {fileID: 2800000, guid: 30efb033dc83f7349950bcea010d445f, type: 3}
+  - key: card_white
+    texture: {fileID: 2800000, guid: bf4442040c4fec24d972f7ca37e44020, type: 3}
+  - key: circle_avatar
+    texture: {fileID: 2800000, guid: 033a910f7c3444149992a057c53143b7, type: 3}
+  - key: circle_outline
+    texture: {fileID: 2800000, guid: 1c7a7c4854252ee4b81421f8899c0ad9, type: 3}
+  - key: circle_white
+    texture: {fileID: 2800000, guid: a680428a8d9bded40a3ff2240fb7428d, type: 3}
+  - key: input_field
+    texture: {fileID: 2800000, guid: f4145bc11f1950b458b7b230813f5ea6, type: 3}
+  - key: pill_white
+    texture: {fileID: 2800000, guid: edaeb41469741b44a9ca7ee6267e61ad, type: 3}
+  - key: round12_white
+    texture: {fileID: 2800000, guid: b85effb4f8404ec42863238b9ec1f31d, type: 3}
+  - key: round6_white
+    texture: {fileID: 2800000, guid: 3c80539ecfb63bb48a05ad7b5de357b4, type: 3}
+  - key: sheet_top
+    texture: {fileID: 2800000, guid: 29818d544e7e5854b8426004ec901d9c, type: 3}
