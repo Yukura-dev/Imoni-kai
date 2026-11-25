@@ -1,0 +1,185 @@
+/*
+ * みんなで芋煮会 共通スタイル(UI Toolkit / USS)
+ * モック(mock/*.dc.html)の見た目をUSSに移したもの。数値はモックの px と同じ。
+ * PanelSettings: Scale With Screen Size / Reference Resolution 390x844 / Match 0 にすると px が一致する。
+ *
+ * フォント: Assets/Imoni/Editor/ImoniSetup.cs(Codexが作る)で TTF から FontAsset を生成し、
+ *   Assets/Imoni/Fonts/Generated/ に保存する前提。パスを変えたらここも直すこと。
+ *
+ * UI Toolkit で再現できないCSS表現の置き換え:
+ *   box-shadow(下にずらした影) → border-bottom を太くする(.btn-* 参照)か、9スライス画像
+ *   linear-gradient           → 画像 or 実行時に生成した Texture2D
+ *   filter / blur             → 使わない(演出側で画像を使う)
+ */
+
+:root {
+    --c-yellow: #F7B92B;
+    --c-cream: #FFF3D6;
+    --c-brown: #4A2E22;
+    --c-brown-soft: #6B4A3A;
+    --c-green: #34421C;
+    --c-green-dark: #1E2610;
+    --c-red: #8B2310;
+    --c-red-dark: #5A1608;
+    --c-leaf: #6B9B3A;
+    --c-sky: #8FAFC4;
+    --c-sand: #E9D5AE;
+    --c-sand-light: #FBEBC8;
+    --c-taro-line: #FFE3A3;
+    --c-locked-bg: #EFE3C8;
+    --c-locked-fg: #5C4518;
+    --c-white: #FFFFFF;
+
+    --font-title: url("project://database/Assets/Imoni/Fonts/Generated/DelaGothicOne SDF.asset");
+    --font-body: url("project://database/Assets/Imoni/Fonts/Generated/ZenMaruGothic-Bold SDF.asset");
+    --font-body-medium: url("project://database/Assets/Imoni/Fonts/Generated/ZenMaruGothic-Medium SDF.asset");
+    --font-body-black: url("project://database/Assets/Imoni/Fonts/Generated/ZenMaruGothic-Black SDF.asset");
+
+    -unity-font-definition: var(--font-body);
+    color: var(--c-brown);
+    font-size: 14px;
+}
+
+/* ---------- 画面の土台 ---------- */
+.screen {
+    flex-grow: 1;
+    background-color: var(--c-yellow);
+    padding: 52px 18px 36px 18px;
+}
+.screen--pattern {
+    background-image: url("project://database/Assets/Imoni/Art/Backgrounds/imoni_tile_yellow_384x416.png");
+    /* 繰り返しは background-repeat: repeat; background-size: 96px 104px; を使う(Unity 2022.3+) */
+    background-repeat: repeat repeat;
+    background-size: 96px 104px;
+}
+.screen--dark { background-color: var(--c-brown); color: var(--c-cream); }
+.stack { flex-direction: column; }
+.row { flex-direction: row; align-items: center; }
+.spacer { flex-grow: 1; }
+.gap-8 > * { margin-bottom: 8px; }
+.gap-14 > * { margin-bottom: 14px; }
+
+/* ---------- 文字 ---------- */
+.title-logo { -unity-font-definition: var(--font-title); color: var(--c-red); font-size: 80px; text-shadow: 4px 4px 0 var(--c-cream); }
+.h1 { -unity-font-definition: var(--font-title); color: var(--c-green); font-size: 26px; white-space: normal; }
+.h2 { -unity-font-definition: var(--font-body-black); font-size: 16px; }
+.step-no { -unity-font-definition: var(--font-title); color: var(--c-red); font-size: 18px; }
+.body { font-size: 14px; white-space: normal; }
+.caption { font-size: 11px; color: var(--c-brown-soft); }
+.num-big { -unity-font-definition: var(--font-title); font-size: 40px; color: var(--c-red); }
+
+/* ---------- カード ---------- */
+.card {
+    background-color: var(--c-cream);
+    border-width: 4px; border-color: var(--c-brown); border-radius: 22px;
+    padding: 14px;
+}
+.card--thin { border-width: 3px; border-radius: 16px; padding: 10px 12px; }
+.card--white { background-color: var(--c-white); }
+.card--shadow { border-bottom-width: 10px; }            /* 会員証の「下にずれた影」 */
+.card--dashed { border-color: var(--c-locked-fg); background-color: var(--c-sand-light); } /* USSは点線非対応。必要なら画像 */
+.card--dark { background-color: var(--c-brown); border-width: 0; color: var(--c-cream); }
+.card-header {                                          /* 会員証の焦げ茶ヘッダー */
+    background-color: var(--c-brown); color: var(--c-cream);
+    margin: -14px -14px 10px -14px; padding: 10px 16px;
+    border-top-left-radius: 18px; border-top-right-radius: 18px;
+    -unity-font-definition: var(--font-body-black); font-size: 16px;
+}
+
+/* ---------- ボタン ---------- */
+.btn {
+    -unity-font-definition: var(--font-body-black);
+    border-width: 0; margin: 0; padding: 0 16px;
+    min-height: 44px;                                   /* タップ領域は 44px 以上 */
+    -unity-text-align: middle-center;
+    transition-property: translate; transition-duration: 0.08s;
+}
+.btn:active { translate: 0 3px; }
+.btn:disabled { opacity: 0.55; }
+.btn-primary {                                          /* 登録する・次へ・プレイ開始 */
+    height: 64px; border-radius: 32px;
+    background-color: var(--c-green); color: var(--c-cream);
+    -unity-font-definition: var(--font-title); font-size: 24px;
+    border-bottom-width: 5px; border-bottom-color: var(--c-green-dark);
+}
+.btn-danger {                                           /* ワールド生成してスタート */
+    height: 64px; border-radius: 32px;
+    background-color: var(--c-red); color: var(--c-cream);
+    -unity-font-definition: var(--font-title); font-size: 22px;
+    border-bottom-width: 5px; border-bottom-color: var(--c-red-dark);
+}
+.btn-yellow {                                           /* 暗い画面上のボタン・参加する */
+    height: 52px; border-radius: 26px;
+    background-color: var(--c-yellow); color: var(--c-brown);
+    border-width: 3px; border-color: var(--c-brown);
+    font-size: 17px;
+}
+.btn-outline {                                          /* 招待コードをコピー など */
+    height: 44px; border-radius: 22px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 3px; border-color: var(--c-brown); color: var(--c-brown);
+    font-size: 14px;
+}
+.btn-action {                                           /* ゲーム下部の 倉庫/ショップ/強化/メニュー */
+    flex-grow: 1; height: 60px; border-radius: 14px;
+    background-color: var(--c-yellow); color: var(--c-brown);
+    border-width: 3px; border-color: var(--c-brown);
+    font-size: 12px; flex-direction: column; align-items: center; justify-content: center;
+}
+.btn-action--on { background-color: var(--c-green); color: var(--c-cream); }
+.btn-small {
+    height: 36px; border-radius: 8px; padding: 0 8px;
+    background-color: var(--c-cream); border-width: 2px; border-color: var(--c-brown); font-size: 12px;
+}
+.btn-icon { width: 44px; height: 44px; padding: 0; background-color: rgba(0, 0, 0, 0); border-width: 0; }
+
+/* ---------- ラベル・チップ ---------- */
+.chip { border-radius: 6px; padding: 2px 8px; font-size: 12px; -unity-font-definition: var(--font-body-black); color: var(--c-cream); }
+.chip--title-first { background-color: var(--c-green); }   /* 二つ名 前半 */
+.chip--title-second { background-color: var(--c-red); }   /* 二つ名 後半 */
+.pill { border-radius: 999px; padding: 3px 10px; border-width: 2px; border-color: var(--c-brown); background-color: var(--c-cream); font-size: 12px; -unity-font-definition: var(--font-body-black); }
+.pill--dark { background-color: var(--c-brown); color: var(--c-cream); border-width: 0; }
+.badge-ok { background-color: var(--c-green); color: var(--c-cream); border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+.badge-wait { background-color: #EFD38A; color: var(--c-brown); border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+
+/* 品質ラベル(色は GameConfig.json の qualities[].bg/fg と同じ) */
+.q { border-radius: 5px; border-width: 1.5px; border-color: var(--c-brown); padding: 0 4px; font-size: 10px; }
+.q--normal { background-color: #FFFFFF; color: #4A2E22; }
+.q--good { background-color: #DCE8C4; color: #34421C; }
+.q--rare { background-color: #C8DCEB; color: #1F3E5C; }
+.q--legend { background-color: #F7B92B; color: #4A2E22; }
+.q--myth { background-color: #B5652B; color: #FFF3D6; }
+.q--transcend { background-color: #8B2310; color: #FFF3D6; }
+.q--ultimate { background-color: #4A2E22; color: #F7B92B; }
+
+/* ---------- 進捗バー ---------- */
+.bar { height: 16px; border-radius: 8px; background-color: var(--c-cream); border-width: 3px; border-color: var(--c-brown); overflow: hidden; }
+.bar--thin { height: 8px; border-width: 0; background-color: var(--c-sand); border-radius: 4px; }
+.bar__fill { height: 100%; border-radius: 8px; background-color: var(--c-leaf); } /* 幅は C# で style.width = Length.Percent(x) */
+
+/* ---------- 入力欄 ---------- */
+.input > .unity-base-text-field__input {
+    height: 48px; border-radius: 10px; border-width: 3px; border-color: var(--c-green);
+    background-color: var(--c-white); color: var(--c-brown);
+    font-size: 20px; -unity-font-definition: var(--font-body-black); padding: 0 12px;
+}
+
+/* ---------- 下タブ(ホーム/ランキング/会員証) ---------- */
+.tabbar { height: 76px; flex-direction: row; border-top-width: 3px; border-color: var(--c-brown); background-color: var(--c-cream); }
+.tabbar__item { flex-grow: 1; align-items: center; justify-content: center; border-left-width: 3px; border-color: var(--c-brown); font-size: 12px; -unity-font-definition: var(--font-body-black); }
+.tabbar__item:first-child { border-left-width: 0; }
+.tabbar__item--on { background-color: var(--c-yellow); }
+
+/* ---------- 下から出るパネル(倉庫・ショップ・強化・メニュー) ---------- */
+.sheet {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    background-color: var(--c-cream);
+    border-top-width: 4px; border-color: var(--c-brown);
+    border-top-left-radius: 26px; border-top-right-radius: 26px;
+    padding: 14px 14px 18px 14px;
+}
+
+/* ---------- 演出用 ---------- */
+.fx-banner { -unity-font-definition: var(--font-title); color: #FFE95C; font-size: 44px; text-shadow: 4px 4px 0 var(--c-red); rotate: -6deg; }
+.fx-finale { -unity-font-definition: var(--font-title); color: #FFE95C; font-size: 58px; text-shadow: 5px 5px 0 var(--c-red); -unity-text-align: middle-center; }
+.fx-finale--fail { color: #DCD6CC; text-shadow: 5px 5px 0 var(--c-brown); }

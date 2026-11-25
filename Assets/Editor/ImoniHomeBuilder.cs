@@ -20,7 +20,7 @@ namespace Imoni.UI.Editor
             Yellow = Hex("F7B92B"), Green = Hex("34421C"), Red = Hex("8B2310");
         private static Sprite rounded;
         private static TMP_FontAsset heading, body, heavy;
-        private const string Characters = "芋煮会の初心者ゆくらさんみんなでチーム「鍋底同盟」 /3人最高到達Rベスト84.2万順位128プレイ開始通常モードエンドレス:5連続成功解放ホームランキング員証0123456789";
+        private const string Characters = "芋煮会の初心者ゆくらさんみんなでチーム「鍋底同盟」 /3人最高到達Rベスト84.2万順位128プレイ開始通常クリア未達成登録モードエンドレス:5連続成功解放ホームランキング員証0123456789";
 
         [MenuItem("Imoni/Home/Build Home Screen")]
         public static void Build()
@@ -77,8 +77,8 @@ namespace Imoni.UI.Editor
 
             var stats = Rect(root, "Stats", 18, 548, 354, 70);
             Stat(stats, "BestRound", "最高到達", "R3", 0);
-            Stat(stats, "BestScore", "ベスト", "84.2万", 120.6667f);
-            Stat(stats, "TeamRank", "チーム順位", "128位", 241.3333f);
+            Stat(stats, "BestScore", "通常クリア", "未達成", 120.6667f);
+            Stat(stats, "TeamRank", "ランキング", "未登録", 241.3333f);
 
             ImoniHomePrefabTools.CreatePlayButton(root, heading);
 

@@ -1,0 +1,33 @@
+.imoni-effect {
+    position: absolute;
+    overflow: hidden;
+    background-color: #FF6FB1;
+    -unity-font-definition: var(--font-body-black);
+    color: var(--c-brown);
+}
+.effect-layer { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.effect-art { position: absolute; -unity-background-scale-mode: stretch-to-fill; }
+.effect-score-card { padding: 0; background-color: rgba(255,243,214,0.94); }
+.effect-caption { -unity-font-definition: var(--font-body-black); -unity-text-align: middle-left; }
+.effect-level { -unity-font-definition: var(--font-body-black); color: var(--c-red); -unity-text-align: middle-right; }
+.effect-score { -unity-text-align: middle-right; padding: 0; margin: 0; }
+.effect-gauge { position: absolute; overflow: hidden; background-color: var(--c-sand); }
+.effect-gauge-fill { position: absolute; left: 0; top: 0; bottom: 0; overflow: hidden; }
+.effect-sound { position: absolute; background-color: var(--c-cream); border-color: var(--c-brown); flex-direction: row; align-items: center; justify-content: center; padding: 0; }
+.sound-icon { -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: var(--c-brown); }
+.effect-skip { position: absolute; color: var(--c-cream); background-color: rgba(74,46,34,0.85); padding: 0; }
+.effect-banner, .effect-finale { align-items: center; }
+.effect-outline { position: absolute; -unity-font-definition: var(--font-title); -unity-text-align: middle-center; padding: 0; margin: 0; white-space: nowrap; -unity-text-outline-color: var(--c-red); }
+.effect-white { color: var(--c-white); }
+.effect-yellow { color: #FFE95C; }
+.effect-finale--fail .effect-outline { -unity-text-outline-color: var(--c-brown); }
+.effect-finale--fail .effect-yellow { color: #DCD6CC; }
+.effect-missing { position: absolute; color: var(--c-white); background-color: rgba(74,46,34,0.85); -unity-font-definition: var(--font-body-black); -unity-text-align: middle-center; padding: 0; white-space: normal; }
+.effect-result { position: absolute; border-width: 0; padding: 0; min-height: 0; }
+.effect-result-shadow { background-color: var(--c-green-dark); }
+.effect-result--fail { background-color: var(--c-brown); }
+.effect-result-shadow--fail { background-color: #2A1A12; }
+.effect-replay { position: absolute; background-color: var(--c-cream); padding: 0; min-height: 0; }
+.gray-overlay { background-color: rgb(125,116,102); }
+.dark-overlay { background-color: black; }
+.imoni-effect Label { flex-shrink: 0; }

@@ -1,0 +1,52 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="EffectScreen" class="imoni-effect">
+        <ui:VisualElement name="World" class="effect-layer" picking-mode="Ignore">
+            <ui:VisualElement name="Rainbow" class="effect-art" picking-mode="Ignore" />
+            <ui:VisualElement name="Sunburst" class="effect-art" picking-mode="Ignore" />
+            <ui:VisualElement name="Streaks" class="effect-layer" picking-mode="Ignore" />
+            <ui:VisualElement name="RainbowGlow" class="effect-art" picking-mode="Ignore" />
+            <ui:VisualElement name="Pillar" class="effect-art" picking-mode="Ignore" />
+            <ui:VisualElement name="Sparkles" class="effect-layer" picking-mode="Ignore" />
+            <ui:VisualElement name="Ingredients" class="effect-layer" picking-mode="Ignore" />
+            <ui:VisualElement name="Rings" class="effect-layer" picking-mode="Ignore" />
+            <ui:VisualElement name="PotGroup" class="effect-art" picking-mode="Ignore">
+                <ui:VisualElement name="BrothGlow" class="effect-art" picking-mode="Ignore" />
+                <ui:VisualElement name="Pot" class="effect-art" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Stars" class="effect-layer" picking-mode="Ignore" />
+            <ui:VisualElement name="GrayOverlay" class="effect-layer gray-overlay" picking-mode="Ignore" />
+            <ui:VisualElement name="DarkOverlay" class="effect-layer dark-overlay" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Flash" class="effect-layer effect-art" picking-mode="Ignore" />
+        <ui:VisualElement name="Hud" class="effect-layer" picking-mode="Ignore">
+            <ui:Button name="SoundButton" class="btn effect-sound">
+                <ui:VisualElement name="SoundIcon" class="sound-icon" picking-mode="Ignore" />
+                <ui:Label name="SoundLabel" text="音あり" picking-mode="Ignore" />
+            </ui:Button>
+            <ui:Button name="SkipButton" text="スキップ" class="btn effect-skip" />
+            <ui:VisualElement name="ScoreCard" class="card effect-score-card" picking-mode="Ignore">
+                <ui:Label name="ScoreCaption" text="芋煮スコア" class="effect-caption" picking-mode="Ignore" />
+                <ui:Label name="LevelLabel" class="effect-level" picking-mode="Ignore" />
+                <ui:Label name="ScoreLabel" text="0" class="num-big effect-score" picking-mode="Ignore" />
+                <ui:VisualElement name="Gauge" class="effect-gauge" picking-mode="Ignore">
+                    <ui:VisualElement name="GaugeFill" class="effect-gauge-fill" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="LevelBanner" class="effect-art effect-banner" picking-mode="Ignore">
+            <ui:Label name="BannerHeading" text="LEVEL UP!" class="effect-outline effect-white" picking-mode="Ignore" />
+            <ui:Label name="BannerText" class="effect-outline effect-yellow" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Finale" class="effect-art effect-finale" picking-mode="Ignore">
+            <ui:Label name="FinaleHeading" class="effect-outline effect-white" picking-mode="Ignore" />
+            <ui:Label name="FinaleLineOne" text="芋煮" class="effect-outline effect-yellow" picking-mode="Ignore" />
+            <ui:Label name="FinaleLineTwo" class="effect-outline effect-yellow" picking-mode="Ignore" />
+            <ui:Label name="MissingLabel" class="pill pill--dark effect-missing" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Actions" class="effect-art">
+            <ui:VisualElement name="ResultShadow" class="effect-art effect-result-shadow" picking-mode="Ignore" />
+            <ui:Button name="ResultButton" text="結果を見る" class="btn btn-primary effect-result" />
+            <ui:Button name="ReplayButton" text="もう一回見る" class="btn btn-outline effect-replay" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
