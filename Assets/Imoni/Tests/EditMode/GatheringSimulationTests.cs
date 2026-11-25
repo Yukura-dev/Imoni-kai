@@ -115,6 +115,53 @@ namespace Imoni.Core.Tests
         }
 
         [Test]
+        public void RepeatedResourceTapsPreserveBothTravelAndGatherProgress()
+        {
+            GameConfig config = Config();
+            var server = new LocalGameServer(config, 482, enableBots: false);
+            ResourceNode node = Nearest(server);
+            decimal travel = Travel(server, config, node);
+            decimal halfStep = GatheringTiming.MoveStepSeconds(config, 0) / 2;
+            server.TrySelectResource("player1", node.Id);
+            server.Tick(halfStep);
+            decimal remaining = Player(server).ActionRemainingSeconds;
+            Assert.That(server.TrySelectResource("player1", node.Id), Is.True);
+            Assert.That(Player(server).ActionRemainingSeconds, Is.EqualTo(remaining));
+            server.Tick(travel - halfStep);
+            Assert.That(Player(server).Action, Is.EqualTo(PlayerAction.Gathering));
+            decimal halfGather = GatheringTiming.CollectSeconds(config, 0, node) / 2;
+            server.Tick(halfGather);
+            Assert.That(server.TrySelectResource("player1", node.Id), Is.True);
+            Assert.That(Player(server).ActionRemainingSeconds, Is.EqualTo(halfGather));
+            server.Tick(halfGather);
+            Assert.That(server.Snapshot().History.Count(record => record.Kind == OperationKind.Gather), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void BatchedGathersKeepEachAuthoritativeStreakAndDetachedSnapshotValues()
+        {
+            GameConfig config = Config(json => json["qualityRoll"]["topBaseChance"] = 1);
+            var server = new LocalGameServer(config, 482, enableBots: false);
+            ResourceNode node = Nearest(server);
+            decimal travel = Travel(server, config, node);
+            server.TrySelectResource("player1", node.Id);
+            server.Tick(travel + GatheringTiming.CollectSeconds(config, 0, node) * config.ResourceStock);
+            GameSnapshot frozen = server.Snapshot();
+            Assert.That(frozen.History.Select(record => record.GatherStreak), Is.EqualTo(new[] { 1, 2, 3 }));
+            Assert.That(frozen.Players.Single(player => player.Id == "player1").Streak, Is.EqualTo(3));
+
+            ResourceNode next = Nearest(server);
+            decimal nextTravel = Travel(server, config, next);
+            server.TrySelectResource("player1", next.Id);
+            server.Tick(nextTravel + GatheringTiming.CollectSeconds(config, 0, next));
+            Assert.That(server.Snapshot().History.Last().GatherStreak, Is.EqualTo(4));
+            Assert.That(frozen.History.Select(record => record.GatherStreak), Is.EqualTo(new[] { 1, 2, 3 }));
+            Assert.That(frozen.Players.Single(player => player.Id == "player1").Streak, Is.EqualTo(3));
+            server.Buy("player1", "wood", 1);
+            Assert.That(server.Snapshot().History.Last().GatherStreak, Is.Zero);
+        }
+
+        [Test]
         public void MovementAndGatherSpeedUpgradesShortenTheActualActionDurations()
         {
             GameConfig config = Config();

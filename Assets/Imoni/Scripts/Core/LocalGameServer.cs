@@ -18,6 +18,8 @@ namespace Imoni.Core
         WorldMap World { get; }
         bool CanSelectResource(string actorId, string resourceId);
         bool TrySelectResource(string actorId, string resourceId);
+        bool CanMoveTo(string actorId, GridPosition target);
+        bool TryMoveTo(string actorId, GridPosition target);
         void CancelAction(string actorId);
         void SetConnected(string actorId, bool connected);
         GatherResult Gather(string actorId, string materialId);
@@ -117,6 +119,8 @@ namespace Imoni.Core
             {
                 if (!TryGetSelection(actorId, resourceId, out PlayerState player, out ResourceNode node, out PathResult path))
                     return false;
+                // Repeated taps express the same intent; never reset in-flight movement or work.
+                if (player.TargetResourceId == node.Id && player.Action != PlayerAction.Idle) return true;
                 StopAction(player);
                 player.TargetResourceId = node.Id;
                 player.Path = path.Steps.ToArray();
@@ -130,6 +134,29 @@ namespace Imoni.Core
         public void CancelAction(string actorId)
         {
             lock (gate) StopAction(RequireActor(actorId));
+        }
+
+        public bool CanMoveTo(string actorId, GridPosition target)
+        {
+            lock (gate) return TryGetMovePath(actorId, target, out _, out _);
+        }
+
+        /// <summary>Replaces the current action with ground movement; arrival never starts gathering.</summary>
+        public bool TryMoveTo(string actorId, GridPosition target)
+        {
+            lock (gate)
+            {
+                if (!TryGetMovePath(actorId, target, out PlayerState player, out PathResult path)) return false;
+                if (player.Action == PlayerAction.Moving && player.TargetResourceId == null &&
+                    player.Path[player.Path.Length - 1] == target) return true;
+                StopAction(player);
+                if (path.Steps.Count > 1)
+                {
+                    player.Path = path.Steps.ToArray();
+                    BeginMoveStep(player);
+                }
+                return true;
+            }
         }
 
         public void SetConnected(string actorId, bool connected)
@@ -420,6 +447,15 @@ namespace Imoni.Core
             SetDuration(player, GatheringTiming.MoveStepSeconds(config, player.Upgrades["move"]));
         }
 
+        private bool TryGetMovePath(string actorId, GridPosition target, out PlayerState player, out PathResult path)
+        {
+            player = null; path = null;
+            if (phase != RoundPhase.Collecting || actorId == null || !players.TryGetValue(actorId, out player) ||
+                !player.Connected) return false;
+            path = Pathfinding.FindPath(World, player.Position, target, roundNumber);
+            return path.Reachable;
+        }
+
         private void BeginGather(PlayerState player, ResourceNode node)
         {
             if (!node.IsReady || !player.Connected) { StopAction(player); return; }
@@ -440,15 +476,18 @@ namespace Imoni.Core
                 PlayerState player = players[id];
                 if (player.Action == PlayerAction.Idle || player.ActionRemainingSeconds > 0) continue;
                 ResourceNode node = World.Resources.FirstOrDefault(item => item.Id == player.TargetResourceId);
-                if (node == null || !node.IsReady || !player.Connected) { StopAction(player); continue; }
+                if (!player.Connected || (player.TargetResourceId != null && (node == null || !node.IsReady)))
+                { StopAction(player); continue; }
                 if (player.Action == PlayerAction.Moving)
                 {
                     player.Position = player.Path[++player.PathIndex];
                     if (player.PathIndex + 1 < player.Path.Length) BeginMoveStep(player);
-                    else BeginGather(player, node);
+                    else if (node != null) BeginGather(player, node);
+                    else StopAction(player);
                 }
                 else
                 {
+                    if (node == null) { StopAction(player); continue; }
                     authorizedGatherActor = player.Id;
                     authorizedGatherNode = node.Id;
                     try { ((IGameServer)this).Gather(player.Id, node.MaterialId); }
@@ -466,7 +505,7 @@ namespace Imoni.Core
             {
                 if (player.Action == PlayerAction.Idle) continue;
                 ResourceNode node = World.Resources.FirstOrDefault(item => item.Id == player.TargetResourceId);
-                if (!player.Connected || node == null || !node.IsReady) StopAction(player);
+                if (!player.Connected || (player.TargetResourceId != null && (node == null || !node.IsReady))) StopAction(player);
             }
         }
 
@@ -494,7 +533,8 @@ namespace Imoni.Core
             BigInteger quantity, BigInteger fundsDelta, string upgradeId = null)
         {
             history.Add(new OperationRecord(++operationSequence, actor, kind, material, quality,
-                quantity, fundsDelta, roundNumber, elapsedSeconds, upgradeId));
+                quantity, fundsDelta, roundNumber, elapsedSeconds, upgradeId,
+                kind == OperationKind.Gather ? players[actor].Streak : 0));
         }
 
         private void Emit(RoundEventKind kind, decimal atSeconds)
@@ -557,11 +597,14 @@ namespace Imoni.Core
         public int RoundNumber { get; }
         public decimal ElapsedSeconds { get; }
         public string UpgradeId { get; }
+        public int GatherStreak { get; }
         internal OperationRecord(long sequence, string actorId, OperationKind kind, string materialId,
-            string qualityId, BigInteger quantity, BigInteger fundsDelta, int roundNumber, decimal elapsed, string upgradeId)
+            string qualityId, BigInteger quantity, BigInteger fundsDelta, int roundNumber, decimal elapsed, string upgradeId,
+            int gatherStreak = 0)
         {
             Sequence = sequence; ActorId = actorId; Kind = kind; MaterialId = materialId; QualityId = qualityId;
             Quantity = quantity; FundsDelta = fundsDelta; RoundNumber = roundNumber; ElapsedSeconds = elapsed; UpgradeId = upgradeId;
+            GatherStreak = gatherStreak;
         }
     }
 

@@ -1,0 +1,337 @@
+{
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "seed": 202647,
+  "elapsed": 25.000000,
+  "phase": "Collecting",
+  "funds": "1000",
+  "bonusRevealed": false,
+  "lastTappedResource": null,
+  "lastTappedGround": null,
+  "players": [
+    {
+      "id": "player1",
+      "x": 32,
+      "y": 32,
+      "nextX": 32,
+      "nextY": 32,
+      "action": "Idle",
+      "connected": true,
+      "target": null,
+      "remaining": 0.0,
+      "duration": 0.0,
+      "streak": 0
+    },
+    {
+      "id": "player2",
+      "x": 29,
+      "y": 36,
+      "nextX": 29,
+      "nextY": 36,
+      "action": "Gathering",
+      "connected": true,
+      "target": "resource-29-37",
+      "remaining": 0.428572,
+      "duration": 1.6,
+      "streak": 0
+    },
+    {
+      "id": "player3",
+      "x": 29,
+      "y": 36,
+      "nextX": 29,
+      "nextY": 36,
+      "action": "Gathering",
+      "connected": true,
+      "target": "resource-29-37",
+      "remaining": 0.428572,
+      "duration": 1.6,
+      "streak": 0
+    }
+  ],
+  "history": [
+    {
+      "sequence": 1,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 4.057144,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 2,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 4.057144,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 3,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 5.657144,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 4,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 7.828572,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 5,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 7.828572,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 6,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 9.428572,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 7,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 12.057144,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 8,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 12.057144,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 9,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 13.657144,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 10,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 15.600000,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 11,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 15.600000,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 12,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 17.200000,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 13,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 19.828572,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 14,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 19.828572,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 15,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 21.428572,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 16,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 23.828572,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 17,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 23.828572,
+      "gatherStreak": 0
+    }
+  ],
+  "humanGatherCount": 0,
+  "lots": [
+    {
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2"
+    },
+    {
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2"
+    },
+    {
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2"
+    },
+    {
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2"
+    },
+    {
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2"
+    },
+    {
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2"
+    },
+    {
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2"
+    },
+    {
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2"
+    }
+  ],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "camera": {
+    "x": 32.5,
+    "y": -32.5,
+    "orthographicSize": 8.75,
+    "viewport": [
+      0.0,
+      0.09952607,
+      1.0,
+      0.6635071
+    ]
+  },
+  "growthLabels": {
+    "visible": 4,
+    "characterOverlaps": 0,
+    "labelOverlaps": 0
+  },
+  "name": "30_Game_start",
+  "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-30_Game_start.png",
+  "editorTime": 34793.1242067
+}

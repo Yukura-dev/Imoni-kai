@@ -12,6 +12,8 @@ namespace Imoni.Game.UI.Screens
     {
         private readonly string savePath;
         public ScreenRouter Router { get; }
+        public Bootstrap Bootstrap { get; }
+        public IGameServer Server { get; private set; }
         public ProfileData Profile { get; private set; }
         public JObject Data => UiTheme.Data;
         public bool FreeSeed { get; set; }
@@ -20,15 +22,22 @@ namespace Imoni.Game.UI.Screens
         public string TeamName { get; set; } = "鍋底同盟";
         public string InviteCode { get; set; } = "IMO-482";
         public string SavePath => savePath;
-        public ScreenContext(ScreenRouter router, string path = null)
+        public ScreenContext(ScreenRouter router, string path = null, Bootstrap bootstrap = null)
         {
             Router = router ?? throw new ArgumentNullException(nameof(router));
+            Bootstrap = bootstrap;
             savePath = path ?? Path.Combine(Application.persistentDataPath, "imoni-profile.json");
             Profile = ProfilePersistence.Load(Data, File.Exists(savePath) ? File.ReadAllText(savePath) : null);
             ApplySound();
         }
         public void Go(string destination) => Router.Show(destination);
         public double Number(string uiKey) => UiTheme.Number(uiKey);
+        public void PrepareGame(int? seed = null)
+        {
+            int chosen = seed ?? (FreeSeed ? unchecked((int)DateTime.UtcNow.Ticks)
+                : Data["outGame"]["lobby"]["commonSeed"].Value<int>());
+            Server = new LocalGameServer(UiTheme.Config, chosen);
+        }
         public void SaveProfile()
         {
             Profile = ProfilePersistence.Normalize(Data, Profile);

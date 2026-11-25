@@ -57,6 +57,7 @@ namespace Imoni.Editor
 
             PanelSettings panel = EnsurePanel(settings);
             EnsureUiRuntimeAssets();
+            ImoniWorldSetup.EnsureAssets();
             EnsureBootScene(panel, settings);
             RegisterBootScene();
             SetPortrait(settings);

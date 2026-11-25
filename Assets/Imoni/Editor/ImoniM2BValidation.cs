@@ -258,7 +258,7 @@ namespace Imoni.Editor
                 Click(Find<ImoniButton>(lobby, "ReadyButton"));
                 ClickRoute(router, Find<ImoniButton>(lobby, "LobbyStart"), "Loading");
                 CompleteLoading(router, app, flow);
-                checks.Add("Play -> Lobby empty/bad/busy/success, ready/cancel, free seed, Loading -> Game placeholder");
+                checks.Add("Play -> Lobby empty/bad/busy/success, ready/cancel, free seed, Loading -> Game HUD");
 
                 app.JoinedTeam = false; app.FreeSeed = false; router.Show("Lobby");
                 lobby = Current<LobbyScreen>(router);
@@ -274,8 +274,9 @@ namespace Imoni.Editor
                     waiting.Query<WaitingMemberSlot>().ToList().All(slot => slot.Filled), "A full waiting room did not enable its start action.");
                 ClickRoute(router, Find<ImoniButton>(waiting, "WaitingStart"), "Loading");
                 CompleteLoading(router, app, flow);
-                checks.Add("Create -> Waiting disabled, cancel, configured full presentation -> Loading -> Game placeholder");
-                Require(router.CurrentView.Q("game-placeholder") != null, "The Game route must end at the M2b placeholder.");
+                checks.Add("Create -> Waiting disabled, cancel, configured full presentation -> Loading -> Game HUD");
+                Require(router.CurrentView.Q("GameRoot") != null && app.Server != null &&
+                    app.Server.World.Resources.Count > 0, "The Game route must present the generated world and HUD.");
             }
             return new JObject { ["passedChecks"] = checks, ["checkCount"] = checks.Count, ["livePlayerSaveTouched"] = false };
         }

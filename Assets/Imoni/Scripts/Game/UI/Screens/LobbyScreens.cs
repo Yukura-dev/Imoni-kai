@@ -166,12 +166,13 @@ namespace Imoni.Game.UI.Screens
         private double becameReady;
         public LoadingScreen(ScreenContext app) : base(app, "UI/Loading", "UI/LobbyScreens")
         {
+            App.PrepareGame();
             tips = new[] { "資源をタップすると、自動で歩いて採集してくれるよ", "最高品質を続けて引くと、獲得数とポイントが倍々に増える!",
                 "売却した素材は芋煮会のスコアに入らないよ。ロックで守ろう", LobbyPresentation.BonusHint(UiTheme.Config) };
             config = LobbyScreenData.Config(app); began = Time.realtimeSinceStartupAsDouble;
             Find<ImoniText>("LoadingTeam").text = "チーム「" + App.TeamName + "」 · " + LobbyScreenData.Seed(App);
             steps = new[] { Find<ChecklistStep>("LoadingStep0"), Find<ChecklistStep>("LoadingStep1"), Find<ChecklistStep>("LoadingStep2"), Find<ChecklistStep>("LoadingStep3"), Find<ChecklistStep>("LoadingStep4") };
-            notes = new[] { App.FreeSeed ? "自由シード" : LobbyScreenData.CommonSeed(App), "平野・森林・河川", App.Data["outGame"]["loading"]["resourceCount"] + "か所", "必須素材OK", config.TeamSize + "/" + config.TeamSize + "人" };
+            notes = new[] { App.FreeSeed ? "自由シード" : LobbyScreenData.CommonSeed(App), "平野・森林・河川", App.Server.World.Resources.Count + "か所", "必須素材OK", config.TeamSize + "/" + config.TeamSize + "人" };
             members = new[] { Find<LoadingMember>("LoadingMember0"), Find<LoadingMember>("LoadingMember1"), Find<LoadingMember>("LoadingMember2") };
             for (int index = 0; index < members.Length; index++)
             {

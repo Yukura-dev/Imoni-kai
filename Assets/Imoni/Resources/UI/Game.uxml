@@ -1,3 +1,34 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:VisualElement name="game-placeholder" class="screen" picking-mode="Ignore" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:imoni="Imoni.Game.UI.Components">
+    <ui:VisualElement name="GameRoot" class="screen game-screen" picking-mode="Ignore">
+        <ui:VisualElement name="GameMapViewport" class="game-map-viewport" picking-mode="Ignore" />
+        <ui:VisualElement name="GameHud" class="game-hud">
+            <ui:VisualElement class="game-top-row">
+                <imoni:ImoniText name="GameRound" class="game-round" />
+                <imoni:ImoniText name="GameTimer" class="game-timer" />
+                <imoni:FundsPill name="GameFunds" class="game-funds" />
+            </ui:VisualElement>
+            <ui:VisualElement name="GameRequired" class="game-required">
+                <imoni:ImoniText text="必&#10;須" class="game-required-caption" />
+            </ui:VisualElement>
+            <ui:VisualElement class="game-bonus">
+                <imoni:ImoniText text="ボーナス" class="game-bonus-caption" />
+                <imoni:ImoniText name="GameBonus" class="game-bonus-copy" />
+                <imoni:ImoniText name="GameBonusStatus" class="game-bonus-status" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="GameOverlay" class="game-overlay" picking-mode="Ignore">
+            <ui:VisualElement class="game-streak" picking-mode="Ignore">
+                <imoni:ImoniText text="最高品質 連続" class="game-streak-caption" picking-mode="Ignore" />
+                <imoni:ImoniText name="GameStreak" class="game-streak-number" picking-mode="Ignore" />
+                <imoni:ImoniText name="GameStreakMultiplier" class="game-streak-multiplier" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <imoni:Toast name="GameToast" class="game-toast" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="GameActions" class="game-actions">
+            <imoni:ImoniButton name="OpenWarehouse" variant="Action" icon="icon_warehouse" text="倉庫" />
+            <imoni:ImoniButton name="OpenShop" variant="Action" icon="icon_shop" text="ショップ" class="game-action-spaced" />
+            <imoni:ImoniButton name="OpenUpgrades" variant="Action" icon="icon_upgrade" text="強化" class="game-action-spaced" />
+            <imoni:ImoniButton name="OpenGameMenu" variant="Action" icon="icon_menu" text="メニュー" class="game-action-spaced" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

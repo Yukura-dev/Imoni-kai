@@ -1,0 +1,161 @@
+{
+  "branch": "rebuild/m3b-world-view",
+  "balanceCommit": "2e14454",
+  "unityVersion": "6000.3.21f1",
+  "viewport": [
+    390,
+    844
+  ],
+  "tests": {
+    "command": "dotnet test tools/CoreTests --verbosity minimal --logger \"trx;LogFileName=dotnet-test.trx\" --results-directory docs/validation/m3b",
+    "total": 236,
+    "passed": 236,
+    "failed": 0,
+    "skipped": 0,
+    "balanceAdded": 11,
+    "m3bAdded": 25
+  },
+  "unityConsole": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 2
+  },
+  "setupIdempotent": true,
+  "existingUiRegressionPassed": true,
+  "input": "Actual Game-view pointer tap, normal IGameServer commands",
+  "sequence": {
+    "frames": 8,
+    "simulationSeconds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "movingObserved": true,
+    "gatheringObserved": true,
+    "humanGatherConfirmed": true,
+    "humanWoodQuantityAdded": 9,
+    "targetStockBefore": 3,
+    "targetStockAfter": 0,
+    "growthLabelCharacterOverlaps": 0,
+    "growthLabelPairOverlaps": 0
+  },
+  "realTimeGroundMove": {
+    "from": [
+      32,
+      27
+    ],
+    "to": [
+      34,
+      31
+    ],
+    "finalAction": "Idle",
+    "additionalHumanGathers": 0,
+    "evidence": "ground_move.json"
+  },
+  "loadingStartButtonToGame": true,
+  "timeupRemainsOnGame": true,
+  "comparisons": {
+    "count": 3,
+    "left": "mock",
+    "right": "Unity",
+    "generatedTerrainAndCoreValuesIntentionallyDiffer": true
+  },
+  "images": [
+    {
+      "file": "compare_30_Game_start.png",
+      "width": 780,
+      "height": 844,
+      "sha256": "8ed28f590216dc6013f74e1d0a4de7725b02a477af0e2d56646aa981b110775a"
+    },
+    {
+      "file": "compare_31_Game_collecting.png",
+      "width": 780,
+      "height": 844,
+      "sha256": "c8b5b63c301c6ec0e577ec2565e67829d4526b3e50335abda4c91d3eeb3ab5ab"
+    },
+    {
+      "file": "compare_33_GameMid_bonus.png",
+      "width": 780,
+      "height": 844,
+      "sha256": "7090905d0a5814b85555ce1f03378cbaeeae888f9e96a19d70c6903794caa6f7"
+    },
+    {
+      "file": "sequence_00.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "be9126820f14379a84ad3faa1249ddd8817587eec179cf1f2ed3152ded2db0a2"
+    },
+    {
+      "file": "sequence_01.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "9c9a4bade85baad5c6e467a9d63870ee1f86fb4b90901556d2dfe76229d53132"
+    },
+    {
+      "file": "sequence_02.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "88fa2b166f331d8594fcdae4c5a114d6f13b15ecfde01fa30f7d13e724b24dcc"
+    },
+    {
+      "file": "sequence_03.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "6de8ddfaff7b38bf7052d2b8e48357f5cf4fec603796a29c01316d08e645522c"
+    },
+    {
+      "file": "sequence_04.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "060198b0ab1ef8a6520b455bd3d68295777b74b2cf9d7e21201a23df23940ce1"
+    },
+    {
+      "file": "sequence_05.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "b8509e94e927536a13d2cb4a46b43e3c397411a75756f634a79c7c9b8b93354c"
+    },
+    {
+      "file": "sequence_06.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "9728ee734f79919aa0b807cac8429a6ebc2edd203d7875a7ee459c1fa86c3748"
+    },
+    {
+      "file": "sequence_07.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "e4b6b176c294fc49360d9eeaf29922112757b64428ca70ea7f5ae29df1e46c3d"
+    },
+    {
+      "file": "timeup.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "e2fd637192dffd00a39be6ec105a2fee52a9280c1c2ef05d92604d067cea8e27"
+    },
+    {
+      "file": "unity_30_Game_start.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "b6de6f5bfee4850edfa5d1346887a5404f843769141850664e73c978c3f0cff5"
+    },
+    {
+      "file": "unity_31_Game_collecting.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "6de8ddfaff7b38bf7052d2b8e48357f5cf4fec603796a29c01316d08e645522c"
+    },
+    {
+      "file": "unity_33_GameMid_bonus.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "b3d918706ff875a9020a482a442b0f9f4654de10a5d85dd8d0a48ac8f07fe162"
+    }
+  ],
+  "scope": "M3a balance and M3b world view only; no M4 panels or M5 result flow"
+}

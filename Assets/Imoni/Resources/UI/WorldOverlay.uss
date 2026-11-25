@@ -1,0 +1,14 @@
+/* World annotations use the same mock typography, colours and sizes as Game.dc.html. */
+.world-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; overflow: hidden; }
+.world-resource { position: absolute; border-width: 3px; border-color: rgba(0,0,0,0); border-radius: 12px; }
+.world-resource--selected { border-color: var(--c-red); }
+.world-resource__gather { position: absolute; left: -2px; right: -2px; top: -12px; height: 8px; background-color: var(--c-cream); border-width: 2px; border-color: var(--c-brown); border-radius: 4px; overflow: hidden; }
+.world-resource__growth { position: absolute; bottom: -14px; left: 50%; translate: -50% 0; white-space: nowrap; background-color: var(--c-white); color: var(--c-brown); border-width: 1.5px; border-color: var(--c-brown); border-radius: 4px; padding: 0 3px; margin: 0; font-size: 9px; -unity-font-definition: var(--font-body-black); }
+.world-resource__material { position: absolute; left: 0; right: 0; top: 8px; color: var(--c-white); -unity-text-align: middle-center; font-size: 13px; -unity-font-definition: var(--font-body-black); }
+.world-character__name { position: absolute; translate: -50% 0; font-size: 10px; -unity-font-definition: var(--font-body-black); background-color: var(--c-white); color: var(--c-brown); border-width: 1.5px; border-color: var(--c-brown); border-radius: 5px; padding: 0 4px; margin: 0; white-space: nowrap; }
+.world-character__name--self { background-color: var(--c-green); color: var(--c-cream); border-width: 0; padding: 0 5px; }
+.world-gather-popup { position: absolute; translate: -50% 0; white-space: nowrap; border-width: 2px; border-color: var(--c-brown); border-radius: 10px; padding: 3px 8px; margin: 0; font-size: 13px; -unity-font-definition: var(--font-body-black); }
+.world-locked-label { position: absolute; translate: -50% -100%; align-items: center; }
+.world-locked-label__icon { width: 28px; height: 28px; -unity-background-image-tint-color: var(--c-white); }
+.world-locked-label__text { margin-top: 4px; padding: 2px 8px; border-radius: 6px; background-color: var(--c-brown); color: var(--c-white); white-space: nowrap; font-size: 13px; -unity-font-definition: var(--font-body-black); }
+.world-camp-label { position: absolute; translate: -50% 0; font-size: 11px; -unity-font-definition: var(--font-body-black); background-color: var(--c-cream); border-width: 2px; border-color: var(--c-brown); border-radius: 6px; padding: 1px 6px; margin: 0; }

@@ -920,7 +920,46 @@
     "mainLoadingStepPercent": 4,
     "profileNameMaxLength": 10,
     "smallSteamPhaseDelaySeconds": 0.6,
-    "largeSteamPhaseDelaySeconds": 0.5
+    "largeSteamPhaseDelaySeconds": 0.5,
+    "timerUrgentSeconds": 30,
+    "worldView": {
+      "resourceVisualWidthPx": 38,
+      "resourceVisualHeightPx": 40,
+      "resourceTapSizePx": 48,
+      "playerWidthPx": 48,
+      "playerHeightPx": 48,
+      "teammateWidthPx": 40,
+      "teammateHeightPx": 38,
+      "disconnectedOpacity": 0.45,
+      "walkBobHeightPx": 2.2,
+      "walkCycleSeconds": 0.28,
+      "handDiameterPx": 8,
+      "handRestOffsetPx": 11,
+      "handHeightPx": 13,
+      "handReachFraction": 0.9,
+      "gatherSwingCycles": 2,
+      "characterStopOffsetPx": 5,
+      "popupSeconds": 1.3,
+      "popupRisePx": 18,
+      "popupOffsetYPx": 58,
+      "growthScales": [
+        0.35,
+        0.45,
+        0.65,
+        0.85,
+        1
+      ],
+      "campWidthPx": 52,
+      "campHeightPx": 52,
+      "labelOffsetPx": 3,
+      "hudHeightPx": 200,
+      "bottomHeightPx": 84,
+      "handInnerScale": 0.7,
+      "campPotWidthPx": 28,
+      "campPotHeightPx": 28,
+      "campBorderPx": 3,
+      "campLabelOffsetXPx": -30
+    }
   },
   "outGame": {
     "lobby": {
@@ -940,7 +979,8 @@
       "slotPopInitialScale": 0.6,
       "slotPopOvershootScale": 1.06,
       "slotPopOvershootPoint": 0.7,
-      "commonSeedLabel": "#2026-47"
+      "commonSeedLabel": "#2026-47",
+      "commonSeed": 202647
     },
     "loading": {
       "durationSeconds": 3,

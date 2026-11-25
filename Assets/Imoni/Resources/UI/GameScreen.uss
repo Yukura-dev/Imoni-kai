@@ -1,0 +1,25 @@
+/* Game.dc.html: 390x844, HUD 200, map 560, action row 84. */
+.game-screen { position: relative; padding: 0; background-color: rgba(0,0,0,0); overflow: hidden; }
+.game-hud { height: 200px; flex-shrink: 0; padding: 46px 12px 8px; border-bottom-width: 3px; border-bottom-color: var(--c-brown); background-color: var(--c-yellow); }
+.game-top-row { height: 44px; flex-shrink: 0; flex-direction: row; align-items: center; justify-content: space-between; }
+.game-round { background-color: var(--c-brown); color: var(--c-cream); font-size: 14px; -unity-font-definition: var(--font-body-black); padding: 6px 12px; border-radius: 18px; white-space: nowrap; }
+.game-timer { -unity-font-definition: var(--font-title); font-size: 34px; color: var(--c-brown); white-space: nowrap; }
+.game-timer--urgent { color: var(--c-red); }
+.game-funds { align-self: center; }
+.game-required { margin-top: 8px; height: 48px; flex-shrink: 0; flex-direction: row; }
+.game-required-caption { width: 34px; flex-shrink: 0; border-radius: 8px; font-size: 11px; -unity-font-definition: var(--font-body-black); background-color: var(--c-green); color: var(--c-cream); -unity-text-align: middle-center; }
+.game-required > .material-goal { flex-grow: 1; flex-basis: 0; min-width: 0; height: 100%; margin-left: 6px; }
+.game-bonus { margin-top: 8px; height: 34px; flex-shrink: 0; flex-direction: row; align-items: center; background-color: var(--c-cream); border-width: 2px; border-color: var(--c-brown); border-radius: 10px; padding: 0 10px; }
+.game-bonus-caption { flex-shrink: 0; font-size: 11px; -unity-font-definition: var(--font-body-black); background-color: #B5652B; color: var(--c-cream); padding: 2px 6px; border-radius: 6px; }
+.game-bonus-copy { margin-left: 8px; flex-grow: 1; font-size: 13px; -unity-font-definition: var(--font-body-black); white-space: nowrap; }
+.game-bonus-status { margin-left: 4px; font-size: 12px; -unity-font-definition: var(--font-body-black); color: var(--c-red); white-space: nowrap; }
+.game-map-viewport { position: absolute; left: 0; right: 0; top: 200px; bottom: 84px; overflow: hidden; }
+.game-overlay { position: absolute; left: 0; right: 0; top: 200px; bottom: 84px; overflow: hidden; }
+.game-streak { position: absolute; left: 10px; top: 10px; flex-direction: row; align-items: center; border-radius: 20px; background-color: var(--c-brown); color: var(--c-cream); padding: 5px 12px; }
+.game-streak-caption { font-size: 11px; }
+.game-streak-number { margin-left: 6px; font-size: 18px; -unity-font-definition: var(--font-title); color: var(--c-yellow); }
+.game-streak-multiplier { margin-left: 6px; font-size: 11px; -unity-font-definition: var(--font-body-black); }
+.game-toast { position: absolute; left: 12px; right: 12px; bottom: 12px; }
+.game-actions { position: absolute; left: 0; right: 0; bottom: 0; height: 84px; padding: 8px 10px 14px; background-color: var(--c-cream); border-top-width: 3px; border-top-color: var(--c-brown); flex-direction: row; }
+.game-actions > .btn-action { flex-grow: 1; flex-basis: 0; min-width: 0; height: 100%; }
+.game-action-spaced { margin-left: 8px; }

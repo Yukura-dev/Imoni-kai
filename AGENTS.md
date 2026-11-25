@@ -162,6 +162,6 @@
 
 正本は `D:/UnityProjects/Imoni-kai`。ここがUnityプロジェクトのルートで、`unity/` の入れ子は作らない。旧handoffは資料の受け取り元のみ。既存プロトタイプは比較用に残し、新実装は `Assets/Imoni/` に集約する。仕様書の `unity/Assets/` はこのリポジトリの `Assets/` と読み替える。
 
-2026-11-25：M2bレビュー承認済み。今回はmainを基点にrebuild/m3a-world-coreでM3a（Coreのみ）を実装。WorldGen・A*・資源成長・目標生成・採集Tick・ボット・品質補正を純C#で実装し、dotnet test全成功と3シードのASCIIマップをdocs/validation/m3a/に揃える。コミット・pushして停止し、M3b（Tilemap・画面・タップ操作）には進まない。Gameは引き続き空の仮画面。
+2026-11-25：M3aレビュー承認済み。追加依頼に従いCoreの地形割合・素材出現重み・R1供給を調整し、211件のテストと3シードの再出力を確認、2e14454にコミットした。続いてrebuild/m3b-world-viewでM3b（Tilemap・画面・タップ操作）を実装済み。生成プレハブ・HUD・採集表示を接続し、390×844の比較画像3枚と1秒間隔の採集連番8枚、dotnet test 236件成功、Unityエラー・警告0を確認した。検証記録はdocs/validation/m3b/。このブランチをコミット・pushした時点で停止する。倉庫・ショップ・強化・メニューのパネル（M4）、ラウンド終了演出（M5）には進まない。
 
 USS非対応の構造擬似クラス（`:first-child`、`:last-child`、`:nth-child`など）は使わない。`Theme.uss` の先頭タブ用クラスは `.tabbar__item--first`。M2のTabBarは先頭のタブにこのクラスを付ける。

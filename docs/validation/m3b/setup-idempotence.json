@@ -1,0 +1,32 @@
+[
+  {
+    "file": "Assets/Imoni/Prefabs/World/Character.prefab",
+    "hash": "6F5086F4583FB4F3CEF984CFA02ABE2D7020D608200CA7703378938A04343461",
+    "unchanged": true
+  },
+  {
+    "file": "Assets/Imoni/Prefabs/World/GatherPopup.prefab",
+    "hash": "75A5D34C49AC9ABA39BC0FA402DDD9CAEE48ED2FADA0005B585131583E57BEB6",
+    "unchanged": true
+  },
+  {
+    "file": "Assets/Imoni/Prefabs/World/LockedAreaOverlay.prefab",
+    "hash": "9C32E19454EFAC2AEBC44FB68A5A6053A56677E9E3724E3C466BB870812250B4",
+    "unchanged": true
+  },
+  {
+    "file": "Assets/Imoni/Prefabs/World/ResourceNode.prefab",
+    "hash": "11FD6C120E4CD9761CDB8DFA60DEA90EC0239BED5025A0BD83B2D49918AE23C1",
+    "unchanged": true
+  },
+  {
+    "file": "Assets/Imoni/Prefabs/World/TileSet.asset",
+    "hash": "675CE077D5439FA2CF3055947ACFD6DD1ED278950180B847F6F34E2C1D7EC39D",
+    "unchanged": true
+  },
+  {
+    "file": "Assets/Imoni/Resources/World/WorldRuntimeAssets.asset",
+    "hash": "7274C2A298AA17D77840C4F84431ED9F3A18A7EDCB1FEF5C23BB246C8A2A6470",
+    "unchanged": true
+  }
+]

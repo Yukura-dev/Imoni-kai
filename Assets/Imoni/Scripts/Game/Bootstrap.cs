@@ -40,7 +40,7 @@ namespace Imoni.Game
             safe.Add(content); host.Add(safe); root.Add(host);
             safeArea = new SafeAreaAdapter(safe);
             router = new ScreenRouter(content);
-            Context = new ScreenContext(router);
+            Context = new ScreenContext(router, bootstrap: this);
             ScreenCatalog.Register(router, Context);
             string start = "Main";
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -52,6 +52,12 @@ namespace Imoni.Game
             UnityEditor.SessionState.EraseString("Imoni.StartScreen");
 #endif
             router.Show(start);
+        }
+
+        private void Update()
+        {
+            // One owner advances authoritative time; world rendering never calls Tick.
+            if (router?.CurrentView is GameScreen game) game.Advance(Time.unscaledDeltaTime);
         }
 
         private void OnDisable()
