@@ -15,6 +15,11 @@ namespace Imoni.Game.UI.Screens
             router.Register("Member", () => new MemberScreen(app));
             router.Register("Ranking", () => new RankingScreen(app));
             router.Register("Game", () => new GameScreen(app));
+            router.Register("Imoni", () => new ImoniEffectScreen(app));
+            router.Register("ImoniFail", () => new ImoniEffectScreen(app));
+            router.Register("Result", () => new ResultScreen(app));
+            router.Register("Clear", () => new ResultScreen(app));
+            router.Register("GameOver", () => new GameOverScreen(app));
         }
     }
 }

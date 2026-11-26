@@ -26,8 +26,10 @@ namespace Imoni.Game.UI.Screens
         public GameWorldView WorldView { get; private set; }
         public string LocalActorId { get; private set; }
         public GamePanels Panels { get; }
+        public RoundTimeUpDialog TimeUpDialog { get; }
+        public bool IsTimeUp => Snapshot.LastResult != null && (Snapshot.Phase == RoundPhase.Succeeded || Snapshot.Phase == RoundPhase.Failed || Snapshot.Phase == RoundPhase.Cleared);
         public string CurrentPanel => Panels.CurrentPanel;
-        public void OpenPanel(string panelName) => Panels.Open(panelName);
+        public void OpenPanel(string panelName) { if (Snapshot.Phase == RoundPhase.Collecting) Panels.Open(panelName); }
         public void ClosePanel() => Panels.Close();
 #if UNITY_EDITOR
         public bool ReviewPaused { get; set; }
@@ -53,10 +55,14 @@ namespace Imoni.Game.UI.Screens
             Find<VisualElement>("GameOverlay").style.bottom = bottom;
             Panels = new GamePanels(this, app); Find<VisualElement>("GameRoot").Add(Panels);
             Panels.PanelChanged += OnPanelChanged;
-            Find<ImoniButton>("OpenWarehouse").clicked += () => Panels.Toggle("warehouse");
-            Find<ImoniButton>("OpenShop").clicked += () => Panels.Toggle("shop");
-            Find<ImoniButton>("OpenUpgrades").clicked += () => Panels.Toggle("upgrade");
-            Find<ImoniButton>("OpenGameMenu").clicked += () => Panels.Toggle("menu");
+            Find<ImoniButton>("OpenWarehouse").clicked += () => TogglePanel("warehouse");
+            Find<ImoniButton>("OpenShop").clicked += () => TogglePanel("shop");
+            Find<ImoniButton>("OpenUpgrades").clicked += () => TogglePanel("upgrade");
+            Find<ImoniButton>("OpenGameMenu").clicked += () => TogglePanel("menu");
+            TimeUpDialog = new RoundTimeUpDialog { name = "GameTimeUp" };
+            TimeUpDialog.style.display = DisplayStyle.None;
+            TimeUpDialog.ResultsButton.clicked += () => { if (IsTimeUp) App.Go(Snapshot.LastResult.Evaluation.Success ? "Imoni" : "ImoniFail"); };
+            Find<VisualElement>("GameRoot").Add(TimeUpDialog);
             RegisterCallback<AttachToPanelEvent>(_ => AttachWorld());
             RefreshSnapshot();
         }
@@ -105,12 +111,22 @@ namespace Imoni.Game.UI.Screens
             Find<ImoniText>("GameStreak").text = Hud.StreakText;
             Find<ImoniText>("GameStreakMultiplier").text = Hud.StreakMultiplierText;
             Panels?.Refresh(Snapshot);
+            if (IsTimeUp)
+            {
+                if (Panels.IsOpen) Panels.Close();
+                TimeUpDialog.TimeText = GameHudProjection.Clock(Snapshot.LastResult.ElapsedSeconds) + " タイムアップ";
+                TimeUpDialog.style.display = DisplayStyle.Flex;
+            }
+            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen;
             UpdateHistory();
         }
 
+        private void TogglePanel(string panelName)
+        { if (Snapshot.Phase == RoundPhase.Collecting) Panels.Toggle(panelName); }
+
         private void OnPanelChanged()
         {
-            if (WorldView != null) WorldView.InputEnabled = !Panels.IsOpen;
+            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen;
             Find<ImoniButton>("OpenWarehouse").Selected = CurrentPanel == "warehouse";
             Find<ImoniButton>("OpenShop").Selected = CurrentPanel == "shop";
             Find<ImoniButton>("OpenUpgrades").Selected = CurrentPanel == "upgrade";
@@ -122,7 +138,7 @@ namespace Imoni.Game.UI.Screens
         {
             RoundEvent roundEvent = Snapshot.Events.LastOrDefault(item => item.Sequence > lastEvent);
             OperationRecord gather = Snapshot.History.LastOrDefault(item => item.Sequence > lastOperation && item.Kind == OperationKind.Gather);
-            if (Panels != null && Panels.IsOpen)
+            if ((Panels != null && Panels.IsOpen) || Snapshot.Phase != RoundPhase.Collecting)
             {
                 if (Snapshot.Events.Count > 0) lastEvent = Snapshot.Events.Max(item => item.Sequence);
                 if (Snapshot.History.Count > 0) lastOperation = Snapshot.History.Max(item => item.Sequence);

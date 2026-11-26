@@ -1,0 +1,47 @@
+/* Shared result and time-up parts; dimensions follow Result, GameOver and Game mocks. */
+.round-header { flex-direction: row; justify-content: space-between; align-items: center; flex-shrink: 0; height: 29px; }
+.round-header__round { background-color: var(--c-brown); color: var(--c-cream); border-radius: 18px; padding: 5px 12px; font-size: 13px; -unity-font-definition: var(--font-body-black); white-space: nowrap; }
+.round-header__status { font-size: 12px; -unity-font-definition: var(--font-body-black); }
+.round-header--failure .round-header__round { background-color: var(--c-cream); color: var(--c-brown); }
+.rank-hero { flex-direction: row; align-items: center; height: 100px; flex-shrink: 0; }
+.rank-hero__circle { width: 100px; height: 100px; flex-shrink: 0; border-radius: 50px; border-width: 4px; border-color: var(--c-brown); background-color: var(--c-red); color: var(--c-cream); align-items: center; justify-content: center; }
+.rank-hero__caption { font-size: 11px; -unity-font-definition: var(--font-body-black); }
+.rank-hero__rank { font-size: 40px; height: 50px; -unity-font-definition: var(--font-title); -unity-text-align: middle-center; }
+.rank-hero__headline { margin-left: 14px; font-size: 30px; -unity-font-definition: var(--font-title); color: var(--c-green); white-space: normal; flex-grow: 1; }
+.round-card { border-width: 3px; border-radius: 16px; padding: 10px 12px; }
+.round-card__heading { font-size: 13px; -unity-font-definition: var(--font-body-black); white-space: nowrap; }
+.round-goals { min-height: 120px; }
+.round-goals__row { margin-top: 5px; height: 20px; }
+.round-goals--failure { border-width: 0; border-radius: 18px; padding: 12px 14px; }
+.round-goals--failure .round-card__heading { font-size: 14px; height: 20px; }
+.round-goals--failure .round-goals__row { margin-top: 8px; min-height: 19px; height: 19px; }
+.round-goals--wide-name .material-goal__name { width: 68px; }
+.result-bonus { min-height: 77px; }
+.result-bonus__heading { flex-direction: row; align-items: center; justify-content: space-between; }
+.result-bonus__status { height: 20px; font-size: 14px; -unity-font-definition: var(--font-body-black); color: var(--c-red); white-space: nowrap; }
+.result-bonus__tiers { margin-top: 6px; }
+.score-breakdown { min-height: 112px; height: 112px; }
+.score-breakdown__row { flex-direction: row; justify-content: space-between; margin-top: 6px; }
+.score-breakdown__caption, .score-breakdown__value { font-size: 12px; -unity-font-definition: var(--font-body-black); white-space: nowrap; }
+.score-breakdown__note { font-size: 10px; color: var(--c-brown-soft); margin-top: 6px; }
+.result-summary { border-radius: 18px; padding: 12px 14px; min-height: 120px; }
+.result-summary__row { flex-direction: row; }
+.result-summary__row > .stat-card { flex-grow: 1; flex-basis: 0; min-width: 0; padding: 0; border-radius: 0; background-color: rgba(0,0,0,0); }
+.result-summary__right { margin-left: 12px; }
+.result-summary__lower { margin-top: 8px; }
+.result-summary__funds > .stat-card__value { color: var(--c-cream); }
+.result-summary .stat-card__value { margin-top: 0; }
+.result-summary__small > .stat-card__value { color: var(--c-cream); font-size: 16px; -unity-font-definition: var(--font-body-black); white-space: normal; }
+.failure-reset { background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0); border-width: 3px; border-radius: 18px; padding: 12px 14px; }
+.failure-reset__outline { position: absolute; left: -3px; right: -3px; top: -3px; bottom: -3px; color: var(--c-yellow); }
+.failure-reset__heading { height: 20px; font-size: 14px; color: var(--c-yellow); -unity-font-definition: var(--font-body-black); }
+.failure-reset__line { height: 19px; margin-top: 6px; font-size: 13px; white-space: normal; }
+.failure-reset__warning { color: var(--c-yellow); -unity-font-definition: var(--font-body-black); }
+.failure-reset__note { height: 17px; color: var(--c-gameover-muted); margin-top: 6px; font-size: 12px; white-space: normal; }
+.round-timeup { position: absolute; left: 0; right: 0; top: 0; bottom: 0; padding: 24px; justify-content: center; background-color: var(--c-timeup-overlay); }
+.round-timeup__card { border-width: 4px; border-radius: 26px; background-color: var(--c-yellow); padding: 24px 20px; }
+.round-timeup__card > .imoni-card__content { align-items: center; }
+.round-timeup__caption { font-size: 14px; -unity-font-definition: var(--font-body-black); }
+.round-timeup__headline { margin-top: 14px; font-size: 34px; -unity-font-definition: var(--font-title); color: var(--c-red); white-space: nowrap; height: 50px; -unity-text-align: middle-center; }
+.round-timeup__copy { margin-top: 14px; font-size: 13px; white-space: nowrap; }
+.round-timeup__button { align-self: stretch; margin-top: 14px; height: 56px; border-radius: 28px; font-size: 18px; -unity-font-definition: var(--font-body-black); border-bottom-width: 0; }

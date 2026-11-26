@@ -803,6 +803,10 @@
   },
   "titles": {
     "_comment": "二つ名 = 前半パーツ + 後半パーツ。集めて自由に組み合わせる(ユーザー要望)",
+    "unlockRules": [
+      { "part": "second", "value": "鍋奉行", "minimumRound": 1, "minimumStreak": 0, "requiresClear": false },
+      { "part": "first", "value": "伝説の", "minimumRound": 5, "minimumStreak": 0, "requiresClear": true }
+    ],
     "default": {
       "first": "芋煮会の",
       "second": "初心者"

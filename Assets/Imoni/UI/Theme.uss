@@ -34,6 +34,10 @@
     --c-disabled-small-bg: #E9D5AE;
     --c-disabled-small-fg: #6B4A3A;
     --c-protection: #2F5D8A;
+    --c-gameover-stat: #5E3D2E;
+    --c-gameover-muted: #DCC9A8;
+    --c-yellow-shadow: #8C6A2E;
+    --c-timeup-overlay: rgba(74, 46, 34, 0.72);
 
     --font-title: url("project://database/Assets/Imoni/Fonts/Generated/DelaGothicOne SDF.asset");
     --font-body: url("project://database/Assets/Imoni/Fonts/Generated/ZenMaruGothic-Bold SDF.asset");

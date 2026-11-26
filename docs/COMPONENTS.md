@@ -134,3 +134,40 @@ ScreenHostがThemeと全部品USSを共有し、個々の部品には祖先に�
 | `MemberRow.BindConnection` | 接続状態の点・名前・状態文言を表示するGameメニュー用形式 |
 
 `GamePanelParts.uss` もScreenHostで一度だけ読み込む。4つのパネルは `GamePanels.uxml` に既存の `BottomSheet`、行部品と上記部品を配置して構成する。
+
+## M5で追加した芋煮会演出の部品
+
+`Assets/Imoni/Scripts/Game/UI/Components/ImoniEffectParts.cs` の `[UxmlElement]` 部品を、成功・失敗の両方で共用する。専用の座標・光彩表現は `UI/ImoniEffect.uss` と `GameConfig.imoniEffect.layout / visual` に従う。画面UXMLにはスコア・音アイコン・バナー内部のラベルを直接記述しない。
+
+| 部品 | 再利用する内容・入力 | モック／仕様との対応 |
+|---|---|---|
+| `ImoniEffectSound` | `ImoniButton` のOutlineを継承し、音アイコン・文言を内包。クリックの意図を画面へ通知 | Imoni / ImoniFail左上の音ボタン |
+| `ImoniEffectScore` | `Card` を継承し、スコア見出し・レベル・数値・虹のゲージを内包。Card内部の本文をinset 0に固定して座標原点を維持 | 両演出の上部スコアカード |
+| `ImoniEffectBanner` | `ResultBanner` のLevelUp構造を再利用。時刻による変形は `ImoniEffectTimeline` の結果を受け取る | LEVEL UP! とレベル名、仕様4章のy=300 |
+| `ImoniEffectFinale` | `ResultBanner` の見出し・2行の本文・補足構造を再利用。成功／失敗・不足素材名を投影結果から表示 | 大成功!!／芋煮完成!!、あれ…?／未完成…、仕様5・6章 |
+| `FallingItem` | 配布済み `ingredient_*_glow` を表示。Coreの `ImoniIngredientPose` の位置・角度・倍率を反映 | 食材の落下、仕様4章 |
+| `StarBurst` | 星群を1単位として保持。`Prepare` で子の星画像を事前生成し、`SetStar` で `ImoniStarPose`、`HideFrom` で未使用分を反映 | 着地の小さな星群、レベルアップ・完成の14個の星 |
+| `GlowRing` | `fx_ring_glow` の直径・中心・不透明度を反映 | レベルアップ・完成の光の輪 |
+| `StreakLine` | 初期シードで決まる位置・幅・色・周期を持つ縦の光 | 仕様4章の光のライン |
+| `Sparkle` | 配布済み `fx_sparkle` の色・点滅・漂いを反映 | 仕様4章のキラキラ |
+
+`ImoniEffectView.Begin` でプールを一度確保し、再生中の着地や `Replay` ではVisualElementを追加・削除せず、表示・座標・画像を更新して使い回す。容量は固定の魔法数ではなく、Coreの `ImoniEffectPoolCapacity.From(config)` が最短出現間隔、最大落下時間、星の寿命、レベル数から保守的に計算する。現在の設定では食材28、星群38（各14個の星）、輪6、光のライン46、キラキラ50。星群の外側と未使用の星は非表示にする。
+
+画面は `ImoniEffectScreen` の専用Hostへマウントし、ScreenHost全体を消さない。通常の結果・リプレイ・スキップには既存 `ImoniButton` を使う。スコア・成否・不足素材・遷移先は確定済み `RoundResult` のCore投影だけから受け取り、部品内では精算・目標判定をしない。
+
+## M5で追加したラウンド結果の部品
+
+`RoundFlowParts.cs` の `[UxmlElement]` 部品をResult/Clear/GameOver/タイムアップで共用する。`Resources/UI/Components/RoundFlow.uss` はScreenHostが一度だけ読み込み、単独表示時だけフォールバックで追加する。
+
+| 部品 | 入力・再利用 | モック対応 |
+|---|---|---|
+| `RoundHeader` | ラウンド番号と成功文言の帯 | Result / GameOver上部 |
+| `RankHero` | ランク丸と2行の見出し | Result / Clear |
+| `RequiredGoalsCard` | 既存MaterialGoalChipのRow/FailureRow。長い名称がある場合だけ名称列を拡張 | Result / GameOver必須素材 |
+| `ResultBonusCard` | ボーナス達成状況と既存BonusTierChips | Resultボーナス欄 |
+| `ScoreBreakdownCard` | Coreが計算したR/B/Tと重み適用後の値 | Resultスコア内訳 |
+| `ResultSummary` | CardとStatCardの2列表示 | スコア・資金・累積・二つ名 |
+| `FailureResetCard` | Cardと共有のベクター点線枠 | GameOverリセット対象 |
+| `RoundTimeUpDialog` | 時刻と既存ImoniButton、Card、半透明背景 | 37_Game_timeup |
+
+各部品は表示を担当し、成否・内訳・報酬・二つ名条件はCoreに置く。Result/Clearは同じ `Result.uxml` を使い、確定済みLastResultを表示する。

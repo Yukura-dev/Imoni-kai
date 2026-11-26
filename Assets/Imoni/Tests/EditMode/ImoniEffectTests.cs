@@ -29,6 +29,7 @@ namespace Imoni.Tests
         [TestCase("18420", false)]
         [TestCase("1000000000000000", false)]
         [TestCase("1", true)]
+        [TestCase("18420", true)]
         [TestCase("7350", true)]
         [TestCase("1000000000000000", true)]
         [TestCase("0", true)]
@@ -40,6 +41,7 @@ namespace Imoni.Tests
             Assert.That(timeline.ResultVisible, Is.True);
             Assert.That(timeline.ResultAtMs, Is.LessThanOrEqualTo(10000));
             Assert.That(timeline.Score, Is.EqualTo(score));
+            Assert.That(timeline.DisplayScore, Is.EqualTo(score));
             Assert.That(timeline.Items, Is.Empty);
         }
 
@@ -58,6 +60,48 @@ namespace Imoni.Tests
             Assert.That(fine.Events.Select(e => (e.Kind, e.AtMs, e.Points)), Is.EqualTo(coarse.Events.Select(e => (e.Kind, e.AtMs, e.Points))));
             fine.AdvanceTo(10000); coarse.AdvanceTo(10000);
             Assert.That(fine.FinaleAtMs, Is.EqualTo(coarse.FinaleAtMs));
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void EveryPresentedFrameIsDeterministicWhenFramesAreSkipped(bool failed)
+        {
+            var c = Config();
+            var fine = new ImoniEffectTimeline(c, 18420, failed ? 46050 : 18420, failed, 812);
+            var coarse = new ImoniEffectTimeline(c, 18420, failed ? 46050 : 18420, failed, 812);
+            for (int target = 100; target <= 10000; target += 100)
+            {
+                for (int t = target - 99; t <= target; t++) fine.AdvanceTo(t);
+                coarse.AdvanceTo(target);
+                var left = fine.Evaluate(); var right = coarse.Evaluate();
+                Assert.That(fine.Events.Select(e => (e.Kind, e.AtMs, e.Level, e.Points)),
+                    Is.EqualTo(coarse.Events.Select(e => (e.Kind, e.AtMs, e.Level, e.Points))));
+                Assert.That((left.PillarWidth, left.BurstOpacity, left.PotScale, left.ShakeX, left.ShakeY,
+                    left.BannerScale, left.FinaleScale, left.Gray, left.Gauge, fine.DisplayScore),
+                    Is.EqualTo((right.PillarWidth, right.BurstOpacity, right.PotScale, right.ShakeX, right.ShakeY,
+                    right.BannerScale, right.FinaleScale, right.Gray, right.Gauge, coarse.DisplayScore)));
+                Assert.That(fine.Bursts.Select(b => (b.Id, b.AtMs, b.Seed)),
+                    Is.EqualTo(coarse.Bursts.Select(b => (b.Id, b.AtMs, b.Seed))));
+            }
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void ConfigDerivedPoolsCoverAllLiveItemsBurstsAndRings(bool failed)
+        {
+            var c = Config(); var capacity = ImoniEffectPoolCapacity.From(c);
+            foreach (int seed in new[] { 1, 7, 123, int.MinValue, int.MaxValue })
+            {
+                var timeline = new ImoniEffectTimeline(c, BigInteger.Pow(10, 15), BigInteger.Pow(10, 15), failed, seed);
+                for (int t = 0; t <= 10000; t += 5)
+                {
+                    timeline.AdvanceTo(t);
+                    Assert.That(timeline.Items.Count, Is.LessThanOrEqualTo(capacity.Ingredients));
+                    Assert.That(timeline.Bursts.Count, Is.LessThanOrEqualTo(capacity.Bursts));
+                    Assert.That(timeline.Bursts.Count(b => b.Big), Is.LessThanOrEqualTo(capacity.Rings));
+                    Assert.That(ImoniEffectMath.SmallStarCount(timeline.Level, c), Is.LessThanOrEqualTo(capacity.StarsPerBurst));
+                }
+            }
         }
 
         [Test]

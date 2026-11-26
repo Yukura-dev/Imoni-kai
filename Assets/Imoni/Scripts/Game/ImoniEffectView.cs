@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Imoni.Core;
 using Imoni.Core.Effects;
+using Imoni.Game.UI;
+using Imoni.Game.UI.Components;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,7 +15,6 @@ namespace Imoni.Game.Effects
 {
     /// <summary>Presentation only. The round is already settled before this view begins.</summary>
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(UIDocument))]
     public sealed class ImoniEffectView : MonoBehaviour
     {
         public UIDocument document;
@@ -21,10 +23,17 @@ namespace Imoni.Game.Effects
         public StyleSheet themeStyle;
         public StyleSheet effectStyle;
         public Texture2D[] textures;
+        /// <summary>Router-owned mount. Legacy standalone previews can still supply a UIDocument.</summary>
+        public VisualElement Host { get; set; }
         public bool ManualTime { get; set; }
         public ImoniEffectTimeline Timeline { get; private set; }
         public ImoniEffectConfig Config { get; private set; }
         public bool SoundEnabled { get; private set; }
+        public int IngredientPoolCount => ingredientElements.Count;
+        public int BurstPoolCount => burstElements.Count;
+        public int RingPoolCount => ringElements.Count;
+        public int LinePoolCount => lines.Count;
+        public int SparklePoolCount => sparks.Count;
         public event Action<ImoniEffectEvent> EffectEvent;
         public event Action<bool> SoundChanged;
         public event Action Replayed;
@@ -33,12 +42,13 @@ namespace Imoni.Game.Effects
         private static readonly string[] IngredientNames = { "taro", "negi", "mushroom", "beef", "konnyaku" };
         private static readonly string[] StarNames = { "yellow", "pink", "blue", "green", "purple", "orange" };
         private readonly Dictionary<string, Texture2D> artwork = new Dictionary<string, Texture2D>();
-        private readonly Dictionary<int, VisualElement> ingredients = new Dictionary<int, VisualElement>();
-        private readonly List<VisualElement> starElements = new List<VisualElement>();
-        private readonly List<VisualElement> ringElements = new List<VisualElement>();
+        private readonly List<FallingItem> ingredientElements = new List<FallingItem>();
+        private readonly List<StarBurst> burstElements = new List<StarBurst>();
+        private readonly List<GlowRing> ringElements = new List<GlowRing>();
         private readonly List<Line> lines = new List<Line>();
         private readonly List<Spark> sparks = new List<Spark>();
         private JObject layout;
+        private GameConfig displayConfig;
         private VisualElement screen, world, rainbow, sunburst, pillar, glow, pot, broth, flash, gray, dark;
         private VisualElement ingredientsLayer, starsLayer, ringsLayer, banner, finale, actions, gaugeFill;
         private Label scoreLabel, levelLabel, bannerText, soundLabel, finaleHeading, finaleOne, finaleTwo, missingLabel;
@@ -47,7 +57,7 @@ namespace Imoni.Game.Effects
         private Button resultButton;
         private Action onResult;
         private BigInteger targetScore, referenceScore;
-        private bool failed, active;
+        private bool failed, active, externalSoundPreference;
         private string missing;
         private int seed, emittedEvents;
         private double startedAt;
@@ -64,7 +74,7 @@ namespace Imoni.Game.Effects
         }
 
         public void Begin(BigInteger finalScore, BigInteger successReferenceScore, bool isFailed,
-            string missingMaterials, Action result, int effectSeed = 7)
+            string missingMaterials, Action result, int effectSeed = 7, bool? soundEnabled = null)
         {
             targetScore = finalScore; referenceScore = successReferenceScore; failed = isFailed;
             missing = missingMaterials ?? string.Empty; onResult = result; seed = effectSeed;
@@ -72,8 +82,10 @@ namespace Imoni.Game.Effects
             if (!gameConfig || !visualTree || !themeStyle || !effectStyle)
                 throw new InvalidOperationException("Run Imoni > Setup Project to bind the effect resources.");
             Config = ImoniEffectConfig.FromJson(gameConfig.text);
+            displayConfig = GameConfig.FromJson(gameConfig.text);
             layout = (JObject)Config.Data["layout"] ?? throw new InvalidOperationException("imoniEffect.layout is missing.");
-            SoundEnabled = PlayerPrefs.GetInt("Imoni.SoundEnabled", 1) != 0;
+            externalSoundPreference = soundEnabled.HasValue;
+            SoundEnabled = soundEnabled ?? (PlayerPrefs.GetInt("Imoni.SoundEnabled", 1) != 0);
             Build();
             Replay();
         }
@@ -127,9 +139,11 @@ namespace Imoni.Game.Effects
         {
             artwork.Clear();
             foreach (var texture in textures ?? Array.Empty<Texture2D>()) if (texture) artwork[texture.name] = texture;
-            var root = document.rootVisualElement;
+            var root = Host ?? (document ? document.rootVisualElement : null);
+            if (root == null) throw new InvalidOperationException("The effect requires a router host or preview document.");
             root.Clear();
-            if (!root.styleSheets.Contains(themeStyle)) root.styleSheets.Add(themeStyle);
+            if (Host != null) UiTheme.Apply(root);
+            else if (!HasStyleInAncestors(root, themeStyle)) root.styleSheets.Add(themeStyle);
             if (!root.styleSheets.Contains(effectStyle)) root.styleSheets.Add(effectStyle);
             visualTree.CloneTree(root);
             screen = root.Q("EffectScreen"); Rect(screen, "screen");
@@ -157,7 +171,6 @@ namespace Imoni.Game.Effects
             var potRect = A("pot"); Rect(potImage, 0, 0, potRect[2], potRect[3]);
             Image(flash, "fx_flash");
             SetupHud(); SetupTitles(); SetupActions(); SetupPools();
-            ingredients.Clear(); starElements.Clear(); ringElements.Clear();
             UpdateSound();
         }
 
@@ -169,12 +182,14 @@ namespace Imoni.Game.Effects
             sound.clicked += () =>
             {
                 SoundEnabled = !SoundEnabled;
-                PlayerPrefs.SetInt("Imoni.SoundEnabled", SoundEnabled ? 1 : 0); PlayerPrefs.Save();
+                if (!externalSoundPreference)
+                { PlayerPrefs.SetInt("Imoni.SoundEnabled", SoundEnabled ? 1 : 0); PlayerPrefs.Save(); }
                 UpdateSound(); SoundChanged?.Invoke(SoundEnabled);
             };
             soundIcon.style.width = (float)N("soundIconSize"); soundIcon.style.height = (float)N("soundIconSize");
             soundIcon.style.marginRight = (float)N("soundIconGap");
             var skip = screen.Q<Button>("SkipButton"); Rect(skip, "skip"); Round(skip, N("pillRadius"));
+            Border(skip, 0);
             skip.style.minHeight = 0; skip.style.fontSize = (float)N("smallFont");
             skip.clicked += Finish;
             var card = screen.Q("ScoreCard"); Rect(card, "scoreCard"); Border(card, N("borderWidth")); Round(card, N("scoreCardRadius"));
@@ -205,6 +220,8 @@ namespace Imoni.Game.Effects
             Rect(finaleTwo, failed ? "failLineTwo" : "finaleLineTwo");
             finaleHeading.style.fontSize = (float)N(failed ? "failHeadingFont" : "finaleHeadingFont");
             finaleOne.style.fontSize = finaleTwo.style.fontSize = (float)N(failed ? "failFont" : "finaleFont");
+            // The mock's two-line h1 uses browser default bold; keep the Dela face and spec size.
+            finaleOne.style.unityFontStyleAndWeight = finaleTwo.style.unityFontStyleAndWeight = FontStyle.Bold;
             finaleHeading.text = failed ? "あれ…?" : "大成功!!";
             finaleTwo.text = failed ? "未完成…" : "完成!!";
             Outline(finaleHeading, failed); Outline(finaleOne, failed); Outline(finaleTwo, failed);
@@ -233,12 +250,30 @@ namespace Imoni.Game.Effects
         private void SetupPools()
         {
             lines.Clear(); sparks.Clear();
+            ingredientElements.Clear(); burstElements.Clear(); ringElements.Clear();
+            var capacity = ImoniEffectPoolCapacity.From(Config);
+            for (var i = 0; i < capacity.Ingredients; i++)
+            {
+                var item = new FallingItem(); ingredientsLayer.Add(item); ingredientElements.Add(item);
+                Rect(item, 0, 0, N("ingredientTextureSize"), N("ingredientTextureSize")); Visible(item, false);
+            }
+            var starTextures = StarNames.Select(name => Texture("fx_star_" + name)).ToArray();
+            for (var i = 0; i < capacity.Bursts; i++)
+            {
+                var burst = new StarBurst(); burst.Prepare(capacity.StarsPerBurst, starTextures);
+                starsLayer.Add(burst); burstElements.Add(burst); Visible(burst, false);
+            }
+            for (var i = 0; i < capacity.Rings; i++)
+            {
+                var ring = new GlowRing(); Image(ring, "fx_ring_glow");
+                ringsLayer.Add(ring); ringElements.Add(ring); Visible(ring, false);
+            }
             var rng = new ImoniEffectRandom((int)N("visualSeed"));
             var colors = layout["palette"].Values<string>().Select(ParseColor).ToArray();
             var streakLayer = screen.Q("Streaks");
             for (var i = 0; i < Config.StreakCounts.Max(); i++)
             {
-                var element = Art(streakLayer);
+                var element = new StreakLine(); streakLayer.Add(element);
                 var x = Math.Round(Range(rng, "streakX")); var width = Range(rng, "streakWidth");
                 var height = Math.Round(Range(rng, "streakHeight"));
                 var color = rng.Next() < N("streakWhiteChance") ? colors[0] : colors[1 + (int)(rng.Next() * (colors.Length - 1))];
@@ -249,7 +284,7 @@ namespace Imoni.Game.Effects
             var sparkleLayer = screen.Q("Sparkles");
             for (var i = 0; i < Config.SparkleCounts.Max(); i++)
             {
-                var element = Art(sparkleLayer, "fx_sparkle");
+                var element = new Sparkle(); Image(element, "fx_sparkle"); sparkleLayer.Add(element);
                 var side = rng.Next() < .5 ? -1 : 1;
                 var x = Math.Round(Config.V("centerX") + side * Range(rng, "sparkleDistance") + N("sparkleOffsetX"));
                 var y = Math.Round(Range(rng, "sparkleY")); var size = Math.Round(Range(rng, "sparkleSize"));
@@ -305,50 +340,40 @@ namespace Imoni.Game.Effects
 
         private void RenderIngredients(double t)
         {
-            var alive = new HashSet<int>();
+            var index = 0;
             foreach (var item in Timeline.Items)
             {
-                alive.Add(item.Id);
-                if (!ingredients.TryGetValue(item.Id, out var element))
-                {
-                    element = Art(ingredientsLayer, "ingredient_" + IngredientNames[item.Kind] + "_glow");
-                    Rect(element, 0, 0, N("ingredientTextureSize"), N("ingredientTextureSize"));
-                    ingredients.Add(item.Id, element);
-                }
+                var element = ingredientElements[index++]; Visible(element, true);
+                Image(element, "ingredient_" + IngredientNames[item.Kind] + "_glow");
                 var pose = ImoniEffectMath.Ingredient(item, t, Config);
                 Move(element, pose.X - N("ingredientTextureOffset"), pose.Y - N("ingredientTextureOffset"));
                 Rotate(element, pose.Rotation); Scale(element, pose.Scale);
             }
-            foreach (var id in ingredients.Keys.Where(id => !alive.Contains(id)).ToArray())
-            {
-                ingredients[id].RemoveFromHierarchy(); ingredients.Remove(id);
-            }
+            for (; index < ingredientElements.Count; index++) Visible(ingredientElements[index], false);
         }
 
         private void RenderBursts(double t, int level)
         {
-            var starIndex = 0; var ringIndex = 0;
+            var burstIndex = 0; var ringIndex = 0;
             foreach (var burst in Timeline.Bursts)
             {
                 if (burst.Big)
                 {
-                    var ring = Pooled(ringElements, ringIndex++, ringsLayer, "fx_ring_glow");
+                    var ring = ringElements[ringIndex++]; Visible(ring, true);
                     var diameter = ImoniEffectMath.RingDiameter(burst, t, Config) * N("ringTextureScale");
                     Rect(ring, burst.X - diameter / 2, Config.V("potY") - diameter / 2, diameter, diameter);
                     ring.style.opacity = (float)(1 - (t - burst.AtMs) / Config.V("bigBurstMs"));
                 }
                 var count = burst.Big ? (int)Config.V("bigStarCount") : ImoniEffectMath.SmallStarCount(level, Config);
+                var group = burstElements[burstIndex++]; Visible(group, true);
                 for (var i = 0; i < count; i++)
                 {
                     var pose = ImoniEffectMath.Star(burst, i, level, t, Config);
-                    var star = Pooled(starElements, starIndex++, starsLayer, "fx_star_" + StarNames[pose.ColorIndex]);
-                    var size = pose.Size * N("starTextureScale");
-                    Rect(star, 0, 0, size, size);
-                    Move(star, pose.CenterX - size / 2, pose.CenterY - size / 2); Rotate(star, pose.Rotation);
-                    star.style.opacity = (float)pose.Opacity;
+                    group.SetStar(i, pose, N("starTextureScale"));
                 }
+                group.HideFrom(count);
             }
-            for (var i = starIndex; i < starElements.Count; i++) Visible(starElements[i], false);
+            for (var i = burstIndex; i < burstElements.Count; i++) Visible(burstElements[i], false);
             for (var i = ringIndex; i < ringElements.Count; i++) Visible(ringElements[i], false);
         }
 
@@ -379,25 +404,13 @@ namespace Imoni.Game.Effects
         private string ScoreText(BigInteger value)
         {
             if (value.ToString(CultureInfo.InvariantCulture).Length <= N("scoreCompactAfterDigits")) return value.ToString("N0", CultureInfo.GetCultureInfo("ja-JP"));
-            var units = new[] { "", "万", "億", "兆" }; var divisor = new BigInteger(10000);
-            var segments = new List<string>(); var unit = 0;
-            while (value > 0 && unit < units.Length - 1)
-            {
-                var part = value % divisor; if (part > 0) segments.Insert(0, part.ToString("N0", CultureInfo.InvariantCulture) + units[unit]);
-                value /= divisor; unit++;
-            }
-            if (value > 0) segments.Insert(0, value.ToString("N0", CultureInfo.InvariantCulture) + units[unit]);
-            return string.Concat(segments.Take(2));
+            return Format.Big(value, displayConfig);
         }
-        private VisualElement Pooled(List<VisualElement> pool, int index, VisualElement parent, string asset)
+        private static bool HasStyleInAncestors(VisualElement element, StyleSheet sheet)
         {
-            if (index == pool.Count) pool.Add(Art(parent, asset));
-            var element = pool[index]; Image(element, asset); Visible(element, true); return element;
-        }
-        private VisualElement Art(VisualElement parent, string asset = null)
-        {
-            var element = new VisualElement { pickingMode = PickingMode.Ignore };
-            element.AddToClassList("effect-art"); if (asset != null) Image(element, asset); parent.Add(element); return element;
+            for (var current = element; current != null; current = current.hierarchy.parent)
+                if (current.styleSheets.Contains(sheet)) return true;
+            return false;
         }
         private Texture2D Texture(string name) => artwork.TryGetValue(name, out var value) ? value : throw new InvalidOperationException("Missing effect image: " + name);
         private void Image(VisualElement element, string name) => element.style.backgroundImage = new StyleBackground(Texture(name));

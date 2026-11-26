@@ -1,0 +1,122 @@
+{
+  "utc": "2026-11-26T01:00:13.4922219Z",
+  "width": 390,
+  "height": 844,
+  "screen": "GameOver",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "round": 1,
+  "seed": 202647,
+  "phase": "Failed",
+  "elapsed": 0.0,
+  "funds": "1000",
+  "cumulative": "0",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "mushroom",
+      "name": "キノコ",
+      "required": "20",
+      "current": "530",
+      "met": true
+    },
+    {
+      "material": "sansai",
+      "name": "希少な山菜",
+      "required": "11",
+      "current": "0",
+      "met": false
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "55",
+      "current": "0",
+      "met": false
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "7B7FB7EFFAAB142EA71C1B22269A90C5B46DC83BF87C4706309E9F69D4978D0D",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 10,
+  "result": {
+    "round": 3,
+    "success": false,
+    "score": "4190",
+    "requiredPoints": "8380",
+    "bonusPoints": "0",
+    "bonusMultiplier": "0",
+    "fundsReward": "0",
+    "fundsAfter": "1000",
+    "cumulative": "4402",
+    "missing": [
+      "sansai",
+      "taro"
+    ]
+  },
+  "buttons": [
+    {
+      "name": "GameOverRetry",
+      "text": "R1から再挑戦",
+      "enabled": true,
+      "display": "Flex",
+      "x": 18.0,
+      "y": 690.0,
+      "width": 354.0,
+      "height": 65.0
+    },
+    {
+      "name": "GameOverHome",
+      "text": "<u>ホームへ戻る</u>",
+      "enabled": true,
+      "display": "Flex",
+      "x": 18.0,
+      "y": 764.0,
+      "width": 354.0,
+      "height": 44.0
+    }
+  ],
+  "image": "M5-46_GameOver.png"
+}

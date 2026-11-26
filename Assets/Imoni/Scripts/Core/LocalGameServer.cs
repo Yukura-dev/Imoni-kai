@@ -379,7 +379,7 @@ namespace Imoni.Core
                 funds += evaluation.FundsReward;
                 phase = roundNumber >= config.RoundsToClear ? RoundPhase.Cleared : RoundPhase.Succeeded;
                 lastResult = new RoundResult(roundNumber, seed, config.DurationSeconds, evaluation,
-                    cumulativeScore, history);
+                    cumulativeScore, history, funds);
                 inventory.Clear();
                 foreach (PlayerState player in players.Values) player.Streak = 0;
                 Emit(phase == RoundPhase.Cleared ? RoundEventKind.Cleared : RoundEventKind.Succeeded,
@@ -388,7 +388,7 @@ namespace Imoni.Core
             else
             {
                 lastResult = new RoundResult(roundNumber, seed, config.DurationSeconds, evaluation,
-                    cumulativeScore, history);
+                    cumulativeScore, history, config.StartFunds);
                 Emit(RoundEventKind.Failed, config.DurationSeconds);
                 // Preserve the detached result/event log for GameOver; reset every active run value.
                 ResetChallenge(seed);
@@ -690,12 +690,14 @@ namespace Imoni.Core
         public decimal ElapsedSeconds { get; }
         public RoundEvaluation Evaluation { get; }
         public BigInteger CumulativeScore { get; }
+        public BigInteger FundsAfterSettlement { get; }
         public IReadOnlyList<OperationRecord> History { get; }
         internal RoundResult(int round, int seed, decimal elapsed, RoundEvaluation evaluation,
-            BigInteger cumulative, IEnumerable<OperationRecord> history)
+            BigInteger cumulative, IEnumerable<OperationRecord> history, BigInteger fundsAfterSettlement = default)
         {
             RoundNumber = round; Seed = seed; ElapsedSeconds = elapsed; Evaluation = evaluation;
             CumulativeScore = cumulative; History = Array.AsReadOnly(history.ToArray());
+            FundsAfterSettlement = fundsAfterSettlement;
         }
     }
 

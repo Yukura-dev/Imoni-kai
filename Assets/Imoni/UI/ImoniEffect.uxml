@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
     <ui:VisualElement name="EffectScreen" class="imoni-effect">
         <ui:VisualElement name="World" class="effect-layer" picking-mode="Ignore">
             <ui:VisualElement name="Rainbow" class="effect-art" picking-mode="Ignore" />
@@ -19,34 +19,16 @@
         </ui:VisualElement>
         <ui:VisualElement name="Flash" class="effect-layer effect-art" picking-mode="Ignore" />
         <ui:VisualElement name="Hud" class="effect-layer" picking-mode="Ignore">
-            <ui:Button name="SoundButton" class="btn effect-sound">
-                <ui:VisualElement name="SoundIcon" class="sound-icon" picking-mode="Ignore" />
-                <ui:Label name="SoundLabel" text="音あり" picking-mode="Ignore" />
-            </ui:Button>
-            <ui:Button name="SkipButton" text="スキップ" class="btn effect-skip" />
-            <ui:VisualElement name="ScoreCard" class="card effect-score-card" picking-mode="Ignore">
-                <ui:Label name="ScoreCaption" text="芋煮スコア" class="effect-caption" picking-mode="Ignore" />
-                <ui:Label name="LevelLabel" class="effect-level" picking-mode="Ignore" />
-                <ui:Label name="ScoreLabel" text="0" class="num-big effect-score" picking-mode="Ignore" />
-                <ui:VisualElement name="Gauge" class="effect-gauge" picking-mode="Ignore">
-                    <ui:VisualElement name="GaugeFill" class="effect-gauge-fill" picking-mode="Ignore" />
-                </ui:VisualElement>
-            </ui:VisualElement>
+            <c:ImoniEffectSound name="SoundButton" />
+            <c:ImoniButton name="SkipButton" variant="Small" text="スキップ" class="effect-skip" />
+            <c:ImoniEffectScore name="ScoreCard" />
         </ui:VisualElement>
-        <ui:VisualElement name="LevelBanner" class="effect-art effect-banner" picking-mode="Ignore">
-            <ui:Label name="BannerHeading" text="LEVEL UP!" class="effect-outline effect-white" picking-mode="Ignore" />
-            <ui:Label name="BannerText" class="effect-outline effect-yellow" picking-mode="Ignore" />
-        </ui:VisualElement>
-        <ui:VisualElement name="Finale" class="effect-art effect-finale" picking-mode="Ignore">
-            <ui:Label name="FinaleHeading" class="effect-outline effect-white" picking-mode="Ignore" />
-            <ui:Label name="FinaleLineOne" text="芋煮" class="effect-outline effect-yellow" picking-mode="Ignore" />
-            <ui:Label name="FinaleLineTwo" class="effect-outline effect-yellow" picking-mode="Ignore" />
-            <ui:Label name="MissingLabel" class="pill pill--dark effect-missing" picking-mode="Ignore" />
-        </ui:VisualElement>
+        <c:ImoniEffectBanner name="LevelBanner" />
+        <c:ImoniEffectFinale name="Finale" />
         <ui:VisualElement name="Actions" class="effect-art">
             <ui:VisualElement name="ResultShadow" class="effect-art effect-result-shadow" picking-mode="Ignore" />
-            <ui:Button name="ResultButton" text="結果を見る" class="btn btn-primary effect-result" />
-            <ui:Button name="ReplayButton" text="もう一回見る" class="btn btn-outline effect-replay" />
+            <c:ImoniButton name="ResultButton" variant="Primary" text="結果を見る" class="effect-result" />
+            <c:ImoniButton name="ReplayButton" variant="Outline" text="もう一回見る" class="effect-replay" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

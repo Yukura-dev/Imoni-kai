@@ -1,0 +1,172 @@
+{
+  "utc": "2026-11-26T01:00:13.7460365Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Home",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "round": 1,
+  "seed": 202647,
+  "phase": "Failed",
+  "elapsed": 0.0,
+  "funds": "1000",
+  "cumulative": "0",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "mushroom",
+      "name": "キノコ",
+      "required": "20",
+      "current": "530",
+      "met": true
+    },
+    {
+      "material": "sansai",
+      "name": "希少な山菜",
+      "required": "11",
+      "current": "0",
+      "met": false
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "55",
+      "current": "0",
+      "met": false
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "7B7FB7EFFAAB142EA71C1B22269A90C5B46DC83BF87C4706309E9F69D4978D0D",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 10,
+  "result": {
+    "round": 3,
+    "success": false,
+    "score": "4190",
+    "requiredPoints": "8380",
+    "bonusPoints": "0",
+    "bonusMultiplier": "0",
+    "fundsReward": "0",
+    "fundsAfter": "1000",
+    "cumulative": "4402",
+    "missing": [
+      "sansai",
+      "taro"
+    ]
+  },
+  "buttons": [
+    {
+      "name": "settings",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 328.0,
+      "y": 57.0,
+      "width": 44.0,
+      "height": 44.0
+    },
+    {
+      "name": "play",
+      "text": "プレイ開始",
+      "enabled": true,
+      "display": "Flex",
+      "x": 18.0,
+      "y": 631.0,
+      "width": 354.0,
+      "height": 78.0
+    },
+    {
+      "name": "Home",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 768.0,
+      "width": 128.0,
+      "height": 76.0
+    },
+    {
+      "name": "Ranking",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 128.0,
+      "y": 768.0,
+      "width": 131.0,
+      "height": 76.0
+    },
+    {
+      "name": "Member",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 259.0,
+      "y": 768.0,
+      "width": 131.0,
+      "height": 76.0
+    },
+    {
+      "name": "sound-toggle",
+      "text": "音: ON",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "settings-close",
+      "text": "閉じる",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    }
+  ],
+  "image": "M5-proof_gameover_home.png"
+}

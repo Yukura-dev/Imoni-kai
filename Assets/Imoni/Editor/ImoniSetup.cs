@@ -104,6 +104,11 @@ namespace Imoni.Editor
             if (!assets) { assets = ScriptableObject.CreateInstance<UIRuntimeAssets>(); AssetDatabase.CreateAsset(assets, path); }
             assets.config = LoadRequired<TextAsset>(ConfigPath);
             assets.theme = LoadRequired<StyleSheet>(Root + "/UI/Theme.uss");
+            assets.imoniEffectTree = LoadRequired<VisualTreeAsset>(Root + "/UI/ImoniEffect.uxml");
+            assets.imoniEffectStyle = LoadRequired<StyleSheet>(Root + "/UI/ImoniEffect.uss");
+            assets.imoniEffectAudio = Directory.GetFiles(Root + "/Audio/SFX", "*.wav")
+                .OrderBy(file => file, StringComparer.Ordinal)
+                .Select(file => LoadRequired<AudioClip>(file.Replace('\\', '/'))).ToArray();
             assets.textures = Directory.GetFiles(Root + "/Art", "*.png", SearchOption.AllDirectories)
                 .OrderBy(file => file, StringComparer.Ordinal)
                 .Select(file => new NamedTexture { key = Path.GetFileNameWithoutExtension(file), texture = LoadRequired<Texture2D>(file.Replace('\\', '/')) }).ToArray();
@@ -258,6 +263,7 @@ namespace Imoni.Editor
 
             GameObject cameraObject = FindOrCreateRoot(scene, "Main Camera");
             Camera camera = EnsureComponent<Camera>(cameraObject);
+            EnsureComponent<AudioListener>(cameraObject);
             cameraObject.tag = "MainCamera";
             cameraObject.transform.SetPositionAndRotation(settings.CameraPosition, Quaternion.identity);
             camera.orthographic = true;

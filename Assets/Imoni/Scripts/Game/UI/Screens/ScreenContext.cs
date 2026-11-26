@@ -11,6 +11,7 @@ namespace Imoni.Game.UI.Screens
     public sealed class ScreenContext
     {
         private readonly string savePath;
+        private bool preparedRoundForLoading;
         public ScreenRouter Router { get; }
         public Bootstrap Bootstrap { get; }
         public IGameServer Server { get; private set; }
@@ -37,6 +38,33 @@ namespace Imoni.Game.UI.Screens
             int chosen = seed ?? (FreeSeed ? unchecked((int)DateTime.UtcNow.Ticks)
                 : Data["outGame"]["lobby"]["commonSeed"].Value<int>());
             Server = new LocalGameServer(UiTheme.Config, chosen);
+            preparedRoundForLoading = false;
+        }
+        public void PrepareLoadingGame()
+        {
+            if (!preparedRoundForLoading || Server == null) PrepareGame();
+            preparedRoundForLoading = false;
+        }
+        public void StartNextRound()
+        {
+            Server.StartNextRound();
+            preparedRoundForLoading = false;
+            Go("Game");
+        }
+        public void RetryChallenge()
+        {
+            int oldSeed = Server.Snapshot().Seed;
+            int newSeed = unchecked((int)DateTime.UtcNow.Ticks);
+            if (newSeed == oldSeed) newSeed = unchecked(newSeed + 1);
+            Server.Retry(newSeed);
+            FreeSeed = true;
+            preparedRoundForLoading = true;
+            Go("Loading");
+        }
+        public void GrantResultRewards(RoundResult result, string actorId)
+        {
+            Profile = ProfilePersistence.ApplyResultRewards(Data, Profile, result, actorId);
+            SaveProfile();
         }
         public void SaveProfile()
         {

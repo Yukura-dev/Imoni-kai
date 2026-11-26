@@ -162,6 +162,6 @@
 
 正本は `D:/UnityProjects/Imoni-kai`。ここがUnityプロジェクトのルートで、`unity/` の入れ子は作らない。旧handoffは資料の受け取り元のみ。既存プロトタイプは比較用に残し、新実装は `Assets/Imoni/` に集約する。仕様書の `unity/Assets/` はこのリポジトリの `Assets/` と読み替える。
 
-2026-11-26：M3bの5153ecbからrebuild/m4-panelsを作成。M4の倉庫・ショップ・強化・メニュー、成長札の距離制限、最高品質のみの連続表示を実装済み。全操作をIGameServer経由とし、dotnet test 274件成功（失敗0）、パネル統合18項目成功、Unityエラー警告0を確認。390×844比較画像4枚、保護と資金不足の連番11枚をdocs/validation/m4に保存した。このM4をコミット・pushして停止する。M5の終了演出には進まない。地形境界とR1目標上限の調整はQUESTIONSにメモのみ残した。操作・検証手順はdocs/M4_PANELS.md。
+2026-11-26：M4のaed4468はレビュー承認済み。rebuild/m4-panelsからrebuild/m5-round-flowを作成し、M5のタイムアップ→芋煮会演出→結果/失敗→次R/再挑戦、5連続成功の通常クリアを実装する。演出はIMONI_EFFECT_SPECの画面座標と既存Effect画像に厳密に従い、部品をプールする。全Coreテスト成功、Unityエラー警告0、指定時刻の演出5枚と結果/失敗2枚の390×844比較、可能なら録画をdocs/validation/m5へ保存。コミット・pushして停止しM6へ進まない。開発用のラウンド短縮は既定OFFで、Editor/Development Buildのみに限定する。
 
 USS非対応の構造擬似クラス（`:first-child`、`:last-child`、`:nth-child`など）は使わない。`Theme.uss` の先頭タブ用クラスは `.tabbar__item--first`。M2のTabBarは先頭のタブにこのクラスを付ける。

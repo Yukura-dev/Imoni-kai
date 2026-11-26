@@ -40,7 +40,13 @@ namespace Imoni.Game
             safe.Add(content); host.Add(safe); root.Add(host);
             safeArea = new SafeAreaAdapter(safe);
             router = new ScreenRouter(content);
-            Context = new ScreenContext(router, bootstrap: this);
+            string profilePath = null;
+#if UNITY_EDITOR
+            profilePath = UnityEditor.SessionState.GetString("Imoni.ReviewSavePath", string.Empty);
+            UnityEditor.SessionState.EraseString("Imoni.ReviewSavePath");
+            if (string.IsNullOrEmpty(profilePath)) profilePath = null;
+#endif
+            Context = new ScreenContext(router, path: profilePath, bootstrap: this);
             ScreenCatalog.Register(router, Context);
             string start = "Main";
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -57,7 +63,7 @@ namespace Imoni.Game
         private void Update()
         {
             // One owner advances authoritative time; world rendering never calls Tick.
-            if (router?.CurrentView is GameScreen game) game.Advance(Time.unscaledDeltaTime);
+            if (router?.CurrentView is GameScreen game) game.Advance(Time.unscaledDeltaTime * DevelopmentRoundClock.Scale);
         }
 
         private void OnDisable()

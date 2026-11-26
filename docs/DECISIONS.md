@@ -119,3 +119,12 @@
 
 - `ui.worldView.growthLabelDistanceTiles=2`。成長札は近距離または選択資源のみ表示する。獲得表示の連続数は最高品質かつ1以上に限る。
 - `ui.panels`：保護増減5、売却割合25/50/75/100%、初期割合50%、購入数量10/50、ショップ素材wood/taro/negi/mushroom、履歴3件、効果の表示精度は移動/採集速度2桁・採集量/採集運1桁。BottomSheet高さは倉庫620/ショップ540/強化560/メニュー440px、上の影8px（モック）。採集運はバイオーム・資源補正前の最高品質基本確率を表示し、現場の補正は採集時に適用する。
+
+## M5 ラウンドの流れと演出（2026-11-26）
+
+- タイムアップは既存のCore期限300秒で一度だけ確定し、`RoundResult` を演出・結果画面へ渡す。R1〜R4成功はResultから `StartNextRound`、失敗はGameOverから `Retry(newSeed)` とLoading、5成功は共通の結果部品を使ったClearからHomeへ進む。結果表示中はワールドの時間を進めない。
+- ランクは既存 `rankGrades` の300/150/100/0%を使用する。`RoundEvaluation` にR/Bの固定小数の中間値を保持し、内訳表示でも精度を失わない。スコア・資金報酬の計算式は変更しない。
+- `titles.unlockRules` を追加：`second/鍋奉行` は `minimumRound=1, minimumStreak=0, requiresClear=false`、`first/伝説の` は `minimumRound=5, minimumStreak=0, requiresClear=true`。成功結果だけを対象に未所持パーツを追加し、プロフィールの所持配列に保存する。初期所持・選択・音設定を保持し、同じ結果の再表示では重複付与しない。
+- 失敗演出の成功基準は、現在のR/Bを保ち、不足必須素材の品質換算数量×基本ポイントをRへ加えた仮の成功スコア（整数比で計算後に切り捨て）。基準は実スコア以上かつ最低1。旧プロトタイプの実スコア÷0.4はBootのM5経路には適用しない。表示する最終スコアと失敗報酬0は確定結果のまま。
+- 開発用短縮は既存 `round.mockTimeScale=10` を再利用する。Editorメニュー `Imoni > Development > Short Rounds (GameConfig)` の既定はOFF。Development Buildは `--imoni-short-rounds` を明示した場合だけ有効。Releaseでは無効・常時1倍。演出の時計は短縮対象外。
+- 演出部品のプール数は `imoniEffect` の発生間隔・寿命・段階数から算出し、独立した固定個数は追加しない。結果ボタン表示時にスコア表示を確定値へ合わせ、巨大スコアの指数補間の残りを表示し続けない。演出の座標・光画像・時間上限は既存IMONI_EFFECT_SPECのまま。

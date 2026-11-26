@@ -22,6 +22,7 @@ namespace Imoni.Core
         public string PurchasedQualityId { get; }
         public string CurrencyUnit { get; }
         public GamePanelConfig Panels { get; }
+        public RoundResultRules ResultRules { get; }
         public decimal BonusFundsPerPoint { get; }
         public BigInteger FixedScale { get; }
         public decimal TopBaseChance { get; }
@@ -151,6 +152,7 @@ namespace Imoni.Core
                 new Objective(Text(data, "round1Mock.bonus.material"), Integer(data, "round1Mock.bonus.amount", true)));
             DefaultObjectives.Validate(this);
             Panels = new GamePanelConfig(data, this);
+            ResultRules = new RoundResultRules(data);
         }
 
         public static GameConfig FromJson(string json)

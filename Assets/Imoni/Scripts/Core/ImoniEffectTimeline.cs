@@ -124,6 +124,9 @@ namespace Imoni.Core.Effects
         {
             get
             {
+                // A huge integer can retain a visible exponential tail for seconds. Once the
+                // result is actionable, show the exact settled total rather than a rounded tail.
+                if (ResultVisible) return FinalScore;
                 // Analytic sum of score steps solves disp += (score-disp)*(1-pow(.78,dt*60)).
                 // It avoids float conversion of the score and gives the same display at any render cadence.
                 var pending = BigInteger.Zero;

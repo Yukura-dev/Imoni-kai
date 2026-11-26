@@ -1,0 +1,109 @@
+{
+  "utc": "2026-11-26T00:59:59.2748830Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Clear",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "round": 5,
+  "seed": 202647,
+  "phase": "Cleared",
+  "elapsed": 300.000000,
+  "funds": "14298822",
+  "cumulative": "72515093",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "wood",
+      "name": "薪",
+      "required": "62",
+      "current": "454293",
+      "met": true
+    },
+    {
+      "material": "fish",
+      "name": "魚",
+      "required": "23",
+      "current": "41247",
+      "met": true
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "49",
+      "current": "20022",
+      "met": true
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "735232C805BA3590CE017A8E939D2CDF90330F927276DB69D948E98EF31D6049",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 46,
+  "result": {
+    "round": 5,
+    "success": true,
+    "score": "66168441",
+    "requiredPoints": "1919723",
+    "bonusPoints": "16302145",
+    "bonusMultiplier": "8",
+    "fundsReward": "13041716",
+    "fundsAfter": "14298822",
+    "cumulative": "72515093",
+    "missing": []
+  },
+  "buttons": [
+    {
+      "name": "ResultNext",
+      "text": "ホームへ戻る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 16.0,
+      "y": 748.0,
+      "width": 358.0,
+      "height": 65.0
+    }
+  ],
+  "image": "M5-proof_normal_clear.png"
+}

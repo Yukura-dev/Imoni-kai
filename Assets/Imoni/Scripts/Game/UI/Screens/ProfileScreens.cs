@@ -67,16 +67,15 @@ namespace Imoni.Game.UI.Screens
         {
             card.Bind(App.ProfileView());
             JToken titles = App.Data["titles"];
-            JToken fixture = App.Data["outGame"]["profile"];
-            List<TitlePartViewModel> first = Parts(titles["firstParts"], fixture["initialOwnedFirst"], App.Profile.FirstTitle);
-            List<TitlePartViewModel> second = Parts(titles["secondParts"], fixture["initialOwnedSecond"], App.Profile.SecondTitle);
+            List<TitlePartViewModel> first = Parts(titles["firstParts"], App.Profile.OwnedFirstTitles, App.Profile.FirstTitle);
+            List<TitlePartViewModel> second = Parts(titles["secondParts"], App.Profile.OwnedSecondTitles, App.Profile.SecondTitle);
             picker.Bind(first, second, "前半 " + first.Count(part => part.Owned) + "/" + first.Count
                 + " / 後半 " + second.Count(part => part.Owned) + "/" + second.Count + " 収集");
         }
 
-        private static List<TitlePartViewModel> Parts(JToken all, JToken owned, string selected)
+        private static List<TitlePartViewModel> Parts(JToken all, IEnumerable<string> owned, string selected)
         {
-            var ownedText = new HashSet<string>(owned.Values<string>(), StringComparer.Ordinal);
+            var ownedText = new HashSet<string>(owned, StringComparer.Ordinal);
             return all.Values<string>().Select(text => new TitlePartViewModel
             { Id = text, Text = text, Owned = ownedText.Contains(text), Selected = text == selected }).ToList();
         }

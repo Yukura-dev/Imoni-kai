@@ -14,6 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Imoni.Game::Imoni.Game.UI.UIRuntimeAssets
   config: {fileID: 4900000, guid: 63553f0000392e34e884f28d4d645d95, type: 3}
   theme: {fileID: 7433441132597879392, guid: 67cb1a145e112cb478273500df648a26, type: 3}
+  imoniEffectTree: {fileID: 9197481963319205126, guid: f53ba3e800552df49b9da98aeee98a5d, type: 3}
+  imoniEffectStyle: {fileID: 7433441132597879392, guid: 62c5372c80fb56a4fb8855c5eaf2b775, type: 3}
+  imoniEffectAudio:
+  - {fileID: 8300000, guid: a416d0c505b4bc340b9c0a404fae2d6d, type: 3}
+  - {fileID: 8300000, guid: 880524413de3c3d44a1ae1a8b533e529, type: 3}
+  - {fileID: 8300000, guid: f8e8b235cde663b469e86d1d03c656af, type: 3}
+  - {fileID: 8300000, guid: 2a7c57072160d8f47afd968d0950676c, type: 3}
+  - {fileID: 8300000, guid: 19eef77c8027fab4c817a9a3914869aa, type: 3}
+  - {fileID: 8300000, guid: ebe1bf1fa5612ed488e781939ad8679d, type: 3}
+  - {fileID: 8300000, guid: b1ca4b4c63658b440b7dce8787b6778e, type: 3}
+  - {fileID: 8300000, guid: 45266d101993e4e45aadb771437a129f, type: 3}
+  - {fileID: 8300000, guid: 51f1acb4abf4d6c4fbbb170c753462cd, type: 3}
+  - {fileID: 8300000, guid: 9a62865b7a5cf9e4f82918c57b09a4e3, type: 3}
+  - {fileID: 8300000, guid: 04121831b91583843a26d7514e6a7e3f, type: 3}
   textures:
   - key: imoni_tile_transparent_384x416
     texture: {fileID: 2800000, guid: c88c01cd8f320174d840cd515876b3f5, type: 3}

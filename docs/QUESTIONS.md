@@ -161,3 +161,24 @@
 - 質問：数量入力が売却可能数を超える場合、モックのように内部で上限へ丸めるか。
   - 判断：入力した数量を維持して売却を無効にする。今回の「保護を超える売却ができない」を明確にし、意図しない数量の即売却を避ける。割合ボタンは保護を除く数量から計算する。サーバーも過大な売却を拒否する。
   - 該当：GamePanelProjection.SelectSale、GamePanels.SellSelected、GamePanelTests。
+
+## M5 ラウンドの流れと演出の判断（2026-11-26）
+
+- 質問：実プレイの失敗に対する「成功時の最終スコア」はどう求めるか。
+  - 仮決定：不足する必須素材の品質換算数量だけを普通品質・連続倍率なしで補った場合のスコアを使う。取得済みの必須／ボーナスポイントとボーナス段階は保持し、実スコア以上・最低1とする。演出の閾値だけに使い、表示スコアや報酬は変えない。前の「芋煮会演出の修正」節にある旧プロトタイプの失敗スコア÷0.4という仮定は、M5のBoot経路ではこの判断に置き換える。
+  - 該当：ImoniEffectResultProjection.cs、ImoniEffectResultTests.cs、docs/M5_ROUND_FLOW.md。
+- 質問：二つ名の全条件がM7予定だが、M5の結果報酬欄はどう動かすか。
+  - 仮決定：初成功で後半「鍋奉行」、5連続成功で前半「伝説の」を付与する。`titles.unlockRules` に条件を集約し、既存の初期所持を保ってプロフィールへ追加保存する。モックの初期所持「連続の」はそのまま残す。全二つ名・バッジの条件整理はM7。
+  - 該当：GameConfig.json、RoundResultRules.cs、RoundResultProjection.cs、ProfileData.cs、ProfileScreens.cs。
+- 質問：モックにない5連続成功の通常クリア画面をどう作るか。
+  - 仮決定：ResultScreenと同じ部品・スコア内訳を使い、通常クリアの見出しとHomeボタンに切り替える。通常モードにR6は作らない。
+  - 該当：RoundScreens.cs、ScreenCatalog.cs、RoundResultProjection.cs。
+- 質問：5分の動作確認を短縮するため、ゲームの制限時間を変えるか。
+  - 仮決定：制限時間は既存の300秒を維持する。Editor／Development Buildのみ、既定OFFの切り替えで `round.mockTimeScale=10` をCoreの時間進行へ適用する。通常ビルドは常に1倍、芋煮会演出も実時間のまま。M3bの「旧mockTimeScaleは適用しない」は通常プレイについて維持し、開発用の明示切り替えだけ追加する。
+  - 該当：DevelopmentRoundClock.cs、ImoniDevelopmentMenus.cs、Bootstrap.cs。
+- 質問：演出の再生中に同時に必要になる部品数をどう決めるか。
+  - 仮決定：最短の発生間隔・ジッター下限・二重発生、最大落下時間、星の寿命と段階数から上限を計算し、表示前に部品をプールする。リプレイとフレーム飛びでも再利用する。
+  - 該当：ImoniEffectPoolCapacity.cs、ImoniEffectView.cs、ImoniEffectParts.cs、ImoniEffectTests.cs。
+- 質問：指定撮影時刻と静止見本・参考動画の段階が一致しない場合はどれを基準にするか。
+  - 仮決定：指定された演出開始からの時刻とIMONI_EFFECT_SPECの式を優先する。参考動画には成功0.76秒・失敗0.24秒の導入画面があり、静止41は演出4.6秒の状態ではない。元動画の並列比較を残したうえで、導入を除いた開始合わせ比較も保存する。乱数の違いを隠すためにタイムラインやスクリーンショットの時刻を変更しない。
+  - 該当：docs/validation/m5/effect-comparison.md、tools/Compare-M5.ps1。

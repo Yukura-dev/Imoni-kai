@@ -9,6 +9,9 @@ namespace Imoni.Game.UI
     {
         public TextAsset config;
         public StyleSheet theme;
+        public VisualTreeAsset imoniEffectTree;
+        public StyleSheet imoniEffectStyle;
+        public AudioClip[] imoniEffectAudio = Array.Empty<AudioClip>();
         public NamedTexture[] textures = Array.Empty<NamedTexture>();
     }
 

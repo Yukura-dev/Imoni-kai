@@ -133,20 +133,26 @@ namespace Imoni.Game.Effects
         {
             if (!droneSource)
             {
-                droneSource = CreateSource("Imoni Drone", (int)N("dronePriority"));
+                droneSource = CreateSource("Imoni Drone", (int)N("dronePriority"), drone);
                 droneFilter = droneSource.gameObject.AddComponent<AudioLowPassFilter>();
                 droneFilter.lowpassResonanceQ = (float)N("lowPassResonance");
             }
             while (voices.Count < (int)N("voiceCount")) voices.Add(CreateSource("Imoni Effect Voice " + voices.Count, (int)N("effectPriority")));
         }
 
-        private AudioSource CreateSource(string objectName, int priority)
+        private AudioSource CreateSource(string objectName, int priority, AudioClip initialClip = null)
         {
             var child = new GameObject(objectName);
+            // Adding an AudioSource on an active object enables its native play-on-awake state
+            // before managed assignments. Configure it while inactive, including the drone clip
+            // before adding its native filter, so an empty source cannot attempt playback.
+            child.SetActive(false);
             child.transform.SetParent(transform, false);
             var source = child.AddComponent<AudioSource>();
             source.playOnAwake = false; source.loop = false; source.spatialBlend = 0;
             source.dopplerLevel = 0; source.priority = priority;
+            source.clip = initialClip;
+            child.SetActive(true);
             return source;
         }
 

@@ -16,9 +16,13 @@ namespace Imoni.Core
         public BigInteger BonusMultiplier { get; }
         public BigInteger Score { get; }
         public BigInteger FundsReward { get; }
+        public BigInteger RequiredPointsRaw { get; }
+        public BigInteger BonusPointsRaw { get; }
+        public BigInteger PointScale { get; }
 
         internal RoundEvaluation(GoalProgress[] required, GoalProgress bonus, BigInteger requiredPoints,
-            BigInteger bonusPoints, BigInteger multiplier, BigInteger score, BigInteger fundsReward)
+            BigInteger bonusPoints, BigInteger multiplier, BigInteger score, BigInteger fundsReward,
+            BigInteger requiredPointsRaw, BigInteger bonusPointsRaw, BigInteger pointScale)
         {
             RequiredGoals = Array.AsReadOnly(required);
             BonusGoal = bonus;
@@ -29,6 +33,7 @@ namespace Imoni.Core
             BonusMultiplier = multiplier;
             Score = score;
             FundsReward = Success ? fundsReward : BigInteger.Zero;
+            RequiredPointsRaw = requiredPointsRaw; BonusPointsRaw = bonusPointsRaw; PointScale = pointScale;
         }
     }
 
@@ -60,7 +65,7 @@ namespace Imoni.Core
                 bonusRaw * bonusWeight * tier * requiredDenominator) / (scale * requiredDenominator * bonusDenominator);
             GameMath.DecimalRatio(config.BonusFundsPerPoint, out BigInteger rewardWeight, out BigInteger rewardDenominator);
             BigInteger reward = bonusRaw * tier * rewardWeight / (scale * rewardDenominator);
-            return new RoundEvaluation(required, bonus, requiredRaw / scale, bonusRaw / scale, tier, score, reward);
+            return new RoundEvaluation(required, bonus, requiredRaw / scale, bonusRaw / scale, tier, score, reward, requiredRaw, bonusRaw, scale);
         }
     }
 }

@@ -1,0 +1,177 @@
+{
+  "utc": "2026-11-26T00:55:37.2186841Z",
+  "width": 390,
+  "height": 844,
+  "screen": "ImoniFail",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "round": 1,
+  "seed": 202647,
+  "phase": "Failed",
+  "elapsed": 0.0,
+  "funds": "1000",
+  "cumulative": "0",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "7B7FB7EFFAAB142EA71C1B22269A90C5B46DC83BF87C4706309E9F69D4978D0D",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 10,
+  "result": {
+    "round": 3,
+    "success": false,
+    "score": "4190",
+    "requiredPoints": "8380",
+    "bonusPoints": "0",
+    "bonusMultiplier": "0",
+    "fundsReward": "0",
+    "fundsAfter": "1000",
+    "cumulative": "4402",
+    "missing": [
+      "sansai",
+      "taro"
+    ]
+  },
+  "effect": {
+    "timeMs": 10000.0,
+    "failed": true,
+    "level": 3,
+    "score": "4190",
+    "displayScore": "4190",
+    "finalScore": "4190",
+    "referenceScore": "4882",
+    "finaleAtMs": 7500.8488324292448,
+    "resultAtMs": 8800.8488324292448,
+    "resultVisible": true,
+    "pose": {
+      "PillarWidth": 15.051033819279214,
+      "GlowOpacity": 0.71,
+      "BurstOpacity": 0.0,
+      "RainbowDurationSec": 2.4,
+      "SpinDurationSec": 6.0,
+      "Gray": 1.0,
+      "PotScale": 1.0,
+      "BrothGlow": 0.70000000000000007,
+      "Flash": 0.0,
+      "ShakeX": 0.0,
+      "ShakeY": 0.0,
+      "BannerScale": 1.0,
+      "BannerOpacity": 0.0,
+      "FinaleScale": 1.0,
+      "FailDrop": 0.0,
+      "Gauge": 100.0,
+      "ShowBanner": false,
+      "Finale": false,
+      "FailFinale": true,
+      "ResultVisible": true
+    },
+    "levelEvents": [
+      {
+        "Kind": "level",
+        "AtMs": 2983.3035086051595,
+        "Level": 1,
+        "Hits": 0,
+        "Points": 0
+      },
+      {
+        "Kind": "level",
+        "AtMs": 4332.1525704862106,
+        "Level": 2,
+        "Hits": 0,
+        "Points": 0
+      },
+      {
+        "Kind": "level",
+        "AtMs": 5380.6393913725751,
+        "Level": 3,
+        "Hits": 0,
+        "Points": 0
+      }
+    ],
+    "activeItems": 0
+  },
+  "buttons": [
+    {
+      "name": "SoundButton",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 14.0,
+      "y": 44.0,
+      "width": 104.0,
+      "height": 40.0
+    },
+    {
+      "name": "SkipButton",
+      "text": "スキップ",
+      "enabled": true,
+      "display": "Flex",
+      "x": 300.0,
+      "y": 44.0,
+      "width": 76.0,
+      "height": 40.0
+    },
+    {
+      "name": "ResultButton",
+      "text": "結果を見る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 24.0,
+      "y": 704.0,
+      "width": 342.0,
+      "height": 60.0
+    },
+    {
+      "name": "ReplayButton",
+      "text": "もう一回見る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 24.0,
+      "y": 772.0,
+      "width": 342.0,
+      "height": 44.0
+    }
+  ],
+  "image": "M5-proof_actual_fail_effect.png"
+}

@@ -97,13 +97,13 @@ namespace Imoni.Game.UI.Components
     /// <summary>Small vector artwork replacing CSS dashed outlines (which USS does not support).</summary>
     internal sealed class LobbyDashedOutline : VisualElement
     {
-        internal LobbyDashedOutline(bool circle, float cornerRadius = 14, float strokeWidth = 2, string color = "#8C6A2E")
+        internal LobbyDashedOutline(bool circle, float cornerRadius = 14, float strokeWidth = 2, string color = "#8C6A2E", float dashLength = 4, float gapLength = 4)
         {
             pickingMode = PickingMode.Ignore;
             generateVisualContent += context =>
             {
                 var painter = context.painter2D;
-                painter.strokeColor = UiTheme.Color(color); painter.lineWidth = circle ? 3 : strokeWidth;
+                painter.strokeColor = string.IsNullOrEmpty(color) ? resolvedStyle.color : UiTheme.Color(color); painter.lineWidth = circle ? 3 : strokeWidth;
                 float inset = painter.lineWidth / 2;
                 Rect rect = new Rect(inset, inset, contentRect.width - inset * 2, contentRect.height - inset * 2);
                 if (rect.width <= 0 || rect.height <= 0) return;
@@ -134,9 +134,12 @@ namespace Imoni.Game.UI.Components
                     Vector2 from = points[index - 1], to = points[index]; float length = Vector2.Distance(from, to), walked = 0;
                     while (walked < length)
                     {
-                        float amount = Math.Min(4 - phase % 4, length - walked);
+                        float cycle = dashLength + gapLength;
+                        float offset = phase % cycle;
+                        bool on = offset < dashLength;
+                        float amount = Math.Min((on ? dashLength : cycle) - offset, length - walked);
                         if (amount <= .0001f) amount = Math.Min(.0001f, length - walked);
-                        if (phase % 8 < 4)
+                        if (on)
                         { painter.BeginPath(); painter.MoveTo(Vector2.Lerp(from, to, walked / length)); painter.LineTo(Vector2.Lerp(from, to, (walked + amount) / length)); painter.Stroke(); }
                         walked += amount; phase += amount;
                     }
