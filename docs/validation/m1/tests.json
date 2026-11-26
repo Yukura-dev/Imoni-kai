@@ -1,0 +1,597 @@
+{
+  "command": "dotnet test tools/CoreTests --nologo --logger \"trx;LogFileName=m1.trx\" --results-directory Library/M1Tests",
+  "total": 116,
+  "passed": 116,
+  "failed": 0,
+  "skipped": 0,
+  "added": 101,
+  "byFixture": {
+    "LocalGameServerTests": 28,
+    "RulesMathTests": 43,
+    "SmokeTests": 1,
+    "ImoniEffectTests": 14,
+    "InventoryScoringTests": 30
+  },
+  "tests": [
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "BonusIsHiddenUntilExactlyTwoMinutesAndRevealedOnlyOnce",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "ClearCountAndRoundObjectivesCanBeSuppliedFromUpdatedRules",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "ClientSnapshotsCannotMutateServerOrChangeAfterLaterCommands",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "ConcurrentSalesCannotSpendTheSameLotTwice",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "EveryInventoryOrFundsCommandIsRejectedAfterTimeUp(Buy)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "EveryInventoryOrFundsCommandIsRejectedAfterTimeUp(Gather)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "EveryInventoryOrFundsCommandIsRejectedAfterTimeUp(Sell)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "EveryInventoryOrFundsCommandIsRejectedAfterTimeUp(SetProtection)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "EveryInventoryOrFundsCommandIsRejectedAfterTimeUp(Upgrade)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "FailedSecondRoundResetsRunAndKeepsDetachedFailureResult",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "FiveConsecutiveSuccessesClearAndSumOnlyCompletedRoundScores",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "FiveMinutesStopsGatheringAndEvaluatesTheInventory",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "InvalidPurchaseOrSaleQuantityCannotChangeTheRun(-1)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "InvalidPurchaseOrSaleQuantityCannotChangeTheRun(0)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "LargeTickEmitsOrderedBoundaryEventsAtTheirExactTimes",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "LifecycleAndMemberValidationRejectInvalidTransitions",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "NegativeTickIsRejectedWithoutChangingTime",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "NewChallengeUsesConfigAndPublishesRequiredGoalsAtZero",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "NonHighestGatherResetsOnlyThatPlayersStreak",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "OperationsRecordActorKindQuantityFundsAndSimulationTime",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "PurchaseAndUpgradeInsufficientFundsLeaveEveryValueUntouched",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "RejectedCommandsDoNotConsumeRandomnessOrChangeFunds",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "SaleBelowProtectionRejectsAtomicallyAcrossSharedActors",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "SameSeedAndOperationSequenceReproduceQualityStreakQuantityAndPoints",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "SoldBonusMaterialCannotReturnInTheFinalScore",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "StreakIsPerPlayerSurvivesMaterialChangesAndDoesNotAffectPurchases",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "SuccessConsumesLockedAndUnrelatedItemsButKeepsFundsUpgradesAndSeed",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.LocalGameServerTests",
+      "name": "TimerUsesChangedConfigAndIgnoresDevelopmentTimeScale",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "BigNumberFormattingUsesJapaneseUnits(\"-1234567890123\",\"-1.23兆\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "BigNumberFormattingUsesJapaneseUnits(\"0\",\"0\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "BigNumberFormattingUsesJapaneseUnits(\"10000\",\"1万\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "BigNumberFormattingUsesJapaneseUnits(\"100000000\",\"1億\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "BigNumberFormattingUsesJapaneseUnits(\"1000000000000\",\"1兆\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "BigNumberFormattingUsesJapaneseUnits(\"123456\",\"12.34万\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "BigNumberFormattingUsesJapaneseUnits(\"9999\",\"9,999\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "ConfigLoadsBigIntegerAmountsWithoutDoublePrecisionLoss",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "DuplicateIdsAndUnknownPurchasedQualityAreRejected",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "FormatterUsesConfigAndKeepsVeryLargeIntegers",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "FractionalStreakIsFloorOfTheExactIntegerRoot",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "GatherQuantityFloorsOnlyAfterBothMultipliers",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "InvalidConfigFailsBeforeStartingGame(\"economy.startFunds\",-1)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "InvalidConfigFailsBeforeStartingGame(\"format.decimalPlaces\",-1)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "InvalidConfigFailsBeforeStartingGame(\"format.unitBase\",1)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "InvalidConfigFailsBeforeStartingGame(\"numeric.fixedScale\",0)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "InvalidConfigFailsBeforeStartingGame(\"qualityRoll.luckPerLevel\",-1)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "InvalidConfigFailsBeforeStartingGame(\"qualityRoll.topBaseChance\",2)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "InvalidConfigFailsBeforeStartingGame(\"round.bonusRevealSec\",300)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "InvalidConfigFailsBeforeStartingGame(\"round.durationSec\",0)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "InvalidConfigFailsBeforeStartingGame(\"streak.divisor\",0)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "LargeStreakAndYieldNeverPassThroughFloatingPoint",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "MaxLuckAlwaysChoosesHighestUnlockedQuality(1,\"rare\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "MaxLuckAlwaysChoosesHighestUnlockedQuality(2,\"legend\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "MaxLuckAlwaysChoosesHighestUnlockedQuality(3,\"myth\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "MaxLuckAlwaysChoosesHighestUnlockedQuality(4,\"transcend\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "MaxLuckAlwaysChoosesHighestUnlockedQuality(5,\"ultimate\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "MissingNumericValueDoesNotSilentlyUseADefault",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "NegativeLevelsAndStreaksAreRejected",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "QualityProbabilityUsesConfigAndLowerWeights",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "RandomSamplingHandlesNegativeSeedsAndBigIntegerBounds",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "RandomSequenceHasStableGoldenValues",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "SameSeedAndInputsRepeatTheWholeQualitySequence",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "StreakUsesConfiguredFractionalExponent(0,\"1000000\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "StreakUsesConfiguredFractionalExponent(1,\"1071773\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "StreakUsesConfiguredFractionalExponent(10,\"2000000\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "StreakUsesConfiguredFractionalExponent(20,\"4000000\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "UnlimitedSpeedRetainsAPositiveRepresentableDuration",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "UpgradePriceAndEffectsFollowChangedConfigAtHugeLevels",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "UpgradePriceMatchesMockHalfUpRounding(0,\"150\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "UpgradePriceMatchesMockHalfUpRounding(1,\"225\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "UpgradePriceMatchesMockHalfUpRounding(2,\"338\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.RulesMathTests",
+      "name": "UpgradePriceMatchesMockHalfUpRounding(3,\"506\")",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Core.Tests.SmokeTests",
+      "name": "GameConfigJsonIsAvailableAndReadable",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "EveryScoreShowsResultWithinTenSeconds(\"0\",True)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "EveryScoreShowsResultWithinTenSeconds(\"1\",False)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "EveryScoreShowsResultWithinTenSeconds(\"1\",True)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "EveryScoreShowsResultWithinTenSeconds(\"1000000000000000\",False)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "EveryScoreShowsResultWithinTenSeconds(\"1000000000000000\",True)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "EveryScoreShowsResultWithinTenSeconds(\"18420\",False)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "EveryScoreShowsResultWithinTenSeconds(\"7350\",True)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "FailureUsesTheSuccessThresholdsAndStopsAtLevelThree",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "IngredientCoordinatesUseScreenFormulaWithoutTwentyPixelOffset",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "ReferenceRandomSeedMatchesMockParkMillerSequence",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "RejectsInvalidTimeAndImpossibleDeadline",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "StalledFramesCannotDelayHardCapOrResultButton",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "SuccessFinaleUsesCorrectFlashAndOvershoot",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.ImoniEffectTests",
+      "name": "TimelineAndDisplayAreIdenticalAtDifferentFrameRates",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusThresholdDoesNotRoundUpLargeFractionalPercentages",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersFollowChangedConfiguration",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(0,0)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(100,1)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(1000,8)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(149,1)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(150,2)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(199,2)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(200,4)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(299,4)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(300,8)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BonusTiersUseExactInclusiveThresholds(99,0)",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "BothScoreTermsAreAddedBeforeRounding",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "DecimalScoreWeightsKeepFullPrecisionWithHugeQuantitiesAndCoarseLotScale",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "FailureReportsAllMissingMaterialsAndPaysNoReward",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "FractionalLotPointsAreCombinedBeforeScoreIsRounded",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "HugeQuantitiesAndProceedsKeepExactIntegerPrecision",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "InvalidAcquisitionOrSaleDoesNotMutateInventory",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "InvalidProtectionLeavesPreviousProtectionUnchanged",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "InventorySnapshotsCannotBeChangedAndDoNotTrackLaterSales",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "IrrelevantMaterialsDoNotContributeToScore",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "ObjectivesRejectInvalidQuantitiesDuplicatesAndOverlap",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "ProtectedMaterialsStillMeetObjectivesAndScoreAndAreClearedForThePot",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "QualityConversionFollowsChangedConfiguration",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "QualityEquivalentIgnoresPointMultiplierAndIncludesAllQualities",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "SaleBelowProtectionIsRejectedWithoutChangingAnyLot",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "SaleConsumesOldestMatchingLotsAndKeepsHistoricalPointMultipliers",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "ScoringAndSalePricesFollowChangedConfiguration",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "SellingDifferentQualityDoesNotConsumeProtectedOrOtherQualityLots",
+      "outcome": "Passed"
+    },
+    {
+      "fixture": "Imoni.Tests.InventoryScoringTests",
+      "name": "SoldMaterialsAreExcludedFromRequiredAndBonusScore",
+      "outcome": "Passed"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>みんなで芋煮会 モック一覧</title>
+<style>
+:root{--bg:#FAF6EC;--fg:#4A2E22;--card:#FFFFFF;--line:#E2D6BE}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1F1A16;--fg:#F3E9D8;--card:#2A231E;--line:#3A3028}}
+:root[data-theme="dark"]{--bg:#1F1A16;--fg:#F3E9D8;--card:#2A231E;--line:#3A3028}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif}
+header{padding:24px 16px 8px;max-width:1400px;margin:0 auto}
+h1{margin:0 0 6px;font-size:22px}
+p{margin:4px 0;font-size:14px;line-height:1.6}
+section{max-width:1400px;margin:0 auto;padding:8px 16px 24px}
+h2{font-size:16px;margin:16px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px}
+.cell{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.frame{width:195px;height:422px;overflow:hidden;border-radius:16px;border:1px solid var(--line);align-self:center}
+.frame iframe{width:390px;height:844px;border:0;transform:scale(.5);transform-origin:0 0;pointer-events:none}
+a{color:inherit}
+.name{font-size:13px;font-weight:700}
+.file{font-size:12px;opacity:.75}
+</style>
+</head>
+<body>
+<header>
+<h1>みんなで芋煮会 モック一覧</h1>
+<p>各カードのリンクを開くと、その画面を実寸(390×844)で操作できます。画面内のボタンやリンクで次の画面へ進めます。</p>
+<p>起動方法: このフォルダで <code>python3 -m http.server 8000</code> を実行し、<code>http://localhost:8000/</code> を開く(file:// では埋め込み画面が読めません)。</p>
+</header>
+<section id="list"></section>
+<script>
+const groups = [
+  ['起動 → チュートリアル', [['Main','タイトル / ローディング'],['Tutorial1','チュートリアル 1/3 会員登録'],['Tutorial2','チュートリアル 2/3 ラウンドの流れ'],['Tutorial3','チュートリアル 3/3 品質と強化']]],
+  ['アウトゲーム', [['Home','ホーム'],['Lobby','ロビー(作成/参加)'],['Waiting','メンバー待ち'],['Loading','読み込み中(ワールド生成)'],['Member','会員証・二つ名・キャラ編集'],['Ranking','ランキング']]],
+  ['インゲーム', [['Game','メインゲーム(R1開始)'],['GameMid','2分経過・ボーナス発表後'],['GameWarehouse','倉庫・売却・ロック'],['GameUpgrade','個人強化'],['Imoni','芋煮会演出(成功)'],['Result','結果(成功)'],['ImoniFail','芋煮会演出(失敗)'],['GameOver','ゲームオーバー']]]
+];
+const root = document.getElementById('list');
+for (const [title, items] of groups) {
+  const h = document.createElement('h2'); h.textContent = title; root.appendChild(h);
+  const g = document.createElement('div'); g.className = 'grid'; root.appendChild(g);
+  for (const [file, name] of items) {
+    const c = document.createElement('div'); c.className = 'cell';
+    c.innerHTML = `<div class="frame"><iframe loading="lazy" title="${name}" src="${file}.dc.html"></iframe></div>
+      <a class="name" href="${file}.dc.html">${name}</a><span class="file">${file}.dc.html</span>`;
+    g.appendChild(c);
+  }
+}
+</script>
+</body>
+</html>

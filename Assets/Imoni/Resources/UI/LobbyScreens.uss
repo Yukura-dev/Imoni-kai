@@ -1,0 +1,66 @@
+/* Lobby/Waiting/Loading layout only. Button/card/avatar/status drawing is shared with M2a. */
+.lobby-screen { flex-grow: 1; min-height: 0; background-color: var(--c-yellow); color: var(--c-brown); }
+.lobby-screen .imoni-text { white-space: normal; }
+.lobby-screen .lobby-scroll { flex-grow: 1; min-height: 0; }
+.lobby-screen .lobby-scroll .unity-scroll-view__content-container { flex-grow: 1; }
+.lobby-screen .lobby-page { padding: 52px 18px 40px; flex-grow: 1; }
+.lobby-screen .lobby-stack, .lobby-screen .lobby-team { flex-grow: 1; }
+.lobby-screen .lobby-block { margin-bottom: 14px; }
+.lobby-screen .lobby-gap8 { margin-top: 8px; }
+.lobby-screen .lobby-gap10 { margin-top: 10px; }
+.lobby-screen .lobby-gap14 { margin-top: 14px; }
+.lobby-screen .lobby-gap16 { margin-top: 16px; }
+.lobby-screen .lobby-flex-spacer { flex-grow: 1; min-height: 0; }
+.lobby-screen .lobby-choice-card { padding: 16px; }
+.lobby-screen .lobby-choice-heading { font-size: 17px; -unity-font-definition: var(--font-body-black); }
+.lobby-screen .lobby-description { font-size: 13px; }
+.lobby-screen .lobby-create-button { height: 56px; border-radius: 28px; font-size: 18px; -unity-font-definition: var(--font-body-black); }
+.lobby-screen .lobby-input-caption { font-size: 12px; -unity-font-definition: var(--font-body-black); }
+.lobby-screen .lobby-code-input { margin: 4px 0 0 0; height: 48px; flex-shrink: 0; }
+.lobby-screen .lobby-code-input .unity-base-text-field__input { height: 48px; font-size: 20px; -unity-font-definition: var(--font-body-black); letter-spacing: 10px; color: var(--c-brown); background-color: var(--c-white); border-width: 3px; border-color: var(--c-green); border-radius: 10px; padding: 0 12px; }
+.lobby-screen .lobby-code-input--empty .unity-base-text-field__input { color: #757575; }
+.lobby-screen .lobby-small-note { font-size: 11px; color: var(--c-brown-soft); }
+.lobby-screen .lobby-members-card { padding: 14px; }
+.lobby-screen .lobby-card-heading { font-size: 15px; -unity-font-definition: var(--font-body-black); }
+.lobby-screen .lobby-mode-card { border-width: 3px; border-radius: 18px; padding: 12px 14px; }
+.lobby-screen .lobby-mode-heading { font-size: 14px; -unity-font-definition: var(--font-body-black); }
+.lobby-screen .lobby-cancel-ready { border-width: 0; background-color: rgba(0,0,0,0); font-size: 14px; }
+.lobby-screen .member-row .title-chips { flex-wrap: nowrap; }
+.lobby-screen .member-row .title-chips .chip { padding: 0; border-width: 0; margin: 0; background-color: rgba(0,0,0,0); color: var(--c-green); border-radius: 0; font-size: 11px; }
+.lobby-screen .member-row__info { margin-right: 12px; }
+.lobby-screen .member-row__name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lobby-screen .avatar--lobby-placeholder .avatar__layer, .lobby-screen .avatar--lobby-placeholder .avatar__photo { visibility: hidden; }
+.lobby-screen .segmented--seed > .segmented__option { min-height: 58px; padding: 0 6px; }
+/* TextCore tracking is font-relative; these reproduce the mock's CSS 6px/2px tracking at 44px/20px. */
+.lobby-screen .invite-code__number { letter-spacing: 14px; }
+.lobby-screen .invite-code__compact-number { letter-spacing: 10px; }
+
+.lobby-screen.waiting-root { padding: 52px 18px 36px; }
+.lobby-screen .waiting-seed-chip { font-size: 12px; -unity-font-definition: var(--font-body-black); background-color: var(--c-cream); border-width: 2px; border-color: var(--c-brown); border-radius: 14px; padding: 3px 10px; }
+.lobby-screen .waiting-heading { flex-direction: row; align-items: center; flex-shrink: 0; }
+.lobby-screen .waiting-heading__copy { margin-left: 12px; min-width: 0; flex-grow: 1; }
+.lobby-screen .waiting-headline { font-size: 24px; -unity-font-definition: var(--font-title); -unity-font-style: bold; color: var(--c-green); white-space: nowrap; letter-spacing: -0.5px; }
+.lobby-screen .waiting-subline { margin-top: 2px; font-size: 13px; }
+.lobby-screen .waiting-members { padding: 14px; }
+.lobby-screen .waiting-members__heading { flex-direction: row; justify-content: space-between; align-items: center; }
+.lobby-screen .waiting-count { font-size: 18px; -unity-font-definition: var(--font-title); color: var(--c-red); }
+.lobby-screen .waiting-start:disabled { font-size: 16px; -unity-font-definition: var(--font-body-black); }
+.lobby-screen .lobby-dashed-overlay { position: absolute; left: -3px; right: -3px; top: -3px; bottom: -3px; }
+.lobby-screen .waiting-footnote { -unity-text-align: middle-center; font-size: 11px; }
+.lobby-screen .lobby-toast { position: absolute; left: 18px; right: 18px; bottom: 110px; }
+
+.lobby-screen.loading-root { position: relative; overflow: hidden; }
+.lobby-screen .loading-pattern { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.lobby-screen .loading-page { position: absolute; left: 20px; right: 20px; top: 70px; bottom: 40px; }
+.lobby-screen .loading-heading { align-items: center; flex-shrink: 0; }
+.lobby-screen .loading-headline { margin-top: 8px; font-size: 28px; -unity-font-definition: var(--font-title); -unity-font-style: bold; color: var(--c-red); text-shadow: 3px 3px 0 var(--c-cream); }
+.lobby-screen .loading-team-caption { margin-top: 8px; font-size: 13px; -unity-font-definition: var(--font-body-black); -unity-text-align: middle-center; }
+.lobby-screen .loading-progress-card { padding: 14px 16px; }
+.lobby-screen .loading-progress-bar { margin-top: 14px; height: 22px; border-radius: 11px; }
+.lobby-screen .loading-percent { font-size: 12px; -unity-font-definition: var(--font-body-black); -unity-text-align: middle-right; }
+.lobby-screen .loading-members { flex-direction: row; justify-content: center; flex-shrink: 0; }
+.lobby-screen .loading-member--spaced { margin-left: 14px; }
+.lobby-screen .loading-hint { background-color: rgba(255,243,214,.92); border-width: 3px; border-radius: 16px; border-color: rgba(0,0,0,0); padding: 10px 14px; }
+.lobby-screen .loading-hint__caption { font-size: 11px; -unity-font-definition: var(--font-body-black); color: var(--c-red); }
+.lobby-screen .loading-hint__text { margin-top: 4px; font-size: 13px; }
+.lobby-screen .loading-start { font-size: 22px; }

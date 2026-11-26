@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework><LangVersion>9.0</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings><Nullable>disable</Nullable>
+    <IsTestProject>true</IsTestProject><IsPackable>false</IsPackable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems><GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Assets/Imoni/Scripts/Core/*.cs" />
+    <Compile Include="../../Assets/Imoni/Tests/EditMode/*.cs" />
+    <None Include="../../Assets/Imoni/Config/GameConfig.json" Link="GameConfig.json" CopyToOutputDirectory="PreserveNewest" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+</Project>

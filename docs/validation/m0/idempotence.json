@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "method": "Exact JSON equality after Setup Project -> Validate M0 -> Setup Project -> Validate M0",
+  "compared": "Saved asset GUIDs, persistent font material/atlas IDs, Boot object/component identities and references, assembly definitions, build settings, portrait settings"
+}

@@ -1,0 +1,196 @@
+{
+  "imoni_success": {
+    "firstEffectFrame": {
+      "frame": 19,
+      "timeSec": 0.76,
+      "mean": 174.177,
+      "chroma": 100.646
+    },
+    "intro": [
+      {
+        "frame": 0,
+        "timeSec": 0.0,
+        "mean": 170.078,
+        "chroma": 0.0
+      },
+      {
+        "frame": 1,
+        "timeSec": 0.04,
+        "mean": 254.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 2,
+        "timeSec": 0.08,
+        "mean": 254.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 3,
+        "timeSec": 0.12,
+        "mean": 252.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 4,
+        "timeSec": 0.16,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 5,
+        "timeSec": 0.2,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 6,
+        "timeSec": 0.24,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 7,
+        "timeSec": 0.28,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 8,
+        "timeSec": 0.32,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 9,
+        "timeSec": 0.36,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 10,
+        "timeSec": 0.4,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 11,
+        "timeSec": 0.44,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 12,
+        "timeSec": 0.48,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 13,
+        "timeSec": 0.52,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 14,
+        "timeSec": 0.56,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 15,
+        "timeSec": 0.6,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 16,
+        "timeSec": 0.64,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 17,
+        "timeSec": 0.68,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 18,
+        "timeSec": 0.72,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 19,
+        "timeSec": 0.76,
+        "mean": 174.177,
+        "chroma": 100.646
+      },
+      {
+        "frame": 20,
+        "timeSec": 0.8,
+        "mean": 174.155,
+        "chroma": 100.781
+      }
+    ]
+  },
+  "imoni_fail": {
+    "firstEffectFrame": {
+      "frame": 6,
+      "timeSec": 0.24,
+      "mean": 174.192,
+      "chroma": 100.381
+    },
+    "intro": [
+      {
+        "frame": 0,
+        "timeSec": 0.0,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 1,
+        "timeSec": 0.04,
+        "mean": 254.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 2,
+        "timeSec": 0.08,
+        "mean": 254.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 3,
+        "timeSec": 0.12,
+        "mean": 252.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 4,
+        "timeSec": 0.16,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 5,
+        "timeSec": 0.2,
+        "mean": 253.0,
+        "chroma": 0.0
+      },
+      {
+        "frame": 6,
+        "timeSec": 0.24,
+        "mean": 174.192,
+        "chroma": 100.381
+      },
+      {
+        "frame": 7,
+        "timeSec": 0.28,
+        "mean": 174.26,
+        "chroma": 100.588
+      }
+    ]
+  }
+}

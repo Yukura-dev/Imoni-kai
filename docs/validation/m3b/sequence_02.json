@@ -1,0 +1,86 @@
+{
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "seed": 202647,
+  "elapsed": 2.000000,
+  "phase": "Collecting",
+  "funds": "1000",
+  "bonusRevealed": false,
+  "lastTappedResource": "resource-33-27",
+  "lastTappedGround": null,
+  "players": [
+    {
+      "id": "player1",
+      "x": 32,
+      "y": 27,
+      "nextX": 32,
+      "nextY": 27,
+      "action": "Gathering",
+      "connected": true,
+      "target": "resource-33-27",
+      "remaining": 0.742860,
+      "duration": 1.6,
+      "streak": 0
+    },
+    {
+      "id": "player2",
+      "x": 32,
+      "y": 32,
+      "nextX": 32,
+      "nextY": 33,
+      "action": "Moving",
+      "connected": true,
+      "target": "resource-30-33",
+      "remaining": 0.228572,
+      "duration": 0.228572,
+      "streak": 0
+    },
+    {
+      "id": "player3",
+      "x": 32,
+      "y": 32,
+      "nextX": 32,
+      "nextY": 33,
+      "action": "Moving",
+      "connected": true,
+      "target": "resource-30-33",
+      "remaining": 0.228572,
+      "duration": 0.228572,
+      "streak": 0
+    }
+  ],
+  "history": [],
+  "humanGatherCount": 0,
+  "lots": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "camera": {
+    "x": 32.65625,
+    "y": -27.5,
+    "orthographicSize": 8.75,
+    "viewport": [
+      0.0,
+      0.09952607,
+      1.0,
+      0.6635071
+    ]
+  },
+  "growthLabels": {
+    "visible": 0,
+    "characterOverlaps": 0,
+    "labelOverlaps": 0
+  },
+  "targetResource": {
+    "id": "resource-33-27",
+    "stock": 3,
+    "stage": "Ready",
+    "untilReady": 0.0
+  },
+  "name": "sequence_02",
+  "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_02.png",
+  "editorTime": 34821.6195645
+}

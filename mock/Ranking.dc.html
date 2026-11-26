@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ランキング</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Zen+Maru+Gothic:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#4A2E22}a:hover{color:#8B2310}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: #F7B92B; font-family: 'Zen Maru Gothic', sans-serif; color: #4A2E22; overflow: hidden">
+<main style="flex: 1; min-height: 0; padding: 52px 16px 12px; display: flex; flex-direction: column; gap: 10px">
+<h1 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 26px; color: #34421C">チームランキング</h1>
+<div role="tablist" aria-label="モード" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 3px solid #4A2E22; border-radius: 999px; overflow: hidden; background: #FFF3D6">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+<button type="button" role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}" style="height: 44px; border: 0; background: {{t.bg}}; color: {{t.fg}}; font-size: 14px; font-weight: 900; cursor: pointer">{{t.label}}</button>
+</sc-for>
+</div>
+<div role="tablist" aria-label="部門" style="display: flex; gap: 6px">
+<sc-for list="{{seeds}}" as="t" hint-placeholder-count="2">
+<button type="button" role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}" style="flex: 1; height: 36px; border-radius: 10px; border: 2px solid #4A2E22; background: {{t.bg}}; color: {{t.fg}}; font-size: 12px; font-weight: 900; cursor: pointer">{{t.label}}</button>
+</sc-for>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 900">
+<span>{{caption}}</span>
+<span style="background: #FFF3D6; border: 2px solid #4A2E22; border-radius: 999px; padding: 2px 8px">3人部門</span>
+</div>
+
+<div style="flex: 1; min-height: 0; overflow: auto; background: #FFF3D6; border: 4px solid #4A2E22; border-radius: 22px; padding: 6px">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+<div style="display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 8px 6px; border-radius: 12px; background: {{r.bg}}">
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 17px; text-align: center; color: {{r.rankColor}}">{{r.rank}}</span>
+<div style="display: flex; flex-direction: column; gap: 1px; min-width: 0">
+<span style="font-size: 14px; font-weight: 900">{{r.team}}</span>
+<span style="font-size: 10px; font-weight: 700; color: #6B4A3A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.detail}}</span>
+</div>
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 15px">{{r.score}}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="background: #34421C; color: #FFF3D6; border-radius: 16px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 14px; font-weight: 900">鍋底同盟(あなた)</span>
+<span style="font-size: 11px; font-weight: 700; color: #DCE8C4">{{mine}}</span>
+</div>
+<span style="font-size: 13px; font-weight: 900; color: #F7B92B; white-space: nowrap">未登録</span>
+</div>
+</main>
+
+<nav style="height: 76px; flex-shrink: 0; display: flex; border-top: 3px solid #4A2E22; background: #FFF3D6">
+<a href="Home.dc.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: #4A2E22; font-size: 12px; font-weight: 900">
+<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M10 20v-5h4v5"></path></svg>
+ホーム</a>
+<a href="Ranking.dc.html" aria-current="page" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; background: #F7B92B; text-decoration: none; color: #4A2E22; font-size: 12px; font-weight: 900; border-left: 3px solid #4A2E22">
+<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"></path><rect x="5" y="11" width="4" height="9"></rect><rect x="10" y="6" width="4" height="14"></rect><rect x="15" y="14" width="4" height="6"></rect></svg>
+ランキング</a>
+<a href="Member.dc.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: #4A2E22; font-size: 12px; font-weight: 900; border-left: 3px solid #4A2E22">
+<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="9" cy="11" r="2"></circle><path d="M6 16c1-2 5-2 6 0"></path><path d="M14 10h4M14 14h3"></path></svg>
+会員証</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'normal', seed: 'common' }; }
+  renderVals() {
+    const tab = this.state.tab; const seed = this.state.seed;
+    const common = seed === 'common';
+    const teams = common
+      ? ['芋煮の極み', '鍋底から愛を', '山形本場勢', 'ねぎ多め', 'きのこ党', '里芋ころころ', '薪くべ隊', '夜の芋煮']
+      : ['無限鍋', '芋煮の極み', '当たりマップ勢', '川べり司令部', 'きのこ党', 'こんにゃく三兄弟', '鍋底から愛を', 'たきび屋'];
+    const normal = common
+      ? ['12億3,456万', '8億1,020万', '3億9,870万', '1億2,300万', '9,840万', '4,210万', '1,980万', '760万']
+      : ['31億2,000万', '15億8,800万', '9億1,500万', '4億3,210万', '2億0,040万', '8,870万', '3,330万', '1,120万'];
+    const endless = common
+      ? [['R14', '3.2兆'], ['R12', '8,700億'], ['R11', '1,240億'], ['R9', '98億'], ['R8', '31億'], ['R7', '9.6億'], ['R6', '2.1億'], ['R6', '1.4億']]
+      : [['R17', '41兆'], ['R15', '6.8兆'], ['R13', '9,900億'], ['R12', '2,050億'], ['R10', '330億'], ['R9', '72億'], ['R7', '8.8億'], ['R6', '1.9億']];
+    const dates = ['11/24 21:14', '11/23 22:40', '11/24 19:02', '11/22 23:51', '11/21 20:33', '11/24 12:08', '11/20 21:47', '11/23 01:15'];
+    const freeSeeds = ['#58213', '#90417', '#11872', '#77302', '#40196', '#63558', '#25014', '#81920'];
+    const rows = teams.map((t, i) => {
+      const seedText = seed === 'common' ? '' : ' · シード' + freeSeeds[i];
+      const clear = tab === 'normal' ? '5R連続成功' : '最高' + endless[i][0];
+      return {
+        rank: String(i + 1), team: t, score: tab === 'normal' ? normal[i] : endless[i][1],
+        detail: clear + seedText + ' · ' + dates[i],
+        bg: i % 2 ? 'transparent' : '#FBEBC8', rankColor: i === 0 ? '#8B2310' : i < 3 ? '#B5652B' : '#4A2E22'
+      };
+    });
+    const mk = (cur, key, id, label, setKey) => ({ label: label, selected: cur === id ? 'true' : 'false', bg: cur === id ? '#34421C' : (key === 'tab' ? 'transparent' : '#FFF3D6'), fg: cur === id ? '#FFF3D6' : '#4A2E22', pick: () => this.setState({ [setKey]: id }) });
+    return {
+      tabs: [mk(tab, 'tab', 'normal', '通常モード', 'tab'), mk(tab, 'tab', 'endless', 'エンドレス', 'tab')],
+      seeds: [mk(seed, 'seed', 'common', '共通シード', 'seed'), mk(seed, 'seed', 'free', '自由シード', 'seed')],
+      caption: common ? '共通シード部門:今週 #2026-47' : '自由シード部門:マップはチームごとにランダム',
+      rows: rows,
+      mine: tab === 'normal' ? '5ラウンド連続成功で登録されます(最高 R3)' : '通常クリアで解放'
+    };
+  }
+}
+</script>
+</body>
+</html>

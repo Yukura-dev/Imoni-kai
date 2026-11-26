@@ -1,0 +1,178 @@
+{
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "seed": 202647,
+  "elapsed": 6.000000,
+  "phase": "Collecting",
+  "funds": "1000",
+  "bonusRevealed": false,
+  "lastTappedResource": "resource-33-27",
+  "lastTappedGround": null,
+  "players": [
+    {
+      "id": "player1",
+      "x": 32,
+      "y": 27,
+      "nextX": 32,
+      "nextY": 27,
+      "action": "Idle",
+      "connected": true,
+      "target": null,
+      "remaining": 0.0,
+      "duration": 0.0,
+      "streak": 0
+    },
+    {
+      "id": "player2",
+      "x": 31,
+      "y": 33,
+      "nextX": 31,
+      "nextY": 34,
+      "action": "Moving",
+      "connected": true,
+      "target": "resource-30-34",
+      "remaining": 0.228572,
+      "duration": 0.228572,
+      "streak": 0
+    },
+    {
+      "id": "player3",
+      "x": 31,
+      "y": 33,
+      "nextX": 31,
+      "nextY": 34,
+      "action": "Moving",
+      "connected": true,
+      "target": "resource-30-34",
+      "remaining": 0.228572,
+      "duration": 0.228572,
+      "streak": 0
+    }
+  ],
+  "history": [
+    {
+      "sequence": 1,
+      "actor": "player1",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 2.742860,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 2,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 4.057144,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 3,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 4.057144,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 4,
+      "actor": "player1",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "rare",
+      "quantity": "3",
+      "time": 4.342860,
+      "gatherStreak": 1
+    },
+    {
+      "sequence": 5,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 5.657144,
+      "gatherStreak": 0
+    },
+    {
+      "sequence": 6,
+      "actor": "player1",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 5.942860,
+      "gatherStreak": 0
+    }
+  ],
+  "humanGatherCount": 3,
+  "lots": [
+    {
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3"
+    },
+    {
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2"
+    },
+    {
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "wood",
+      "quality": "rare",
+      "quantity": "3"
+    },
+    {
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2"
+    },
+    {
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3"
+    }
+  ],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "camera": {
+    "x": 32.5,
+    "y": -27.5,
+    "orthographicSize": 8.75,
+    "viewport": [
+      0.0,
+      0.09952607,
+      1.0,
+      0.6635071
+    ]
+  },
+  "growthLabels": {
+    "visible": 2,
+    "characterOverlaps": 0,
+    "labelOverlaps": 0
+  },
+  "targetResource": {
+    "id": "resource-33-27",
+    "stock": 0,
+    "stage": "Stump",
+    "untilReady": 39.942860
+  },
+  "name": "sequence_06",
+  "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_06.png",
+  "editorTime": 34825.659833
+}

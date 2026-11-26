@@ -1,0 +1,16 @@
+.round-screen { flex-grow: 1; background-color: var(--c-yellow); padding: 52px 16px 36px; }
+.round-spacer { flex-grow: 1; min-height: 12px; }
+.result-gap { margin-top: 12px; }
+.result-note { font-size: 12px; white-space: normal; -unity-text-align: middle-center; }
+.round-next { height: 65px; margin-bottom: -5px; border-radius: 30px; font-size: 22px; -unity-font-definition: var(--font-title); }
+.gameover-screen { padding: 64px 18px 36px; background-color: var(--c-brown); color: var(--c-cream); }
+.gameover-gap { margin-top: 14px; }
+.gameover-headline { font-size: 34px; height: 44px; -unity-font-definition: var(--font-title); color: var(--c-yellow); }
+.gameover-copy { height: 23px; font-size: 14px; white-space: normal; }
+.gameover-screen .round-goals { color: var(--c-brown); }
+.gameover-stats { flex-direction: row; }
+.gameover-stats > .stat-card { flex-grow: 1; flex-basis: 0; min-width: 0; border-radius: 14px; background-color: var(--c-gameover-stat); }
+.gameover-stats__right { margin-left: 8px; }
+.gameover-stats .stat-card__value { margin-top: 0; }
+.gameover-retry { border-width: 0; border-bottom-width: 5px; border-color: var(--c-yellow-shadow); }
+.gameover-home, .gameover-home:hover, .gameover-home:active { height: 44px; min-height: 44px; font-size: 14px; -unity-font-definition: var(--font-body-black); color: var(--c-cream); background-color: rgba(0,0,0,0); border-width: 0; }

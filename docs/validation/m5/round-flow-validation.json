@@ -1,0 +1,99 @@
+{
+  "checkedAtUtc": "2026-11-26T01:04:12.5621315Z",
+  "passed": 23,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Time up stops at 300 seconds",
+      "passed": true
+    },
+    {
+      "name": "Funds and upgrade survive next round",
+      "passed": true
+    },
+    {
+      "name": "Same world and resource growth survive next round",
+      "passed": true
+    },
+    {
+      "name": "Stock, protection, and streak reset",
+      "passed": true
+    },
+    {
+      "name": "Next round expands exploration",
+      "passed": true
+    },
+    {
+      "name": "Retry uses new seed and initial state",
+      "passed": true
+    },
+    {
+      "name": "Retry passes through Loading",
+      "passed": true
+    },
+    {
+      "name": "Actual success effect uses Core score",
+      "passed": true
+    },
+    {
+      "name": "Actual failed effect uses frozen Core score and missing materials",
+      "passed": true
+    },
+    {
+      "name": "Replay and skip do not settle again",
+      "passed": true
+    },
+    {
+      "name": "Short rounds run at 10x and stop at deadline",
+      "passed": true
+    },
+    {
+      "name": "Five successes reach Clear without R6",
+      "passed": true
+    },
+    {
+      "name": "Clear and game over return Home",
+      "passed": true
+    },
+    {
+      "name": "Exact capture time: 40_Imoni_start",
+      "passed": true
+    },
+    {
+      "name": "Exact capture time: 41_Imoni_mid",
+      "passed": true
+    },
+    {
+      "name": "Exact capture time: 42_Imoni_finale",
+      "passed": true
+    },
+    {
+      "name": "Exact capture time: 44_ImoniFail_mid",
+      "passed": true
+    },
+    {
+      "name": "Exact capture time: 45_ImoniFail_end",
+      "passed": true
+    },
+    {
+      "name": "315 clean frames: imoni_success",
+      "passed": true
+    },
+    {
+      "name": "Result visible and exact score before 10 seconds: imoni_success",
+      "passed": true
+    },
+    {
+      "name": "315 clean frames: imoni_fail",
+      "passed": true
+    },
+    {
+      "name": "Result visible and exact score before 10 seconds: imoni_fail",
+      "passed": true
+    },
+    {
+      "name": "All stills have zero errors and warnings",
+      "passed": true
+    }
+  ]
+}

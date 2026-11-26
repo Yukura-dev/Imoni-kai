@@ -1,0 +1,86 @@
+{
+  "utc": "2026-11-26T00:58:04.5365806Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Result",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "round": 1,
+  "seed": 202647,
+  "phase": "Succeeded",
+  "elapsed": 300.00000000,
+  "funds": "1076",
+  "cumulative": "1078",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "39D121F85B88AF1D5EDB8137AAD88962A7897D6491F49E1377575872975C89F3",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 10,
+  "result": {
+    "round": 1,
+    "success": true,
+    "score": "1078",
+    "requiredPoints": "1396",
+    "bonusPoints": "760",
+    "bonusMultiplier": "1",
+    "fundsReward": "76",
+    "fundsAfter": "1076",
+    "cumulative": "1078",
+    "missing": []
+  },
+  "buttons": [
+    {
+      "name": "ResultNext",
+      "text": "ラウンド2へ",
+      "enabled": true,
+      "display": "Flex",
+      "x": 16.0,
+      "y": 748.0,
+      "width": 358.0,
+      "height": 65.0
+    }
+  ],
+  "image": "M5-proof_skip_result.png"
+}

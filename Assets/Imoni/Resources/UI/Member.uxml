@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+    <ui:VisualElement class="profile-screen member-screen">
+        <ui:VisualElement class="member-main">
+            <c:MemberCard name="member-card" />
+            <c:TitlePartPicker name="title-picker" class="member-title-picker" />
+            <c:AvatarEditor name="avatar-editor" class="member-avatar-editor" />
+        </ui:VisualElement>
+        <c:TabBar name="tabs" selected="Member" class="profile-tabs" />
+    </ui:VisualElement>
+</ui:UXML>

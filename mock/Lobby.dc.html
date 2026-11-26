@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ロビー</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Zen+Maru+Gothic:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#4A2E22}a:hover{color:#8B2310}
+button{font-family:inherit}
+input:focus{outline:3px solid #34421C; outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 52px 18px 40px; background: #F7B92B; font-family: 'Zen Maru Gothic', sans-serif; color: #4A2E22; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 8px">
+<a href="Home.dc.html" aria-label="ホームに戻る" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; text-decoration: none">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A2E22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<h1 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 26px; color: #34421C">ロビー</h1>
+</div>
+
+<sc-if value="{{choosing}}" hint-placeholder-val="{{ true }}">
+<section aria-labelledby="create-h" style="background: #FFF3D6; border: 4px solid #4A2E22; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<h2 id="create-h" style="margin: 0; font-size: 17px; font-weight: 900">チームを作る</h2>
+<span style="font-size: 13px; font-weight: 700; line-height: 1.5">新しいチームを作って、招待コードで仲間を呼ぼう(最大3人)</span>
+<a href="Waiting.dc.html" style="height: 56px; border-radius: 999px; background: #34421C; color: #FFF3D6; font-size: 18px; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 0 #1E2610">チームを作成</a>
+</section>
+
+<section aria-labelledby="join-h" style="background: #FFF3D6; border: 4px solid #4A2E22; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<h2 id="join-h" style="margin: 0; font-size: 17px; font-weight: 900">招待コードで参加</h2>
+<label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 900">
+招待コード
+<input value="{{code}}" onChange="{{onCode}}" placeholder="IMO-000" maxlength="7" style="height: 48px; box-sizing: border-box; font-family: inherit; font-size: 20px; font-weight: 900; letter-spacing: 2px; color: #4A2E22; background: #FFFFFF; border: 3px solid #34421C; border-radius: 10px; padding: 0 12px">
+</label>
+<sc-if value="{{hasError}}" hint-placeholder-val="{{ false }}">
+<p role="alert" style="margin: 0; background: #FBE3DC; border: 2px solid #8B2310; border-radius: 10px; padding: 8px 10px; font-size: 13px; font-weight: 900; color: #8B2310">{{error}}</p>
+</sc-if>
+<button type="button" onClick="{{join}}" style="height: 52px; border-radius: 999px; border: 3px solid #4A2E22; background: #F7B92B; color: #4A2E22; font-size: 17px; font-weight: 900; cursor: pointer">参加する</button>
+<span style="font-size: 11px; font-weight: 700; color: #6B4A3A">モック用:IMO-482 で参加 / IMO-777 は挑戦中のチーム</span>
+</section>
+</sc-if>
+
+<sc-if value="{{inTeam}}" hint-placeholder-val="{{ false }}">
+<div style="background: #4A2E22; color: #FFF3D6; border-radius: 18px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 11px; font-weight: 700">チーム</span>
+<span style="font-size: 20px; font-weight: 900">鍋底同盟</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+<span style="font-size: 11px; font-weight: 700">招待コード</span>
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 20px; letter-spacing: 2px; color: #F7B92B">IMO-482</span>
+</div>
+</div>
+
+<section aria-labelledby="mem" style="background: #FFF3D6; border: 4px solid #4A2E22; border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<h2 id="mem" style="margin: 0; font-size: 15px; font-weight: 900">メンバー 3/3</h2>
+<sc-for list="{{members}}" as="m" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 14px; background: #FFFFFF; border: 2px solid #4A2E22">
+<div style="width: 44px; height: 44px; border-radius: 50%; background: {{m.avatar}}; border: 3px solid #4A2E22; flex-shrink: 0"></div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 11px; font-weight: 900; color: #34421C">{{m.title}}</span>
+<span style="font-size: 16px; font-weight: 900">{{m.label}}</span>
+</div>
+<span style="font-size: 12px; font-weight: 900; padding: 4px 10px; border-radius: 999px; background: {{m.badgeBg}}; color: {{m.badgeFg}}">{{m.status}}</span>
+</div>
+</sc-for>
+<button type="button" style="height: 44px; border-radius: 999px; border: 3px solid #4A2E22; background: transparent; color: #4A2E22; font-size: 14px; font-weight: 900; cursor: pointer">招待コードをコピー</button>
+</section>
+
+<section aria-labelledby="mode" style="background: #FFF3D6; border: 3px solid #4A2E22; border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px">
+<h2 id="mode" style="margin: 0; font-size: 14px; font-weight: 900">モード・シード</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{seedOpts}}" as="o" hint-placeholder-count="2">
+<button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="min-height: 52px; border-radius: 12px; border: 3px solid #34421C; background: {{o.bg}}; color: {{o.fg}}; font-size: 13px; font-weight: 900; cursor: pointer; line-height: 1.3">{{o.label}}<br><span style="font-size: 10px">{{o.sub}}</span></button>
+</sc-for>
+</div>
+<span style="font-size: 11px; font-weight: 700; color: #6B4A3A">どちらもランキング対象(部門は別)。通常モード5分×5ラウンド、エンドレスは通常クリアで解放</span>
+</section>
+
+<div style="flex: 1"></div>
+<sc-if value="{{notReady}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{toggle}}" style="height: 64px; border-radius: 999px; border: 0; background: #34421C; color: #FFF3D6; font-family: 'Dela Gothic One', sans-serif; font-size: 24px; cursor: pointer; box-shadow: 0 5px 0 #1E2610">準備完了</button>
+</sc-if>
+<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<a href="Loading.dc.html" style="height: 64px; border-radius: 999px; background: #8B2310; color: #FFF3D6; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; text-decoration: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 0 #5A1608">ワールド生成してスタート</a>
+<button type="button" onClick="{{toggle}}" style="height: 44px; border: 0; background: transparent; color: #4A2E22; font-size: 14px; font-weight: 900; text-decoration: underline; cursor: pointer">準備を取り消す</button>
+</div>
+</sc-if>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { view: 'choose', code: '', error: '', ready: false, seed: 'common' }; }
+  renderVals() {
+    const r = this.state.ready;
+    const st = (ok) => ok ? { status: '準備OK', badgeBg: '#34421C', badgeFg: '#FFF3D6' } : { status: '準備中', badgeBg: '#EFD38A', badgeFg: '#4A2E22' };
+    const opt = (id, label, sub) => ({ label: label, sub: sub, pressed: this.state.seed === id ? 'true' : 'false', bg: this.state.seed === id ? '#34421C' : '#FFFFFF', fg: this.state.seed === id ? '#FFF3D6' : '#34421C', pick: () => this.setState({ seed: id }) });
+    return {
+      choosing: this.state.view === 'choose', inTeam: this.state.view === 'team',
+      code: this.state.code, error: this.state.error, hasError: !!this.state.error,
+      onCode: (e) => this.setState({ code: e.target.value.toUpperCase(), error: '' }),
+      create: () => this.setState({ view: 'team', error: '' }),
+      join: () => {
+        const c = this.state.code.trim();
+        if (!c) return this.setState({ error: '招待コードを入力してください' });
+        if (c === 'IMO-777') return this.setState({ error: 'このチームは挑戦中のため参加できません。挑戦が終わるまで待ってね' });
+        if (c !== 'IMO-482') return this.setState({ error: 'チームが見つかりません。コードを確かめてね' });
+        this.setState({ view: 'team', error: '' });
+      },
+      members: [
+        { title: '芋煮会の初心者', label: 'ゆくらさん(あなた)', avatar: '#8FAFC4', ...st(r) },
+        { title: '伝説の鍋奉行', label: 'たろう', avatar: '#C9A27A', ...st(true) },
+        { title: '山の採集王', label: 'はなこ', avatar: '#6B9B3A', ...st(true) }
+      ],
+      seedOpts: [opt('common', '共通シード', '今週 #2026-47・共通シード部門'), opt('free', '自由シード', 'ランダム生成・自由シード部門')],
+      ready: r, notReady: !r, toggle: () => this.setState({ ready: !r })
+    };
+  }
+}
+</script>
+</body>
+</html>

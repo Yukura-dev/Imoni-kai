@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>芋煮会演出</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Zen+Maru+Gothic:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#4A2E22}a:hover{color:#8B2310}
+button{font-family:inherit}
+@keyframes imoRainbow{0%{background-position:0% 0%}100%{background-position:0% 100%}}
+@keyframes imoStreak{from{transform:translateY(-260px)}to{transform:translateY(1100px)}}
+@keyframes imoTwinkle{0%,100%{transform:scale(.1) rotate(0deg);opacity:0}50%{transform:scale(1) rotate(90deg);opacity:1}}
+@keyframes imoSpin{to{transform:rotate(360deg)}}
+@keyframes imoFloat{0%{transform:translateY(0)}100%{transform:translateY(-60px)}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #FF6FB1; font-family: 'Zen Maru Gothic', sans-serif; color: #4A2E22">
+<div style="position: absolute; inset: -20px; transform: translate({{sx}}px, {{sy}}px); filter: grayscale({{gray}}) brightness({{bright}})">
+
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, #FF6FB1 0%, #FFB347 8%, #FFE95C 16%, #6FE3A0 24%, #5CC8FF 32%, #A57CFF 40%, #FF6FB1 50%, #FFB347 58%, #FFE95C 66%, #6FE3A0 74%, #5CC8FF 82%, #A57CFF 90%, #FF6FB1 100%); background-size: 100% 200%; animation: imoRainbow {{rainbowDur}}s linear infinite"></div>
+
+<div aria-hidden="true" style="position: absolute; left: 215px; top: 556px; width: 1000px; height: 1000px; margin: -500px 0 0 -500px; border-radius: 50%; background: repeating-conic-gradient(rgba(255,255,255,0.55) 0deg 8deg, rgba(255,255,255,0) 8deg 20deg); opacity: {{burstOpacity}}; animation: imoSpin {{spinDur}}s linear infinite"></div>
+
+<sc-for list="{{streaks}}" as="l" hint-placeholder-count="12">
+<div aria-hidden="true" style="position: absolute; left: {{l.x}}px; top: 0; width: {{l.w}}px; height: {{l.h}}px; border-radius: 4px; background: {{l.c}}; opacity: {{l.o}}; animation: imoStreak {{l.d}}s linear infinite; animation-delay: {{l.delay}}s"></div>
+</sc-for>
+
+<div aria-hidden="true" style="position: absolute; top: 0; height: 580px; left: {{glowLeft}}px; width: {{glowW}}px; background: linear-gradient(90deg, rgba(255,111,177,0), rgba(255,111,177,0.8) 12%, rgba(255,233,92,0.8) 28%, rgba(111,227,160,0.8) 40%, rgba(255,255,255,0) 50%, rgba(92,200,255,0.8) 60%, rgba(165,124,255,0.8) 74%, rgba(255,179,71,0.8) 88%, rgba(255,111,177,0)); filter: blur(14px); opacity: {{glowOpacity}}"></div>
+<div aria-hidden="true" style="position: absolute; top: 0; height: 560px; left: {{pillarLeft}}px; width: {{pillarW}}px; background: linear-gradient(90deg, rgba(255,255,255,0), #FFFFFF 28%, #FFFFFF 72%, rgba(255,255,255,0)); box-shadow: 0 0 40px 18px rgba(255,255,255,0.75)"></div>
+
+<sc-for list="{{sparkles}}" as="s" hint-placeholder-count="10">
+<div aria-hidden="true" style="position: absolute; left: {{s.x}}px; top: {{s.y}}px; animation: imoFloat {{s.fd}}s ease-in-out infinite alternate">
+<svg width="{{s.size}}" height="{{s.size}}" viewBox="0 0 20 20" style="display: block; animation: imoTwinkle {{s.d}}s ease-in-out infinite; animation-delay: {{s.delay}}s"><path d="M10 0 C11 7 13 9 20 10 C13 11 11 13 10 20 C9 13 7 11 0 10 C7 9 9 7 10 0z" fill="{{s.c}}"></path></svg>
+</div>
+</sc-for>
+
+<sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+<div aria-hidden="true" style="position: absolute; left: {{it.x}}px; top: {{it.y}}px; width: 48px; height: 48px; transform: rotate({{it.rot}}deg) scale({{it.scale}}); filter: drop-shadow(0 0 6px #FFFFFF)">
+<sc-if value="{{it.isTaro}}" hint-placeholder-val="{{ true }}"><svg width="48" height="48" viewBox="0 0 48 48"><ellipse cx="24" cy="25" rx="17" ry="13" fill="#F3E2C0" stroke="#4A2E22" stroke-width="3"></ellipse><path d="M14 22 q4 -3 8 0 M24 30 q4 -2 8 1" stroke="#C9A27A" stroke-width="2" fill="none"></path></svg></sc-if>
+<sc-if value="{{it.isNegi}}" hint-placeholder-val="{{ false }}"><svg width="48" height="48" viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="16" rx="8" fill="#FFFFFF" stroke="#4A2E22" stroke-width="3"></rect><rect x="26" y="16" width="12" height="16" rx="6" fill="#6B9B3A" stroke="#4A2E22" stroke-width="3"></rect><circle cx="16" cy="24" r="3" fill="none" stroke="#C8DCA8" stroke-width="2"></circle></svg></sc-if>
+<sc-if value="{{it.isMush}}" hint-placeholder-val="{{ false }}"><svg width="48" height="48" viewBox="0 0 48 48"><rect x="19" y="24" width="10" height="16" rx="4" fill="#FFF3D6" stroke="#4A2E22" stroke-width="3"></rect><path d="M6 27 C6 8 42 8 42 27z" fill="#B5652B" stroke="#4A2E22" stroke-width="3"></path><circle cx="18" cy="18" r="3" fill="#FFF3D6"></circle><circle cx="29" cy="15" r="2.5" fill="#FFF3D6"></circle></svg></sc-if>
+<sc-if value="{{it.isBeef}}" hint-placeholder-val="{{ false }}"><svg width="48" height="48" viewBox="0 0 48 48"><path d="M6 20 q8 -10 18 -4 t18 -2 q2 14 -6 20 q-10 6 -22 2 q-10 -4 -8 -16z" fill="#D2556B" stroke="#4A2E22" stroke-width="3"></path><path d="M12 24 q8 -4 14 2 t12 -2 M14 32 q8 -2 16 0" stroke="#FFE3E8" stroke-width="2.5" fill="none" stroke-linecap="round"></path></svg></sc-if>
+<sc-if value="{{it.isKon}}" hint-placeholder-val="{{ false }}"><svg width="48" height="48" viewBox="0 0 48 48"><path d="M24 7 L42 38 H6z" fill="#8A8578" stroke="#4A2E22" stroke-width="3" stroke-linejoin="round"></path><circle cx="20" cy="28" r="1.6" fill="#4A2E22"></circle><circle cx="27" cy="24" r="1.6" fill="#4A2E22"></circle><circle cx="28" cy="32" r="1.6" fill="#4A2E22"></circle></svg></sc-if>
+</div>
+</sc-for>
+
+<sc-for list="{{rings}}" as="r" hint-placeholder-count="0">
+<div aria-hidden="true" style="position: absolute; left: {{r.x}}px; top: {{r.y}}px; width: {{r.size}}px; height: {{r.size}}px; border-radius: 50%; border: {{r.bw}}px solid #FFFFFF; box-shadow: 0 0 24px #FFE95C, inset 0 0 24px #FF6FB1; opacity: {{r.o}}"></div>
+</sc-for>
+
+<div aria-hidden="true" style="position: absolute; left: 75px; top: 520px; width: 280px; height: 170px; transform: scale({{potScale}}); transform-origin: 50% 80%">
+<svg width="280" height="170" viewBox="0 0 280 170">
+<ellipse cx="140" cy="36" rx="128" ry="26" fill="#FFE29A" opacity="{{brothGlow}}"></ellipse>
+<path d="M4 30 h-0 q-4 0 -4 10 q0 12 18 12 M276 30 q4 0 4 10 q0 12 -18 12" fill="none" stroke="#4A2E22" stroke-width="9" stroke-linecap="round"></path>
+<path d="M14 36 H266 C266 120 210 160 140 160 S14 120 14 36z" fill="#4A2E22"></path>
+<path d="M30 56 C40 110 80 140 140 144" fill="none" stroke="#6B4A3A" stroke-width="6" stroke-linecap="round"></path>
+<ellipse cx="140" cy="36" rx="128" ry="20" fill="#3A2318"></ellipse>
+<ellipse cx="140" cy="38" rx="116" ry="14" fill="#C77A3A"></ellipse>
+<circle cx="104" cy="37" r="7" fill="#F3E2C0"></circle><circle cx="150" cy="40" r="6" fill="#F3E2C0"></circle><circle cx="176" cy="35" r="5" fill="#6B9B3A"></circle><circle cx="124" cy="41" r="4" fill="#D2556B"></circle>
+</svg>
+</div>
+
+<sc-for list="{{stars}}" as="st" hint-placeholder-count="0">
+<svg aria-hidden="true" width="{{st.size}}" height="{{st.size}}" viewBox="0 0 20 20" style="position: absolute; left: {{st.x}}px; top: {{st.y}}px; opacity: {{st.o}}; transform: rotate({{st.rot}}deg); filter: drop-shadow(0 0 4px #FFFFFF)"><path d="M10 0 L12.9 6.6 L20 7.3 L14.6 12 L16.2 19 L10 15.3 L3.8 19 L5.4 12 L0 7.3 L7.1 6.6z" fill="{{st.c}}" stroke="#FFFFFF" stroke-width="1"></path></svg>
+</sc-for>
+</div>
+
+<div aria-hidden="true" style="position: absolute; inset: 0; background: #FFFFFF; opacity: {{flash}}; pointer-events: none"></div>
+
+<header style="position: absolute; left: 14px; right: 14px; top: 44px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<button type="button" onClick="{{toggleSound}}" aria-label="{{soundLabel}}" style="height: 40px; padding: 0 12px; border-radius: 999px; border: 3px solid #4A2E22; background: #FFF3D6; color: #4A2E22; font-size: 12px; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 6px">
+<sc-if value="{{soundOn}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A2E22" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"></path><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"></path></svg></sc-if>
+<sc-if value="{{soundOff}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A2E22" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"></path><path d="M16 9l5 6M21 9l-5 6"></path></svg></sc-if>
+{{soundText}}</button>
+<sc-if value="{{isOk}}" hint-placeholder-val="{{ true }}"><a href="Result.dc.html" style="height: 40px; padding: 0 14px; border-radius: 999px; background: rgba(74,46,34,0.85); color: #FFF3D6; font-size: 12px; font-weight: 900; text-decoration: none; display: flex; align-items: center">スキップ</a></sc-if>
+<sc-if value="{{isFail}}" hint-placeholder-val="{{ false }}"><a href="GameOver.dc.html" style="height: 40px; padding: 0 14px; border-radius: 999px; background: rgba(74,46,34,0.85); color: #FFF3D6; font-size: 12px; font-weight: 900; text-decoration: none; display: flex; align-items: center">スキップ</a></sc-if>
+</div>
+<div style="background: rgba(255,243,214,0.94); border: 3px solid #4A2E22; border-radius: 18px; padding: 8px 14px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<span style="font-size: 12px; font-weight: 900">芋煮スコア</span>
+<span style="font-size: 12px; font-weight: 900; color: #8B2310">Lv.{{level}} {{levelName}}</span>
+</div>
+<span aria-live="off" style="font-family: 'Dela Gothic One', sans-serif; font-size: 40px; line-height: 1.1; color: #8B2310; text-align: right">{{scoreText}}</span>
+<div style="height: 10px; border-radius: 999px; background: #E9D5AE; overflow: hidden"><div style="height: 100%; width: {{gauge}}%; background: linear-gradient(90deg, #FF6FB1, #FFB347, #FFE95C, #6FE3A0, #5CC8FF, #A57CFF)"></div></div>
+</div>
+</header>
+
+<sc-if value="{{showBanner}}" hint-placeholder-val="{{ false }}">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 4px; transform: scale({{bannerScale}}) rotate(-6deg); opacity: {{bannerOpacity}}; pointer-events: none">
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 22px; color: #FFFFFF; text-shadow: 0 0 0 #000, 3px 3px 0 #8B2310, -2px -2px 0 #8B2310, 2px -2px 0 #8B2310, -2px 2px 0 #8B2310">LEVEL UP!</span>
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 44px; color: #FFE95C; text-shadow: 4px 4px 0 #8B2310, -3px -3px 0 #8B2310, 3px -3px 0 #8B2310, -3px 3px 0 #8B2310, 0 0 24px #FFFFFF; white-space: nowrap">{{bannerText}}</span>
+</div>
+</sc-if>
+
+<sc-if value="{{finale}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 20px; right: 20px; top: 250px; display: flex; flex-direction: column; align-items: center; gap: 10px; transform: scale({{finaleScale}})">
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 26px; color: #FFFFFF; text-shadow: 3px 3px 0 #8B2310, -2px -2px 0 #8B2310, 2px -2px 0 #8B2310, -2px 2px 0 #8B2310">大成功!!</span>
+<h1 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 58px; line-height: 1.1; color: #FFE95C; text-align: center; text-shadow: 5px 5px 0 #8B2310, -3px -3px 0 #8B2310, 3px -3px 0 #8B2310, -3px 3px 0 #8B2310, 0 0 30px #FFFFFF">芋煮<br>完成!!</h1>
+</div>
+</sc-if>
+<sc-if value="{{failFinale}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 20px; right: 20px; top: 250px; display: flex; flex-direction: column; align-items: center; gap: 10px; transform: translateY({{failDrop}}px)">
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 22px; color: #FFFFFF; text-shadow: 3px 3px 0 #4A2E22, -2px -2px 0 #4A2E22, 2px -2px 0 #4A2E22, -2px 2px 0 #4A2E22">あれ…?</span>
+<h1 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 52px; line-height: 1.15; color: #DCD6CC; text-align: center; text-shadow: 5px 5px 0 #4A2E22, -3px -3px 0 #4A2E22, 3px -3px 0 #4A2E22, -3px 3px 0 #4A2E22">芋煮<br>未完成…</h1>
+<span style="font-size: 15px; font-weight: 900; color: #FFFFFF; background: rgba(74,46,34,0.85); padding: 6px 14px; border-radius: 999px">必須素材「魚」が足りなかった</span>
+</div>
+</sc-if>
+<sc-if value="{{showNextNg}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 24px; right: 24px; bottom: 28px; display: flex; flex-direction: column; gap: 8px">
+<a href="GameOver.dc.html" style="height: 60px; border-radius: 999px; background: #4A2E22; color: #FFF3D6; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; text-decoration: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 0 #2A1A12">結果を見る</a>
+<button type="button" onClick="{{replay}}" style="height: 44px; border-radius: 999px; border: 3px solid #4A2E22; background: #FFF3D6; color: #4A2E22; font-size: 14px; font-weight: 900; cursor: pointer">もう一回見る</button>
+</div>
+</sc-if>
+<sc-if value="{{showNext}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 24px; right: 24px; bottom: 28px; display: flex; flex-direction: column; gap: 8px">
+<a href="Result.dc.html" style="height: 60px; border-radius: 999px; background: #34421C; color: #FFF3D6; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; text-decoration: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 0 #1E2610">結果を見る</a>
+<button type="button" onClick="{{replay}}" style="height: 44px; border-radius: 999px; border: 3px solid #4A2E22; background: #FFF3D6; color: #4A2E22; font-size: 14px; font-weight: 900; cursor: pointer">もう一回見る</button>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"target":{"editor":"int","default":18420,"min":1000},"fail":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+const TH = [1000, 3000, 6000, 10000, 15000];
+const LV_NAME = ['ことこと…', 'いい匂い!', 'ぐつぐつ!', '大成功の予感!', '伝説の芋煮!!', '天下一の芋煮!!!'];
+const SPAWN_START = 500;
+const SPAWN_END = 6800;
+const HARD_CAP = 8200;
+const SPAWN = [360, 300, 240, 190, 140, 100];
+const FALL = [900, 840, 780, 700, 620, 550];
+const KINDS = ['taro', 'negi', 'mush', 'beef', 'kon'];
+const RAINBOW = ['#FFFFFF', '#FFE95C', '#FF6FB1', '#5CC8FF', '#6FE3A0', '#A57CFF', '#FFB347'];
+const PENTA = [0, 2, 4, 7, 9];
+const POT_Y = 556;
+const CX = 215;
+
+function rnd(seed) { let s = seed; return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const r = rnd(7);
+    this.streakPool = [];
+    for (let i = 0; i < 46; i++) {
+      this.streakPool.push({ x: Math.round(r() * 420), w: (2 + r() * 3).toFixed(1), h: Math.round(90 + r() * 180), c: r() < 0.6 ? '#FFFFFF' : RAINBOW[1 + Math.floor(r() * 6)], o: (0.45 + r() * 0.5).toFixed(2), base: 0.5 + r() * 0.6, delay: (-r() * 1.2).toFixed(2) });
+    }
+    this.sparkPool = [];
+    for (let i = 0; i < 50; i++) {
+      const side = r() < 0.5 ? -1 : 1;
+      this.sparkPool.push({ x: Math.round(CX + side * (45 + r() * 140) - 10), y: Math.round(90 + r() * 440), size: Math.round(10 + r() * 16), c: RAINBOW[Math.floor(r() * RAINBOW.length)], d: (0.8 + r() * 0.9).toFixed(2), fd: (1.2 + r() * 1.5).toFixed(2), delay: (-r() * 1.6).toFixed(2) });
+    }
+    this.state = { now: 0, soundOn: true };
+    this.reset();
+  }
+  target() { return this.props.fail ? 7350 : (this.props.target ?? 18420); }
+  reset() {
+    this.t0 = null; this.items = []; this.score = 0; this.committed = 0; this.level = 0; this.hits = 0;
+    this.stopDrone && this.stopDrone(0.3); this.nextBeat = 0; this.bursts = []; this.levelAt = -99999; this.lastHit = -99999; this.finaleAt = null; this.disp = 0; this.nid = 0; this.nextSpawn = 0;
+  }
+  componentDidMount() {
+    try { const AC = window.AudioContext || window.webkitAudioContext; this.ac = new AC(); this.setupAudio(); } catch (e) { this.ac = null; }
+    const loop = (t) => { this.step(t); this.raf = requestAnimationFrame(loop); };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); this.drone = null; if (this.ac) this.ac.close(); }
+
+  // ===== サウンド: 重厚感のある合成音(コンプ+リバーブ+厚みのある波形の重ね) =====
+  setupAudio() {
+    const ac = this.ac; if (!ac) return;
+    this.master = ac.createGain(); this.master.gain.value = 0.9;
+    const comp = ac.createDynamicsCompressor();
+    comp.threshold.value = -16; comp.knee.value = 12; comp.ratio.value = 5; comp.attack.value = 0.004; comp.release.value = 0.22;
+    this.master.connect(comp); comp.connect(ac.destination);
+    const len = Math.floor(ac.sampleRate * 2.6); const ir = ac.createBuffer(2, len, ac.sampleRate);
+    for (let ch = 0; ch < 2; ch++) { const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+    const conv = ac.createConvolver(); conv.buffer = ir;
+    this.revIn = ac.createGain(); this.revIn.gain.value = 1;
+    const wet = ac.createGain(); wet.gain.value = 0.32;
+    this.revIn.connect(conv); conv.connect(wet); wet.connect(this.master);
+    const nl = ac.sampleRate * 2; this.noiseBuf = ac.createBuffer(1, nl, ac.sampleRate);
+    const nd = this.noiseBuf.getChannelData(0); for (let i = 0; i < nl; i++) nd[i] = Math.random() * 2 - 1;
+  }
+  ok() { return this.ac && this.master && this.state.soundOn && this.ac.state === 'running'; }
+  out(node, wet) { node.connect(this.master); if (wet > 0) { const g = this.ac.createGain(); g.gain.value = wet; node.connect(g); g.connect(this.revIn); } }
+  hz(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+  // 鋸歯状波を3本ずらして重ね、ローパスで丸めた「ブラス/パッド」系の音
+  voice(midi, at, dur, vol, o) {
+    if (!this.ok()) return; o = o || {};
+    const ac = this.ac; const t = ac.currentTime + at;
+    const f = ac.createBiquadFilter(); f.type = 'lowpass'; f.Q.value = o.q ?? 1.2;
+    const c0 = o.c0 ?? 500, c1 = o.c1 ?? 2600, c2 = o.c2 ?? 900;
+    f.frequency.setValueAtTime(c0, t); f.frequency.exponentialRampToValueAtTime(c1, t + (o.open ?? 0.08)); f.frequency.exponentialRampToValueAtTime(c2, t + dur);
+    const g = ac.createGain(); const atk = o.atk ?? 0.015;
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + atk); g.gain.exponentialRampToValueAtTime(vol * (o.sus ?? 0.5), t + dur * 0.4); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    (o.det || [-9, 0, 9]).forEach((d) => { const os = ac.createOscillator(); os.type = o.wave || 'sawtooth'; os.frequency.value = this.hz(midi); os.detune.value = d; if (o.vib) { const l = ac.createOscillator(); const lg = ac.createGain(); l.frequency.value = 5.5; lg.gain.value = o.vib; l.connect(lg); lg.connect(os.detune); l.start(t); l.stop(t + dur + 0.1); } os.connect(f); os.start(t); os.stop(t + dur + 0.1); });
+    if (o.sub !== false) { const sb = ac.createOscillator(); sb.type = 'sine'; sb.frequency.value = this.hz(midi - 12); const sg = ac.createGain(); sg.gain.setValueAtTime(0.0001, t); sg.gain.exponentialRampToValueAtTime(vol * 0.9, t + atk); sg.gain.exponentialRampToValueAtTime(0.0001, t + dur); sb.connect(sg); this.out(sg, 0.1); sb.start(t); sb.stop(t + dur + 0.1); }
+    f.connect(g); this.out(g, o.wet ?? 0.35);
+  }
+  // 太鼓/ティンパニ系の低音ドン
+  drum(at, vol, f0, f1, dur) {
+    if (!this.ok()) return;
+    const ac = this.ac; const t = ac.currentTime + at;
+    const os = ac.createOscillator(); os.type = 'sine'; os.frequency.setValueAtTime(f0, t); os.frequency.exponentialRampToValueAtTime(f1, t + dur * 0.6);
+    const g = ac.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    os.connect(g); this.out(g, 0.18); os.start(t); os.stop(t + dur + 0.05);
+    this.noise(at, 0.06, vol * 0.35, 'bandpass', 1400, 1400, 0.05);
+  }
+  noise(at, dur, vol, type, fA, fB, wet) {
+    if (!this.ok()) return;
+    const ac = this.ac; const t = ac.currentTime + at;
+    const src = ac.createBufferSource(); src.buffer = this.noiseBuf;
+    const f = ac.createBiquadFilter(); f.type = type; f.frequency.setValueAtTime(fA, t); f.frequency.exponentialRampToValueAtTime(fB, t + dur);
+    const g = ac.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(f); f.connect(g); this.out(g, wet ?? 0.3); src.start(t); src.stop(t + dur + 0.05);
+  }
+  // 鐘のようなキラキラ音(倍音をずらした正弦波)
+  bell(midi, at, vol) {
+    if (!this.ok()) return;
+    const ac = this.ac; const t = ac.currentTime + at;
+    [[1, 1, 1.2], [2.76, 0.45, 0.6], [5.4, 0.2, 0.35]].forEach(([r, a, d]) => {
+      const os = ac.createOscillator(); os.type = 'sine'; os.frequency.value = this.hz(midi) * r;
+      const g = ac.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol * a, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+      os.connect(g); this.out(g, 0.55); os.start(t); os.stop(t + d + 0.05);
+    });
+  }
+  // 演出中ずっと鳴る低音のうなり(レベルで明るく・大きく)
+  startDrone() {
+    if (!this.ok() || this.drone) return;
+    const ac = this.ac; const t = ac.currentTime;
+    const f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 260; f.Q.value = 2;
+    const g = ac.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.06, t + 0.8);
+    const oscs = [36, 43, 48].map((m, i) => { const os = ac.createOscillator(); os.type = 'sawtooth'; os.frequency.value = this.hz(m); os.detune.value = (i - 1) * 7; os.connect(f); os.start(t); return os; });
+    f.connect(g); this.out(g, 0.4);
+    this.drone = { f: f, g: g, oscs: oscs };
+  }
+  droneLevel(L) {
+    if (!this.drone || !this.ac) return; const t = this.ac.currentTime;
+    this.drone.f.frequency.setTargetAtTime(260 + L * 260, t, 0.25);
+    this.drone.g.gain.setTargetAtTime(0.06 + L * 0.018, t, 0.25);
+    this.drone.oscs.forEach((o, i) => o.frequency.setTargetAtTime(this.hz([36, 43, 48][i] + L * 2), t, 0.15));
+  }
+  stopDrone(fade) {
+    if (!this.drone || !this.ac) return; const t = this.ac.currentTime; const d = this.drone; this.drone = null;
+    d.g.gain.cancelScheduledValues(t); d.g.gain.setValueAtTime(Math.max(0.0001, d.g.gain.value), t); d.g.gain.exponentialRampToValueAtTime(0.0001, t + (fade ?? 0.6));
+    d.oscs.forEach((o) => o.stop(t + (fade ?? 0.6) + 0.1));
+  }
+  sfxBeat() {
+    const L = this.level;
+    this.drum(0, 0.5 + L * 0.06, 105, 38, 0.42);
+    if (L >= 2) this.noise(0, 0.05, 0.05 + L * 0.02, 'highpass', 7000, 9000, 0.1);
+  }
+  sfxHit() {
+    const L = this.level; const step = Math.min(this.hits, 9);
+    const m = 67 + L * 2 + PENTA[step % 5] + 12 * Math.floor(step / 5);
+    this.drum(0, 0.35 + L * 0.04, 160, 60, 0.22);
+    this.bell(m, 0, 0.2);
+    this.voice(m - 12, 0, 0.28, 0.05 + L * 0.008, { c0: 3200, c1: 3200, c2: 500, open: 0.01, sub: false, wet: 0.25 });
+  }
+  sfxLevel() {
+    const L = this.level; const b = 48 + L * 2;
+    this.drum(0, 1.0, 85, 34, 1.3);
+    this.drum(0.12, 0.7, 70, 32, 1.0);
+    this.noise(0, 1.6, 0.22, 'highpass', 4500, 7000, 0.5);
+    [0, 7, 12, 16, 19].forEach((n) => this.voice(b + n, 0, 1.1, 0.075, { c0: 350, c1: 3400, c2: 800, open: 0.1 }));
+    [0, 4, 7, 12, 16, 19, 24].forEach((n, i) => this.bell(72 + L * 2 + n, 0.18 + i * 0.05, 0.14));
+    this.droneLevel(L);
+  }
+  sfxFinale() {
+    this.stopDrone(1.2);
+    this.noise(0, 0.5, 0.18, 'bandpass', 300, 6000, 0.3);
+    this.drum(0.0, 1.0, 80, 30, 1.8); this.drum(0.16, 1.0, 80, 30, 1.8); this.drum(0.5, 1.0, 70, 28, 2.4);
+    this.noise(0.5, 3.0, 0.3, 'highpass', 3500, 6000, 0.7);
+    [-12, 0, 7, 12, 16, 19, 24, 28].forEach((n) => this.voice(60 + n, 0.5, 3.0, 0.07, { c0: 500, c1: 4200, c2: 1200, open: 0.25, sus: 0.6, wet: 0.5 }));
+    [24, 28, 31, 36, 40, 43, 48].forEach((n, i) => this.bell(60 + n, 0.55 + i * 0.07, 0.12));
+  }
+  sfxFail() {
+    this.stopDrone(0.8);
+    this.drum(0, 0.9, 70, 30, 1.2);
+    [[55, 0], [54, 0.36], [53, 0.72]].forEach(([m, at]) => this.voice(m, at, 0.36, 0.09, { c0: 300, c1: 1300, c2: 400, open: 0.08, wet: 0.4 }));
+    this.voice(52, 1.08, 1.7, 0.1, { c0: 300, c1: 1200, c2: 250, open: 0.15, sus: 0.7, vib: 35, wet: 0.5 });
+    this.drum(1.08, 0.8, 55, 28, 1.6);
+    this.noise(1.1, 2.2, 0.08, 'bandpass', 220, 120, 0.6);
+  }
+  spawn(now, r) {
+    const L = this.level; const tgt = this.target();
+    const s0 = this.t0 + SPAWN_START; const s1 = this.t0 + SPAWN_END;
+    const x = Math.min(1, Math.max(0, (now - s0) / (s1 - s0)));
+    let pts = now >= s1 ? tgt - this.committed : Math.max(1, Math.round(tgt * x * x) - this.committed);
+    pts = Math.min(pts, tgt - this.committed);
+    if (pts <= 0) return;
+    this.committed += pts;
+    this.items.push({ id: this.nid++, kind: KINDS[Math.floor(Math.random() * KINDS.length)], spawn: now, fall: FALL[L], jx: (Math.random() - 0.5) * 150, r0: Math.random() * 360, spin: (Math.random() - 0.5) * 900, pts: pts });
+  }
+  step(now) {
+    if (this.t0 === null) { this.t0 = now; this.nextSpawn = now + SPAWN_START; }
+    const tgt = this.target();
+    if (!this.finaleAt && this.committed < tgt && now >= this.nextSpawn) {
+      this.spawn(now, Math.random());
+      if (this.level >= 3 && Math.random() < 0.45 && this.committed < tgt) this.spawn(now, Math.random());
+      this.nextSpawn = now + SPAWN[this.level] * (0.7 + Math.random() * 0.6);
+    }
+    if (!this.finaleAt && now >= this.t0 + 300) {
+      if (!this.drone) { this.startDrone(); if (this.drone) this.droneLevel(this.level); }
+      if (now >= this.nextBeat) { this.sfxBeat(); this.nextBeat = now + [520, 460, 400, 340, 290, 240][this.level]; }
+    }
+    const keep = [];
+    for (const it of this.items) {
+      if (now - it.spawn >= it.fall) {
+        this.score += it.pts; this.hits += 1; this.lastHit = now;
+        this.bursts.push({ t: now, x: CX + (Math.random() - 0.5) * 60, big: false, seed: Math.random() * 360 });
+        this.sfxHit();
+        let L = 0; while (L < TH.length && this.score >= TH[L]) L++;
+        if (L > this.level) { this.level = L; this.hits = 0; this.levelAt = now; this.bursts.push({ t: now, x: CX, big: true, seed: 0 }); this.sfxLevel(); }
+      } else keep.push(it);
+    }
+    this.items = keep;
+    if (!this.finaleAt && now - this.t0 > HARD_CAP) {
+      this.items = []; this.score = tgt; this.committed = tgt;
+      if (!this.props.fail && this.level < TH.length) { this.level = TH.length; this.levelAt = now; }
+    }
+    if (!this.finaleAt && this.score >= tgt && this.items.length === 0) {
+      this.finaleAt = now; if (this.props.fail) { this.sfxFail(); } else { this.bursts.push({ t: now, x: CX, big: true, seed: 0 }); this.sfxFinale(); }
+    }
+    this.bursts = this.bursts.filter((b) => now - b.t < (b.big ? 1000 : 650));
+    this.disp += (this.score - this.disp) * 0.22; if (Math.abs(this.score - this.disp) < 1) this.disp = this.score;
+    this.setState({ now: now });
+  }
+
+  renderVals() {
+    const now = this.state.now; const L = this.level; const t0 = this.t0 ?? now;
+    const intro = Math.min(1, (now - t0) / 600);
+    const sp = 1 + L * 0.28;
+    const streaks = this.streakPool.slice(0, [12, 18, 24, 31, 38, 46][L]).map((l) => ({ x: l.x, w: l.w, h: l.h, c: l.c, o: l.o, delay: l.delay, d: (l.base / sp).toFixed(2) }));
+    const sparkles = this.sparkPool.slice(0, [10, 16, 23, 31, 40, 50][L]);
+    const isFail = !!this.props.fail; const fp0 = this.finaleAt ? now - this.finaleAt : -1; const gray = isFail && fp0 >= 0 ? Math.min(1, fp0 / 700) : 0;
+    const pw = ((56 + L * 16) * intro + Math.sin(now / 90) * 4 + (this.finaleAt && !isFail ? 40 : 0)) * (1 - gray * 0.85) + (isFail && fp0 >= 0 ? Math.sin(now / 30) * 6 * (1 - gray) : 0);
+    const items = this.items.map((it) => {
+      const p = Math.min(1, (now - it.spawn) / it.fall);
+      const y = -70 + (POT_Y - 20 + 70) * (0.3 * p + 0.7 * p * p);
+      return { x: Math.round(CX - 24 + it.jx * (1 - p)), y: Math.round(y), rot: Math.round(it.r0 + it.spin * p), scale: (1.05 - 0.4 * p).toFixed(2),
+        isTaro: it.kind === 'taro', isNegi: it.kind === 'negi', isMush: it.kind === 'mush', isBeef: it.kind === 'beef', isKon: it.kind === 'kon' };
+    });
+    const stars = []; const rings = [];
+    this.bursts.forEach((b) => {
+      const p = (now - b.t) / (b.big ? 1000 : 650);
+      if (b.big) {
+        const size = 60 + p * 700;
+        rings.push({ x: Math.round(b.x - size / 2), y: Math.round(POT_Y - size / 2), size: Math.round(size), bw: Math.max(2, Math.round(14 * (1 - p))), o: (1 - p).toFixed(2) });
+        for (let i = 0; i < 14; i++) {
+          const a = (i / 14) * Math.PI * 2; const d = 30 + p * 260;
+          stars.push({ x: Math.round(b.x + Math.cos(a) * d - 13), y: Math.round(POT_Y + Math.sin(a) * d * 0.8 - 13), size: 26, o: (1 - p).toFixed(2), rot: Math.round(p * 360), c: RAINBOW[1 + (i % 6)] });
+        }
+      } else {
+        const n = 5 + Math.min(L, 4);
+        for (let i = 0; i < n; i++) {
+          const a = -Math.PI / 2 + (i - (n - 1) / 2) * (Math.PI / (n + 1)) + (b.seed % 0.3);
+          const d = 14 + p * (60 + L * 12);
+          stars.push({ x: Math.round(b.x + Math.cos(a) * d - 8), y: Math.round(POT_Y - 6 + Math.sin(a) * d - 8 + p * p * 30), size: Math.round(14 + L * 2), o: (1 - p).toFixed(2), rot: Math.round(b.seed + p * 200), c: RAINBOW[1 + ((i + Math.round(b.seed)) % 6)] });
+        }
+      }
+    });
+    const lp = (now - this.levelAt) / 1400;
+    const fp = this.finaleAt ? (now - this.finaleAt) : -1;
+    let flash = Math.max(0, 1 - (now - this.levelAt) / 380) * 0.85;
+    if (fp >= 0 && !isFail) flash = Math.max(flash, Math.max(0, 1 - fp / 600));
+    const shakeK = Math.max(0, 1 - (now - this.levelAt) / 420) * 10 + (L >= 3 && now - this.lastHit < 90 ? 2.5 : 0) + (fp >= 0 && fp < 500 ? (isFail ? 6 : 12) * (1 - fp / 500) : 0);
+    let bs = 1; if (lp < 0.12) bs = (lp / 0.12) * 1.25; else if (lp < 0.22) bs = 1.25 - (lp - 0.12) * 2.5;
+    const hitP = (now - this.lastHit) / 180;
+    const tgt = this.target();
+    const lo = L === 0 ? 0 : TH[L - 1]; const hi = L < TH.length ? TH[L] : tgt;
+    let fs = 1; if (fp >= 0 && fp < 300) fs = (fp / 300) * 1.15; else if (fp >= 300 && fp < 450) fs = 1.15 - (fp - 300) / 150 * 0.15;
+    return {
+      sx: (Math.sin(now / 23) * shakeK).toFixed(1), sy: (Math.cos(now / 19) * shakeK).toFixed(1),
+      rainbowDur: [5, 4, 3.2, 2.4, 1.7, 1.1][L], spinDur: [14, 11, 8, 6, 4.5, 3][L],
+      burstOpacity: (([0, 0.15, 0.3, 0.45, 0.6, 0.75][L] + (this.finaleAt && !isFail ? 0.25 : 0)) * (1 - gray)).toFixed(2),
+      gray: gray.toFixed(2), bright: (1 - gray * 0.35).toFixed(2), isFail: isFail, isOk: !isFail,
+      failFinale: isFail && fp >= 0, failDrop: Math.round(fp >= 0 && fp < 400 ? -80 * Math.pow(1 - fp / 400, 2) : 0), showNextNg: isFail && fp >= 1300,
+      streaks: streaks, sparkles: sparkles,
+      pillarW: Math.round(pw), pillarLeft: Math.round(CX - pw / 2),
+      glowW: Math.round(pw * 3.4), glowLeft: Math.round(CX - pw * 1.7), glowOpacity: (intro * (0.35 + L * 0.12)).toFixed(2),
+      items: items, stars: stars, rings: rings,
+      potScale: (hitP < 1 ? 1 + 0.06 * (1 - hitP) : 1).toFixed(3), brothGlow: (0.4 + L * 0.1 + (hitP < 1 ? 0.3 * (1 - hitP) : 0)).toFixed(2),
+      flash: flash.toFixed(2),
+      level: L, levelName: LV_NAME[L], scoreText: Math.round(this.disp).toLocaleString('ja-JP'),
+      gauge: this.finaleAt && !isFail ? 100 : Math.max(0, Math.min(100, Math.round((this.score - lo) / Math.max(1, hi - lo) * 100))),
+      showBanner: lp >= 0 && lp < 1 && L > 0 && !this.finaleAt, bannerScale: bs.toFixed(2), bannerOpacity: (lp > 0.8 ? (1 - lp) / 0.2 : 1).toFixed(2), bannerText: LV_NAME[L],
+      finale: fp >= 0 && !isFail, finaleScale: fs.toFixed(2), showNext: fp >= 1000 && !isFail,
+      soundOn: this.state.soundOn, soundOff: !this.state.soundOn,
+      soundText: this.state.soundOn ? (this.ac && this.ac.state !== 'running' ? 'タップで音ON' : '音あり') : '音なし',
+      soundLabel: this.state.soundOn ? '音を消す' : '音を出す',
+      toggleSound: () => {
+        if (this.ac && this.ac.state !== 'running') { this.ac.resume(); this.setState({ soundOn: true }); return; }
+        const on = !this.state.soundOn; if (this.master) this.master.gain.setTargetAtTime(on ? 0.9 : 0, this.ac.currentTime, 0.05); if (!on) this.stopDrone(0.2); this.setState({ soundOn: on });
+      },
+      replay: () => { this.reset(); if (this.ac && this.ac.state !== 'running') this.ac.resume(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+  <ui:VisualElement name="ResultRoot" class="round-screen result-screen">
+    <c:RoundHeader name="ResultHeader" status-text="芋煮会 成功!" />
+    <c:RankHero name="ResultHero" class="result-gap" />
+    <c:RequiredGoalsCard name="ResultRequired" class="result-gap" />
+    <c:ResultBonusCard name="ResultBonus" class="result-gap" />
+    <c:ScoreBreakdownCard name="ResultBreakdown" class="result-gap" />
+    <c:ResultSummary name="ResultSummary" class="result-gap" />
+    <ui:VisualElement class="round-spacer" />
+    <c:ImoniText name="ResultNextNote" text="次のラウンド:探索範囲が拡大!資金と強化は引き継ぎ、素材はリセット" class="result-note" />
+    <c:ImoniButton name="ResultNext" variant="Primary" class="round-next result-gap" />
+  </ui:VisualElement>
+</ui:UXML>

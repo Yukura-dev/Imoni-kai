@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>会員登録しよう</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Zen+Maru+Gothic:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#4A2E22}a:hover{color:#8B2310}
+input:focus{outline:3px solid #34421C; outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 64px 22px 48px; background: #F7B92B; font-family: 'Zen Maru Gothic', sans-serif; color: #4A2E22; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; align-items: baseline; gap: 8px">
+<h1 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 30px; color: #34421C">会員登録しよう!</h1>
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 18px; color: #8B2310">(1/3)</span>
+</div>
+<p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.6">リモート芋煮会の会員証をつくるよ。<br>写真と呼ばれたい名前を入れてね。</p>
+
+<div style="background: #FFF3D6; border: 4px solid #4A2E22; border-radius: 22px; overflow: hidden; box-shadow: 0 6px 0 #4A2E22">
+<div style="background: #4A2E22; color: #FFF3D6; padding: 12px 18px; font-weight: 900; font-size: 18px; display: flex; justify-content: space-between; align-items: center">
+<span>リモート芋煮会 会員証</span>
+<span style="font-size: 12px; font-weight: 700">MEMBER</span>
+</div>
+<div style="display: flex; gap: 16px; padding: 18px">
+<button type="button" aria-label="写真を選ぶ" style="width: 104px; height: 128px; flex-shrink: 0; border: 0; border-radius: 10px; background: #8FAFC4; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFF3D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>
+</button>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 11px; font-weight: 700; color: #6B4A3A">二つ名</span>
+<div style="display: flex; gap: 4px; flex-wrap: wrap">
+<span style="background: #34421C; color: #FFF3D6; font-size: 13px; font-weight: 900; padding: 3px 8px; border-radius: 6px">芋煮会の</span>
+<span style="background: #8B2310; color: #FFF3D6; font-size: 13px; font-weight: 900; padding: 3px 8px; border-radius: 6px">初心者</span>
+</div>
+</div>
+<label style="display: flex; flex-direction: column; gap: 4px; font-size: 11px; font-weight: 700; color: #6B4A3A">
+なまえ
+<input value="{{name}}" onChange="{{onName}}" maxlength="10" style="font-family: inherit; font-size: 20px; font-weight: 900; color: #4A2E22; background: #FFFFFF; border: 3px solid #34421C; border-radius: 8px; padding: 6px 8px; width: 100%; box-sizing: border-box">
+</label>
+<span style="font-size: 12px; font-weight: 700; color: #6B4A3A; letter-spacing: 1px">会員番号 No.123456</span>
+</div>
+</div>
+</div>
+
+<div style="background: #FFF3D6; border: 3px dashed #4A2E22; border-radius: 16px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 14px; font-weight: 900; color: #34421C">二つ名は「前半」と「後半」を集めて組み合わせ!</span>
+<span style="font-size: 13px; font-weight: 700; line-height: 1.6">芋煮会で活躍すると、「伝説の」「鍋奉行」などのパーツが手に入るよ。会員証の画面で自由に付け替えられるよ。</span>
+</div>
+<div style="flex: 1"></div>
+<div style="display: flex; justify-content: center; gap: 8px" aria-hidden="true">
+<span style="width: 24px; height: 8px; border-radius: 4px; background: #34421C"></span>
+<span style="width: 8px; height: 8px; border-radius: 4px; background: #FFF3D6"></span>
+<span style="width: 8px; height: 8px; border-radius: 4px; background: #FFF3D6"></span>
+</div>
+<a href="Tutorial2.dc.html" style="height: 64px; border-radius: 999px; background: #34421C; color: #FFF3D6; font-family: 'Dela Gothic One', sans-serif; font-size: 24px; text-decoration: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 0 #1E2610">登録する</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { name: 'ゆくらさん' }; }
+  renderVals() {
+    return {
+      name: this.state.name,
+      onName: (e) => this.setState({ name: e.target.value })
+    };
+  }
+}
+</script>
+</body>
+</html>

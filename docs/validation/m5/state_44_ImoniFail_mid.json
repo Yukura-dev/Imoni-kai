@@ -1,0 +1,178 @@
+{
+  "utc": "2026-11-26T01:00:48.3455836Z",
+  "width": 390,
+  "height": 844,
+  "screen": "ImoniFail",
+  "source": "artwork-preview",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "round": 1,
+  "seed": 202647,
+  "phase": "Failed",
+  "elapsed": 0.0,
+  "funds": "1000",
+  "cumulative": "0",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "mushroom",
+      "name": "キノコ",
+      "required": "20",
+      "current": "530",
+      "met": true
+    },
+    {
+      "material": "sansai",
+      "name": "希少な山菜",
+      "required": "11",
+      "current": "0",
+      "met": false
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "55",
+      "current": "0",
+      "met": false
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "7B7FB7EFFAAB142EA71C1B22269A90C5B46DC83BF87C4706309E9F69D4978D0D",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 10,
+  "result": {
+    "round": 3,
+    "success": false,
+    "score": "4190",
+    "requiredPoints": "8380",
+    "bonusPoints": "0",
+    "bonusMultiplier": "0",
+    "fundsReward": "0",
+    "fundsAfter": "1000",
+    "cumulative": "4402",
+    "missing": [
+      "sansai",
+      "taro"
+    ]
+  },
+  "effect": {
+    "timeMs": 4000.0,
+    "failed": true,
+    "level": 0,
+    "score": "937",
+    "displayScore": "936",
+    "finalScore": "7350",
+    "referenceScore": "18420",
+    "finaleAtMs": null,
+    "resultAtMs": null,
+    "resultVisible": false,
+    "pose": {
+      "PillarWidth": 57.783484681251032,
+      "GlowOpacity": 0.35,
+      "BurstOpacity": 0.0,
+      "RainbowDurationSec": 5.0,
+      "SpinDurationSec": 14.0,
+      "Gray": 0.0,
+      "PotScale": 1.0,
+      "BrothGlow": 0.4,
+      "Flash": 0.0,
+      "ShakeX": 0.0,
+      "ShakeY": 0.0,
+      "BannerScale": 1.0,
+      "BannerOpacity": 0.0,
+      "FinaleScale": 1.0,
+      "FailDrop": 0.0,
+      "Gauge": 94.1708,
+      "ShowBanner": false,
+      "Finale": false,
+      "FailFinale": false,
+      "ResultVisible": false
+    },
+    "levelEvents": [],
+    "activeItems": 3
+  },
+  "buttons": [
+    {
+      "name": "SoundButton",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 14.0,
+      "y": 44.0,
+      "width": 104.0,
+      "height": 40.0
+    },
+    {
+      "name": "SkipButton",
+      "text": "スキップ",
+      "enabled": true,
+      "display": "Flex",
+      "x": 300.0,
+      "y": 44.0,
+      "width": 76.0,
+      "height": 40.0
+    },
+    {
+      "name": "ResultButton",
+      "text": "結果を見る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ReplayButton",
+      "text": "もう一回見る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    }
+  ],
+  "image": "M5-44_ImoniFail_mid.png"
+}

@@ -1,0 +1,134 @@
+{
+  "shots": [
+    {
+      "name": "Main_loading",
+      "screen": "Main",
+      "waitSeconds": 0.65
+    },
+    {
+      "name": "Main_ready",
+      "screen": "Main",
+      "waitSeconds": 2.7
+    },
+    {
+      "name": "Tutorial1",
+      "screen": "Tutorial1"
+    },
+    {
+      "name": "Tutorial2",
+      "screen": "Tutorial2"
+    },
+    {
+      "name": "Tutorial3",
+      "screen": "Tutorial3"
+    },
+    {
+      "name": "Home",
+      "screen": "Home"
+    },
+    {
+      "name": "Lobby_choose",
+      "screen": "Lobby"
+    },
+    {
+      "name": "Lobby_join_error",
+      "screen": "Lobby",
+      "actions": [
+        {
+          "type": "text",
+          "name": "InviteCodeInput",
+          "value": "IMO-777"
+        },
+        {
+          "type": "click",
+          "name": "JoinTeam"
+        }
+      ]
+    },
+    {
+      "name": "Lobby_team",
+      "screen": "Lobby",
+      "actions": [
+        {
+          "type": "text",
+          "name": "InviteCodeInput",
+          "value": "IMO-482"
+        },
+        {
+          "type": "click",
+          "name": "JoinTeam"
+        }
+      ]
+    },
+    {
+      "name": "Lobby_ready",
+      "screen": "Lobby",
+      "actions": [
+        {
+          "type": "click",
+          "name": "ReadyButton"
+        }
+      ]
+    },
+    {
+      "name": "Waiting",
+      "screen": "Waiting",
+      "waitSeconds": 1
+    },
+    {
+      "name": "Waiting_full",
+      "screen": "Waiting",
+      "waitSeconds": 6
+    },
+    {
+      "name": "Loading",
+      "screen": "Loading",
+      "waitSeconds": 2.28
+    },
+    {
+      "name": "Loading_done",
+      "screen": "Loading",
+      "waitSeconds": 3.6
+    },
+    {
+      "name": "Member",
+      "screen": "Member"
+    },
+    {
+      "name": "Member_badges",
+      "screen": "Member",
+      "actions": [
+        {
+          "type": "flip"
+        }
+      ]
+    },
+    {
+      "name": "Ranking_common",
+      "screen": "Ranking"
+    },
+    {
+      "name": "Ranking_free",
+      "screen": "Ranking",
+      "actions": [
+        {
+          "type": "segment",
+          "name": "ranking-seed",
+          "index": 1
+        }
+      ]
+    },
+    {
+      "name": "Ranking_endless",
+      "screen": "Ranking",
+      "actions": [
+        {
+          "type": "segment",
+          "name": "ranking-mode",
+          "index": 1
+        }
+      ]
+    }
+  ],
+  "resetSession": true
+}

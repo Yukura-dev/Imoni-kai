@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ラウンドの流れ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Zen+Maru+Gothic:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#4A2E22}a:hover{color:#8B2310}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 64px 22px 48px; background: #F7B92B; font-family: 'Zen Maru Gothic', sans-serif; color: #4A2E22; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Dela Gothic One', sans-serif; font-size: 18px; color: #8B2310">(2/3)</span>
+<h1 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 24px; line-height: 1.45; color: #34421C">チームで素材を集めて、<br>5分後の芋煮会を成功させよう!</h1>
+</div>
+
+<div style="background: #FFF3D6; border: 4px solid #4A2E22; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="3">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<span style="width: 60px; flex-shrink: 0; text-align: center; background: {{s.bg}}; color: #FFF3D6; font-family: 'Dela Gothic One', sans-serif; font-size: 15px; padding: 6px 0; border-radius: 10px">{{s.time}}</span>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 16px; font-weight: 900">{{s.title}}</span>
+<span style="font-size: 13px; font-weight: 700; color: #6B4A3A; line-height: 1.5">{{s.desc}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="background: #FFF3D6; border: 3px solid #4A2E22; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 12px; font-weight: 900; color: #34421C">成功すると</span>
+<span style="font-size: 13px; font-weight: 700; line-height: 1.5">資金と個人強化を引き継いで次のラウンドへ</span>
+</div>
+<div style="background: #FFF3D6; border: 3px solid #8B2310; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 12px; font-weight: 900; color: #8B2310">失敗すると</span>
+<span style="font-size: 13px; font-weight: 700; line-height: 1.5">全部リセット。新しいマップでR1から</span>
+</div>
+</div>
+<p style="margin: 0; text-align: center; font-size: 14px; font-weight: 900">5ラウンド連続成功でクリア!その先はエンドレス</p>
+
+<div style="flex: 1"></div>
+<div style="display: flex; justify-content: center; gap: 8px" aria-hidden="true">
+<span style="width: 8px; height: 8px; border-radius: 4px; background: #FFF3D6"></span>
+<span style="width: 24px; height: 8px; border-radius: 4px; background: #34421C"></span>
+<span style="width: 8px; height: 8px; border-radius: 4px; background: #FFF3D6"></span>
+</div>
+<a href="Tutorial3.dc.html" style="height: 64px; border-radius: 999px; background: #34421C; color: #FFF3D6; font-family: 'Dela Gothic One', sans-serif; font-size: 24px; text-decoration: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 0 #1E2610">次へ</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      steps: [
+        { time: '0:00', bg: '#34421C', title: '必須素材の発表', desc: '集める素材と数がすべて公開。資源をタップすると自動で移動・採集するよ' },
+        { time: '2:00', bg: '#B5652B', title: 'ボーナス素材の発表', desc: '目標の100%で報酬。150%・200%・300%でさらに倍!' },
+        { time: '5:00', bg: '#8B2310', title: '芋煮会!', desc: '倉庫の素材は全部自動で鍋へ。必須素材が足りれば成功' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

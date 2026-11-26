@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+    <ui:VisualElement class="onboarding-page onboarding-page--first">
+        <c:StepTitle title="会員登録しよう!" step="1" count="3" class="tutorial-block" />
+        <c:ImoniText text="リモート芋煮会の会員証をつくるよ。&#10;写真と呼ばれたい名前を入れてね。" class="tutorial-introduction tutorial-block" />
+        <c:MemberCard name="registration-card" editable-name="true" class="tutorial-block" />
+        <c:TutorialInfo variant="Dashed" heading="二つ名は「前半」と「後半」を集めて組み合わせ!" body="芋煮会で活躍すると、「伝説の」「鍋奉行」などのパーツが手に入るよ。会員証の画面で自由に付け替えられるよ。" class="tutorial-block" />
+        <ui:VisualElement class="onboarding-spacer tutorial-block" />
+        <c:PagerDots count="3" index="0" class="tutorial-block" />
+        <c:ImoniButton name="next" variant="Primary" text="登録する" />
+    </ui:VisualElement>
+</ui:UXML>

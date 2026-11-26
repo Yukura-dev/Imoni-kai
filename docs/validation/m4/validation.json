@@ -1,0 +1,54 @@
+{
+  "validatedAtUtc": "2026-11-26T00:36:33.888252+00:00",
+  "branch": "rebuild/m4-panels",
+  "baseCommit": "5153ecb",
+  "unityVersion": "6000.3.21f1",
+  "gameView": {
+    "width": 390,
+    "height": 844
+  },
+  "coreTests": {
+    "total": 274,
+    "passed": 274,
+    "failed": 0,
+    "skipped": 0,
+    "added": 38,
+    "record": "dotnet-test.trx"
+  },
+  "panelIntegration": {
+    "passed": true,
+    "checks": 18,
+    "record": "panel-integration.json"
+  },
+  "existingScreenRegression": {
+    "passed": true,
+    "record": "ui-regression.json"
+  },
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "baselineFontReimportRechecked": true,
+    "record": "proof_font_baseline.json"
+  },
+  "comparisonImages": [
+    "compare_32_Game_shop.png",
+    "compare_34_GameMid_menu.png",
+    "compare_35_GameWarehouse.png",
+    "compare_36_GameUpgrade.png"
+  ],
+  "interactionSequences": {
+    "protectionFrames": 6,
+    "insufficientFundsFrames": 5,
+    "actualWindowClicks": true,
+    "snapshotAssertionsPassed": true
+  },
+  "panelOpenSimulation": {
+    "elapsedSeconds": 116.696125995,
+    "gatherOperations": 84,
+    "toastHidden": true,
+    "worldInputBlocked": true,
+    "inputRestoredOnClose": true
+  },
+  "assetMetaPairsComplete": true,
+  "scope": "M4 only; no M5 work"
+}

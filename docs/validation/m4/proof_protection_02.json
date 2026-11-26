@@ -1,0 +1,223 @@
+{
+  "utc": "2026-11-26T00:26:48.5209394Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "panel": "warehouse",
+  "elapsed": 0.0,
+  "phase": "Collecting",
+  "funds": "700",
+  "worldInputEnabled": false,
+  "toastVisible": false,
+  "saleQuantity": "46",
+  "selectedInventory": "wood|normal",
+  "popups": [],
+  "growthLabels": [],
+  "lastTappedResource": null,
+  "growthLabelDistanceTiles": 2.0,
+  "players": [
+    {
+      "id": "player1",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "inventory": [
+    {
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "50",
+      "protected": "5",
+      "sellable": "45",
+      "unitPrice": "2"
+    }
+  ],
+  "history": [
+    {
+      "sequence": 1,
+      "actor": "player1",
+      "kind": "Buy",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "50",
+      "time": 0.0
+    },
+    {
+      "sequence": 2,
+      "actor": "player1",
+      "kind": "SetProtection",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "5",
+      "time": 0.0
+    }
+  ],
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "enabled": true,
+      "x": 10.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "enabled": true,
+      "x": 105.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "enabled": true,
+      "x": 199.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "enabled": true,
+      "x": 294.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "x": 332.0,
+      "y": 242.0,
+      "width": 44.0,
+      "height": 44.0
+    },
+    {
+      "name": "ProtectDecrease",
+      "text": "−",
+      "enabled": true,
+      "x": 191.0,
+      "y": 561.0,
+      "width": 36.0,
+      "height": 36.0
+    },
+    {
+      "name": "ProtectIncrease",
+      "text": "＋",
+      "enabled": true,
+      "x": 263.0,
+      "y": 561.0,
+      "width": 36.0,
+      "height": 36.0
+    },
+    {
+      "name": "ToggleProtection",
+      "text": "全部保護",
+      "enabled": true,
+      "x": 303.0,
+      "y": 561.0,
+      "width": 60.0,
+      "height": 36.0
+    },
+    {
+      "name": "SalePercent25",
+      "text": "25%",
+      "enabled": true,
+      "x": 27.0,
+      "y": 605.0,
+      "width": 62.0,
+      "height": 36.0
+    },
+    {
+      "name": "SalePercent50",
+      "text": "50%",
+      "enabled": true,
+      "x": 95.0,
+      "y": 605.0,
+      "width": 62.0,
+      "height": 36.0
+    },
+    {
+      "name": "SalePercent75",
+      "text": "75%",
+      "enabled": true,
+      "x": 163.0,
+      "y": 605.0,
+      "width": 62.0,
+      "height": 36.0
+    },
+    {
+      "name": "SalePercent100",
+      "text": "100%",
+      "enabled": true,
+      "x": 231.0,
+      "y": 605.0,
+      "width": 62.0,
+      "height": 36.0
+    },
+    {
+      "name": "SaleSelected",
+      "text": "46個 売却 +92G",
+      "enabled": false,
+      "x": 27.0,
+      "y": 649.0,
+      "width": 336.0,
+      "height": 48.0
+    },
+    {
+      "name": "SellAllUnprotected",
+      "text": "保護以外をまとめて売却",
+      "enabled": true,
+      "x": 14.0,
+      "y": 720.0,
+      "width": 362.0,
+      "height": 44.0
+    }
+  ],
+  "image": "M4-proof_protection_02.png"
+}

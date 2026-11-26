@@ -1,0 +1,978 @@
+{
+  "status": "complete",
+  "intervalSimulationSeconds": 1,
+  "input": "Game-view pointer tap; normal IGameServer command; paused between fixed one-second ticks",
+  "movingObserved": true,
+  "gatheringObserved": true,
+  "humanGatherConfirmed": true,
+  "frames": [
+    {
+      "width": 390,
+      "height": 844,
+      "screen": "Game",
+      "seed": 202647,
+      "elapsed": 0.0,
+      "phase": "Collecting",
+      "funds": "1000",
+      "bonusRevealed": false,
+      "lastTappedResource": "resource-33-27",
+      "lastTappedGround": null,
+      "players": [
+        {
+          "id": "player1",
+          "x": 32,
+          "y": 32,
+          "nextX": 32,
+          "nextY": 31,
+          "action": "Moving",
+          "connected": true,
+          "target": "resource-33-27",
+          "remaining": 0.228572,
+          "duration": 0.228572,
+          "streak": 0
+        },
+        {
+          "id": "player2",
+          "x": 32,
+          "y": 32,
+          "nextX": 32,
+          "nextY": 32,
+          "action": "Idle",
+          "connected": true,
+          "target": null,
+          "remaining": 0.0,
+          "duration": 0.0,
+          "streak": 0
+        },
+        {
+          "id": "player3",
+          "x": 32,
+          "y": 32,
+          "nextX": 32,
+          "nextY": 32,
+          "action": "Idle",
+          "connected": true,
+          "target": null,
+          "remaining": 0.0,
+          "duration": 0.0,
+          "streak": 0
+        }
+      ],
+      "history": [],
+      "humanGatherCount": 0,
+      "lots": [],
+      "console": {
+        "errors": 0,
+        "warnings": 0,
+        "logs": 0
+      },
+      "camera": {
+        "x": 32.5,
+        "y": -32.5,
+        "orthographicSize": 8.75,
+        "viewport": [
+          0.0,
+          0.09952607,
+          1.0,
+          0.6635071
+        ]
+      },
+      "growthLabels": {
+        "visible": 0,
+        "characterOverlaps": 0,
+        "labelOverlaps": 0
+      },
+      "targetResource": {
+        "id": "resource-33-27",
+        "stock": 3,
+        "stage": "Ready",
+        "untilReady": 0.0
+      },
+      "name": "sequence_00",
+      "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_00.png",
+      "editorTime": 34819.597371699994
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "screen": "Game",
+      "seed": 202647,
+      "elapsed": 1.000000,
+      "phase": "Collecting",
+      "funds": "1000",
+      "bonusRevealed": false,
+      "lastTappedResource": "resource-33-27",
+      "lastTappedGround": null,
+      "players": [
+        {
+          "id": "player1",
+          "x": 32,
+          "y": 28,
+          "nextX": 32,
+          "nextY": 27,
+          "action": "Moving",
+          "connected": true,
+          "target": "resource-33-27",
+          "remaining": 0.142860,
+          "duration": 0.228572,
+          "streak": 0
+        },
+        {
+          "id": "player2",
+          "x": 32,
+          "y": 32,
+          "nextX": 32,
+          "nextY": 32,
+          "action": "Idle",
+          "connected": true,
+          "target": null,
+          "remaining": 0.0,
+          "duration": 0.0,
+          "streak": 0
+        },
+        {
+          "id": "player3",
+          "x": 32,
+          "y": 32,
+          "nextX": 32,
+          "nextY": 32,
+          "action": "Idle",
+          "connected": true,
+          "target": null,
+          "remaining": 0.0,
+          "duration": 0.0,
+          "streak": 0
+        }
+      ],
+      "history": [],
+      "humanGatherCount": 0,
+      "lots": [],
+      "console": {
+        "errors": 0,
+        "warnings": 0,
+        "logs": 0
+      },
+      "camera": {
+        "x": 32.5,
+        "y": -28.1250114,
+        "orthographicSize": 8.75,
+        "viewport": [
+          0.0,
+          0.09952607,
+          1.0,
+          0.6635071
+        ]
+      },
+      "growthLabels": {
+        "visible": 0,
+        "characterOverlaps": 0,
+        "labelOverlaps": 0
+      },
+      "targetResource": {
+        "id": "resource-33-27",
+        "stock": 3,
+        "stage": "Ready",
+        "untilReady": 0.0
+      },
+      "name": "sequence_01",
+      "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_01.png",
+      "editorTime": 34820.607686999996
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "screen": "Game",
+      "seed": 202647,
+      "elapsed": 2.000000,
+      "phase": "Collecting",
+      "funds": "1000",
+      "bonusRevealed": false,
+      "lastTappedResource": "resource-33-27",
+      "lastTappedGround": null,
+      "players": [
+        {
+          "id": "player1",
+          "x": 32,
+          "y": 27,
+          "nextX": 32,
+          "nextY": 27,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-33-27",
+          "remaining": 0.742860,
+          "duration": 1.6,
+          "streak": 0
+        },
+        {
+          "id": "player2",
+          "x": 32,
+          "y": 32,
+          "nextX": 32,
+          "nextY": 33,
+          "action": "Moving",
+          "connected": true,
+          "target": "resource-30-33",
+          "remaining": 0.228572,
+          "duration": 0.228572,
+          "streak": 0
+        },
+        {
+          "id": "player3",
+          "x": 32,
+          "y": 32,
+          "nextX": 32,
+          "nextY": 33,
+          "action": "Moving",
+          "connected": true,
+          "target": "resource-30-33",
+          "remaining": 0.228572,
+          "duration": 0.228572,
+          "streak": 0
+        }
+      ],
+      "history": [],
+      "humanGatherCount": 0,
+      "lots": [],
+      "console": {
+        "errors": 0,
+        "warnings": 0,
+        "logs": 0
+      },
+      "camera": {
+        "x": 32.65625,
+        "y": -27.5,
+        "orthographicSize": 8.75,
+        "viewport": [
+          0.0,
+          0.09952607,
+          1.0,
+          0.6635071
+        ]
+      },
+      "growthLabels": {
+        "visible": 0,
+        "characterOverlaps": 0,
+        "labelOverlaps": 0
+      },
+      "targetResource": {
+        "id": "resource-33-27",
+        "stock": 3,
+        "stage": "Ready",
+        "untilReady": 0.0
+      },
+      "name": "sequence_02",
+      "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_02.png",
+      "editorTime": 34821.6195645
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "screen": "Game",
+      "seed": 202647,
+      "elapsed": 3.000000,
+      "phase": "Collecting",
+      "funds": "1000",
+      "bonusRevealed": false,
+      "lastTappedResource": "resource-33-27",
+      "lastTappedGround": null,
+      "players": [
+        {
+          "id": "player1",
+          "x": 32,
+          "y": 27,
+          "nextX": 32,
+          "nextY": 27,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-33-27",
+          "remaining": 1.342860,
+          "duration": 1.6,
+          "streak": 0
+        },
+        {
+          "id": "player2",
+          "x": 31,
+          "y": 33,
+          "nextX": 31,
+          "nextY": 33,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-30-33",
+          "remaining": 1.057144,
+          "duration": 1.6,
+          "streak": 0
+        },
+        {
+          "id": "player3",
+          "x": 31,
+          "y": 33,
+          "nextX": 31,
+          "nextY": 33,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-30-33",
+          "remaining": 1.057144,
+          "duration": 1.6,
+          "streak": 0
+        }
+      ],
+      "history": [
+        {
+          "sequence": 1,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3",
+          "time": 2.742860,
+          "gatherStreak": 0
+        }
+      ],
+      "humanGatherCount": 1,
+      "lots": [
+        {
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3"
+        }
+      ],
+      "console": {
+        "errors": 0,
+        "warnings": 0,
+        "logs": 0
+      },
+      "camera": {
+        "x": 32.65625,
+        "y": -27.5,
+        "orthographicSize": 8.75,
+        "viewport": [
+          0.0,
+          0.09952607,
+          1.0,
+          0.6635071
+        ]
+      },
+      "growthLabels": {
+        "visible": 0,
+        "characterOverlaps": 0,
+        "labelOverlaps": 0
+      },
+      "targetResource": {
+        "id": "resource-33-27",
+        "stock": 2,
+        "stage": "Ready",
+        "untilReady": 0.0
+      },
+      "name": "sequence_03",
+      "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_03.png",
+      "editorTime": 34822.6284216
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "screen": "Game",
+      "seed": 202647,
+      "elapsed": 4.000000,
+      "phase": "Collecting",
+      "funds": "1000",
+      "bonusRevealed": false,
+      "lastTappedResource": "resource-33-27",
+      "lastTappedGround": null,
+      "players": [
+        {
+          "id": "player1",
+          "x": 32,
+          "y": 27,
+          "nextX": 32,
+          "nextY": 27,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-33-27",
+          "remaining": 0.342860,
+          "duration": 1.6,
+          "streak": 0
+        },
+        {
+          "id": "player2",
+          "x": 31,
+          "y": 33,
+          "nextX": 31,
+          "nextY": 33,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-30-33",
+          "remaining": 0.057144,
+          "duration": 1.6,
+          "streak": 0
+        },
+        {
+          "id": "player3",
+          "x": 31,
+          "y": 33,
+          "nextX": 31,
+          "nextY": 33,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-30-33",
+          "remaining": 0.057144,
+          "duration": 1.6,
+          "streak": 0
+        }
+      ],
+      "history": [
+        {
+          "sequence": 1,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3",
+          "time": 2.742860,
+          "gatherStreak": 0
+        }
+      ],
+      "humanGatherCount": 1,
+      "lots": [
+        {
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3"
+        }
+      ],
+      "console": {
+        "errors": 0,
+        "warnings": 0,
+        "logs": 0
+      },
+      "camera": {
+        "x": 32.65625,
+        "y": -27.5,
+        "orthographicSize": 8.75,
+        "viewport": [
+          0.0,
+          0.09952607,
+          1.0,
+          0.6635071
+        ]
+      },
+      "growthLabels": {
+        "visible": 0,
+        "characterOverlaps": 0,
+        "labelOverlaps": 0
+      },
+      "targetResource": {
+        "id": "resource-33-27",
+        "stock": 2,
+        "stage": "Ready",
+        "untilReady": 0.0
+      },
+      "name": "sequence_04",
+      "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_04.png",
+      "editorTime": 34823.638392
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "screen": "Game",
+      "seed": 202647,
+      "elapsed": 5.000000,
+      "phase": "Collecting",
+      "funds": "1000",
+      "bonusRevealed": false,
+      "lastTappedResource": "resource-33-27",
+      "lastTappedGround": null,
+      "players": [
+        {
+          "id": "player1",
+          "x": 32,
+          "y": 27,
+          "nextX": 32,
+          "nextY": 27,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-33-27",
+          "remaining": 0.942860,
+          "duration": 1.6,
+          "streak": 1
+        },
+        {
+          "id": "player2",
+          "x": 31,
+          "y": 33,
+          "nextX": 31,
+          "nextY": 33,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-30-33",
+          "remaining": 0.657144,
+          "duration": 1.6,
+          "streak": 0
+        },
+        {
+          "id": "player3",
+          "x": 31,
+          "y": 33,
+          "nextX": 31,
+          "nextY": 33,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-30-33",
+          "remaining": 0.657144,
+          "duration": 1.6,
+          "streak": 0
+        }
+      ],
+      "history": [
+        {
+          "sequence": 1,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3",
+          "time": 2.742860,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 2,
+          "actor": "player2",
+          "kind": "Gather",
+          "material": "taro",
+          "quality": "good",
+          "quantity": "2",
+          "time": 4.057144,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 3,
+          "actor": "player3",
+          "kind": "Gather",
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2",
+          "time": 4.057144,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 4,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "rare",
+          "quantity": "3",
+          "time": 4.342860,
+          "gatherStreak": 1
+        }
+      ],
+      "humanGatherCount": 2,
+      "lots": [
+        {
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3"
+        },
+        {
+          "material": "taro",
+          "quality": "good",
+          "quantity": "2"
+        },
+        {
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2"
+        },
+        {
+          "material": "wood",
+          "quality": "rare",
+          "quantity": "3"
+        }
+      ],
+      "console": {
+        "errors": 0,
+        "warnings": 0,
+        "logs": 0
+      },
+      "camera": {
+        "x": 32.65625,
+        "y": -27.5,
+        "orthographicSize": 8.75,
+        "viewport": [
+          0.0,
+          0.09952607,
+          1.0,
+          0.6635071
+        ]
+      },
+      "growthLabels": {
+        "visible": 0,
+        "characterOverlaps": 0,
+        "labelOverlaps": 0
+      },
+      "targetResource": {
+        "id": "resource-33-27",
+        "stock": 1,
+        "stage": "Ready",
+        "untilReady": 0.0
+      },
+      "name": "sequence_05",
+      "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_05.png",
+      "editorTime": 34824.648588799995
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "screen": "Game",
+      "seed": 202647,
+      "elapsed": 6.000000,
+      "phase": "Collecting",
+      "funds": "1000",
+      "bonusRevealed": false,
+      "lastTappedResource": "resource-33-27",
+      "lastTappedGround": null,
+      "players": [
+        {
+          "id": "player1",
+          "x": 32,
+          "y": 27,
+          "nextX": 32,
+          "nextY": 27,
+          "action": "Idle",
+          "connected": true,
+          "target": null,
+          "remaining": 0.0,
+          "duration": 0.0,
+          "streak": 0
+        },
+        {
+          "id": "player2",
+          "x": 31,
+          "y": 33,
+          "nextX": 31,
+          "nextY": 34,
+          "action": "Moving",
+          "connected": true,
+          "target": "resource-30-34",
+          "remaining": 0.228572,
+          "duration": 0.228572,
+          "streak": 0
+        },
+        {
+          "id": "player3",
+          "x": 31,
+          "y": 33,
+          "nextX": 31,
+          "nextY": 34,
+          "action": "Moving",
+          "connected": true,
+          "target": "resource-30-34",
+          "remaining": 0.228572,
+          "duration": 0.228572,
+          "streak": 0
+        }
+      ],
+      "history": [
+        {
+          "sequence": 1,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3",
+          "time": 2.742860,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 2,
+          "actor": "player2",
+          "kind": "Gather",
+          "material": "taro",
+          "quality": "good",
+          "quantity": "2",
+          "time": 4.057144,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 3,
+          "actor": "player3",
+          "kind": "Gather",
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2",
+          "time": 4.057144,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 4,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "rare",
+          "quantity": "3",
+          "time": 4.342860,
+          "gatherStreak": 1
+        },
+        {
+          "sequence": 5,
+          "actor": "player2",
+          "kind": "Gather",
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2",
+          "time": 5.657144,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 6,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3",
+          "time": 5.942860,
+          "gatherStreak": 0
+        }
+      ],
+      "humanGatherCount": 3,
+      "lots": [
+        {
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3"
+        },
+        {
+          "material": "taro",
+          "quality": "good",
+          "quantity": "2"
+        },
+        {
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2"
+        },
+        {
+          "material": "wood",
+          "quality": "rare",
+          "quantity": "3"
+        },
+        {
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2"
+        },
+        {
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3"
+        }
+      ],
+      "console": {
+        "errors": 0,
+        "warnings": 0,
+        "logs": 0
+      },
+      "camera": {
+        "x": 32.5,
+        "y": -27.5,
+        "orthographicSize": 8.75,
+        "viewport": [
+          0.0,
+          0.09952607,
+          1.0,
+          0.6635071
+        ]
+      },
+      "growthLabels": {
+        "visible": 2,
+        "characterOverlaps": 0,
+        "labelOverlaps": 0
+      },
+      "targetResource": {
+        "id": "resource-33-27",
+        "stock": 0,
+        "stage": "Stump",
+        "untilReady": 39.942860
+      },
+      "name": "sequence_06",
+      "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_06.png",
+      "editorTime": 34825.659833
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "screen": "Game",
+      "seed": 202647,
+      "elapsed": 7.000000,
+      "phase": "Collecting",
+      "funds": "1000",
+      "bonusRevealed": false,
+      "lastTappedResource": "resource-33-27",
+      "lastTappedGround": null,
+      "players": [
+        {
+          "id": "player1",
+          "x": 32,
+          "y": 27,
+          "nextX": 32,
+          "nextY": 27,
+          "action": "Idle",
+          "connected": true,
+          "target": null,
+          "remaining": 0.0,
+          "duration": 0.0,
+          "streak": 0
+        },
+        {
+          "id": "player2",
+          "x": 31,
+          "y": 34,
+          "nextX": 31,
+          "nextY": 34,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-30-34",
+          "remaining": 0.828572,
+          "duration": 1.6,
+          "streak": 0
+        },
+        {
+          "id": "player3",
+          "x": 31,
+          "y": 34,
+          "nextX": 31,
+          "nextY": 34,
+          "action": "Gathering",
+          "connected": true,
+          "target": "resource-30-34",
+          "remaining": 0.828572,
+          "duration": 1.6,
+          "streak": 0
+        }
+      ],
+      "history": [
+        {
+          "sequence": 1,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3",
+          "time": 2.742860,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 2,
+          "actor": "player2",
+          "kind": "Gather",
+          "material": "taro",
+          "quality": "good",
+          "quantity": "2",
+          "time": 4.057144,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 3,
+          "actor": "player3",
+          "kind": "Gather",
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2",
+          "time": 4.057144,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 4,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "rare",
+          "quantity": "3",
+          "time": 4.342860,
+          "gatherStreak": 1
+        },
+        {
+          "sequence": 5,
+          "actor": "player2",
+          "kind": "Gather",
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2",
+          "time": 5.657144,
+          "gatherStreak": 0
+        },
+        {
+          "sequence": 6,
+          "actor": "player1",
+          "kind": "Gather",
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3",
+          "time": 5.942860,
+          "gatherStreak": 0
+        }
+      ],
+      "humanGatherCount": 3,
+      "lots": [
+        {
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3"
+        },
+        {
+          "material": "taro",
+          "quality": "good",
+          "quantity": "2"
+        },
+        {
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2"
+        },
+        {
+          "material": "wood",
+          "quality": "rare",
+          "quantity": "3"
+        },
+        {
+          "material": "taro",
+          "quality": "normal",
+          "quantity": "2"
+        },
+        {
+          "material": "wood",
+          "quality": "good",
+          "quantity": "3"
+        }
+      ],
+      "console": {
+        "errors": 0,
+        "warnings": 0,
+        "logs": 0
+      },
+      "camera": {
+        "x": 32.5,
+        "y": -27.5,
+        "orthographicSize": 8.75,
+        "viewport": [
+          0.0,
+          0.09952607,
+          1.0,
+          0.6635071
+        ]
+      },
+      "growthLabels": {
+        "visible": 2,
+        "characterOverlaps": 0,
+        "labelOverlaps": 0
+      },
+      "targetResource": {
+        "id": "resource-33-27",
+        "stock": 0,
+        "stage": "Stump",
+        "untilReady": 38.942860
+      },
+      "name": "sequence_07",
+      "image": "D:\\UnityProjects\\Imoni-kai\\Library\\M3B-sequence_07.png",
+      "editorTime": 34826.669595499996
+    }
+  ]
+}

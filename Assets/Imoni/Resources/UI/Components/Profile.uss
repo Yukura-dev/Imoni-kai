@@ -1,0 +1,83 @@
+/* Reference: Member/Tutorial1/Home/Lobby/Waiting inline styles. */
+.title-chips { flex-direction: row; flex-wrap: wrap; align-items: center; }
+.title-chips .chip { padding: 3px 8px; font-size: 12px; border-radius: 6px; }
+.title-chips__second { margin-left: 4px; }
+.title-chips--compact .chip { font-size: 11px; padding: 2px 6px; border-radius: 5px; }
+.title-chips--compact .title-chips__second { margin-left: 3px; }
+.title-chips--large .chip { font-size: 13px; }
+
+.title-part-picker { background-color: var(--c-cream); border-width: 4px; border-color: var(--c-brown); border-radius: 22px; padding: 12px 14px; }
+.title-part-picker__header { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 8px; }
+.title-part-picker__heading { -unity-font-definition: var(--font-body-black); font-size: 16px; color: var(--c-green); }
+.title-part-picker__summary { font-size: 11px; color: var(--c-brown-soft); }
+.title-part-picker__label { -unity-font-definition: var(--font-body-black); font-size: 12px; margin-bottom: 8px; }
+.title-part-picker__parts { flex-direction: row; flex-wrap: wrap; margin-bottom: 2px; margin-right: -6px; }
+.title-part-picker__parts--last { margin-bottom: -6px; }
+.title-part-picker__part { min-height: 36px; margin: 0 6px 6px 0; padding: 0 10px; border-width: 2px; border-color: var(--c-brown); border-radius: 10px; background-color: var(--c-white); color: var(--c-brown); -unity-font-definition: var(--font-body-black); font-size: 13px; }
+.title-part-picker__part--first.title-part-picker__part--selected { background-color: var(--c-green); border-color: var(--c-green); color: var(--c-cream); }
+.title-part-picker__part--second.title-part-picker__part--selected { background-color: var(--c-red); border-color: var(--c-red); color: var(--c-cream); }
+.title-part-picker__part--locked:disabled { opacity: 1; background-color: var(--c-locked-bg); border-color: #8C6A2E; color: var(--c-locked-fg); }
+
+.avatar { flex-shrink: 0; border-radius: 999px; border-width: 3px; border-color: var(--c-brown); background-color: var(--c-sky); overflow: hidden; }
+.avatar__layer, .avatar__photo { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-size: contain; background-position: center center; background-repeat: no-repeat no-repeat; }
+.avatar__photo { background-size: cover; }
+.avatar--dimmed { opacity: 0.45; }
+.color-swatch { width: 44px; height: 44px; min-width: 44px; min-height: 44px; margin: 0; padding: 0; border-radius: 999px; border-width: 3px; border-color: var(--c-brown); flex-shrink: 0; overflow: visible; }
+.color-swatch__cream-ring { position: absolute; left: -6px; right: -6px; top: -6px; bottom: -6px; border-width: 3px; border-color: var(--c-cream); border-radius: 999px; }
+.color-swatch__green-ring { position: absolute; left: -9px; right: -9px; top: -9px; bottom: -9px; border-width: 3px; border-color: var(--c-green); border-radius: 999px; }
+.avatar-editor { flex-direction: row; align-items: center; background-color: var(--c-cream); border-width: 4px; border-color: var(--c-brown); border-radius: 22px; padding: 10px 14px; }
+.avatar-editor__preview { border-width: 0; border-radius: 0; background-color: rgba(0,0,0,0); margin-right: 10px; overflow: visible; flex-shrink: 1; min-width: 0; }
+.avatar-editor__fields { flex-grow: 1; min-width: 194px; }
+.avatar-editor__heading { -unity-font-definition: var(--font-body-black); font-size: 15px; color: var(--c-green); margin-bottom: 8px; }
+.avatar-editor__label { -unity-font-definition: var(--font-body-black); font-size: 12px; margin-bottom: 8px; }
+.avatar-editor__swatches { flex-direction: row; margin-bottom: 8px; }
+.avatar-editor__swatches .color-swatch--spaced { margin-left: 6px; }
+
+.badge-grid { padding: 10px 14px; }
+.badge-grid__row { flex-direction: row; }
+.badge-grid__row--spaced { margin-top: 8px; }
+.badge-grid__badge { flex-grow: 1; flex-basis: 0; min-width: 0; height: 66px; border-radius: 12px; border-width: 3px; border-color: var(--c-brown); background-color: var(--c-yellow); align-items: center; justify-content: center; }
+.badge-grid__badge--spaced { margin-left: 8px; }
+.badge-grid__icon { width: 20px; height: 20px; background-size: contain; -unity-background-image-tint-color: var(--c-brown); margin-bottom: 2px; }
+.badge-grid__text { font-size: 10px; -unity-font-definition: var(--font-body-black); color: var(--c-brown); -unity-text-align: middle-center; }
+.badge-grid__badge--locked { background-color: var(--c-locked-bg); border-color: #B8A586; }
+.badge-grid__badge--locked .badge-grid__text { color: #6B5A45; }
+.badge-grid__badge--locked .badge-grid__icon { -unity-background-image-tint-color: #6B5A45; }
+
+.member-card { height: 201px; flex-shrink: 0; border-width: 4px; border-bottom-width: 9px; border-color: var(--c-brown); border-radius: 22px; background-color: var(--c-cream); overflow: hidden; }
+.member-card__header { flex-direction: row; align-items: center; justify-content: space-between; background-color: var(--c-brown); color: var(--c-cream); padding: 9px 16px; flex-shrink: 0; }
+.member-card__heading { font-size: 15px; -unity-font-definition: var(--font-body-black); color: var(--c-cream); }
+.member-card__hint { font-size: 11px; color: var(--c-cream); }
+.member-card__front { flex-direction: row; padding: 14px 16px; }
+.member-card__photo { width: 92px; height: 116px; flex-shrink: 0; margin: 0 14px 0 0; padding: 0; border-width: 0; border-radius: 10px; background-color: var(--c-sky); background-size: cover; align-items: center; justify-content: center; }
+.member-card__camera { width: 36px; height: 36px; background-size: contain; -unity-background-image-tint-color: var(--c-cream); }
+.member-card__info { flex-grow: 1; min-width: 0; }
+.member-card__name { font-size: 22px; -unity-font-definition: var(--font-body-black); margin-top: 7px; }
+.member-card__detail { font-size: 12px; color: var(--c-brown-soft); margin-top: 7px; white-space: normal; }
+.member-card__number { font-size: 12px; color: var(--c-brown-soft); letter-spacing: 1px; margin-top: 7px; }
+.member-card__caption { font-size: 11px; color: var(--c-brown-soft); margin-bottom: 4px; }
+.member-card__name-input { margin: 0; padding: 0; }
+.member-card__name-input .unity-base-text-field__input { font-size: 20px; -unity-font-definition: var(--font-body-black); color: var(--c-brown); background-color: var(--c-white); border-width: 3px; border-color: var(--c-green); border-radius: 8px; padding: 6px 8px; }
+.member-card--registration { height: auto; min-height: 237px; border-bottom-width: 10px; }
+.member-card--registration .member-card__header { padding: 12px 18px; }
+.member-card--registration .member-card__heading { font-size: 18px; }
+.member-card--registration .member-card__hint { font-size: 12px; }
+.member-card--registration .member-card__front { padding: 18px; }
+.member-card--registration .member-card__photo { width: 104px; height: 128px; margin-right: 16px; }
+.member-card--registration .title-chips { margin-bottom: 10px; }
+.member-card--registration .member-card__number { margin-top: 10px; }
+
+.status-badge { border-radius: 13px; padding: 4px 10px; font-size: 12px; -unity-font-definition: var(--font-body-black); background-color: var(--c-green); color: var(--c-cream); flex-shrink: 0; align-self: center; }
+.status-badge--waiting { background-color: #EFD38A; color: var(--c-brown); }
+.status-badge--offline { background-color: #DDD1B7; color: var(--c-brown-soft); }
+.member-row { flex-direction: row; align-items: center; padding: 10px; border-radius: 14px; border-width: 2px; border-color: var(--c-brown); background-color: var(--c-white); }
+.member-row__info { flex-grow: 1; min-width: 0; margin-left: 12px; margin-right: 8px; }
+.member-row__name { font-size: 16px; -unity-font-definition: var(--font-body-black); margin-top: 2px; }
+.member-row__connection-dot, .member-row__connection-state { display: none; }
+.member-row--connection { background-color: var(--c-white); border-width: 2px; border-color: var(--c-brown); border-radius: 12px; padding: 8px 10px; min-height: 40px; flex-shrink: 0; }
+.member-row--connection > .avatar, .member-row--connection > .status-badge, .member-row--connection .title-chips { display: none; }
+.member-row--connection > .member-row__info { margin: 0 10px; flex-grow: 1; }
+.member-row--connection .member-row__name { font-size: 14px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.member-row--connection > .member-row__connection-dot { display: flex; width: 10px; height: 10px; border-radius: 5px; background-color: var(--c-leaf); flex-shrink: 0; }
+.member-row--connection > .member-row__connection-state { display: flex; color: var(--c-brown-soft); font-size: 12px; -unity-font-definition: var(--font-body); white-space: nowrap; flex-shrink: 0; }
+.member-row--disconnected > .member-row__connection-dot { background-color: #B8A586; }

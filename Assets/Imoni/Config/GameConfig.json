@@ -1,0 +1,1357 @@
+{
+  "_comment": "オンライン芋煮会 ゲーム調整値。仕様書 v1.0 + モックで採用した仮の数値。値はすべてプレイテストで変更する前提。コードに数値を直書きせず、必ずこのファイルから読むこと。",
+  "version": 1,
+  "team": {
+    "size": 3,
+    "allowJoinDuringRun": false
+  },
+  "round": {
+    "durationSec": 300,
+    "bonusRevealSec": 120,
+    "roundsToClear": 5,
+    "mockTimeScale": 10,
+    "_mockTimeScale": "モック/開発用。1にすると実時間。本番は1"
+  },
+  "economy": {
+    "startFunds": 1000,
+    "currencyUnit": "G",
+    "buyPriceMultiplier": 3,
+    "_buyPriceMultiplier": "ショップ購入価格 = 基本売却価格 × この値(仮)。購入品は常に『普通』品質",
+    "purchasedQualityId": "normal",
+    "bonusFundsPerPoint": 0.1,
+    "_bonusFundsPerPoint": "M1仮決定：成功時に floor(ボーナス素材ポイント × 段階倍率 × この係数) を資金へ加算。失敗時は0。"
+  },
+  "materials": [
+    {
+      "id": "wood",
+      "name": "薪",
+      "basePoint": 1,
+      "basePrice": 2,
+      "baseYield": 3,
+      "biomes": [
+        "forest",
+        "mountain"
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 40
+    },
+    {
+      "id": "negi",
+      "name": "ねぎ",
+      "basePoint": 3,
+      "basePrice": 6,
+      "baseYield": 2,
+      "biomes": [
+        "plain"
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 20
+    },
+    {
+      "id": "taro",
+      "name": "里芋",
+      "basePoint": 5,
+      "basePrice": 10,
+      "baseYield": 2,
+      "biomes": [
+        "plain"
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 20
+    },
+    {
+      "id": "mushroom",
+      "name": "キノコ",
+      "basePoint": 15,
+      "basePrice": 30,
+      "baseYield": 1,
+      "biomes": [
+        "forest",
+        "swamp"
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 10
+    },
+    {
+      "id": "fish",
+      "name": "魚",
+      "basePoint": 30,
+      "basePrice": 60,
+      "baseYield": 1,
+      "biomes": [
+        "river"
+      ],
+      "qualityMultiplier": 1.0,
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 6
+    },
+    {
+      "id": "sansai",
+      "name": "希少な山菜",
+      "basePoint": 100,
+      "basePrice": 200,
+      "baseYield": 1,
+      "biomes": [
+        "mountain"
+      ],
+      "qualityMultiplier": 1.1,
+      "efficiencyMultiplier": 1.0,
+      "spawnWeight": 4
+    }
+  ],
+  "qualities": [
+    {
+      "id": "normal",
+      "name": "普通",
+      "multiplier": 1,
+      "unlockRound": 1,
+      "weight": 62,
+      "bg": "#FFFFFF",
+      "fg": "#4A2E22"
+    },
+    {
+      "id": "good",
+      "name": "良質",
+      "multiplier": 2,
+      "unlockRound": 1,
+      "weight": 30,
+      "bg": "#DCE8C4",
+      "fg": "#34421C"
+    },
+    {
+      "id": "rare",
+      "name": "希少",
+      "multiplier": 5,
+      "unlockRound": 1,
+      "weight": 8,
+      "bg": "#C8DCEB",
+      "fg": "#1F3E5C"
+    },
+    {
+      "id": "legend",
+      "name": "伝説",
+      "multiplier": 20,
+      "unlockRound": 2,
+      "weight": 4,
+      "bg": "#F7B92B",
+      "fg": "#4A2E22"
+    },
+    {
+      "id": "myth",
+      "name": "神話",
+      "multiplier": 100,
+      "unlockRound": 3,
+      "weight": 2,
+      "bg": "#B5652B",
+      "fg": "#FFF3D6"
+    },
+    {
+      "id": "transcend",
+      "name": "超越",
+      "multiplier": 1000,
+      "unlockRound": 4,
+      "weight": 1,
+      "bg": "#8B2310",
+      "fg": "#FFF3D6"
+    },
+    {
+      "id": "ultimate",
+      "name": "究極",
+      "multiplier": 10000,
+      "unlockRound": 5,
+      "weight": 0.5,
+      "bg": "#4A2E22",
+      "fg": "#F7B92B"
+    }
+  ],
+  "qualityRoll": {
+    "_comment": "pTop = min(1, topBaseChance * (1 + upgrades.items[luck].effectPerLevel * Lv))。バイオーム・素材・資源の品質係数を品質順位ごとの重みに掛け、正規化して抽選。採集運の係数はupgradesのみ。",
+    "topBaseChance": 0.08
+  },
+  "streak": {
+    "_comment": "連続倍率 M(n) = base ^ (n / divisor)。実獲得数量 = floor(基本獲得数量 × 採集量倍率 × M)。素材ポイントにも M を掛ける(仕様6)",
+    "base": 2,
+    "divisor": 10
+  },
+  "upgrades": {
+    "_comment": "価格 = basePrice × priceGrowth ^ 現在Lv(仕様8.2)。Lv は 0 から。上限なし",
+    "priceGrowth": 1.5,
+    "items": [
+      {
+        "id": "move",
+        "name": "移動速度",
+        "basePrice": 150,
+        "effectPerLevel": 0.25,
+        "_effect": "移動速度 × (1 + 0.25×Lv)"
+      },
+      {
+        "id": "speed",
+        "name": "採集速度",
+        "basePrice": 150,
+        "effectPerLevel": 0.25,
+        "_effect": "採集時間 = baseCollectSec / (1 + 0.25×Lv)"
+      },
+      {
+        "id": "amount",
+        "name": "採集量",
+        "basePrice": 150,
+        "effectPerLevel": 0.5,
+        "_effect": "獲得数量 × (1 + 0.5×Lv)"
+      },
+      {
+        "id": "luck",
+        "name": "採集運",
+        "basePrice": 150,
+        "effectPerLevel": 0.6,
+        "_effect": "品質抽選が参照する唯一の採集運係数。"
+      }
+    ]
+  },
+  "gathering": {
+    "baseMoveSpeedPxPerSec": 140,
+    "baseCollectSec": 1.6,
+    "nodeStockPerCycle": 3,
+    "regrowSec": 40,
+    "growthStages": [
+      "stump",
+      "sapling",
+      "young",
+      "mature",
+      "ready"
+    ],
+    "growthStageFractions": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "botIntervalSec": 2,
+    "biomeModifiers": [
+      {
+        "id": "plain",
+        "qualityMultiplier": 1.0,
+        "efficiencyMultiplier": 1.0
+      },
+      {
+        "id": "forest",
+        "qualityMultiplier": 1.05,
+        "efficiencyMultiplier": 1.0
+      },
+      {
+        "id": "river",
+        "qualityMultiplier": 1.1,
+        "efficiencyMultiplier": 1.0
+      },
+      {
+        "id": "mountain",
+        "qualityMultiplier": 1.2,
+        "efficiencyMultiplier": 1.15
+      },
+      {
+        "id": "swamp",
+        "qualityMultiplier": 1.15,
+        "efficiencyMultiplier": 0.9
+      }
+    ]
+  },
+  "bonusTiers": [
+    {
+      "minPercent": 100,
+      "multiplier": 1
+    },
+    {
+      "minPercent": 150,
+      "multiplier": 2
+    },
+    {
+      "minPercent": 200,
+      "multiplier": 4
+    },
+    {
+      "minPercent": 300,
+      "multiplier": 8
+    }
+  ],
+  "score": {
+    "_comment": "ラウンドスコア = requiredWeight × R + bonusWeight × B × T。R=必須素材ポイント合計, B=ボーナス素材ポイント合計, T=ボーナス段階倍率。売却済み素材は含めない",
+    "requiredWeight": 0.5,
+    "bonusWeight": 0.5
+  },
+  "round1Mock": {
+    "_comment": "モックで使ったR1の固定目標。本番は目標生成アルゴリズム(仕様9.2)で決める",
+    "required": [
+      {
+        "material": "wood",
+        "amount": 60
+      },
+      {
+        "material": "taro",
+        "amount": 20
+      },
+      {
+        "material": "negi",
+        "amount": 15
+      }
+    ],
+    "bonus": {
+      "material": "mushroom",
+      "amount": 30
+    }
+  },
+  "rankGrades": [
+    {
+      "grade": "S",
+      "minBonusPercent": 300
+    },
+    {
+      "grade": "A",
+      "minBonusPercent": 150
+    },
+    {
+      "grade": "B",
+      "minBonusPercent": 100
+    },
+    {
+      "grade": "C",
+      "minBonusPercent": 0
+    }
+  ],
+  "imoniEffect": {
+    "_comment": "結果発表前の芋煮会演出。どんな条件でも10秒以内に結果ボタンを出すこと",
+    "maxTotalSec": 10,
+    "spawnStartMs": 500,
+    "spawnEndMs": 6800,
+    "hardCapMs": 8200,
+    "resultButtonDelayAfterFinaleMs": 1000,
+    "failResultButtonDelayMs": 1300,
+    "levelThresholdRatios": [
+      0.054,
+      0.163,
+      0.326,
+      0.543,
+      0.814
+    ],
+    "_levelThresholdRatios": "モックの閾値 1000/3000/6000/10000/15000 を最終スコア 18420 で割った比率。最終スコアに対する比率で段階を決める",
+    "levelNames": [
+      "ことこと…",
+      "いい匂い!",
+      "ぐつぐつ!",
+      "大成功の予感!",
+      "伝説の芋煮!!",
+      "天下一の芋煮!!!"
+    ],
+    "spawnIntervalMs": [
+      360,
+      300,
+      240,
+      190,
+      140,
+      100
+    ],
+    "fallMs": [
+      900,
+      840,
+      780,
+      700,
+      620,
+      550
+    ],
+    "streakCount": [
+      12,
+      18,
+      24,
+      31,
+      38,
+      46
+    ],
+    "sparkleCount": [
+      10,
+      16,
+      23,
+      31,
+      40,
+      50
+    ],
+    "beatIntervalMs": [
+      520,
+      460,
+      400,
+      340,
+      290,
+      240
+    ],
+    "failMaxLevel": 3,
+    "visual": {
+      "_comment": "IMONI_EFFECT_SPEC sections 3–6: screen coordinates and animation tuning; merge into GameConfig.imoniEffect.visual.",
+      "centerX": 195,
+      "potY": 536,
+      "introMs": 600,
+      "droneStartMs": 300,
+      "pillarBase": 56,
+      "pillarPerLevel": 16,
+      "pillarWobbleMs": 90,
+      "pillarWobble": 4,
+      "pillarFinaleAdd": 40,
+      "pillarGrayReduction": 0.85,
+      "failFlickerMs": 30,
+      "failFlicker": 6,
+      "glowBase": 0.35,
+      "glowPerLevel": 0.12,
+      "burstOpacity": [
+        0,
+        0.15,
+        0.3,
+        0.45,
+        0.6,
+        0.75
+      ],
+      "burstFinaleAdd": 0.25,
+      "rainbowDur": [
+        5,
+        4,
+        3.2,
+        2.4,
+        1.7,
+        1.1
+      ],
+      "spinDur": [
+        14,
+        11,
+        8,
+        6,
+        4.5,
+        3
+      ],
+      "ingredientKinds": 5,
+      "ingredientJitterX": 75,
+      "ingredientSpin": 450,
+      "ingredientX": 171,
+      "ingredientY": -90,
+      "ingredientTravelY": 606,
+      "ingredientLinear": 0.3,
+      "ingredientQuadratic": 0.7,
+      "ingredientScale": 1.05,
+      "ingredientScaleDrop": 0.4,
+      "spawnJitterMin": 0.7,
+      "spawnJitterMax": 1.3,
+      "doubleSpawnMinLevel": 3,
+      "doubleSpawnChance": 0.45,
+      "hitJitterX": 30,
+      "smallBurstMs": 650,
+      "bigBurstMs": 1000,
+      "smallStarCount": 5,
+      "smallStarCountMaxLevel": 4,
+      "smallStarSeedRemainder": 0.3,
+      "smallStarStartDistance": 14,
+      "smallStarTravel": 60,
+      "smallStarTravelPerLevel": 12,
+      "smallStarYInset": 6,
+      "smallStarGravity": 30,
+      "smallStarSize": 14,
+      "smallStarSizePerLevel": 2,
+      "smallStarRotation": 200,
+      "bigStarCount": 14,
+      "bigStarStartDistance": 30,
+      "bigStarTravel": 260,
+      "bigStarYScale": 0.8,
+      "bigStarSize": 26,
+      "starColors": 6,
+      "ringStart": 60,
+      "ringTravel": 700,
+      "potHitMs": 180,
+      "potHitScale": 0.06,
+      "brothBase": 0.4,
+      "brothPerLevel": 0.1,
+      "brothHit": 0.3,
+      "bannerMs": 1400,
+      "bannerGrowEnd": 0.12,
+      "bannerSettleEnd": 0.22,
+      "bannerPeak": 1.25,
+      "bannerSettleRate": 2.5,
+      "bannerFadeStart": 0.8,
+      "levelFlashMs": 380,
+      "levelFlashOpacity": 0.85,
+      "finaleFlashMs": 600,
+      "levelShakeMs": 420,
+      "levelShake": 10,
+      "hitShakeMinLevel": 3,
+      "hitShakeMs": 90,
+      "hitShake": 2.5,
+      "finaleShakeMs": 500,
+      "successShake": 12,
+      "failShake": 6,
+      "shakeXMs": 23,
+      "shakeYMs": 19,
+      "finaleGrowMs": 300,
+      "finaleSettleMs": 150,
+      "finalePeak": 1.15,
+      "grayMs": 700,
+      "failDropY": 80,
+      "failDropMs": 400,
+      "displayDecay": 0.78,
+      "displayReferenceFps": 60
+    },
+    "layout": {
+      "screen": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "rainbow": [
+        0,
+        0,
+        390,
+        1768
+      ],
+      "rainbowPeriodY": 884,
+      "sunburstSize": 1000,
+      "pillarTop": -20,
+      "pillarHeight": 560,
+      "pillarCoreFraction": 0.3125,
+      "rainbowGlowHeight": 580,
+      "rainbowGlowWidthMultiplier": 3.4,
+      "rainbowGlowContentFraction": 0.84,
+      "pot": [
+        55,
+        500,
+        280,
+        170
+      ],
+      "potOriginPercent": [
+        50,
+        80
+      ],
+      "broth": [
+        12,
+        10,
+        256,
+        52
+      ],
+      "sound": [
+        14,
+        44,
+        104,
+        40
+      ],
+      "soundIconSize": 18,
+      "soundIconGap": 6,
+      "skip": [
+        300,
+        44,
+        76,
+        40
+      ],
+      "smallFont": 12,
+      "pillRadius": 20,
+      "borderWidth": 3,
+      "scoreCard": [
+        14,
+        92,
+        362,
+        101
+      ],
+      "scoreCardRadius": 18,
+      "scoreCaption": [
+        14,
+        8,
+        120,
+        18
+      ],
+      "levelLabel": [
+        128,
+        8,
+        214,
+        18
+      ],
+      "scoreLabel": [
+        14,
+        28,
+        328,
+        44
+      ],
+      "scoreFont": 40,
+      "scoreLargeFont": 29,
+      "scoreCompactAfterDigits": 8,
+      "gauge": [
+        14,
+        77,
+        328,
+        10
+      ],
+      "gaugeRadius": 5,
+      "gaugeTextureHalf": 0.45,
+      "banner": [
+        0,
+        300,
+        390,
+        96
+      ],
+      "bannerHeading": [
+        0,
+        0,
+        390,
+        32
+      ],
+      "bannerText": [
+        -90,
+        36,
+        570,
+        60
+      ],
+      "bannerHeadingFont": 22,
+      "bannerTextFont": 44,
+      "bannerRotation": -6,
+      "finale": [
+        20,
+        250,
+        350,
+        205
+      ],
+      "finaleHeading": [
+        0,
+        0,
+        350,
+        39
+      ],
+      "finaleLineOne": [
+        0,
+        49,
+        350,
+        64
+      ],
+      "finaleLineTwo": [
+        0,
+        113,
+        350,
+        64
+      ],
+      "finaleHeadingFont": 26,
+      "finaleFont": 58,
+      "failHeading": [
+        0,
+        0,
+        350,
+        33
+      ],
+      "failLineOne": [
+        0,
+        43,
+        350,
+        60
+      ],
+      "failLineTwo": [
+        0,
+        103,
+        350,
+        60
+      ],
+      "failHeadingFont": 22,
+      "failFont": 52,
+      "missing": [
+        8,
+        173,
+        334,
+        35
+      ],
+      "missingFont": 15,
+      "missingRadius": 18,
+      "actions": [
+        24,
+        704,
+        342,
+        112
+      ],
+      "result": [
+        0,
+        0,
+        342,
+        60
+      ],
+      "resultShadow": [
+        0,
+        5,
+        342,
+        60
+      ],
+      "replay": [
+        0,
+        68,
+        342,
+        44
+      ],
+      "resultFont": 22,
+      "replayFont": 14,
+      "resultRadius": 30,
+      "replayRadius": 22,
+      "outlineWidth": 3,
+      "shadowOffset": 4,
+      "whiteGlowWidth": 30,
+      "whiteGlowAlpha": 0.32,
+      "visualSeed": 7,
+      "palette": [
+        "#FFFFFF",
+        "#FFE95C",
+        "#FF6FB1",
+        "#5CC8FF",
+        "#6FE3A0",
+        "#A57CFF",
+        "#FFB347"
+      ],
+      "streakX": [
+        -20,
+        400
+      ],
+      "streakWidth": [
+        2,
+        5
+      ],
+      "streakHeight": [
+        90,
+        270
+      ],
+      "streakOpacity": [
+        0.45,
+        0.95
+      ],
+      "streakSeconds": [
+        0.5,
+        1.1
+      ],
+      "streakDelay": [
+        0,
+        1.2
+      ],
+      "streakWhiteChance": 0.6,
+      "streakTop": -280,
+      "streakDistance": 1360,
+      "streakSpeedPerLevel": 0.28,
+      "streakRadius": 4,
+      "sparkleDistance": [
+        45,
+        185
+      ],
+      "sparkleOffsetX": -10,
+      "sparkleY": [
+        70,
+        510
+      ],
+      "sparkleSize": [
+        10,
+        26
+      ],
+      "sparkleSeconds": [
+        0.8,
+        1.7
+      ],
+      "sparkleFloatSeconds": [
+        1.2,
+        2.7
+      ],
+      "sparkleDelay": [
+        0,
+        1.6
+      ],
+      "sparkleMinimumScale": 0.1,
+      "sparkleFloatY": -60,
+      "sparkleRotation": 90,
+      "grayOpacity": 0.55,
+      "darkOpacity": 0.25,
+      "ingredientTextureSize": 64,
+      "ingredientTextureOffset": 8,
+      "starTextureScale": 1.5,
+      "ringTextureScale": 1.5,
+      "degreesPerTurn": 360,
+      "millisecondsPerSecond": 1000
+    },
+    "audio": {
+      "_comment": "UI_SPEC section 12. Merge into GameConfig.imoniEffect.audio. Supplied WAVs are reused; the view owns the persisted sound preference.",
+      "octaveRatio": 2,
+      "octaveSemitones": 12,
+      "levelSemitones": 2,
+      "pentatonic": [
+        0,
+        2,
+        4,
+        7,
+        9
+      ],
+      "hitStepMax": 9,
+      "hihatMinLevel": 2,
+      "lowPassBaseHz": 260,
+      "lowPassPerLevelHz": 260,
+      "lowPassResonance": 2,
+      "droneAttackMs": 800,
+      "successFadeMs": 1200,
+      "failureFadeMs": 800,
+      "droneBaseVolume": 0.4,
+      "droneVolumePerLevel": 0.08,
+      "beatVolume": 0.8,
+      "hitVolume": 0.8,
+      "levelVolume": 0.8,
+      "finaleVolume": 0.9,
+      "voiceCount": 24,
+      "dronePriority": 0,
+      "effectPriority": 128,
+      "staleEventMs": 200,
+      "sourcePitchLimit": 3
+    }
+  },
+  "titles": {
+    "_comment": "二つ名 = 前半パーツ + 後半パーツ。集めて自由に組み合わせる(ユーザー要望)",
+    "unlockRules": [
+      { "part": "second", "value": "鍋奉行", "minimumRound": 1, "minimumStreak": 0, "requiresClear": false },
+      { "part": "first", "value": "伝説の", "minimumRound": 5, "minimumStreak": 0, "requiresClear": true }
+    ],
+    "default": {
+      "first": "芋煮会の",
+      "second": "初心者"
+    },
+    "firstParts": [
+      "芋煮会の",
+      "山の",
+      "連続の",
+      "伝説の",
+      "神話の",
+      "究極の"
+    ],
+    "secondParts": [
+      "初心者",
+      "薪割り職人",
+      "里芋ハンター",
+      "鍋奉行",
+      "採集王",
+      "芋煮マスター"
+    ]
+  },
+  "setup": {
+    "_comment": "M0のEditor生成設定。ゲームルールの数値とは分離し、Imoni > Setup Projectで読み込む。",
+    "panel": {
+      "referenceWidth": 390,
+      "referenceHeight": 844,
+      "match": 0,
+      "sortingOrder": 10
+    },
+    "font": {
+      "samplingPointSize": 90,
+      "atlasPadding": 9,
+      "atlasWidth": 1024,
+      "atlasHeight": 1024
+    },
+    "camera": {
+      "orthographicSize": 8,
+      "positionX": 0,
+      "positionY": 0,
+      "positionZ": -10,
+      "nearClipPlane": 0.3,
+      "farClipPlane": 1000
+    },
+    "grid": {
+      "cellSizeX": 1,
+      "cellSizeY": 1,
+      "cellSizeZ": 0
+    }
+  },
+  "effectReview": {
+    "width": 390,
+    "height": 844,
+    "frameRate": 25,
+    "durationMs": 12600,
+    "seed": 40410,
+    "successScore": "18420",
+    "failureScore": "7350",
+    "failureMissing": "魚",
+    "failureScoreRatio": 0.4
+  },
+  "numeric": {
+    "fixedScale": 1000000,
+    "_comment": "倍率はこの整数スケールで切り捨て。ポイントの中間値は倍率を保持し、合計スコア確定時のみ切り捨て。強化価格は正数の四捨五入。"
+  },
+  "format": {
+    "unitBase": 10000,
+    "decimalPlaces": 2,
+    "units": [
+      "",
+      "万",
+      "億",
+      "兆",
+      "京",
+      "垓",
+      "秭",
+      "穣",
+      "溝",
+      "澗",
+      "正",
+      "載",
+      "極",
+      "恒河沙",
+      "阿僧祇",
+      "那由他",
+      "不可思議",
+      "無量大数"
+    ]
+  },
+  "ui": {
+    "animationFrameMs": 16,
+    "safeAreaPollMs": 100,
+    "inviteCopiedSeconds": 1.6,
+    "checklistSpinSeconds": 0.8,
+    "resultPopSeconds": 0.45,
+    "resultDropSeconds": 0.4,
+    "bannerFadeSeconds": 1.4,
+    "countUpSeconds": 0.6,
+    "toastSeconds": 2.2,
+    "referenceWidth": 390,
+    "referenceHeight": 844,
+    "smallPotBobSeconds": 1.6,
+    "smallPotBobPx": 6,
+    "largePotBobSeconds": 1.4,
+    "largePotBobPx": 10,
+    "largePotSwayDegrees": 4,
+    "smallSteamSeconds": 1.8,
+    "largeSteamSeconds": 1.6,
+    "smallSteamTravelPx": 20,
+    "largeSteamTravelPx": 26,
+    "smallSteamStartPx": 6,
+    "largeSteamStartPx": 8,
+    "resultPopPeak": 1.15,
+    "resultPopRiseFraction": 0.6666666666666666,
+    "mainLoadingTickMs": 80,
+    "mainLoadingStepPercent": 4,
+    "profileNameMaxLength": 10,
+    "smallSteamPhaseDelaySeconds": 0.6,
+    "largeSteamPhaseDelaySeconds": 0.5,
+    "timerUrgentSeconds": 30,
+    "worldView": {
+      "resourceVisualWidthPx": 38,
+      "resourceVisualHeightPx": 40,
+      "resourceTapSizePx": 48,
+      "playerWidthPx": 48,
+      "playerHeightPx": 48,
+      "teammateWidthPx": 40,
+      "teammateHeightPx": 38,
+      "disconnectedOpacity": 0.45,
+      "walkBobHeightPx": 2.2,
+      "walkCycleSeconds": 0.28,
+      "handDiameterPx": 8,
+      "handRestOffsetPx": 11,
+      "handHeightPx": 13,
+      "handReachFraction": 0.9,
+      "gatherSwingCycles": 2,
+      "characterStopOffsetPx": 5,
+      "popupSeconds": 1.3,
+      "popupRisePx": 18,
+      "popupOffsetYPx": 58,
+      "growthScales": [
+        0.35,
+        0.45,
+        0.65,
+        0.85,
+        1
+      ],
+      "campWidthPx": 52,
+      "campHeightPx": 52,
+      "labelOffsetPx": 3,
+      "hudHeightPx": 200,
+      "bottomHeightPx": 84,
+      "handInnerScale": 0.7,
+      "campPotWidthPx": 28,
+      "campPotHeightPx": 28,
+      "campBorderPx": 3,
+      "campLabelOffsetXPx": -30,
+      "growthLabelDistanceTiles": 2
+    },
+    "panels": {
+      "protectionStep": 5,
+      "salePercentages": [
+        25,
+        50,
+        75,
+        100
+      ],
+      "shopQuantities": [
+        10,
+        50
+      ],
+      "shopMaterials": [
+        "wood",
+        "taro",
+        "negi",
+        "mushroom"
+      ],
+      "historyLimit": 3,
+      "effectDecimalPlaces": {
+        "move": 2,
+        "speed": 2,
+        "amount": 1,
+        "luck": 1
+      },
+      "initialSalePercent": 50,
+      "warehouseHeightPx": 620,
+      "shopHeightPx": 540,
+      "upgradeHeightPx": 560,
+      "menuHeightPx": 440,
+      "shadowHeightPx": 8
+    }
+  },
+  "outGame": {
+    "lobby": {
+      "successCode": "IMO-482",
+      "busyCode": "IMO-777",
+      "codeMaxLength": 7,
+      "botJoinSeconds": [
+        2.5,
+        5.2
+      ],
+      "waitingDotSeconds": 0.5,
+      "waitingDotCount": 3,
+      "slotPopSeconds": 0.45,
+      "slotPulseSeconds": 1.4,
+      "slotPulseSpread": 16,
+      "slotPulseAlpha": 0.45,
+      "slotPopInitialScale": 0.6,
+      "slotPopOvershootScale": 1.06,
+      "slotPopOvershootPoint": 0.7,
+      "commonSeedLabel": "#2026-47",
+      "commonSeed": 202647
+    },
+    "loading": {
+      "durationSeconds": 3,
+      "stepEnds": [
+        10,
+        38,
+        62,
+        80,
+        100
+      ],
+      "syncThresholds": [
+        82,
+        90,
+        100
+      ],
+      "tipSeconds": 2.6,
+      "resourceCount": 214
+    },
+    "profile": {
+      "bestRound": 3,
+      "memberNumber": "123456",
+      "initialOwnedFirst": [
+        "芋煮会の",
+        "山の",
+        "連続の"
+      ],
+      "initialOwnedSecond": [
+        "初心者",
+        "薪割り職人",
+        "里芋ハンター"
+      ],
+      "badges": [
+        {
+          "text": "はじめの一歩",
+          "acquired": true
+        },
+        {
+          "text": "R3到達",
+          "acquired": true
+        },
+        {
+          "text": "10連続",
+          "acquired": true
+        },
+        {
+          "text": "5連続成功",
+          "acquired": false
+        },
+        {
+          "text": "1億点",
+          "acquired": false
+        },
+        {
+          "text": "究極品質",
+          "acquired": false
+        }
+      ],
+      "defaultName": "ゆくらさん",
+      "defaultBandColor": "#8B2310",
+      "defaultOutfitColor": "#FFF3D6",
+      "bandColors": [
+        "#8B2310",
+        "#34421C",
+        "#2F5D8A",
+        "#FFFFFF"
+      ],
+      "outfitColors": [
+        "#FFF3D6",
+        "#6B9B3A",
+        "#C9A27A",
+        "#8FAFC4"
+      ]
+    },
+    "ranking": {
+      "_comment": "M2b表示用ダミー。数値scoreとモックの表示displayScoreを併記する。通常のFormat.Big仕様は変更しない。",
+      "commonSeed": "#2026-47",
+      "podiumRanks": 3,
+      "commonTeams": [
+        "芋煮の極み",
+        "鍋底から愛を",
+        "山形本場勢",
+        "ねぎ多め",
+        "きのこ党",
+        "里芋ころころ",
+        "薪くべ隊",
+        "夜の芋煮"
+      ],
+      "freeTeams": [
+        "無限鍋",
+        "芋煮の極み",
+        "当たりマップ勢",
+        "川べり司令部",
+        "きのこ党",
+        "こんにゃく三兄弟",
+        "鍋底から愛を",
+        "たきび屋"
+      ],
+      "commonNormal": [
+        {
+          "score": "1234560000",
+          "displayScore": "12億3,456万"
+        },
+        {
+          "score": "810200000",
+          "displayScore": "8億1,020万"
+        },
+        {
+          "score": "398700000",
+          "displayScore": "3億9,870万"
+        },
+        {
+          "score": "123000000",
+          "displayScore": "1億2,300万"
+        },
+        {
+          "score": "98400000",
+          "displayScore": "9,840万"
+        },
+        {
+          "score": "42100000",
+          "displayScore": "4,210万"
+        },
+        {
+          "score": "19800000",
+          "displayScore": "1,980万"
+        },
+        {
+          "score": "7600000",
+          "displayScore": "760万"
+        }
+      ],
+      "freeNormal": [
+        {
+          "score": "3120000000",
+          "displayScore": "31億2,000万"
+        },
+        {
+          "score": "1588000000",
+          "displayScore": "15億8,800万"
+        },
+        {
+          "score": "915000000",
+          "displayScore": "9億1,500万"
+        },
+        {
+          "score": "432100000",
+          "displayScore": "4億3,210万"
+        },
+        {
+          "score": "200400000",
+          "displayScore": "2億0,040万"
+        },
+        {
+          "score": "88700000",
+          "displayScore": "8,870万"
+        },
+        {
+          "score": "33300000",
+          "displayScore": "3,330万"
+        },
+        {
+          "score": "11200000",
+          "displayScore": "1,120万"
+        }
+      ],
+      "commonEndless": [
+        {
+          "round": 14,
+          "score": "3200000000000",
+          "displayScore": "3.2兆"
+        },
+        {
+          "round": 12,
+          "score": "870000000000",
+          "displayScore": "8,700億"
+        },
+        {
+          "round": 11,
+          "score": "124000000000",
+          "displayScore": "1,240億"
+        },
+        {
+          "round": 9,
+          "score": "9800000000",
+          "displayScore": "98億"
+        },
+        {
+          "round": 8,
+          "score": "3100000000",
+          "displayScore": "31億"
+        },
+        {
+          "round": 7,
+          "score": "960000000",
+          "displayScore": "9.6億"
+        },
+        {
+          "round": 6,
+          "score": "210000000",
+          "displayScore": "2.1億"
+        },
+        {
+          "round": 6,
+          "score": "140000000",
+          "displayScore": "1.4億"
+        }
+      ],
+      "freeEndless": [
+        {
+          "round": 17,
+          "score": "41000000000000",
+          "displayScore": "41兆"
+        },
+        {
+          "round": 15,
+          "score": "6800000000000",
+          "displayScore": "6.8兆"
+        },
+        {
+          "round": 13,
+          "score": "990000000000",
+          "displayScore": "9,900億"
+        },
+        {
+          "round": 12,
+          "score": "205000000000",
+          "displayScore": "2,050億"
+        },
+        {
+          "round": 10,
+          "score": "33000000000",
+          "displayScore": "330億"
+        },
+        {
+          "round": 9,
+          "score": "7200000000",
+          "displayScore": "72億"
+        },
+        {
+          "round": 7,
+          "score": "880000000",
+          "displayScore": "8.8億"
+        },
+        {
+          "round": 6,
+          "score": "190000000",
+          "displayScore": "1.9億"
+        }
+      ],
+      "dates": [
+        "11/24 21:14",
+        "11/23 22:40",
+        "11/24 19:02",
+        "11/22 23:51",
+        "11/21 20:33",
+        "11/24 12:08",
+        "11/20 21:47",
+        "11/23 01:15"
+      ],
+      "freeSeeds": [
+        "#58213",
+        "#90417",
+        "#11872",
+        "#77302",
+        "#40196",
+        "#63558",
+        "#25014",
+        "#81920"
+      ]
+    }
+  },
+  "world": {
+    "width": 64,
+    "height": 64,
+    "chunkSize": 16,
+    "tileSizePx": 32,
+    "startClearRadius": 2,
+    "unlockRadii": [
+      10,
+      17,
+      24,
+      32,
+      46
+    ],
+    "endlessRadiusStep": 7,
+    "noiseCellSize": 8,
+    "noiseResolution": 10000,
+    "riverOffsetTiles": 5,
+    "riverMeanderTiles": 2,
+    "riverBendStep": 4,
+    "bridgeSpacing": 12,
+    "resourceChance": 0.12,
+    "minimumNodesPerMaterial": 3,
+    "startingMaterials": [
+      "wood",
+      "negi",
+      "taro",
+      "mushroom"
+    ],
+    "biomeTargets": [
+      {
+        "id": "plain",
+        "fraction": 0.35
+      },
+      {
+        "id": "forest",
+        "fraction": 0.3
+      },
+      {
+        "id": "mountain",
+        "fraction": 0.15
+      },
+      {
+        "id": "swamp",
+        "fraction": 0.12
+      },
+      {
+        "id": "river",
+        "fraction": 0.08
+      }
+    ],
+    "startingPlainFraction": 0.6,
+    "minimumStartingRequiredNodes": 6,
+    "_comment": "地形割合はマップ全体（橋も河川に含む）の目安。河川幅を割合から求め、残りの土地を連続ノイズの順位で配分。R1は平野60%以上を優先。resourceChanceは全タイルに対する資源ノード密度、素材別の個数はmaterials[].spawnWeightで配分し、最低保証が優先される。"
+  },
+  "objectiveGeneration": {
+    "requiredCount": 3,
+    "minimumFraction": 0.4,
+    "maximumFraction": 0.7,
+    "_comment": "各候補に5分を重複配分せず、必須+ボーナスでチームの作業時間を等分。往復移動・在庫・再生・強化を含む保守的な採集シミュレーションの40〜70%を要求する。",
+    "firstRoundRequiredMaterials": [
+      "wood",
+      "taro",
+      "negi"
+    ]
+  }
+}

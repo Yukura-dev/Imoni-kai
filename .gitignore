@@ -105,3 +105,9 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Pure C# effect tests and local recording intermediates
+!/tools/CoreTests/*.csproj
+/tools/CoreTests/bin/
+/tools/CoreTests/obj/
+/design/videos/unity/*_frames/

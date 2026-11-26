@@ -1,0 +1,45 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+  <ui:VisualElement name="LobbyRoot" class="lobby-screen lobby-root">
+    <ui:ScrollView name="LobbyScroll" class="lobby-scroll" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden">
+      <ui:VisualElement class="lobby-page">
+        <c:ScreenHeader name="LobbyHeader" title="ロビー" class="lobby-block" />
+        <ui:VisualElement name="LobbyChoose" class="lobby-stack">
+          <c:Card class="lobby-choice-card lobby-block">
+            <c:ImoniText text="チームを作る" class="lobby-choice-heading" />
+            <c:ImoniText name="CreateDescription" class="lobby-description lobby-gap10" />
+            <c:ImoniButton name="CreateTeam" variant="Primary" text="チームを作成" class="lobby-create-button lobby-gap10" />
+          </c:Card>
+          <c:Card class="lobby-choice-card">
+            <c:ImoniText text="招待コードで参加" class="lobby-choice-heading" />
+            <c:ImoniText text="招待コード" class="lobby-input-caption lobby-gap10" />
+            <c:InputEntry name="InviteCodeInput" placeholder="IMO-000" class="lobby-code-input" />
+            <c:ErrorMessage name="JoinError" class="lobby-gap10" />
+            <c:ImoniButton name="JoinTeam" variant="Yellow" text="参加する" class="lobby-gap10" />
+            <c:ImoniText name="MockCodeHint" class="lobby-small-note lobby-gap10" />
+          </c:Card>
+        </ui:VisualElement>
+        <ui:VisualElement name="LobbyTeam" class="lobby-team">
+          <c:InviteCodeCard name="TeamCode" variant="Compact" class="lobby-block" />
+          <c:Card class="lobby-members-card lobby-block">
+            <c:ImoniText name="TeamMemberCount" class="lobby-card-heading" />
+            <c:MemberRow name="TeamMember0" class="lobby-gap10" />
+            <c:MemberRow name="TeamMember1" class="lobby-gap10" />
+            <c:MemberRow name="TeamMember2" class="lobby-gap10" />
+            <c:ImoniButton name="CopyTeamCode" variant="Outline" text="招待コードをコピー" class="lobby-gap10" />
+          </c:Card>
+          <c:Card class="lobby-mode-card lobby-block">
+            <c:ImoniText text="モード・シード" class="lobby-mode-heading" />
+            <c:SegmentedControl name="SeedOptions" variant="Seed" class="lobby-gap8" />
+            <c:ImoniText name="ModeDescription" class="lobby-small-note lobby-gap8" />
+          </c:Card>
+          <ui:VisualElement class="lobby-flex-spacer" />
+          <c:ImoniButton name="ReadyButton" variant="Primary" text="準備完了" />
+          <ui:VisualElement name="ReadyActions">
+            <c:ImoniButton name="LobbyStart" variant="Danger" text="ワールド生成してスタート" />
+            <c:ImoniButton name="CancelReady" variant="Outline" text="準備を取り消す" class="lobby-cancel-ready lobby-gap8" />
+          </ui:VisualElement>
+        </ui:VisualElement>
+      </ui:VisualElement>
+    </ui:ScrollView>
+  </ui:VisualElement>
+</ui:UXML>

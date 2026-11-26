@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+    <ui:VisualElement class="main-page">
+        <c:PatternBackground variant="Yellow" class="main-pattern" picking-mode="Ignore" />
+        <c:Artwork source="title_logo@3x" class="main-logo" picking-mode="Ignore" />
+        <c:ImoniText text="リモートでつながる、秋の鍋あそび" class="main-tagline" />
+        <ui:VisualElement class="main-loading">
+            <c:ProgressBar name="loading-progress" variant="Thick" value="0" class="main-progress" />
+            <c:ImoniText name="loading-label" text="よみこみ中… 0%" class="main-loading-label" />
+            <c:ImoniButton name="start" variant="Primary" text="タップしてはじめる" class="main-start" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

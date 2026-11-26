@@ -1,0 +1,14 @@
+{
+  "command": "dotnet test tools/CoreTests --no-restore --logger 'console;verbosity=minimal'",
+  "framework": "net8.0",
+  "languageVersion": "9.0",
+  "total": 300,
+  "passed": 300,
+  "failed": 0,
+  "skipped": 0,
+  "addedInM5": 26,
+  "durationReportedSeconds": 29,
+  "effectFilter": "FullyQualifiedName~ImoniEffect",
+  "effectCases": 23,
+  "source": "Completed console test execution; detailed case list in docs/M5_ROUND_FLOW.md"
+}

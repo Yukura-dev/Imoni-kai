@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+  <ui:VisualElement name="GameOverRoot" class="round-screen gameover-screen">
+    <c:RoundHeader name="GameOverHeader" failure="true" />
+    <c:ImoniText text="芋煮会 失敗…" class="gameover-headline gameover-gap" />
+    <c:ImoniText text="必須素材が足りなくて、芋煮が完成しなかった。" class="gameover-copy gameover-gap" />
+    <c:RequiredGoalsCard name="GameOverRequired" failure="true" class="gameover-gap" />
+    <c:FailureResetCard class="gameover-gap" />
+    <ui:VisualElement class="gameover-stats gameover-gap">
+      <c:StatCard name="GameOverRound" variant="GameOver" label="今回の到達" />
+      <c:StatCard name="GameOverCumulative" variant="GameOver" label="累積スコア(参考)" class="gameover-stats__right" />
+    </ui:VisualElement>
+    <ui:VisualElement class="round-spacer" />
+    <c:ImoniButton name="GameOverRetry" variant="Yellow" text="R1から再挑戦" class="round-next gameover-retry" />
+    <c:ImoniButton name="GameOverHome" variant="Outline" text="&lt;u&gt;ホームへ戻る&lt;/u&gt;" class="gameover-home gameover-gap" />
+  </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,186 @@
+{
+  "utc": "2026-11-26T00:25:52.7249939Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "panel": "shop",
+  "elapsed": 0.0,
+  "phase": "Collecting",
+  "funds": "1000",
+  "worldInputEnabled": false,
+  "toastVisible": false,
+  "saleQuantity": "0",
+  "selectedInventory": null,
+  "popups": [],
+  "growthLabels": [],
+  "lastTappedResource": null,
+  "growthLabelDistanceTiles": 2.0,
+  "players": [
+    {
+      "id": "player1",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "inventory": [],
+  "history": [],
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "enabled": true,
+      "x": 10.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "enabled": true,
+      "x": 105.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "enabled": true,
+      "x": 199.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "enabled": true,
+      "x": 294.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "x": 332.0,
+      "y": 322.0,
+      "width": 44.0,
+      "height": 44.0
+    },
+    {
+      "name": "Buy_wood_10",
+      "text": "×10  60G",
+      "enabled": true,
+      "x": 177.0,
+      "y": 417.0,
+      "width": 88.0,
+      "height": 44.0
+    },
+    {
+      "name": "Buy_wood_50",
+      "text": "×50  300G",
+      "enabled": true,
+      "x": 273.0,
+      "y": 417.0,
+      "width": 88.0,
+      "height": 44.0
+    },
+    {
+      "name": "Buy_taro_10",
+      "text": "×10  300G",
+      "enabled": true,
+      "x": 177.0,
+      "y": 497.0,
+      "width": 88.0,
+      "height": 44.0
+    },
+    {
+      "name": "Buy_taro_50",
+      "text": "×50  1,500G",
+      "enabled": false,
+      "x": 273.0,
+      "y": 497.0,
+      "width": 88.0,
+      "height": 44.0
+    },
+    {
+      "name": "Buy_negi_10",
+      "text": "×10  180G",
+      "enabled": true,
+      "x": 177.0,
+      "y": 577.0,
+      "width": 88.0,
+      "height": 44.0
+    },
+    {
+      "name": "Buy_negi_50",
+      "text": "×50  900G",
+      "enabled": true,
+      "x": 273.0,
+      "y": 577.0,
+      "width": 88.0,
+      "height": 44.0
+    },
+    {
+      "name": "Buy_mushroom_10",
+      "text": "×10  900G",
+      "enabled": true,
+      "x": 177.0,
+      "y": 657.0,
+      "width": 88.0,
+      "height": 44.0
+    },
+    {
+      "name": "Buy_mushroom_50",
+      "text": "×50  4,500G",
+      "enabled": false,
+      "x": 273.0,
+      "y": 657.0,
+      "width": 88.0,
+      "height": 44.0
+    }
+  ],
+  "image": "M4-32_Game_shop.png"
+}

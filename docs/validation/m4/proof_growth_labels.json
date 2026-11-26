@@ -1,0 +1,1712 @@
+{
+  "utc": "2026-11-26T00:26:16.2867702Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "panel": "none",
+  "elapsed": 160.000000,
+  "phase": "Collecting",
+  "funds": "700",
+  "worldInputEnabled": true,
+  "toastVisible": false,
+  "saleQuantity": "44",
+  "selectedInventory": "wood|normal",
+  "popups": [
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(希少) 連続1",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(希少) 連続1",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 里芋(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+2 ねぎ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(希少) 連続1",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 魚(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(希少) 連続1",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(希少) 連続1",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+1 キノコ(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(希少) 連続1",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(普通)",
+      "display": "None"
+    },
+    {
+      "text": "+3 薪(良質)",
+      "display": "None"
+    }
+  ],
+  "growthLabels": [],
+  "lastTappedResource": null,
+  "growthLabelDistanceTiles": 2.0,
+  "players": [
+    {
+      "id": "player1",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "connected": true,
+      "action": "Moving",
+      "x": 34,
+      "y": 24,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "connected": false,
+      "action": "Idle",
+      "x": 34,
+      "y": 24,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "inventory": [
+    {
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "89",
+      "protected": "0",
+      "sellable": "89",
+      "unitPrice": "2"
+    },
+    {
+      "material": "wood",
+      "quality": "good",
+      "quantity": "30",
+      "protected": "0",
+      "sellable": "30",
+      "unitPrice": "4"
+    },
+    {
+      "material": "wood",
+      "quality": "rare",
+      "quantity": "12",
+      "protected": "0",
+      "sellable": "12",
+      "unitPrice": "10"
+    },
+    {
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "38",
+      "protected": "5",
+      "sellable": "33",
+      "unitPrice": "10"
+    },
+    {
+      "material": "taro",
+      "quality": "good",
+      "quantity": "22",
+      "protected": "0",
+      "sellable": "22",
+      "unitPrice": "20"
+    },
+    {
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "42",
+      "protected": "0",
+      "sellable": "42",
+      "unitPrice": "6"
+    },
+    {
+      "material": "negi",
+      "quality": "good",
+      "quantity": "22",
+      "protected": "0",
+      "sellable": "22",
+      "unitPrice": "12"
+    },
+    {
+      "material": "negi",
+      "quality": "rare",
+      "quantity": "2",
+      "protected": "0",
+      "sellable": "2",
+      "unitPrice": "30"
+    },
+    {
+      "material": "mushroom",
+      "quality": "normal",
+      "quantity": "6",
+      "protected": "0",
+      "sellable": "6",
+      "unitPrice": "30"
+    },
+    {
+      "material": "mushroom",
+      "quality": "good",
+      "quantity": "6",
+      "protected": "0",
+      "sellable": "6",
+      "unitPrice": "60"
+    },
+    {
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "9",
+      "protected": "0",
+      "sellable": "9",
+      "unitPrice": "60"
+    },
+    {
+      "material": "fish",
+      "quality": "good",
+      "quantity": "2",
+      "protected": "0",
+      "sellable": "2",
+      "unitPrice": "120"
+    },
+    {
+      "material": "fish",
+      "quality": "rare",
+      "quantity": "1",
+      "protected": "0",
+      "sellable": "1",
+      "unitPrice": "300"
+    }
+  ],
+  "history": [
+    {
+      "sequence": 1,
+      "actor": "player1",
+      "kind": "Buy",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "50",
+      "time": 0.0
+    },
+    {
+      "sequence": 2,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 4.057144
+    },
+    {
+      "sequence": 3,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 4.057144
+    },
+    {
+      "sequence": 4,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 5.657144
+    },
+    {
+      "sequence": 5,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 7.828572
+    },
+    {
+      "sequence": 6,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 7.828572
+    },
+    {
+      "sequence": 7,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 9.428572
+    },
+    {
+      "sequence": 8,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 12.057144
+    },
+    {
+      "sequence": 9,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 12.057144
+    },
+    {
+      "sequence": 10,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 13.657144
+    },
+    {
+      "sequence": 11,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 15.600000
+    },
+    {
+      "sequence": 12,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 15.600000
+    },
+    {
+      "sequence": 13,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 17.200000
+    },
+    {
+      "sequence": 14,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 19.828572
+    },
+    {
+      "sequence": 15,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 19.828572
+    },
+    {
+      "sequence": 16,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 21.428572
+    },
+    {
+      "sequence": 17,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 23.828572
+    },
+    {
+      "sequence": 18,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 23.828572
+    },
+    {
+      "sequence": 19,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 25.428572
+    },
+    {
+      "sequence": 20,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 28.285716
+    },
+    {
+      "sequence": 21,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 28.285716
+    },
+    {
+      "sequence": 22,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 29.885716
+    },
+    {
+      "sequence": 23,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 31.828572
+    },
+    {
+      "sequence": 24,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 31.828572
+    },
+    {
+      "sequence": 25,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 33.428572
+    },
+    {
+      "sequence": 26,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 35.600000
+    },
+    {
+      "sequence": 27,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 35.600000
+    },
+    {
+      "sequence": 28,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 37.200000
+    },
+    {
+      "sequence": 29,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 39.828572
+    },
+    {
+      "sequence": 30,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 39.828572
+    },
+    {
+      "sequence": 31,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 41.428572
+    },
+    {
+      "sequence": 32,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 43.828572
+    },
+    {
+      "sequence": 33,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 43.828572
+    },
+    {
+      "sequence": 34,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 45.428572
+    },
+    {
+      "sequence": 35,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 47.828572
+    },
+    {
+      "sequence": 36,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 47.828572
+    },
+    {
+      "sequence": 37,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 49.428572
+    },
+    {
+      "sequence": 38,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 51.828572
+    },
+    {
+      "sequence": 39,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 51.828572
+    },
+    {
+      "sequence": 40,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "rare",
+      "quantity": "2",
+      "time": 53.428572
+    },
+    {
+      "sequence": 41,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 56.285716
+    },
+    {
+      "sequence": 42,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 56.285716
+    },
+    {
+      "sequence": 43,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 57.885716
+    },
+    {
+      "sequence": 44,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 59.828572
+    },
+    {
+      "sequence": 45,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "rare",
+      "quantity": "1",
+      "time": 59.828572
+    },
+    {
+      "sequence": 46,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 61.428572
+    },
+    {
+      "sequence": 47,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 64.285716
+    },
+    {
+      "sequence": 48,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 64.285716
+    },
+    {
+      "sequence": 49,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 65.885716
+    },
+    {
+      "sequence": 50,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 67.828572
+    },
+    {
+      "sequence": 51,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 67.828572
+    },
+    {
+      "sequence": 52,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 69.428572
+    },
+    {
+      "sequence": 53,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 71.600000
+    },
+    {
+      "sequence": 54,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 71.600000
+    },
+    {
+      "sequence": 55,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 73.200000
+    },
+    {
+      "sequence": 56,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 76.057144
+    },
+    {
+      "sequence": 57,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 76.057144
+    },
+    {
+      "sequence": 58,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "good",
+      "quantity": "2",
+      "time": 77.657144
+    },
+    {
+      "sequence": 59,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 80.057144
+    },
+    {
+      "sequence": 60,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 80.057144
+    },
+    {
+      "sequence": 61,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 81.657144
+    },
+    {
+      "sequence": 62,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 83.828572
+    },
+    {
+      "sequence": 63,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 83.828572
+    },
+    {
+      "sequence": 64,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 85.428572
+    },
+    {
+      "sequence": 65,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 88.514288
+    },
+    {
+      "sequence": 66,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 88.514288
+    },
+    {
+      "sequence": 67,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "taro",
+      "quality": "good",
+      "quantity": "2",
+      "time": 90.114288
+    },
+    {
+      "sequence": 68,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 94.057144
+    },
+    {
+      "sequence": 69,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 94.057144
+    },
+    {
+      "sequence": 70,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "good",
+      "quantity": "1",
+      "time": 95.657144
+    },
+    {
+      "sequence": 71,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 98.057144
+    },
+    {
+      "sequence": 72,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 98.057144
+    },
+    {
+      "sequence": 73,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "negi",
+      "quality": "normal",
+      "quantity": "2",
+      "time": 99.657144
+    },
+    {
+      "sequence": 74,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 101.828572
+    },
+    {
+      "sequence": 75,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 101.828572
+    },
+    {
+      "sequence": 76,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 103.428572
+    },
+    {
+      "sequence": 77,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "rare",
+      "quantity": "3",
+      "time": 106.285716
+    },
+    {
+      "sequence": 78,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 106.285716
+    },
+    {
+      "sequence": 79,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 107.885716
+    },
+    {
+      "sequence": 80,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 109.600000
+    },
+    {
+      "sequence": 81,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 109.600000
+    },
+    {
+      "sequence": 82,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 111.200000
+    },
+    {
+      "sequence": 83,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "good",
+      "quantity": "1",
+      "time": 113.828572
+    },
+    {
+      "sequence": 84,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 113.828572
+    },
+    {
+      "sequence": 85,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "good",
+      "quantity": "1",
+      "time": 115.428572
+    },
+    {
+      "sequence": 86,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 117.828572
+    },
+    {
+      "sequence": 87,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 117.828572
+    },
+    {
+      "sequence": 88,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "fish",
+      "quality": "good",
+      "quantity": "1",
+      "time": 119.428572
+    },
+    {
+      "sequence": 89,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 121.600000
+    },
+    {
+      "sequence": 90,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 121.600000
+    },
+    {
+      "sequence": 91,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 123.200000
+    },
+    {
+      "sequence": 92,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 125.848448
+    },
+    {
+      "sequence": 93,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "rare",
+      "quantity": "3",
+      "time": 125.848448
+    },
+    {
+      "sequence": 94,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "rare",
+      "quantity": "3",
+      "time": 127.239752
+    },
+    {
+      "sequence": 95,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 130.234921
+    },
+    {
+      "sequence": 96,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "good",
+      "quantity": "1",
+      "time": 130.234921
+    },
+    {
+      "sequence": 97,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "good",
+      "quantity": "1",
+      "time": 132.012698
+    },
+    {
+      "sequence": 98,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "good",
+      "quantity": "1",
+      "time": 136.463493
+    },
+    {
+      "sequence": 99,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "good",
+      "quantity": "1",
+      "time": 136.463493
+    },
+    {
+      "sequence": 100,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "mushroom",
+      "quality": "normal",
+      "quantity": "1",
+      "time": 138.241270
+    },
+    {
+      "sequence": 101,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 141.619876
+    },
+    {
+      "sequence": 102,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "rare",
+      "quantity": "3",
+      "time": 141.619876
+    },
+    {
+      "sequence": 103,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 143.011180
+    },
+    {
+      "sequence": 104,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 145.828572
+    },
+    {
+      "sequence": 105,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 145.828572
+    },
+    {
+      "sequence": 106,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 147.428572
+    },
+    {
+      "sequence": 107,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 149.600000
+    },
+    {
+      "sequence": 108,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 149.600000
+    },
+    {
+      "sequence": 109,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 151.200000
+    },
+    {
+      "sequence": 110,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 153.828572
+    },
+    {
+      "sequence": 111,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 153.828572
+    },
+    {
+      "sequence": 112,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 155.428572
+    },
+    {
+      "sequence": 113,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 157.848448
+    },
+    {
+      "sequence": 114,
+      "actor": "player3",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "normal",
+      "quantity": "3",
+      "time": 157.848448
+    },
+    {
+      "sequence": 115,
+      "actor": "player2",
+      "kind": "Gather",
+      "material": "wood",
+      "quality": "good",
+      "quantity": "3",
+      "time": 159.239752
+    },
+    {
+      "sequence": 116,
+      "actor": "player1",
+      "kind": "SetProtection",
+      "material": "taro",
+      "quality": "normal",
+      "quantity": "5",
+      "time": 160.000000
+    }
+  ],
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "enabled": true,
+      "x": 10.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "enabled": true,
+      "x": 105.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "enabled": true,
+      "x": 199.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "enabled": true,
+      "x": 294.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    }
+  ],
+  "image": "M4-proof_growth_labels.png"
+}

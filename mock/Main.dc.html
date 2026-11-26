@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ローディング</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Zen+Maru+Gothic:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#4A2E22}a:hover{color:#8B2310}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F7B92B; font-family: 'Zen Maru Gothic', sans-serif; color: #4A2E22">
+<svg aria-hidden="true" width="390" height="844" style="position: absolute; inset: 0">
+<defs>
+<pattern id="taro" width="96" height="104" patternUnits="userSpaceOnUse">
+<ellipse cx="22" cy="26" rx="11" ry="14" fill="none" stroke="#FFE3A3" stroke-width="2.5" transform="rotate(-18 22 26)"></ellipse>
+<path d="M18 20 q4 3 8 1 M17 28 q5 2 9 0" fill="none" stroke="#FFE3A3" stroke-width="1.5"></path>
+<ellipse cx="70" cy="74" rx="13" ry="10" fill="none" stroke="#FFE3A3" stroke-width="2.5" transform="rotate(24 70 74)"></ellipse>
+<circle cx="72" cy="22" r="4" fill="none" stroke="#FFE3A3" stroke-width="2"></circle>
+<circle cx="30" cy="84" r="3" fill="none" stroke="#FFE3A3" stroke-width="2"></circle>
+</pattern>
+</defs>
+<rect width="390" height="844" fill="url(#taro)"></rect>
+</svg>
+
+<div style="position: absolute; left: 36px; right: 36px; top: 170px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'Dela Gothic One', sans-serif; font-size: 30px; color: #8B2310; letter-spacing: 2px">みんなで</div>
+<div style="display: flex; align-items: flex-end; gap: 6px">
+<h1 style="margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 80px; line-height: 1; color: #8B2310; text-shadow: 4px 4px 0 #FFF3D6; white-space: nowrap">芋煮会</h1>
+<svg aria-hidden="true" width="52" height="64" viewBox="0 0 52 64" style="margin-bottom: 18px">
+<path d="M8 60 c-8-12 10-16 2-28 s8-18 4-28" fill="none" stroke="#FFF3D6" stroke-width="5" stroke-linecap="round"></path>
+<path d="M30 60 c-8-12 10-16 2-28 s8-18 4-28" fill="none" stroke="#FFF3D6" stroke-width="5" stroke-linecap="round"></path>
+</svg>
+</div>
+<div style="margin-top: 12px; font-size: 15px; font-weight: 700">リモートでつながる、秋の鍋あそび</div>
+</div>
+
+<div style="position: absolute; left: 32px; right: 32px; bottom: 96px; display: flex; flex-direction: column; gap: 14px; align-items: center">
+<div role="progressbar" aria-label="読み込み中" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{pct}}" style="width: 100%; height: 18px; border-radius: 999px; background: #FFF3D6; border: 3px solid #4A2E22; box-sizing: border-box; overflow: hidden">
+<div style="height: 100%; width: {{pct}}%; background: #6B9B3A; border-radius: 999px"></div>
+</div>
+<sc-if value="{{loading}}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 14px; font-weight: 700; height: 44px; display: flex; align-items: center">よみこみ中… {{pct}}%</div>
+</sc-if>
+<sc-if value="{{done}}" hint-placeholder-val="{{ false }}">
+<a href="Tutorial1.dc.html" style="height: 44px; padding: 0 28px; border-radius: 999px; background: #34421C; color: #FFF3D6; font-weight: 900; font-size: 16px; text-decoration: none; display: flex; align-items: center">タップしてはじめる</a>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { pct: 0 }; }
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      const next = Math.min(100, this.state.pct + 4);
+      this.setState({ pct: next });
+      if (next >= 100) clearInterval(this.timer);
+    }, 80);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  renderVals() {
+    const pct = this.state.pct;
+    return { pct: pct, loading: pct < 100, done: pct >= 100 };
+  }
+}
+</script>
+</body>
+</html>
