@@ -1,0 +1,19 @@
+{
+  "unityVersion": "6000.3.21f1",
+  "iOSBuildSupportInstalled": false,
+  "activeTarget": "Android",
+  "applicationIdentifier": "jp.yukura.imoni",
+  "backend": "IL2CPP",
+  "buildNumber": "4",
+  "minimumVersion": "15.0",
+  "device": "iPhoneOnly",
+  "sdk": "DeviceSDK",
+  "automaticSigning": true,
+  "graphicsApis": [
+    "Metal"
+  ],
+  "orientation": "Portrait",
+  "xcodeExportValidated": false,
+  "signedApplicationBuilt": false,
+  "physicalDeviceTested": false
+}

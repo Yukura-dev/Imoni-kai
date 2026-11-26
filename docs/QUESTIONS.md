@@ -340,3 +340,10 @@
 - 質問：標準APKの初回ビルドで、Unity Cloudのシンボル送信認証が403になり警告1件が出た。
   - 判断：ローカル/オフライン範囲では不要なEngine Diagnosticsをsetup.android.engineDiagnosticsEnabled=falseにし、Setupが公開Editor APIで適用する。ローカルSymbolTableのzip生成は維持する。最初の警告もandroid-build-first-attempt.jsonに保存し、再ビルドで確認する。
   - 参考：[Unity 6.3 EngineDiagnosticsSettings](https://docs.unity.com/en-us/engine/6000.3/script-reference/unityeditor/enginediagnostics/enginediagnosticssettings)。設定ファイルの手書きは行わない。
+
+## iPhone起動の準備（2026-11-26）
+
+- 質問：iPhoneで起動したいが、利用できるMacは学校にある。
+  - 判断：M9からrebuild/ios-device-buildを作り、iOS設定をSetupへ追加する。学校のMacで同じUnity+iOS Build SupportからXcodeプロジェクトを生成し、本人のApple Account/Teamで実機へ入れる。Macの機種/macOSとiPhoneのiOSは未確認なので、利用可能なXcodeの確定と署名・実機テストはMacが手元にあるときに行う。
+  - 該当：ImoniIosSetup.cs、GameConfig.setup.ios、IOS_DEVICE_SETUP.md。Windowsでの設定確認をiOSコンパイル成功と混同しない。
+- M9のBGM選曲はユーザーから「新仕様の指定曲を使う」と回答済み。上の仮決定（最新17章のmainイントロ→ループ）は確定。

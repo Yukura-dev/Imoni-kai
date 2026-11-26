@@ -63,6 +63,7 @@ namespace Imoni.Editor
             RegisterBootScene();
             SetPortrait(settings);
             ImoniAndroidSetup.Configure();
+            ImoniIosSetup.Configure();
 
             AssetDatabase.SaveAssets();
             // Resolve Theme.uss URLs that were imported before their FontAssets existed.

@@ -67,6 +67,7 @@ namespace Imoni.Editor
                     UnityEditor.Compilation.CompilationPipeline.RequestScriptCompilation(); WriteStatus("recompile requested"); break;
                 case "build": ImoniAndroidSetup.BuildAndroidVariant(request["variant"]?.Value<string>()); Write(JObject.Parse(File.ReadAllText("Library/M7-android-build.json"))); break;
                 case "build-support": Write(new JObject { ["androidSupported"] = BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.Android, BuildTarget.Android), ["activeTarget"] = EditorUserBuildSettings.activeBuildTarget.ToString() }); break;
+                case "ios-settings": Write(ImoniIosSetup.InspectSettings()); break;
                 case "devices": Write(Devices()); break;
                 case "simulator":
                     SelectDevice(request["device"].Value<string>()); WriteStatus("device selected"); break;

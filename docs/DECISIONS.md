@@ -204,3 +204,8 @@
 - 2026-11-26: BGM画面切替0.5秒、演出へ0.3秒、DSP予約の準備時間0.05秒、Vorbis品質0.7。audioReviewに観測間隔0.1秒、安定待ち0.2秒、休止1秒、4096サンプル/DSP0.05秒の検証許容を分離。APK versionCode=4。
 - 2026-11-26: Helpの5項目と文言はHelpContent.jsonへモックのSECTIONSを無変更で抽出。UI数値はモックと同じUSS、ルールは変更しない。Helpは時間を止めないoverlayで、呼び出し元画面と音楽の再生位置を保持する。
 - 2026-11-26: setup.android.engineDiagnosticsEnabled=false。ローカルAPKのビルドに不要なUnity Cloudシンボル送信を行わず、ローカルSymbolTableは生成する。
+
+## iPhone実機向け準備
+
+- 2026-11-26: setup.iosにBundle ID jp.yukura.imoni、buildNumber4、最低iOS15.0、iPhoneOnly/DeviceSDK、IL2CPP/Metal、自動署名、Builds/iOS出力先を追加。Apple Teamはローカルの選択を維持。WindowsにiOSモジュールがなく、Macは学校にあるため、今回は設定準備と手順までを記録し、実機成功と区別する。
+- 2026-11-26: Graphics APIの書き込みは対象Build Supportがある場合だけ行う。モジュールなしではUnityがAPI候補を除外して警告にするため。これによりiOS専用MacにAndroidモジュールを要求しない。

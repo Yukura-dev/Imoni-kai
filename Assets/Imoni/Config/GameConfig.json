@@ -975,6 +975,16 @@
       "steamCrops": [[480, 52, 76, 178], [740, 24, 76, 180], [1000, 52, 76, 184]],
       "steamTop": 24
     },
+    "ios": {
+      "applicationIdentifier": "jp.yukura.imoni",
+      "buildNumber": "4",
+      "minimumVersion": "15.0",
+      "targetDevice": "iPhoneOnly",
+      "sdkVersion": "DeviceSDK",
+      "automaticSigning": true,
+      "graphicsApis": ["Metal"],
+      "exportPath": "Builds/iOS"
+    },
     "android": {
       "applicationIdentifier": "jp.yukura.imoni",
       "versionCode": 4,

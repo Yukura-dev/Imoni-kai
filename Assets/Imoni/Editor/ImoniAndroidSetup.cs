@@ -41,9 +41,13 @@ namespace Imoni.Editor
 
         private static void ConfigureRendering(JToken settings)
         {
-            PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, false);
-            PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, settings["graphicsApis"].Values<string>()
-                .Select(value => (GraphicsDeviceType)Enum.Parse(typeof(GraphicsDeviceType), value)).ToArray());
+            // iPhone-only Editors need not install the optional Android module.
+            if (BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.Android, BuildTarget.Android))
+            {
+                PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, false);
+                PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, settings["graphicsApis"].Values<string>()
+                    .Select(value => (GraphicsDeviceType)Enum.Parse(typeof(GraphicsDeviceType), value)).ToArray());
+            }
             PlayerSettings.Android.optimizedFramePacing = settings["optimizedFramePacing"].Value<bool>();
         }
 
