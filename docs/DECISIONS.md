@@ -149,3 +149,35 @@
 
 - `audio` に保存音量の初期値1、範囲0〜1、刻み0.1、Master下限−80dB、振幅のdB換算20log10を追加。Masterの内蔵CompressorはThreshold−18dB/Attack20ms/Release120ms/Make up gain0dB。Unityが公開しないRatioは設定せず、実在するパラメーターだけをEditor APIで設定する。
 - Home設定で発生した動的Atlasの再Import警告を避けるため、`ImoniFontWarmup` でBlackフォントの既知124字をSetup時に生成する。対象はHome/設定と共通タブ・初期プロフィール・大数単位。未収録の「秭」は単位の事前生成集合からだけ除外する。未知名のためDynamicは保持する。生成済み文字が再度要求された時のAPI戻り値に依存せず、生成後の文字辞書で実在を確認する。
+
+## M7 フォントの再Import対策（2026-11-26）
+
+- M6のBlack124字を、全UXML属性・Core/Game文字列リテラル・GameConfig文字列由来の既知UI集合へ拡張し、全4字体を事前生成する。最終集合594字からZen3種は「秭」以外の各593字、Delaは全角「＋」以外の593字を登録。未知名のためDynamicは維持する。
+- Zen3種は提供Delaを明示的なフォールバックにし、Delaはフォールバックなし。Zenにない「秭」をAndroidのOSフォントに依存せず表示する。Delaにない全角「＋」はZen Blackの倉庫Smallボタン専用で、Dela集合からだけ除外する。既存TTFだけを再利用し、生成した4種のFontAssetを保持する。
+- Androidビルドが事前生成データを消す既定動作を避けるため、4字体の `m_ClearDynamicDataOnBuild=false` をSetupのSerializedObject APIで保存する。Unity 6000.3では公開setterがないためのEditor設定であり、YAMLの手編集は行わない。Dynamic自体は維持する。
+- 未登録文字だけを追加し、無変更Setupではフォント保存・再Importを省く。Atlas配列の未使用nullは実使用枚数atlasTextureCountで除外する。全4字体版のSetup2回目で4フォントのファイルハッシュ不変・エラー0/警告0を確認。再Play後の両Device Simulatorでアウトゲーム各状態・GameOver・成功失敗演出指定時刻を再撮影し、全件0/0・outsideButtons空。先行Black版の新規プロフィールR1→R5→R6成功・各結果表示も0/0。詳細と範囲はM7_PRESENTATION.md。
+
+## M7 表示・再接続（2026-11-26）
+
+- `ui.worldView.boundaryFeatherPx=4`。森林と未開放の表示は共通のセル中心マスクを双線形補間し、既存Tile画像で角を丸める。1セル=1Unity単位・32px、Coreの地形と通行判定は維持する。
+- `ui.reconnectDemoSeconds=3`。Editor/Developmentのデモは実時間で接続を復帰し、同一Server/Worldの状態を表示する。通常版には故意に切断する画面操作を出さない。切断中も仲間とラウンドタイマーは継続する。
+- `imoniEffect.layout.finaleFillStrokePx=0.1`。完成2行はPNG化せず、Delaの文字と同色の前景ストロークで擬似太字の差を補う。実画像QAで1pxは字の穴を潰すため0.1へ調整。元の外枠・光彩・位置・成功58px/失敗52px・時刻は変更しない。
+
+
+## M7 見込み強化と目標生成（2026-11-26）
+
+- `objectiveGeneration.anticipatedUpgradeBudgetFraction=0.5`、`anticipatedUpgradePriority=[amount,luck,speed,move]` を追加。共有資金の半分を一つの仮予算として、人間だけに実UpgradeRules価格の安い順で配分する。同額は設定順→actor順。ボットは強化を買わない。実際の資金・Lv・操作履歴・乱数を変更せず、結果は読み取り専用の見込みプレイヤーと購入明細で保持する。
+- M6のチームLv補正と実効供給比のLvを見込みLvに差し替える。達成可能シミュレーションにも同じLvを使い、目標はその期待供給の85%以内。開始資金で実行可能な購入と時間／共有在庫を守る採集予定の存在を確認する。生成後は実際の投資によって目標を動かさない。再挑戦は開始資金・初期Lvで生成する。
+- 見込み割合0.5以外の目標係数はM6から維持。同シード202647の無制限投資R5は12.478390秒→106.602022秒で必須達成。無強化R3失敗・各項目+1Lv/Rの計画的強化R4失敗も保存する。実採集／連続倍率／価格／報酬は変更しない。3試行と明細は `docs/validation/m7/balance.md` / `balance.json`。
+
+## M7 二つ名・バッジ・ローカル記録（2026-11-26）
+
+- `progression.titleRules/badgeRules` に全条件を集約。前半はR2/10連続/通常1クリア/R7/R10、後半は薪30/里芋30/初成功/総採集300/通常3クリア。初期パーツは「芋煮会の」「初心者」のみ。バッジは初成功/R3到達/10連続/通常クリア/成功累積1億/究極品質。詳細表はM7_PROGRESSION.md。
+- 最高到達はラウンド開始時、採集実績は確定RoundResultの当該ラウンド・本人Gatherから保存。挑戦ID:ラウンドで再加算を防止する。IDは保存の識別用で、Coreのシード付き乱数に影響しない。既存所有パーツと旧形式の選択パーツは移行する。
+- `progression.rankingLimitPerBoard=100`。通常/エンドレス×共通/自由、人数別（共通はシード別）で保持。通常はR5成功時に累積スコアを登録。エンドレスはR6以降の成功結果から明示終了した時だけ記録する。失敗/中断では新しいランキングを登録しない。
+- 通常ClearからStartEndlessで同じワールドR6へ進む。Homeから新規エンドレスを選んだ場合と失敗後Retryは初期状態R1から開始し、選択モードは維持する。成功結果からFinishEndlessを実行するとEndlessFinishedへ移り、次ラウンドや二重終了を拒否する。
+- UI_SPEC15のLoginは端末内プロフィールを利用する画面とし、外部認証は行わない。通常Clear・音量設定は既存画面、Endlessは既存部品を組み合わせた移行画面で補う。ランキングのM2bダミーは表示せず、空状態と実記録を使う。
+
+## M7 端末・Android設定
+- Safe AreaはDevice.Screenを使用。既存の装飾paddingからノッチ分を消費し、演出の390×844構図は等比で内側へ収める。
+- `setup.android`: package `jp.yukura.imoni`、versionCode 1、min API 26、target API 36、icon 512px。Editor APIでPortrait/IL2CPP/ARM64と仮アイコンを生成。Android Build Supportは任意導入とし、通常のSetupではAndroid専用型へのコンパイル依存を作らない。

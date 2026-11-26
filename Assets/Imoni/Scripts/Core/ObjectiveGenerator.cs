@@ -23,10 +23,10 @@ namespace Imoni.Core
         }
 
         public RoundObjectives Generate(WorldMap world, int round, Rng rng,
-            IEnumerable<PlayerSnapshot> players = null) => GeneratePlan(world, round, rng, players).Objectives;
+            IEnumerable<PlayerSnapshot> players = null, BigInteger? sharedFunds = null) => GeneratePlan(world, round, rng, players, sharedFunds).Objectives;
 
         public ObjectiveGenerationPlan GeneratePlan(WorldMap world, int round, Rng rng,
-            IEnumerable<PlayerSnapshot> players = null)
+            IEnumerable<PlayerSnapshot> players = null, BigInteger? sharedFunds = null)
         {
             if (world == null) throw new ArgumentNullException(nameof(world));
             if (rng == null) throw new ArgumentNullException(nameof(rng));
@@ -41,6 +41,14 @@ namespace Imoni.Core
                 string temporary = candidates[index]; candidates[index] = candidates[other]; candidates[other] = temporary;
             }
             PlayerSnapshot[] team = players?.ToArray();
+            ObjectiveUpgradeForecast forecast = null;
+            if (sharedFunds.HasValue)
+            {
+                team = team ?? Enumerable.Range(1, config.TeamSize).Select(index => new PlayerSnapshot("player" + index, 0,
+                    config.Upgrades.ToDictionary(upgrade => upgrade.Id, _ => 0), world.Start, isBot: index > 1)).ToArray();
+                forecast = ObjectiveUpgradeForecast.Create(config, team, sharedFunds.Value);
+                team = forecast.Players.ToArray();
+            }
             Worker[] workers = CreateWorkers(world, round, team);
             // Same starting positions and resources isolate the production increase from upgrades.
             PlayerSnapshot[] untrained = team?.Select(player => new PlayerSnapshot(player.Id, 0,
@@ -102,7 +110,7 @@ namespace Imoni.Core
                     goals.Add(new Objective(materialId, BigInteger.Min(target, MaximumAmount(capacities[materialId]))));
                 }
                 return new ObjectiveGenerationPlan(new RoundObjectives(goals.Take(goals.Count - 1), goals[goals.Count - 1]),
-                    capacities, baselineCapacities, rawCapacities, gatherCounts, baselines, requested, visits);
+                    capacities, baselineCapacities, rawCapacities, gatherCounts, baselines, requested, visits, forecast);
             }
             throw new InvalidOperationException("The unlocked world cannot supply the configured number of distinct required and bonus objectives within the round budget.");
         }
@@ -272,9 +280,11 @@ namespace Imoni.Core
         public IReadOnlyDictionary<string, BigInteger> BaseAmounts { get; }
         public IReadOnlyDictionary<string, BigInteger> RequestedAmounts { get; }
         public IReadOnlyList<ObjectiveGatherVisit> Visits { get; }
+        public ObjectiveUpgradeForecast UpgradeForecast { get; }
         internal ObjectiveGenerationPlan(RoundObjectives objectives, IDictionary<string, BigInteger> capacities, IDictionary<string, BigInteger> untrainedCapacities,
             IDictionary<string, BigInteger> rawCapacities, IDictionary<string, int> gatherCounts,
-            IDictionary<string, BigInteger> baselines, IDictionary<string, BigInteger> requested, IList<ObjectiveGatherVisit> visits)
+            IDictionary<string, BigInteger> baselines, IDictionary<string, BigInteger> requested, IList<ObjectiveGatherVisit> visits,
+            ObjectiveUpgradeForecast forecast)
         {
             Objectives = objectives;
             SimulatedCapacities = new ReadOnlyDictionary<string, BigInteger>(new Dictionary<string, BigInteger>(capacities));
@@ -284,6 +294,7 @@ namespace Imoni.Core
             BaseAmounts = new ReadOnlyDictionary<string, BigInteger>(new Dictionary<string, BigInteger>(baselines));
             RequestedAmounts = new ReadOnlyDictionary<string, BigInteger>(new Dictionary<string, BigInteger>(requested));
             Visits = new ReadOnlyCollection<ObjectiveGatherVisit>(visits.ToArray());
+            UpgradeForecast = forecast;
         }
     }
 

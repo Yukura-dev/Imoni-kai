@@ -1,0 +1,68 @@
+{
+  "screen": "Tutorial1",
+  "resolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "nativeResolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 44.0555534,
+        "y": 271.555542,
+        "width": 104.0,
+        "height": 127.833344
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "next",
+      "text": "登録する",
+      "bounds": {
+        "x": 22.0277767,
+        "y": 733.055542,
+        "width": 345.944427,
+        "height": 63.916687
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

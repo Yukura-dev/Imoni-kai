@@ -1,0 +1,68 @@
+{
+  "screen": "Clear",
+  "resolution": {
+    "width": 390,
+    "height": 844
+  },
+  "nativeResolution": {
+    "width": 390,
+    "height": 844
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "ResultNext",
+      "text": "ホームへ戻る",
+      "bounds": {
+        "x": 16.0,
+        "y": 746.0,
+        "width": 172.0,
+        "height": 65.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "ResultEndless",
+      "text": "エンドレスへ",
+      "bounds": {
+        "x": 196.0,
+        "y": 743.0,
+        "width": 178.0,
+        "height": 65.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

@@ -16,6 +16,8 @@ namespace Imoni.Core
         public decimal HighestQualityWeight { get; }
         public decimal MaximumCapacityFraction { get; }
         public decimal UpgradeSupplyWeight { get; }
+        public decimal AnticipatedUpgradeBudgetFraction { get; }
+        public IReadOnlyList<string> AnticipatedUpgradePriority { get; }
         public int SimulationGathersPerVisit { get; }
         public IReadOnlyDictionary<string, BigInteger> BaseAmounts { get; }
         public IReadOnlyDictionary<string, decimal> UpgradeWeights { get; }
@@ -36,6 +38,15 @@ namespace Imoni.Core
             HighestQualityWeight = Number(section, "highestQualityWeight");
             MaximumCapacityFraction = Number(section, "maximumCapacityFraction");
             UpgradeSupplyWeight = Number(section, "upgradeSupplyWeight");
+            AnticipatedUpgradeBudgetFraction = Number(section, "anticipatedUpgradeBudgetFraction");
+            if (AnticipatedUpgradeBudgetFraction < 0 || AnticipatedUpgradeBudgetFraction > 1)
+                throw new ArgumentException("Anticipated upgrade budget fraction must be between zero and one.");
+            var priority = section["anticipatedUpgradePriority"] as JArray
+                ?? throw new ArgumentException("Missing anticipatedUpgradePriority.");
+            AnticipatedUpgradePriority = Array.AsReadOnly(priority.Values<string>().ToArray());
+            if (!AnticipatedUpgradePriority.OrderBy(id => id, StringComparer.Ordinal).SequenceEqual(
+                    new[] { "amount", "luck", "move", "speed" }))
+                throw new ArgumentException("Anticipated upgrade priority must include each upgrade exactly once.");
             if (RoundGrowth <= 1 || HighestQualityWeight < 0 || HighestQualityWeight > 1 ||
                 MaximumCapacityFraction <= 0 || MaximumCapacityFraction >= 1 || UpgradeSupplyWeight < 0 ||
                 RoundGrowth * MinimumFraction <= MaximumFraction)

@@ -34,7 +34,7 @@
           </c:Card>
           <ui:VisualElement class="lobby-flex-spacer" />
           <c:ImoniButton name="ReadyButton" variant="Primary" text="準備完了" />
-          <ui:VisualElement name="ReadyActions">
+          <ui:VisualElement name="ReadyActions" class="lobby-ready-actions">
             <c:ImoniButton name="LobbyStart" variant="Danger" text="ワールド生成してスタート" />
             <c:ImoniButton name="CancelReady" variant="Outline" text="準備を取り消す" class="lobby-cancel-ready lobby-gap8" />
           </ui:VisualElement>

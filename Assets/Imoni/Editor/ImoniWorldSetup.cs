@@ -36,6 +36,8 @@ namespace Imoni.Editor
             set.locked = EnsureTile(set, "Locked", "tile_locked_overlay", Color.white);
             EditorUtility.SetDirty(set);
             references.tileSet = set;
+            references.worldBoundaryShader = AssetDatabase.LoadAssetAtPath<Shader>(Root + "/Shaders/WorldBoundary.shader");
+            if (!references.worldBoundaryShader) throw new InvalidOperationException("Missing world boundary shader.");
             references.resources = new[]
             {
                 Art("wood", "resource_tree"), Art("taro", "resource_taro"), Art("negi", "resource_negi"), Art("mushroom", "resource_mushroom"),

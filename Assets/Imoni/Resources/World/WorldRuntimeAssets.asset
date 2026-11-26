@@ -1273,6 +1273,7 @@ MonoBehaviour:
   m_Name: WorldRuntimeAssets
   m_EditorClassIdentifier: Imoni.Game::Imoni.Game.World.WorldRuntimeAssets
   tileSet: {fileID: 11400000, guid: da0a31a025addea4585b2a6591c65a60, type: 2}
+  worldBoundaryShader: {fileID: 4800000, guid: 5b75ed53a168f034fa19cc141fcb5352, type: 3}
   resourceNode: {fileID: 5016876917084682688, guid: ebc39d17052e0c54992acb5f3ebf2819, type: 3}
   character: {fileID: 6557104503493108328, guid: 1ffbb768b2d2ceb4bb16ac4a333d41fb, type: 3}
   gatherPopup: {fileID: 3320251054906607077, guid: baddb9713d58d6b4396ae55291c9bbf3, type: 3}

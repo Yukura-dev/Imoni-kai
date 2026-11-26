@@ -772,6 +772,7 @@
       "sparkleFloatY": -60,
       "sparkleRotation": 90,
       "grayOpacity": 0.65,
+      "finaleFillStrokePx": 0.1,
       "darkOpacity": 0.3,
       "ingredientTextureSize": 64,
       "ingredientTextureOffset": 8,
@@ -813,6 +814,112 @@
       "sourcePitchLimit": 3
     }
   },
+  "progression": {
+    "titleRules": [
+      {
+        "part": "first",
+        "value": "山の",
+        "metric": "successfulRound",
+        "minimum": 2
+      },
+      {
+        "part": "first",
+        "value": "連続の",
+        "metric": "bestStreak",
+        "minimum": 10
+      },
+      {
+        "part": "first",
+        "value": "伝説の",
+        "metric": "normalClears",
+        "minimum": 1
+      },
+      {
+        "part": "first",
+        "value": "神話の",
+        "metric": "successfulRound",
+        "minimum": 7
+      },
+      {
+        "part": "first",
+        "value": "究極の",
+        "metric": "successfulRound",
+        "minimum": 10
+      },
+      {
+        "part": "second",
+        "value": "薪割り職人",
+        "metric": "materialGathered",
+        "minimum": 30,
+        "materialId": "wood"
+      },
+      {
+        "part": "second",
+        "value": "里芋ハンター",
+        "metric": "materialGathered",
+        "minimum": 30,
+        "materialId": "taro"
+      },
+      {
+        "part": "second",
+        "value": "鍋奉行",
+        "metric": "successfulRound",
+        "minimum": 1
+      },
+      {
+        "part": "second",
+        "value": "採集王",
+        "metric": "gatheredTotal",
+        "minimum": 300
+      },
+      {
+        "part": "second",
+        "value": "芋煮マスター",
+        "metric": "normalClears",
+        "minimum": 3
+      }
+    ],
+    "badgeRules": [
+      {
+        "id": "first_step",
+        "text": "はじめの一歩",
+        "metric": "successfulRound",
+        "minimum": 1
+      },
+      {
+        "id": "round3",
+        "text": "R3到達",
+        "metric": "bestRound",
+        "minimum": 3
+      },
+      {
+        "id": "streak10",
+        "text": "10連続",
+        "metric": "bestStreak",
+        "minimum": 10
+      },
+      {
+        "id": "normal_clear",
+        "text": "5連続成功",
+        "metric": "normalClears",
+        "minimum": 1
+      },
+      {
+        "id": "score_100m",
+        "text": "1億点",
+        "metric": "bestScore",
+        "minimum": 100000000
+      },
+      {
+        "id": "ultimate",
+        "text": "究極品質",
+        "metric": "qualityGathered",
+        "minimum": 1,
+        "qualityId": "ultimate"
+      }
+    ],
+    "rankingLimitPerBoard": 100
+  },
   "titles": {
     "_comment": "二つ名 = 前半パーツ + 後半パーツ。集めて自由に組み合わせる(ユーザー要望)",
     "unlockRules": [
@@ -841,6 +948,14 @@
     ]
   },
   "setup": {
+    "android": {
+      "applicationIdentifier": "jp.yukura.imoni",
+      "versionCode": 1,
+      "minimumApiLevel": 26,
+      "targetApiLevel": 36,
+      "iconTexture": "pot_campfire",
+      "iconSize": 512
+    },
     "_comment": "M0のEditor生成設定。ゲームルールの数値とは分離し、Imoni > Setup Projectで読み込む。",
     "panel": {
       "referenceWidth": 390,
@@ -867,6 +982,9 @@
       "cellSizeY": 1,
       "cellSizeZ": 0
     }
+  },
+  "flowReview": {
+    "maxSeconds": 180
   },
   "effectReview": {
     "width": 390,
@@ -941,7 +1059,9 @@
     "smallSteamPhaseDelaySeconds": 0.6,
     "largeSteamPhaseDelaySeconds": 0.5,
     "timerUrgentSeconds": 30,
+    "reconnectDemoSeconds": 3,
     "worldView": {
+      "boundaryFeatherPx": 4,
       "resourceVisualWidthPx": 38,
       "resourceVisualHeightPx": 40,
       "resourceTapSizePx": 48,
@@ -1052,30 +1172,22 @@
       "resourceCount": 214
     },
     "profile": {
-      "bestRound": 3,
+      "bestRound": 0,
       "memberNumber": "123456",
-      "initialOwnedFirst": [
-        "芋煮会の",
-        "山の",
-        "連続の"
-      ],
-      "initialOwnedSecond": [
-        "初心者",
-        "薪割り職人",
-        "里芋ハンター"
-      ],
+      "initialOwnedFirst": ["芋煮会の"],
+      "initialOwnedSecond": ["初心者"],
       "badges": [
         {
           "text": "はじめの一歩",
-          "acquired": true
+          "acquired": false
         },
         {
           "text": "R3到達",
-          "acquired": true
+          "acquired": false
         },
         {
           "text": "10連続",
-          "acquired": true
+          "acquired": false
         },
         {
           "text": "5連続成功",
@@ -1373,6 +1485,8 @@
     "highestQualityWeight": 0.35,
     "maximumCapacityFraction": 0.85,
     "upgradeSupplyWeight": 1,
+    "anticipatedUpgradeBudgetFraction": 0.5,
+    "anticipatedUpgradePriority": ["amount", "luck", "speed", "move"],
     "simulationGathersPerVisit": 3,
     "baseAmounts": { "wood": 240, "taro": 160, "negi": 160, "mushroom": 80, "fish": 60, "sansai": 40 },
     "upgradeWeights": { "move": 0.1, "speed": 0.15, "amount": 0.35, "luck": 0.12 },

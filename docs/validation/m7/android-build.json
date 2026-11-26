@@ -1,0 +1,16 @@
+{
+  "result": "Succeeded",
+  "errors": 0,
+  "warnings": 0,
+  "bytes": 1277391459,
+  "seconds": 32.3442474,
+  "path": "D:\\UnityProjects\\Imoni-kai\\Builds\\Android\\Imoni.apk",
+  "backend": "IL2CPP",
+  "architecture": "ARM64",
+  "orientation": "Portrait",
+  "messages": [],
+  "apkBytes": 62699410,
+  "apkSha256": "EBE0B005649984CE9EE1EB5FDD2F0DCB56719B6BA709D8E372967CDA12A4E959",
+  "minimumApi": 26,
+  "targetApi": 36
+}

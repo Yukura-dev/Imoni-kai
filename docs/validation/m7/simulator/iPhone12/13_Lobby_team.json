@@ -1,0 +1,105 @@
+{
+  "screen": "Lobby",
+  "connectionState": null,
+  "resolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "nativeResolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 18.0,
+        "y": 99.0,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "CopyTeamCode",
+      "text": "招待コードをコピー",
+      "bounds": {
+        "x": 36.0,
+        "y": 548.0,
+        "width": 318.0,
+        "height": 44.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "共通シード\n<size=10>今週 #2026-47・共通シード部門</size>",
+      "bounds": {
+        "x": 35.0,
+        "y": 667.3333,
+        "width": 156.0,
+        "height": 58.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "自由シード\n<size=10>ランダム生成・自由シード部門</size>",
+      "bounds": {
+        "x": 199.0,
+        "y": 667.3333,
+        "width": 156.0,
+        "height": 58.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "ReadyButton",
+      "text": "準備完了",
+      "bounds": {
+        "x": 18.0,
+        "y": 794.3333,
+        "width": 354.0,
+        "height": 64.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": false
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

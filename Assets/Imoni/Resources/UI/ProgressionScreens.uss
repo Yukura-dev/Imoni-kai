@@ -1,0 +1,10 @@
+.progression-screen { flex-grow: 1; padding: 52px 18px 36px; background-color: var(--c-yellow); }
+.progression-title { -unity-font-definition: var(--font-title); font-size: 30px; color: var(--c-green); }
+.progression-copy { margin-top: 8px; font-size: 14px; white-space: normal; color: var(--c-brown); }
+.progression-space { margin-top: 14px; }
+.progression-spacer { flex-grow: 1; min-height: 14px; }
+.progression-button { min-height: 65px; font-size: 22px; border-radius: 30px; }
+.progression-pot { align-self: center; }
+.progression-stats { flex-direction: row; margin-top: 14px; }
+.progression-stats > .stat-card { flex-grow: 1; flex-basis: 0; min-width: 0; }
+.progression-stat-spaced { margin-left: 8px; }

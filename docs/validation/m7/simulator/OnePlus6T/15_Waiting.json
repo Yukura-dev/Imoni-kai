@@ -1,0 +1,92 @@
+{
+  "screen": "Waiting",
+  "resolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "nativeResolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 18.0555553,
+        "y": 80.52778,
+        "width": 98.58333,
+        "height": 44.05555
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "コードをコピー",
+      "bounds": {
+        "x": 33.9444427,
+        "y": 327.888855,
+        "width": 154.916656,
+        "height": 44.0555725
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "共有する",
+      "bounds": {
+        "x": 196.805557,
+        "y": 327.888855,
+        "width": 159.249985,
+        "height": 44.0555725
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "WaitingStart",
+      "text": "あと2人そろうとスタートできます",
+      "bounds": {
+        "x": 18.0555553,
+        "y": 729.805542,
+        "width": 353.8889,
+        "height": 63.916687
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

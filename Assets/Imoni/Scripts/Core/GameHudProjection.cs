@@ -35,7 +35,8 @@ namespace Imoni.Core
             decimal remaining = ended ? 0 : Math.Max(0, decimal.Ceiling(config.DurationSeconds - snapshot.ElapsedSeconds));
             var view = new GameHudView
             {
-                RoundText = "ラウンド " + (result?.RoundNumber ?? snapshot.RoundNumber) + "/" + config.RoundsToClear,
+                RoundText = snapshot.IsEndless ? "エンドレス R" + (result?.RoundNumber ?? snapshot.RoundNumber)
+                    : "ラウンド " + (result?.RoundNumber ?? snapshot.RoundNumber) + "/" + config.RoundsToClear,
                 TimerText = Clock(remaining), TimerUrgent = remaining <= urgentSeconds,
                 Required = result == null ? Array.AsReadOnly(snapshot.RequiredObjectives.Select(goal =>
                     DisplayProjection.Goal(config, goal.MaterialId, Equivalent(config, snapshot.Lots, goal.MaterialId), goal.Amount)).ToArray())

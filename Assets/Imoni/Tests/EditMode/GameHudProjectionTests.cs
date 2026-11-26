@@ -30,6 +30,16 @@ namespace Imoni.Core.Tests
                 Array.Empty<RoundEvent>(), null, Array.Empty<ResourceSnapshot>());
 
         [Test]
+        public void EndlessHudDoesNotDisplayTheNormalFiveRoundDenominator()
+        {
+            GameConfig config = Config();
+            var server = new LocalGameServer(config, 202647, enableBots: false, endless: true);
+            GameSnapshot snapshot = server.Snapshot();
+            Assert.That(GameHudProjection.Present(config, snapshot, "player1", 30).RoundText,
+                Is.EqualTo("エンドレス R" + snapshot.RoundNumber));
+        }
+
+        [Test]
         public void QualityEquivalentCountsAllLotsButNotPointMultipliersOrOtherMaterials()
         {
             GameConfig config = Config();

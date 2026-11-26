@@ -1,0 +1,188 @@
+{
+  "screen": "Home",
+  "resolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "nativeResolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "settings",
+      "text": "",
+      "bounds": {
+        "x": 327.8889,
+        "y": 85.58333,
+        "width": 44.055542,
+        "height": 44.0555573
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "play",
+      "text": "プレイ開始",
+      "bounds": {
+        "x": 18.0555553,
+        "y": 612.0833,
+        "width": 353.8889,
+        "height": 78.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "通常モード",
+      "bounds": {
+        "x": 20.9444447,
+        "y": 700.9166,
+        "width": 174.055557,
+        "height": 44.055603
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "エンドレス",
+      "bounds": {
+        "x": 195.0,
+        "y": 700.9166,
+        "width": 174.055542,
+        "height": 44.055603
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Home",
+      "text": "",
+      "bounds": {
+        "x": 0.0,
+        "y": 768.805542,
+        "width": 128.194443,
+        "height": 76.19446
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Ranking",
+      "text": "",
+      "bounds": {
+        "x": 128.194443,
+        "y": 768.805542,
+        "width": 130.722214,
+        "height": 76.19446
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Member",
+      "text": "",
+      "bounds": {
+        "x": 258.916656,
+        "y": 768.805542,
+        "width": 131.083344,
+        "height": 76.19446
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "sound-toggle",
+      "text": "音: ON",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 323.194427,
+        "width": 283.8333,
+        "height": 43.694458
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "volume-decrease",
+      "text": "−",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 409.5,
+        "width": 44.0555534,
+        "height": 44.055542
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "volume-increase",
+      "text": "+",
+      "bounds": {
+        "x": 292.8611,
+        "y": 409.5,
+        "width": 44.055542,
+        "height": 44.055542
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "profile-login",
+      "text": "会員プロフィール",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 467.6389,
+        "width": 283.8333,
+        "height": 44.055542
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "settings-close",
+      "text": "閉じる",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 525.7778,
+        "width": 283.8333,
+        "height": 63.916687
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

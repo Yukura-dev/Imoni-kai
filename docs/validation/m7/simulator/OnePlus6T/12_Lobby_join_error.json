@@ -1,0 +1,81 @@
+{
+  "screen": "Lobby",
+  "connectionState": null,
+  "resolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "nativeResolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 18.0555553,
+        "y": 80.52778,
+        "width": 44.0555573,
+        "height": 44.05555
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "CreateTeam",
+      "text": "チームを作成",
+      "bounds": {
+        "x": 37.9166641,
+        "y": 241.583328,
+        "width": 314.166656,
+        "height": 55.9722137
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "JoinTeam",
+      "text": "参加する",
+      "bounds": {
+        "x": 37.9166641,
+        "y": 534.0834,
+        "width": 314.166656,
+        "height": 52.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

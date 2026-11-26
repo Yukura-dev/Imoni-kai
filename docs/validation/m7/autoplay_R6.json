@@ -1,0 +1,3155 @@
+{
+  "utc": "2026-11-26T03:31:16.3437273Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "audio": {
+    "enabled": true,
+    "volume": 1.0,
+    "activeVoices": 0,
+    "mixer": "ImoniMaster",
+    "masterGroup": "Master",
+    "masterDecibels": 0.0,
+    "allVoicesRouted": true,
+    "savedEnabled": true,
+    "savedVolume": 1.0
+  },
+  "round": 6,
+  "seed": 202647,
+  "phase": "Succeeded",
+  "elapsed": 300.0,
+  "funds": "41050643953149907194936953522414",
+  "cumulative": "19994631396026247994145912054554529",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "sansai",
+      "name": "希少な山菜",
+      "required": "28115535000",
+      "current": "645907420000",
+      "met": true
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "699759232307334943250072",
+      "current": "699759232307334943250072",
+      "met": true
+    },
+    {
+      "material": "fish",
+      "name": "魚",
+      "required": "2728412518000",
+      "current": "2794376040029",
+      "met": true
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 161,
+        "speed": 162,
+        "amount": 162,
+        "luck": 162
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "463F0DC3EE457115B9C3F6FE4EEF3F5FFF633E5C96DCC823FC5C318FA7DEB9C1",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 53,
+  "result": {
+    "round": 6,
+    "success": true,
+    "score": "19604388751158683483485118597758129",
+    "requiredPoints": "39208777502317366966970237195516258",
+    "bonusPoints": "134896",
+    "bonusMultiplier": "0",
+    "fundsReward": "0",
+    "fundsAfter": "41050643953149907194936953522414",
+    "cumulative": "19994631396026247994145912054554529",
+    "missing": []
+  },
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "enabled": true,
+      "display": "Flex",
+      "x": 10.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "enabled": true,
+      "display": "Flex",
+      "x": 105.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "enabled": true,
+      "display": "Flex",
+      "x": 199.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "enabled": true,
+      "display": "Flex",
+      "x": 294.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ProtectDecrease",
+      "text": "−",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ProtectIncrease",
+      "text": "＋",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ToggleProtection",
+      "text": "全部保護",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent25",
+      "text": "25%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent50",
+      "text": "50%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent75",
+      "text": "75%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent100",
+      "text": "100%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SaleSelected",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SellAllUnprotected",
+      "text": "保護以外をまとめて売却",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ReturnHome",
+      "text": "ホームへ戻る(挑戦は中断)",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "TimeUpResults",
+      "text": "結果を見る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ReconnectHome",
+      "text": "ホームへ戻る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    }
+  ],
+  "status": "autoplay complete",
+  "autoplay": {
+    "round": 6,
+    "actor": "player1",
+    "secondsAdvanced": 300.0,
+    "tickCalls": 150,
+    "resourceSelections": 149,
+    "commands": "IGameServer.TrySelectResource/Upgrade/Buy/Tick",
+    "upgradePolicy": "budget",
+    "upgradePurchases": [
+      {
+        "upgrade": "move",
+        "level": 22,
+        "cost": "748183"
+      },
+      {
+        "upgrade": "amount",
+        "level": 23,
+        "cost": "1122274"
+      },
+      {
+        "upgrade": "luck",
+        "level": 23,
+        "cost": "1122274"
+      },
+      {
+        "upgrade": "speed",
+        "level": 23,
+        "cost": "1122274"
+      },
+      {
+        "upgrade": "move",
+        "level": 23,
+        "cost": "1122274"
+      },
+      {
+        "upgrade": "amount",
+        "level": 24,
+        "cost": "1683411"
+      },
+      {
+        "upgrade": "luck",
+        "level": 24,
+        "cost": "1683411"
+      },
+      {
+        "upgrade": "speed",
+        "level": 24,
+        "cost": "1683411"
+      },
+      {
+        "upgrade": "move",
+        "level": 24,
+        "cost": "1683411"
+      },
+      {
+        "upgrade": "amount",
+        "level": 25,
+        "cost": "2525117"
+      },
+      {
+        "upgrade": "luck",
+        "level": 25,
+        "cost": "2525117"
+      },
+      {
+        "upgrade": "speed",
+        "level": 25,
+        "cost": "2525117"
+      },
+      {
+        "upgrade": "move",
+        "level": 25,
+        "cost": "2525117"
+      },
+      {
+        "upgrade": "amount",
+        "level": 26,
+        "cost": "3787675"
+      },
+      {
+        "upgrade": "luck",
+        "level": 26,
+        "cost": "3787675"
+      },
+      {
+        "upgrade": "speed",
+        "level": 26,
+        "cost": "3787675"
+      },
+      {
+        "upgrade": "move",
+        "level": 26,
+        "cost": "3787675"
+      },
+      {
+        "upgrade": "amount",
+        "level": 27,
+        "cost": "5681513"
+      },
+      {
+        "upgrade": "luck",
+        "level": 27,
+        "cost": "5681513"
+      },
+      {
+        "upgrade": "speed",
+        "level": 27,
+        "cost": "5681513"
+      },
+      {
+        "upgrade": "move",
+        "level": 27,
+        "cost": "5681513"
+      },
+      {
+        "upgrade": "amount",
+        "level": 28,
+        "cost": "8522269"
+      },
+      {
+        "upgrade": "luck",
+        "level": 28,
+        "cost": "8522269"
+      },
+      {
+        "upgrade": "speed",
+        "level": 28,
+        "cost": "8522269"
+      },
+      {
+        "upgrade": "move",
+        "level": 28,
+        "cost": "8522269"
+      },
+      {
+        "upgrade": "amount",
+        "level": 29,
+        "cost": "12783404"
+      },
+      {
+        "upgrade": "luck",
+        "level": 29,
+        "cost": "12783404"
+      },
+      {
+        "upgrade": "speed",
+        "level": 29,
+        "cost": "12783404"
+      },
+      {
+        "upgrade": "move",
+        "level": 29,
+        "cost": "12783404"
+      },
+      {
+        "upgrade": "amount",
+        "level": 30,
+        "cost": "19175106"
+      },
+      {
+        "upgrade": "luck",
+        "level": 30,
+        "cost": "19175106"
+      },
+      {
+        "upgrade": "speed",
+        "level": 30,
+        "cost": "19175106"
+      },
+      {
+        "upgrade": "move",
+        "level": 30,
+        "cost": "19175106"
+      },
+      {
+        "upgrade": "amount",
+        "level": 31,
+        "cost": "28762659"
+      },
+      {
+        "upgrade": "luck",
+        "level": 31,
+        "cost": "28762659"
+      },
+      {
+        "upgrade": "speed",
+        "level": 31,
+        "cost": "28762659"
+      },
+      {
+        "upgrade": "move",
+        "level": 31,
+        "cost": "28762659"
+      },
+      {
+        "upgrade": "amount",
+        "level": 32,
+        "cost": "43143988"
+      },
+      {
+        "upgrade": "luck",
+        "level": 32,
+        "cost": "43143988"
+      },
+      {
+        "upgrade": "speed",
+        "level": 32,
+        "cost": "43143988"
+      },
+      {
+        "upgrade": "move",
+        "level": 32,
+        "cost": "43143988"
+      },
+      {
+        "upgrade": "amount",
+        "level": 33,
+        "cost": "64715982"
+      },
+      {
+        "upgrade": "luck",
+        "level": 33,
+        "cost": "64715982"
+      },
+      {
+        "upgrade": "speed",
+        "level": 33,
+        "cost": "64715982"
+      },
+      {
+        "upgrade": "move",
+        "level": 33,
+        "cost": "64715982"
+      },
+      {
+        "upgrade": "amount",
+        "level": 34,
+        "cost": "97073974"
+      },
+      {
+        "upgrade": "luck",
+        "level": 34,
+        "cost": "97073974"
+      },
+      {
+        "upgrade": "speed",
+        "level": 34,
+        "cost": "97073974"
+      },
+      {
+        "upgrade": "move",
+        "level": 34,
+        "cost": "97073974"
+      },
+      {
+        "upgrade": "amount",
+        "level": 35,
+        "cost": "145610961"
+      },
+      {
+        "upgrade": "luck",
+        "level": 35,
+        "cost": "145610961"
+      },
+      {
+        "upgrade": "speed",
+        "level": 35,
+        "cost": "145610961"
+      },
+      {
+        "upgrade": "move",
+        "level": 35,
+        "cost": "145610961"
+      },
+      {
+        "upgrade": "amount",
+        "level": 36,
+        "cost": "218416441"
+      },
+      {
+        "upgrade": "luck",
+        "level": 36,
+        "cost": "218416441"
+      },
+      {
+        "upgrade": "speed",
+        "level": 36,
+        "cost": "218416441"
+      },
+      {
+        "upgrade": "move",
+        "level": 36,
+        "cost": "218416441"
+      },
+      {
+        "upgrade": "amount",
+        "level": 37,
+        "cost": "327624661"
+      },
+      {
+        "upgrade": "luck",
+        "level": 37,
+        "cost": "327624661"
+      },
+      {
+        "upgrade": "speed",
+        "level": 37,
+        "cost": "327624661"
+      },
+      {
+        "upgrade": "move",
+        "level": 37,
+        "cost": "327624661"
+      },
+      {
+        "upgrade": "amount",
+        "level": 38,
+        "cost": "491436992"
+      },
+      {
+        "upgrade": "luck",
+        "level": 38,
+        "cost": "491436992"
+      },
+      {
+        "upgrade": "speed",
+        "level": 38,
+        "cost": "491436992"
+      },
+      {
+        "upgrade": "move",
+        "level": 38,
+        "cost": "491436992"
+      },
+      {
+        "upgrade": "amount",
+        "level": 39,
+        "cost": "737155488"
+      },
+      {
+        "upgrade": "luck",
+        "level": 39,
+        "cost": "737155488"
+      },
+      {
+        "upgrade": "speed",
+        "level": 39,
+        "cost": "737155488"
+      },
+      {
+        "upgrade": "move",
+        "level": 39,
+        "cost": "737155488"
+      },
+      {
+        "upgrade": "amount",
+        "level": 40,
+        "cost": "1105733232"
+      },
+      {
+        "upgrade": "luck",
+        "level": 40,
+        "cost": "1105733232"
+      },
+      {
+        "upgrade": "speed",
+        "level": 40,
+        "cost": "1105733232"
+      },
+      {
+        "upgrade": "move",
+        "level": 40,
+        "cost": "1105733232"
+      },
+      {
+        "upgrade": "amount",
+        "level": 41,
+        "cost": "1658599848"
+      },
+      {
+        "upgrade": "luck",
+        "level": 41,
+        "cost": "1658599848"
+      },
+      {
+        "upgrade": "speed",
+        "level": 41,
+        "cost": "1658599848"
+      },
+      {
+        "upgrade": "move",
+        "level": 41,
+        "cost": "1658599848"
+      },
+      {
+        "upgrade": "amount",
+        "level": 42,
+        "cost": "2487899772"
+      },
+      {
+        "upgrade": "luck",
+        "level": 42,
+        "cost": "2487899772"
+      },
+      {
+        "upgrade": "speed",
+        "level": 42,
+        "cost": "2487899772"
+      },
+      {
+        "upgrade": "move",
+        "level": 42,
+        "cost": "2487899772"
+      },
+      {
+        "upgrade": "amount",
+        "level": 43,
+        "cost": "3731849658"
+      },
+      {
+        "upgrade": "luck",
+        "level": 43,
+        "cost": "3731849658"
+      },
+      {
+        "upgrade": "speed",
+        "level": 43,
+        "cost": "3731849658"
+      },
+      {
+        "upgrade": "move",
+        "level": 43,
+        "cost": "3731849658"
+      },
+      {
+        "upgrade": "amount",
+        "level": 44,
+        "cost": "5597774487"
+      },
+      {
+        "upgrade": "luck",
+        "level": 44,
+        "cost": "5597774487"
+      },
+      {
+        "upgrade": "speed",
+        "level": 44,
+        "cost": "5597774487"
+      },
+      {
+        "upgrade": "move",
+        "level": 44,
+        "cost": "5597774487"
+      },
+      {
+        "upgrade": "amount",
+        "level": 45,
+        "cost": "8396661731"
+      },
+      {
+        "upgrade": "luck",
+        "level": 45,
+        "cost": "8396661731"
+      },
+      {
+        "upgrade": "speed",
+        "level": 45,
+        "cost": "8396661731"
+      },
+      {
+        "upgrade": "move",
+        "level": 45,
+        "cost": "8396661731"
+      },
+      {
+        "upgrade": "amount",
+        "level": 46,
+        "cost": "12594992597"
+      },
+      {
+        "upgrade": "luck",
+        "level": 46,
+        "cost": "12594992597"
+      },
+      {
+        "upgrade": "speed",
+        "level": 46,
+        "cost": "12594992597"
+      },
+      {
+        "upgrade": "move",
+        "level": 46,
+        "cost": "12594992597"
+      },
+      {
+        "upgrade": "amount",
+        "level": 47,
+        "cost": "18892488895"
+      },
+      {
+        "upgrade": "luck",
+        "level": 47,
+        "cost": "18892488895"
+      },
+      {
+        "upgrade": "speed",
+        "level": 47,
+        "cost": "18892488895"
+      },
+      {
+        "upgrade": "move",
+        "level": 47,
+        "cost": "18892488895"
+      },
+      {
+        "upgrade": "amount",
+        "level": 48,
+        "cost": "28338733343"
+      },
+      {
+        "upgrade": "luck",
+        "level": 48,
+        "cost": "28338733343"
+      },
+      {
+        "upgrade": "speed",
+        "level": 48,
+        "cost": "28338733343"
+      },
+      {
+        "upgrade": "move",
+        "level": 48,
+        "cost": "28338733343"
+      },
+      {
+        "upgrade": "amount",
+        "level": 49,
+        "cost": "42508100014"
+      },
+      {
+        "upgrade": "luck",
+        "level": 49,
+        "cost": "42508100014"
+      },
+      {
+        "upgrade": "speed",
+        "level": 49,
+        "cost": "42508100014"
+      },
+      {
+        "upgrade": "move",
+        "level": 49,
+        "cost": "42508100014"
+      },
+      {
+        "upgrade": "amount",
+        "level": 50,
+        "cost": "63762150021"
+      },
+      {
+        "upgrade": "luck",
+        "level": 50,
+        "cost": "63762150021"
+      },
+      {
+        "upgrade": "speed",
+        "level": 50,
+        "cost": "63762150021"
+      },
+      {
+        "upgrade": "move",
+        "level": 50,
+        "cost": "63762150021"
+      },
+      {
+        "upgrade": "amount",
+        "level": 51,
+        "cost": "95643225032"
+      },
+      {
+        "upgrade": "luck",
+        "level": 51,
+        "cost": "95643225032"
+      },
+      {
+        "upgrade": "speed",
+        "level": 51,
+        "cost": "95643225032"
+      },
+      {
+        "upgrade": "move",
+        "level": 51,
+        "cost": "95643225032"
+      },
+      {
+        "upgrade": "amount",
+        "level": 52,
+        "cost": "143464837548"
+      },
+      {
+        "upgrade": "luck",
+        "level": 52,
+        "cost": "143464837548"
+      },
+      {
+        "upgrade": "speed",
+        "level": 52,
+        "cost": "143464837548"
+      },
+      {
+        "upgrade": "move",
+        "level": 52,
+        "cost": "143464837548"
+      },
+      {
+        "upgrade": "amount",
+        "level": 53,
+        "cost": "215197256322"
+      },
+      {
+        "upgrade": "luck",
+        "level": 53,
+        "cost": "215197256322"
+      },
+      {
+        "upgrade": "speed",
+        "level": 53,
+        "cost": "215197256322"
+      },
+      {
+        "upgrade": "move",
+        "level": 53,
+        "cost": "215197256322"
+      },
+      {
+        "upgrade": "amount",
+        "level": 54,
+        "cost": "322795884483"
+      },
+      {
+        "upgrade": "luck",
+        "level": 54,
+        "cost": "322795884483"
+      },
+      {
+        "upgrade": "speed",
+        "level": 54,
+        "cost": "322795884483"
+      },
+      {
+        "upgrade": "move",
+        "level": 54,
+        "cost": "322795884483"
+      },
+      {
+        "upgrade": "amount",
+        "level": 55,
+        "cost": "484193826725"
+      },
+      {
+        "upgrade": "luck",
+        "level": 55,
+        "cost": "484193826725"
+      },
+      {
+        "upgrade": "speed",
+        "level": 55,
+        "cost": "484193826725"
+      },
+      {
+        "upgrade": "move",
+        "level": 55,
+        "cost": "484193826725"
+      },
+      {
+        "upgrade": "amount",
+        "level": 56,
+        "cost": "726290740088"
+      },
+      {
+        "upgrade": "luck",
+        "level": 56,
+        "cost": "726290740088"
+      },
+      {
+        "upgrade": "speed",
+        "level": 56,
+        "cost": "726290740088"
+      },
+      {
+        "upgrade": "move",
+        "level": 56,
+        "cost": "726290740088"
+      },
+      {
+        "upgrade": "amount",
+        "level": 57,
+        "cost": "1089436110131"
+      },
+      {
+        "upgrade": "luck",
+        "level": 57,
+        "cost": "1089436110131"
+      },
+      {
+        "upgrade": "speed",
+        "level": 57,
+        "cost": "1089436110131"
+      },
+      {
+        "upgrade": "move",
+        "level": 57,
+        "cost": "1089436110131"
+      },
+      {
+        "upgrade": "amount",
+        "level": 58,
+        "cost": "1634154165197"
+      },
+      {
+        "upgrade": "luck",
+        "level": 58,
+        "cost": "1634154165197"
+      },
+      {
+        "upgrade": "speed",
+        "level": 58,
+        "cost": "1634154165197"
+      },
+      {
+        "upgrade": "move",
+        "level": 58,
+        "cost": "1634154165197"
+      },
+      {
+        "upgrade": "amount",
+        "level": 59,
+        "cost": "2451231247796"
+      },
+      {
+        "upgrade": "luck",
+        "level": 59,
+        "cost": "2451231247796"
+      },
+      {
+        "upgrade": "speed",
+        "level": 59,
+        "cost": "2451231247796"
+      },
+      {
+        "upgrade": "move",
+        "level": 59,
+        "cost": "2451231247796"
+      },
+      {
+        "upgrade": "amount",
+        "level": 60,
+        "cost": "3676846871693"
+      },
+      {
+        "upgrade": "luck",
+        "level": 60,
+        "cost": "3676846871693"
+      },
+      {
+        "upgrade": "speed",
+        "level": 60,
+        "cost": "3676846871693"
+      },
+      {
+        "upgrade": "move",
+        "level": 60,
+        "cost": "3676846871693"
+      },
+      {
+        "upgrade": "amount",
+        "level": 61,
+        "cost": "5515270307540"
+      },
+      {
+        "upgrade": "luck",
+        "level": 61,
+        "cost": "5515270307540"
+      },
+      {
+        "upgrade": "speed",
+        "level": 61,
+        "cost": "5515270307540"
+      },
+      {
+        "upgrade": "move",
+        "level": 61,
+        "cost": "5515270307540"
+      },
+      {
+        "upgrade": "amount",
+        "level": 62,
+        "cost": "8272905461310"
+      },
+      {
+        "upgrade": "luck",
+        "level": 62,
+        "cost": "8272905461310"
+      },
+      {
+        "upgrade": "speed",
+        "level": 62,
+        "cost": "8272905461310"
+      },
+      {
+        "upgrade": "move",
+        "level": 62,
+        "cost": "8272905461310"
+      },
+      {
+        "upgrade": "amount",
+        "level": 63,
+        "cost": "12409358191965"
+      },
+      {
+        "upgrade": "luck",
+        "level": 63,
+        "cost": "12409358191965"
+      },
+      {
+        "upgrade": "speed",
+        "level": 63,
+        "cost": "12409358191965"
+      },
+      {
+        "upgrade": "move",
+        "level": 63,
+        "cost": "12409358191965"
+      },
+      {
+        "upgrade": "amount",
+        "level": 64,
+        "cost": "18614037287947"
+      },
+      {
+        "upgrade": "luck",
+        "level": 64,
+        "cost": "18614037287947"
+      },
+      {
+        "upgrade": "speed",
+        "level": 64,
+        "cost": "18614037287947"
+      },
+      {
+        "upgrade": "move",
+        "level": 64,
+        "cost": "18614037287947"
+      },
+      {
+        "upgrade": "amount",
+        "level": 65,
+        "cost": "27921055931921"
+      },
+      {
+        "upgrade": "luck",
+        "level": 65,
+        "cost": "27921055931921"
+      },
+      {
+        "upgrade": "speed",
+        "level": 65,
+        "cost": "27921055931921"
+      },
+      {
+        "upgrade": "move",
+        "level": 65,
+        "cost": "27921055931921"
+      },
+      {
+        "upgrade": "amount",
+        "level": 66,
+        "cost": "41881583897882"
+      },
+      {
+        "upgrade": "luck",
+        "level": 66,
+        "cost": "41881583897882"
+      },
+      {
+        "upgrade": "speed",
+        "level": 66,
+        "cost": "41881583897882"
+      },
+      {
+        "upgrade": "move",
+        "level": 66,
+        "cost": "41881583897882"
+      },
+      {
+        "upgrade": "amount",
+        "level": 67,
+        "cost": "62822375846822"
+      },
+      {
+        "upgrade": "luck",
+        "level": 67,
+        "cost": "62822375846822"
+      },
+      {
+        "upgrade": "speed",
+        "level": 67,
+        "cost": "62822375846822"
+      },
+      {
+        "upgrade": "move",
+        "level": 67,
+        "cost": "62822375846822"
+      },
+      {
+        "upgrade": "amount",
+        "level": 68,
+        "cost": "94233563770233"
+      },
+      {
+        "upgrade": "luck",
+        "level": 68,
+        "cost": "94233563770233"
+      },
+      {
+        "upgrade": "speed",
+        "level": 68,
+        "cost": "94233563770233"
+      },
+      {
+        "upgrade": "move",
+        "level": 68,
+        "cost": "94233563770233"
+      },
+      {
+        "upgrade": "amount",
+        "level": 69,
+        "cost": "141350345655350"
+      },
+      {
+        "upgrade": "luck",
+        "level": 69,
+        "cost": "141350345655350"
+      },
+      {
+        "upgrade": "speed",
+        "level": 69,
+        "cost": "141350345655350"
+      },
+      {
+        "upgrade": "move",
+        "level": 69,
+        "cost": "141350345655350"
+      },
+      {
+        "upgrade": "amount",
+        "level": 70,
+        "cost": "212025518483025"
+      },
+      {
+        "upgrade": "luck",
+        "level": 70,
+        "cost": "212025518483025"
+      },
+      {
+        "upgrade": "speed",
+        "level": 70,
+        "cost": "212025518483025"
+      },
+      {
+        "upgrade": "move",
+        "level": 70,
+        "cost": "212025518483025"
+      },
+      {
+        "upgrade": "amount",
+        "level": 71,
+        "cost": "318038277724538"
+      },
+      {
+        "upgrade": "luck",
+        "level": 71,
+        "cost": "318038277724538"
+      },
+      {
+        "upgrade": "speed",
+        "level": 71,
+        "cost": "318038277724538"
+      },
+      {
+        "upgrade": "move",
+        "level": 71,
+        "cost": "318038277724538"
+      },
+      {
+        "upgrade": "amount",
+        "level": 72,
+        "cost": "477057416586807"
+      },
+      {
+        "upgrade": "luck",
+        "level": 72,
+        "cost": "477057416586807"
+      },
+      {
+        "upgrade": "speed",
+        "level": 72,
+        "cost": "477057416586807"
+      },
+      {
+        "upgrade": "move",
+        "level": 72,
+        "cost": "477057416586807"
+      },
+      {
+        "upgrade": "amount",
+        "level": 73,
+        "cost": "715586124880210"
+      },
+      {
+        "upgrade": "luck",
+        "level": 73,
+        "cost": "715586124880210"
+      },
+      {
+        "upgrade": "speed",
+        "level": 73,
+        "cost": "715586124880210"
+      },
+      {
+        "upgrade": "move",
+        "level": 73,
+        "cost": "715586124880210"
+      },
+      {
+        "upgrade": "amount",
+        "level": 74,
+        "cost": "1073379187320315"
+      },
+      {
+        "upgrade": "luck",
+        "level": 74,
+        "cost": "1073379187320315"
+      },
+      {
+        "upgrade": "speed",
+        "level": 74,
+        "cost": "1073379187320315"
+      },
+      {
+        "upgrade": "move",
+        "level": 74,
+        "cost": "1073379187320315"
+      },
+      {
+        "upgrade": "amount",
+        "level": 75,
+        "cost": "1610068780980473"
+      },
+      {
+        "upgrade": "luck",
+        "level": 75,
+        "cost": "1610068780980473"
+      },
+      {
+        "upgrade": "speed",
+        "level": 75,
+        "cost": "1610068780980473"
+      },
+      {
+        "upgrade": "move",
+        "level": 75,
+        "cost": "1610068780980473"
+      },
+      {
+        "upgrade": "amount",
+        "level": 76,
+        "cost": "2415103171470709"
+      },
+      {
+        "upgrade": "luck",
+        "level": 76,
+        "cost": "2415103171470709"
+      },
+      {
+        "upgrade": "speed",
+        "level": 76,
+        "cost": "2415103171470709"
+      },
+      {
+        "upgrade": "move",
+        "level": 76,
+        "cost": "2415103171470709"
+      },
+      {
+        "upgrade": "amount",
+        "level": 77,
+        "cost": "3622654757206063"
+      },
+      {
+        "upgrade": "luck",
+        "level": 77,
+        "cost": "3622654757206063"
+      },
+      {
+        "upgrade": "speed",
+        "level": 77,
+        "cost": "3622654757206063"
+      },
+      {
+        "upgrade": "move",
+        "level": 77,
+        "cost": "3622654757206063"
+      },
+      {
+        "upgrade": "amount",
+        "level": 78,
+        "cost": "5433982135809095"
+      },
+      {
+        "upgrade": "luck",
+        "level": 78,
+        "cost": "5433982135809095"
+      },
+      {
+        "upgrade": "speed",
+        "level": 78,
+        "cost": "5433982135809095"
+      },
+      {
+        "upgrade": "move",
+        "level": 78,
+        "cost": "5433982135809095"
+      },
+      {
+        "upgrade": "amount",
+        "level": 79,
+        "cost": "8150973203713642"
+      },
+      {
+        "upgrade": "luck",
+        "level": 79,
+        "cost": "8150973203713642"
+      },
+      {
+        "upgrade": "speed",
+        "level": 79,
+        "cost": "8150973203713642"
+      },
+      {
+        "upgrade": "move",
+        "level": 79,
+        "cost": "8150973203713642"
+      },
+      {
+        "upgrade": "amount",
+        "level": 80,
+        "cost": "12226459805570464"
+      },
+      {
+        "upgrade": "luck",
+        "level": 80,
+        "cost": "12226459805570464"
+      },
+      {
+        "upgrade": "speed",
+        "level": 80,
+        "cost": "12226459805570464"
+      },
+      {
+        "upgrade": "move",
+        "level": 80,
+        "cost": "12226459805570464"
+      },
+      {
+        "upgrade": "amount",
+        "level": 81,
+        "cost": "18339689708355695"
+      },
+      {
+        "upgrade": "luck",
+        "level": 81,
+        "cost": "18339689708355695"
+      },
+      {
+        "upgrade": "speed",
+        "level": 81,
+        "cost": "18339689708355695"
+      },
+      {
+        "upgrade": "move",
+        "level": 81,
+        "cost": "18339689708355695"
+      },
+      {
+        "upgrade": "amount",
+        "level": 82,
+        "cost": "27509534562533543"
+      },
+      {
+        "upgrade": "luck",
+        "level": 82,
+        "cost": "27509534562533543"
+      },
+      {
+        "upgrade": "speed",
+        "level": 82,
+        "cost": "27509534562533543"
+      },
+      {
+        "upgrade": "move",
+        "level": 82,
+        "cost": "27509534562533543"
+      },
+      {
+        "upgrade": "amount",
+        "level": 83,
+        "cost": "41264301843800315"
+      },
+      {
+        "upgrade": "luck",
+        "level": 83,
+        "cost": "41264301843800315"
+      },
+      {
+        "upgrade": "speed",
+        "level": 83,
+        "cost": "41264301843800315"
+      },
+      {
+        "upgrade": "move",
+        "level": 83,
+        "cost": "41264301843800315"
+      },
+      {
+        "upgrade": "amount",
+        "level": 84,
+        "cost": "61896452765700472"
+      },
+      {
+        "upgrade": "luck",
+        "level": 84,
+        "cost": "61896452765700472"
+      },
+      {
+        "upgrade": "speed",
+        "level": 84,
+        "cost": "61896452765700472"
+      },
+      {
+        "upgrade": "move",
+        "level": 84,
+        "cost": "61896452765700472"
+      },
+      {
+        "upgrade": "amount",
+        "level": 85,
+        "cost": "92844679148550708"
+      },
+      {
+        "upgrade": "luck",
+        "level": 85,
+        "cost": "92844679148550708"
+      },
+      {
+        "upgrade": "speed",
+        "level": 85,
+        "cost": "92844679148550708"
+      },
+      {
+        "upgrade": "move",
+        "level": 85,
+        "cost": "92844679148550708"
+      },
+      {
+        "upgrade": "amount",
+        "level": 86,
+        "cost": "139267018722826062"
+      },
+      {
+        "upgrade": "luck",
+        "level": 86,
+        "cost": "139267018722826062"
+      },
+      {
+        "upgrade": "speed",
+        "level": 86,
+        "cost": "139267018722826062"
+      },
+      {
+        "upgrade": "move",
+        "level": 86,
+        "cost": "139267018722826062"
+      },
+      {
+        "upgrade": "amount",
+        "level": 87,
+        "cost": "208900528084239092"
+      },
+      {
+        "upgrade": "luck",
+        "level": 87,
+        "cost": "208900528084239092"
+      },
+      {
+        "upgrade": "speed",
+        "level": 87,
+        "cost": "208900528084239092"
+      },
+      {
+        "upgrade": "move",
+        "level": 87,
+        "cost": "208900528084239092"
+      },
+      {
+        "upgrade": "amount",
+        "level": 88,
+        "cost": "313350792126358639"
+      },
+      {
+        "upgrade": "luck",
+        "level": 88,
+        "cost": "313350792126358639"
+      },
+      {
+        "upgrade": "speed",
+        "level": 88,
+        "cost": "313350792126358639"
+      },
+      {
+        "upgrade": "move",
+        "level": 88,
+        "cost": "313350792126358639"
+      },
+      {
+        "upgrade": "amount",
+        "level": 89,
+        "cost": "470026188189537958"
+      },
+      {
+        "upgrade": "luck",
+        "level": 89,
+        "cost": "470026188189537958"
+      },
+      {
+        "upgrade": "speed",
+        "level": 89,
+        "cost": "470026188189537958"
+      },
+      {
+        "upgrade": "move",
+        "level": 89,
+        "cost": "470026188189537958"
+      },
+      {
+        "upgrade": "amount",
+        "level": 90,
+        "cost": "705039282284306937"
+      },
+      {
+        "upgrade": "luck",
+        "level": 90,
+        "cost": "705039282284306937"
+      },
+      {
+        "upgrade": "speed",
+        "level": 90,
+        "cost": "705039282284306937"
+      },
+      {
+        "upgrade": "move",
+        "level": 90,
+        "cost": "705039282284306937"
+      },
+      {
+        "upgrade": "amount",
+        "level": 91,
+        "cost": "1057558923426460405"
+      },
+      {
+        "upgrade": "luck",
+        "level": 91,
+        "cost": "1057558923426460405"
+      },
+      {
+        "upgrade": "speed",
+        "level": 91,
+        "cost": "1057558923426460405"
+      },
+      {
+        "upgrade": "move",
+        "level": 91,
+        "cost": "1057558923426460405"
+      },
+      {
+        "upgrade": "amount",
+        "level": 92,
+        "cost": "1586338385139690608"
+      },
+      {
+        "upgrade": "luck",
+        "level": 92,
+        "cost": "1586338385139690608"
+      },
+      {
+        "upgrade": "speed",
+        "level": 92,
+        "cost": "1586338385139690608"
+      },
+      {
+        "upgrade": "move",
+        "level": 92,
+        "cost": "1586338385139690608"
+      },
+      {
+        "upgrade": "amount",
+        "level": 93,
+        "cost": "2379507577709535912"
+      },
+      {
+        "upgrade": "luck",
+        "level": 93,
+        "cost": "2379507577709535912"
+      },
+      {
+        "upgrade": "speed",
+        "level": 93,
+        "cost": "2379507577709535912"
+      },
+      {
+        "upgrade": "move",
+        "level": 93,
+        "cost": "2379507577709535912"
+      },
+      {
+        "upgrade": "amount",
+        "level": 94,
+        "cost": "3569261366564303867"
+      },
+      {
+        "upgrade": "luck",
+        "level": 94,
+        "cost": "3569261366564303867"
+      },
+      {
+        "upgrade": "speed",
+        "level": 94,
+        "cost": "3569261366564303867"
+      },
+      {
+        "upgrade": "move",
+        "level": 94,
+        "cost": "3569261366564303867"
+      },
+      {
+        "upgrade": "amount",
+        "level": 95,
+        "cost": "5353892049846455801"
+      },
+      {
+        "upgrade": "luck",
+        "level": 95,
+        "cost": "5353892049846455801"
+      },
+      {
+        "upgrade": "speed",
+        "level": 95,
+        "cost": "5353892049846455801"
+      },
+      {
+        "upgrade": "move",
+        "level": 95,
+        "cost": "5353892049846455801"
+      },
+      {
+        "upgrade": "amount",
+        "level": 96,
+        "cost": "8030838074769683702"
+      },
+      {
+        "upgrade": "luck",
+        "level": 96,
+        "cost": "8030838074769683702"
+      },
+      {
+        "upgrade": "speed",
+        "level": 96,
+        "cost": "8030838074769683702"
+      },
+      {
+        "upgrade": "move",
+        "level": 96,
+        "cost": "8030838074769683702"
+      },
+      {
+        "upgrade": "amount",
+        "level": 97,
+        "cost": "12046257112154525553"
+      },
+      {
+        "upgrade": "luck",
+        "level": 97,
+        "cost": "12046257112154525553"
+      },
+      {
+        "upgrade": "speed",
+        "level": 97,
+        "cost": "12046257112154525553"
+      },
+      {
+        "upgrade": "move",
+        "level": 97,
+        "cost": "12046257112154525553"
+      },
+      {
+        "upgrade": "amount",
+        "level": 98,
+        "cost": "18069385668231788329"
+      },
+      {
+        "upgrade": "luck",
+        "level": 98,
+        "cost": "18069385668231788329"
+      },
+      {
+        "upgrade": "speed",
+        "level": 98,
+        "cost": "18069385668231788329"
+      },
+      {
+        "upgrade": "move",
+        "level": 98,
+        "cost": "18069385668231788329"
+      },
+      {
+        "upgrade": "amount",
+        "level": 99,
+        "cost": "27104078502347682493"
+      },
+      {
+        "upgrade": "luck",
+        "level": 99,
+        "cost": "27104078502347682493"
+      },
+      {
+        "upgrade": "speed",
+        "level": 99,
+        "cost": "27104078502347682493"
+      },
+      {
+        "upgrade": "move",
+        "level": 99,
+        "cost": "27104078502347682493"
+      },
+      {
+        "upgrade": "amount",
+        "level": 100,
+        "cost": "40656117753521523740"
+      },
+      {
+        "upgrade": "luck",
+        "level": 100,
+        "cost": "40656117753521523740"
+      },
+      {
+        "upgrade": "speed",
+        "level": 100,
+        "cost": "40656117753521523740"
+      },
+      {
+        "upgrade": "move",
+        "level": 100,
+        "cost": "40656117753521523740"
+      },
+      {
+        "upgrade": "amount",
+        "level": 101,
+        "cost": "60984176630282285610"
+      },
+      {
+        "upgrade": "luck",
+        "level": 101,
+        "cost": "60984176630282285610"
+      },
+      {
+        "upgrade": "speed",
+        "level": 101,
+        "cost": "60984176630282285610"
+      },
+      {
+        "upgrade": "move",
+        "level": 101,
+        "cost": "60984176630282285610"
+      },
+      {
+        "upgrade": "amount",
+        "level": 102,
+        "cost": "91476264945423428414"
+      },
+      {
+        "upgrade": "luck",
+        "level": 102,
+        "cost": "91476264945423428414"
+      },
+      {
+        "upgrade": "speed",
+        "level": 102,
+        "cost": "91476264945423428414"
+      },
+      {
+        "upgrade": "move",
+        "level": 102,
+        "cost": "91476264945423428414"
+      },
+      {
+        "upgrade": "amount",
+        "level": 103,
+        "cost": "137214397418135142622"
+      },
+      {
+        "upgrade": "luck",
+        "level": 103,
+        "cost": "137214397418135142622"
+      },
+      {
+        "upgrade": "speed",
+        "level": 103,
+        "cost": "137214397418135142622"
+      },
+      {
+        "upgrade": "move",
+        "level": 103,
+        "cost": "137214397418135142622"
+      },
+      {
+        "upgrade": "amount",
+        "level": 104,
+        "cost": "205821596127202713932"
+      },
+      {
+        "upgrade": "luck",
+        "level": 104,
+        "cost": "205821596127202713932"
+      },
+      {
+        "upgrade": "speed",
+        "level": 104,
+        "cost": "205821596127202713932"
+      },
+      {
+        "upgrade": "move",
+        "level": 104,
+        "cost": "205821596127202713932"
+      },
+      {
+        "upgrade": "amount",
+        "level": 105,
+        "cost": "308732394190804070899"
+      },
+      {
+        "upgrade": "luck",
+        "level": 105,
+        "cost": "308732394190804070899"
+      },
+      {
+        "upgrade": "speed",
+        "level": 105,
+        "cost": "308732394190804070899"
+      },
+      {
+        "upgrade": "move",
+        "level": 105,
+        "cost": "308732394190804070899"
+      },
+      {
+        "upgrade": "amount",
+        "level": 106,
+        "cost": "463098591286206106348"
+      },
+      {
+        "upgrade": "luck",
+        "level": 106,
+        "cost": "463098591286206106348"
+      },
+      {
+        "upgrade": "speed",
+        "level": 106,
+        "cost": "463098591286206106348"
+      },
+      {
+        "upgrade": "move",
+        "level": 106,
+        "cost": "463098591286206106348"
+      },
+      {
+        "upgrade": "amount",
+        "level": 107,
+        "cost": "694647886929309159522"
+      },
+      {
+        "upgrade": "luck",
+        "level": 107,
+        "cost": "694647886929309159522"
+      },
+      {
+        "upgrade": "speed",
+        "level": 107,
+        "cost": "694647886929309159522"
+      },
+      {
+        "upgrade": "move",
+        "level": 107,
+        "cost": "694647886929309159522"
+      },
+      {
+        "upgrade": "amount",
+        "level": 108,
+        "cost": "1041971830393963739283"
+      },
+      {
+        "upgrade": "luck",
+        "level": 108,
+        "cost": "1041971830393963739283"
+      },
+      {
+        "upgrade": "speed",
+        "level": 108,
+        "cost": "1041971830393963739283"
+      },
+      {
+        "upgrade": "move",
+        "level": 108,
+        "cost": "1041971830393963739283"
+      },
+      {
+        "upgrade": "amount",
+        "level": 109,
+        "cost": "1562957745590945608924"
+      },
+      {
+        "upgrade": "luck",
+        "level": 109,
+        "cost": "1562957745590945608924"
+      },
+      {
+        "upgrade": "speed",
+        "level": 109,
+        "cost": "1562957745590945608924"
+      },
+      {
+        "upgrade": "move",
+        "level": 109,
+        "cost": "1562957745590945608924"
+      },
+      {
+        "upgrade": "amount",
+        "level": 110,
+        "cost": "2344436618386418413386"
+      },
+      {
+        "upgrade": "luck",
+        "level": 110,
+        "cost": "2344436618386418413386"
+      },
+      {
+        "upgrade": "speed",
+        "level": 110,
+        "cost": "2344436618386418413386"
+      },
+      {
+        "upgrade": "move",
+        "level": 110,
+        "cost": "2344436618386418413386"
+      },
+      {
+        "upgrade": "amount",
+        "level": 111,
+        "cost": "3516654927579627620079"
+      },
+      {
+        "upgrade": "luck",
+        "level": 111,
+        "cost": "3516654927579627620079"
+      },
+      {
+        "upgrade": "speed",
+        "level": 111,
+        "cost": "3516654927579627620079"
+      },
+      {
+        "upgrade": "move",
+        "level": 111,
+        "cost": "3516654927579627620079"
+      },
+      {
+        "upgrade": "amount",
+        "level": 112,
+        "cost": "5274982391369441430118"
+      },
+      {
+        "upgrade": "luck",
+        "level": 112,
+        "cost": "5274982391369441430118"
+      },
+      {
+        "upgrade": "speed",
+        "level": 112,
+        "cost": "5274982391369441430118"
+      },
+      {
+        "upgrade": "move",
+        "level": 112,
+        "cost": "5274982391369441430118"
+      },
+      {
+        "upgrade": "amount",
+        "level": 113,
+        "cost": "7912473587054162145178"
+      },
+      {
+        "upgrade": "luck",
+        "level": 113,
+        "cost": "7912473587054162145178"
+      },
+      {
+        "upgrade": "speed",
+        "level": 113,
+        "cost": "7912473587054162145178"
+      },
+      {
+        "upgrade": "move",
+        "level": 113,
+        "cost": "7912473587054162145178"
+      },
+      {
+        "upgrade": "amount",
+        "level": 114,
+        "cost": "11868710380581243217766"
+      },
+      {
+        "upgrade": "luck",
+        "level": 114,
+        "cost": "11868710380581243217766"
+      },
+      {
+        "upgrade": "speed",
+        "level": 114,
+        "cost": "11868710380581243217766"
+      },
+      {
+        "upgrade": "move",
+        "level": 114,
+        "cost": "11868710380581243217766"
+      },
+      {
+        "upgrade": "amount",
+        "level": 115,
+        "cost": "17803065570871864826649"
+      },
+      {
+        "upgrade": "luck",
+        "level": 115,
+        "cost": "17803065570871864826649"
+      },
+      {
+        "upgrade": "speed",
+        "level": 115,
+        "cost": "17803065570871864826649"
+      },
+      {
+        "upgrade": "move",
+        "level": 115,
+        "cost": "17803065570871864826649"
+      },
+      {
+        "upgrade": "amount",
+        "level": 116,
+        "cost": "26704598356307797239974"
+      },
+      {
+        "upgrade": "luck",
+        "level": 116,
+        "cost": "26704598356307797239974"
+      },
+      {
+        "upgrade": "speed",
+        "level": 116,
+        "cost": "26704598356307797239974"
+      },
+      {
+        "upgrade": "move",
+        "level": 116,
+        "cost": "26704598356307797239974"
+      },
+      {
+        "upgrade": "amount",
+        "level": 117,
+        "cost": "40056897534461695859961"
+      },
+      {
+        "upgrade": "luck",
+        "level": 117,
+        "cost": "40056897534461695859961"
+      },
+      {
+        "upgrade": "speed",
+        "level": 117,
+        "cost": "40056897534461695859961"
+      },
+      {
+        "upgrade": "move",
+        "level": 117,
+        "cost": "40056897534461695859961"
+      },
+      {
+        "upgrade": "amount",
+        "level": 118,
+        "cost": "60085346301692543789942"
+      },
+      {
+        "upgrade": "luck",
+        "level": 118,
+        "cost": "60085346301692543789942"
+      },
+      {
+        "upgrade": "speed",
+        "level": 118,
+        "cost": "60085346301692543789942"
+      },
+      {
+        "upgrade": "move",
+        "level": 118,
+        "cost": "60085346301692543789942"
+      },
+      {
+        "upgrade": "amount",
+        "level": 119,
+        "cost": "90128019452538815684913"
+      },
+      {
+        "upgrade": "luck",
+        "level": 119,
+        "cost": "90128019452538815684913"
+      },
+      {
+        "upgrade": "speed",
+        "level": 119,
+        "cost": "90128019452538815684913"
+      },
+      {
+        "upgrade": "move",
+        "level": 119,
+        "cost": "90128019452538815684913"
+      },
+      {
+        "upgrade": "amount",
+        "level": 120,
+        "cost": "135192029178808223527369"
+      },
+      {
+        "upgrade": "luck",
+        "level": 120,
+        "cost": "135192029178808223527369"
+      },
+      {
+        "upgrade": "speed",
+        "level": 120,
+        "cost": "135192029178808223527369"
+      },
+      {
+        "upgrade": "move",
+        "level": 120,
+        "cost": "135192029178808223527369"
+      },
+      {
+        "upgrade": "amount",
+        "level": 121,
+        "cost": "202788043768212335291054"
+      },
+      {
+        "upgrade": "luck",
+        "level": 121,
+        "cost": "202788043768212335291054"
+      },
+      {
+        "upgrade": "speed",
+        "level": 121,
+        "cost": "202788043768212335291054"
+      },
+      {
+        "upgrade": "move",
+        "level": 121,
+        "cost": "202788043768212335291054"
+      },
+      {
+        "upgrade": "amount",
+        "level": 122,
+        "cost": "304182065652318502936581"
+      },
+      {
+        "upgrade": "luck",
+        "level": 122,
+        "cost": "304182065652318502936581"
+      },
+      {
+        "upgrade": "speed",
+        "level": 122,
+        "cost": "304182065652318502936581"
+      },
+      {
+        "upgrade": "move",
+        "level": 122,
+        "cost": "304182065652318502936581"
+      },
+      {
+        "upgrade": "amount",
+        "level": 123,
+        "cost": "456273098478477754404871"
+      },
+      {
+        "upgrade": "luck",
+        "level": 123,
+        "cost": "456273098478477754404871"
+      },
+      {
+        "upgrade": "speed",
+        "level": 123,
+        "cost": "456273098478477754404871"
+      },
+      {
+        "upgrade": "move",
+        "level": 123,
+        "cost": "456273098478477754404871"
+      },
+      {
+        "upgrade": "amount",
+        "level": 124,
+        "cost": "684409647717716631607307"
+      },
+      {
+        "upgrade": "luck",
+        "level": 124,
+        "cost": "684409647717716631607307"
+      },
+      {
+        "upgrade": "speed",
+        "level": 124,
+        "cost": "684409647717716631607307"
+      },
+      {
+        "upgrade": "move",
+        "level": 124,
+        "cost": "684409647717716631607307"
+      },
+      {
+        "upgrade": "amount",
+        "level": 125,
+        "cost": "1026614471576574947410960"
+      },
+      {
+        "upgrade": "luck",
+        "level": 125,
+        "cost": "1026614471576574947410960"
+      },
+      {
+        "upgrade": "speed",
+        "level": 125,
+        "cost": "1026614471576574947410960"
+      },
+      {
+        "upgrade": "move",
+        "level": 125,
+        "cost": "1026614471576574947410960"
+      },
+      {
+        "upgrade": "amount",
+        "level": 126,
+        "cost": "1539921707364862421116440"
+      },
+      {
+        "upgrade": "luck",
+        "level": 126,
+        "cost": "1539921707364862421116440"
+      },
+      {
+        "upgrade": "speed",
+        "level": 126,
+        "cost": "1539921707364862421116440"
+      },
+      {
+        "upgrade": "move",
+        "level": 126,
+        "cost": "1539921707364862421116440"
+      },
+      {
+        "upgrade": "amount",
+        "level": 127,
+        "cost": "2309882561047293631674659"
+      },
+      {
+        "upgrade": "luck",
+        "level": 127,
+        "cost": "2309882561047293631674659"
+      },
+      {
+        "upgrade": "speed",
+        "level": 127,
+        "cost": "2309882561047293631674659"
+      },
+      {
+        "upgrade": "move",
+        "level": 127,
+        "cost": "2309882561047293631674659"
+      },
+      {
+        "upgrade": "amount",
+        "level": 128,
+        "cost": "3464823841570940447511989"
+      },
+      {
+        "upgrade": "luck",
+        "level": 128,
+        "cost": "3464823841570940447511989"
+      },
+      {
+        "upgrade": "speed",
+        "level": 128,
+        "cost": "3464823841570940447511989"
+      },
+      {
+        "upgrade": "move",
+        "level": 128,
+        "cost": "3464823841570940447511989"
+      },
+      {
+        "upgrade": "amount",
+        "level": 129,
+        "cost": "5197235762356410671267984"
+      },
+      {
+        "upgrade": "luck",
+        "level": 129,
+        "cost": "5197235762356410671267984"
+      },
+      {
+        "upgrade": "speed",
+        "level": 129,
+        "cost": "5197235762356410671267984"
+      },
+      {
+        "upgrade": "move",
+        "level": 129,
+        "cost": "5197235762356410671267984"
+      },
+      {
+        "upgrade": "amount",
+        "level": 130,
+        "cost": "7795853643534616006901976"
+      },
+      {
+        "upgrade": "luck",
+        "level": 130,
+        "cost": "7795853643534616006901976"
+      },
+      {
+        "upgrade": "speed",
+        "level": 130,
+        "cost": "7795853643534616006901976"
+      },
+      {
+        "upgrade": "move",
+        "level": 130,
+        "cost": "7795853643534616006901976"
+      },
+      {
+        "upgrade": "amount",
+        "level": 131,
+        "cost": "11693780465301924010352964"
+      },
+      {
+        "upgrade": "luck",
+        "level": 131,
+        "cost": "11693780465301924010352964"
+      },
+      {
+        "upgrade": "speed",
+        "level": 131,
+        "cost": "11693780465301924010352964"
+      },
+      {
+        "upgrade": "move",
+        "level": 131,
+        "cost": "11693780465301924010352964"
+      },
+      {
+        "upgrade": "amount",
+        "level": 132,
+        "cost": "17540670697952886015529445"
+      },
+      {
+        "upgrade": "luck",
+        "level": 132,
+        "cost": "17540670697952886015529445"
+      },
+      {
+        "upgrade": "speed",
+        "level": 132,
+        "cost": "17540670697952886015529445"
+      },
+      {
+        "upgrade": "move",
+        "level": 132,
+        "cost": "17540670697952886015529445"
+      },
+      {
+        "upgrade": "amount",
+        "level": 133,
+        "cost": "26311006046929329023294168"
+      },
+      {
+        "upgrade": "luck",
+        "level": 133,
+        "cost": "26311006046929329023294168"
+      },
+      {
+        "upgrade": "speed",
+        "level": 133,
+        "cost": "26311006046929329023294168"
+      },
+      {
+        "upgrade": "move",
+        "level": 133,
+        "cost": "26311006046929329023294168"
+      },
+      {
+        "upgrade": "amount",
+        "level": 134,
+        "cost": "39466509070393993534941252"
+      },
+      {
+        "upgrade": "luck",
+        "level": 134,
+        "cost": "39466509070393993534941252"
+      },
+      {
+        "upgrade": "speed",
+        "level": 134,
+        "cost": "39466509070393993534941252"
+      },
+      {
+        "upgrade": "move",
+        "level": 134,
+        "cost": "39466509070393993534941252"
+      },
+      {
+        "upgrade": "amount",
+        "level": 135,
+        "cost": "59199763605590990302411878"
+      },
+      {
+        "upgrade": "luck",
+        "level": 135,
+        "cost": "59199763605590990302411878"
+      },
+      {
+        "upgrade": "speed",
+        "level": 135,
+        "cost": "59199763605590990302411878"
+      },
+      {
+        "upgrade": "move",
+        "level": 135,
+        "cost": "59199763605590990302411878"
+      },
+      {
+        "upgrade": "amount",
+        "level": 136,
+        "cost": "88799645408386485453617817"
+      },
+      {
+        "upgrade": "luck",
+        "level": 136,
+        "cost": "88799645408386485453617817"
+      },
+      {
+        "upgrade": "speed",
+        "level": 136,
+        "cost": "88799645408386485453617817"
+      },
+      {
+        "upgrade": "move",
+        "level": 136,
+        "cost": "88799645408386485453617817"
+      },
+      {
+        "upgrade": "amount",
+        "level": 137,
+        "cost": "133199468112579728180426725"
+      },
+      {
+        "upgrade": "luck",
+        "level": 137,
+        "cost": "133199468112579728180426725"
+      },
+      {
+        "upgrade": "speed",
+        "level": 137,
+        "cost": "133199468112579728180426725"
+      },
+      {
+        "upgrade": "move",
+        "level": 137,
+        "cost": "133199468112579728180426725"
+      },
+      {
+        "upgrade": "amount",
+        "level": 138,
+        "cost": "199799202168869592270640088"
+      },
+      {
+        "upgrade": "luck",
+        "level": 138,
+        "cost": "199799202168869592270640088"
+      },
+      {
+        "upgrade": "speed",
+        "level": 138,
+        "cost": "199799202168869592270640088"
+      },
+      {
+        "upgrade": "move",
+        "level": 138,
+        "cost": "199799202168869592270640088"
+      },
+      {
+        "upgrade": "amount",
+        "level": 139,
+        "cost": "299698803253304388405960132"
+      },
+      {
+        "upgrade": "luck",
+        "level": 139,
+        "cost": "299698803253304388405960132"
+      },
+      {
+        "upgrade": "speed",
+        "level": 139,
+        "cost": "299698803253304388405960132"
+      },
+      {
+        "upgrade": "move",
+        "level": 139,
+        "cost": "299698803253304388405960132"
+      },
+      {
+        "upgrade": "amount",
+        "level": 140,
+        "cost": "449548204879956582608940198"
+      },
+      {
+        "upgrade": "luck",
+        "level": 140,
+        "cost": "449548204879956582608940198"
+      },
+      {
+        "upgrade": "speed",
+        "level": 140,
+        "cost": "449548204879956582608940198"
+      },
+      {
+        "upgrade": "move",
+        "level": 140,
+        "cost": "449548204879956582608940198"
+      },
+      {
+        "upgrade": "amount",
+        "level": 141,
+        "cost": "674322307319934873913410297"
+      },
+      {
+        "upgrade": "luck",
+        "level": 141,
+        "cost": "674322307319934873913410297"
+      },
+      {
+        "upgrade": "speed",
+        "level": 141,
+        "cost": "674322307319934873913410297"
+      },
+      {
+        "upgrade": "move",
+        "level": 141,
+        "cost": "674322307319934873913410297"
+      },
+      {
+        "upgrade": "amount",
+        "level": 142,
+        "cost": "1011483460979902310870115446"
+      },
+      {
+        "upgrade": "luck",
+        "level": 142,
+        "cost": "1011483460979902310870115446"
+      },
+      {
+        "upgrade": "speed",
+        "level": 142,
+        "cost": "1011483460979902310870115446"
+      },
+      {
+        "upgrade": "move",
+        "level": 142,
+        "cost": "1011483460979902310870115446"
+      },
+      {
+        "upgrade": "amount",
+        "level": 143,
+        "cost": "1517225191469853466305173168"
+      },
+      {
+        "upgrade": "luck",
+        "level": 143,
+        "cost": "1517225191469853466305173168"
+      },
+      {
+        "upgrade": "speed",
+        "level": 143,
+        "cost": "1517225191469853466305173168"
+      },
+      {
+        "upgrade": "move",
+        "level": 143,
+        "cost": "1517225191469853466305173168"
+      },
+      {
+        "upgrade": "amount",
+        "level": 144,
+        "cost": "2275837787204780199457759753"
+      },
+      {
+        "upgrade": "luck",
+        "level": 144,
+        "cost": "2275837787204780199457759753"
+      },
+      {
+        "upgrade": "speed",
+        "level": 144,
+        "cost": "2275837787204780199457759753"
+      },
+      {
+        "upgrade": "move",
+        "level": 144,
+        "cost": "2275837787204780199457759753"
+      },
+      {
+        "upgrade": "amount",
+        "level": 145,
+        "cost": "3413756680807170299186639629"
+      },
+      {
+        "upgrade": "luck",
+        "level": 145,
+        "cost": "3413756680807170299186639629"
+      },
+      {
+        "upgrade": "speed",
+        "level": 145,
+        "cost": "3413756680807170299186639629"
+      },
+      {
+        "upgrade": "move",
+        "level": 145,
+        "cost": "3413756680807170299186639629"
+      },
+      {
+        "upgrade": "amount",
+        "level": 146,
+        "cost": "5120635021210755448779959443"
+      },
+      {
+        "upgrade": "luck",
+        "level": 146,
+        "cost": "5120635021210755448779959443"
+      },
+      {
+        "upgrade": "speed",
+        "level": 146,
+        "cost": "5120635021210755448779959443"
+      },
+      {
+        "upgrade": "move",
+        "level": 146,
+        "cost": "5120635021210755448779959443"
+      },
+      {
+        "upgrade": "amount",
+        "level": 147,
+        "cost": "7680952531816133173169939165"
+      },
+      {
+        "upgrade": "luck",
+        "level": 147,
+        "cost": "7680952531816133173169939165"
+      },
+      {
+        "upgrade": "speed",
+        "level": 147,
+        "cost": "7680952531816133173169939165"
+      },
+      {
+        "upgrade": "move",
+        "level": 147,
+        "cost": "7680952531816133173169939165"
+      },
+      {
+        "upgrade": "amount",
+        "level": 148,
+        "cost": "11521428797724199759754908747"
+      },
+      {
+        "upgrade": "luck",
+        "level": 148,
+        "cost": "11521428797724199759754908747"
+      },
+      {
+        "upgrade": "speed",
+        "level": 148,
+        "cost": "11521428797724199759754908747"
+      },
+      {
+        "upgrade": "move",
+        "level": 148,
+        "cost": "11521428797724199759754908747"
+      },
+      {
+        "upgrade": "amount",
+        "level": 149,
+        "cost": "17282143196586299639632363121"
+      },
+      {
+        "upgrade": "luck",
+        "level": 149,
+        "cost": "17282143196586299639632363121"
+      },
+      {
+        "upgrade": "speed",
+        "level": 149,
+        "cost": "17282143196586299639632363121"
+      },
+      {
+        "upgrade": "move",
+        "level": 149,
+        "cost": "17282143196586299639632363121"
+      },
+      {
+        "upgrade": "amount",
+        "level": 150,
+        "cost": "25923214794879449459448544682"
+      },
+      {
+        "upgrade": "luck",
+        "level": 150,
+        "cost": "25923214794879449459448544682"
+      },
+      {
+        "upgrade": "speed",
+        "level": 150,
+        "cost": "25923214794879449459448544682"
+      },
+      {
+        "upgrade": "move",
+        "level": 150,
+        "cost": "25923214794879449459448544682"
+      },
+      {
+        "upgrade": "amount",
+        "level": 151,
+        "cost": "38884822192319174189172817023"
+      },
+      {
+        "upgrade": "luck",
+        "level": 151,
+        "cost": "38884822192319174189172817023"
+      },
+      {
+        "upgrade": "speed",
+        "level": 151,
+        "cost": "38884822192319174189172817023"
+      },
+      {
+        "upgrade": "move",
+        "level": 151,
+        "cost": "38884822192319174189172817023"
+      },
+      {
+        "upgrade": "amount",
+        "level": 152,
+        "cost": "58327233288478761283759225534"
+      },
+      {
+        "upgrade": "luck",
+        "level": 152,
+        "cost": "58327233288478761283759225534"
+      },
+      {
+        "upgrade": "speed",
+        "level": 152,
+        "cost": "58327233288478761283759225534"
+      },
+      {
+        "upgrade": "move",
+        "level": 152,
+        "cost": "58327233288478761283759225534"
+      },
+      {
+        "upgrade": "amount",
+        "level": 153,
+        "cost": "87490849932718141925638838301"
+      },
+      {
+        "upgrade": "luck",
+        "level": 153,
+        "cost": "87490849932718141925638838301"
+      },
+      {
+        "upgrade": "speed",
+        "level": 153,
+        "cost": "87490849932718141925638838301"
+      },
+      {
+        "upgrade": "move",
+        "level": 153,
+        "cost": "87490849932718141925638838301"
+      },
+      {
+        "upgrade": "amount",
+        "level": 154,
+        "cost": "131236274899077212888458257452"
+      },
+      {
+        "upgrade": "luck",
+        "level": 154,
+        "cost": "131236274899077212888458257452"
+      },
+      {
+        "upgrade": "speed",
+        "level": 154,
+        "cost": "131236274899077212888458257452"
+      },
+      {
+        "upgrade": "move",
+        "level": 154,
+        "cost": "131236274899077212888458257452"
+      },
+      {
+        "upgrade": "amount",
+        "level": 155,
+        "cost": "196854412348615819332687386177"
+      },
+      {
+        "upgrade": "luck",
+        "level": 155,
+        "cost": "196854412348615819332687386177"
+      },
+      {
+        "upgrade": "speed",
+        "level": 155,
+        "cost": "196854412348615819332687386177"
+      },
+      {
+        "upgrade": "move",
+        "level": 155,
+        "cost": "196854412348615819332687386177"
+      },
+      {
+        "upgrade": "amount",
+        "level": 156,
+        "cost": "295281618522923728999031079266"
+      },
+      {
+        "upgrade": "luck",
+        "level": 156,
+        "cost": "295281618522923728999031079266"
+      },
+      {
+        "upgrade": "speed",
+        "level": 156,
+        "cost": "295281618522923728999031079266"
+      },
+      {
+        "upgrade": "move",
+        "level": 156,
+        "cost": "295281618522923728999031079266"
+      },
+      {
+        "upgrade": "amount",
+        "level": 157,
+        "cost": "442922427784385593498546618899"
+      },
+      {
+        "upgrade": "luck",
+        "level": 157,
+        "cost": "442922427784385593498546618899"
+      },
+      {
+        "upgrade": "speed",
+        "level": 157,
+        "cost": "442922427784385593498546618899"
+      },
+      {
+        "upgrade": "move",
+        "level": 157,
+        "cost": "442922427784385593498546618899"
+      },
+      {
+        "upgrade": "amount",
+        "level": 158,
+        "cost": "664383641676578390247819928349"
+      },
+      {
+        "upgrade": "luck",
+        "level": 158,
+        "cost": "664383641676578390247819928349"
+      },
+      {
+        "upgrade": "speed",
+        "level": 158,
+        "cost": "664383641676578390247819928349"
+      },
+      {
+        "upgrade": "move",
+        "level": 158,
+        "cost": "664383641676578390247819928349"
+      },
+      {
+        "upgrade": "amount",
+        "level": 159,
+        "cost": "996575462514867585371729892523"
+      },
+      {
+        "upgrade": "luck",
+        "level": 159,
+        "cost": "996575462514867585371729892523"
+      },
+      {
+        "upgrade": "speed",
+        "level": 159,
+        "cost": "996575462514867585371729892523"
+      },
+      {
+        "upgrade": "move",
+        "level": 159,
+        "cost": "996575462514867585371729892523"
+      },
+      {
+        "upgrade": "amount",
+        "level": 160,
+        "cost": "1494863193772301378057594838785"
+      },
+      {
+        "upgrade": "luck",
+        "level": 160,
+        "cost": "1494863193772301378057594838785"
+      },
+      {
+        "upgrade": "speed",
+        "level": 160,
+        "cost": "1494863193772301378057594838785"
+      },
+      {
+        "upgrade": "move",
+        "level": 160,
+        "cost": "1494863193772301378057594838785"
+      },
+      {
+        "upgrade": "amount",
+        "level": 161,
+        "cost": "2242294790658452067086392258178"
+      },
+      {
+        "upgrade": "luck",
+        "level": 161,
+        "cost": "2242294790658452067086392258178"
+      },
+      {
+        "upgrade": "speed",
+        "level": 161,
+        "cost": "2242294790658452067086392258178"
+      },
+      {
+        "upgrade": "move",
+        "level": 161,
+        "cost": "2242294790658452067086392258178"
+      },
+      {
+        "upgrade": "amount",
+        "level": 162,
+        "cost": "3363442185987678100629588387266"
+      },
+      {
+        "upgrade": "luck",
+        "level": 162,
+        "cost": "3363442185987678100629588387266"
+      },
+      {
+        "upgrade": "speed",
+        "level": 162,
+        "cost": "3363442185987678100629588387266"
+      }
+    ]
+  },
+  "goalReach": [
+    {
+      "material": "sansai",
+      "name": "希少な山菜",
+      "target": "28115535000",
+      "achieved": "645907420000",
+      "firstReachedSeconds": 120.116655,
+      "bonus": false
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "target": "699759232307334943250072",
+      "achieved": "699759232307334943250072",
+      "firstReachedSeconds": 298.0,
+      "bonus": false
+    },
+    {
+      "material": "fish",
+      "name": "魚",
+      "target": "2728412518000",
+      "achieved": "2794376040029",
+      "firstReachedSeconds": 118.132288,
+      "bonus": false
+    },
+    {
+      "material": "negi",
+      "name": "ねぎ",
+      "target": "215376167385425701443215",
+      "achieved": "40556",
+      "firstReachedSeconds": null,
+      "bonus": true
+    }
+  ]
+}

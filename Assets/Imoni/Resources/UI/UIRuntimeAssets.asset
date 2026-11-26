@@ -36,6 +36,8 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: c88c01cd8f320174d840cd515876b3f5, type: 3}
   - key: imoni_tile_yellow_384x416
     texture: {fileID: 2800000, guid: 4e8bd4a8ae60e66479b9a607a20281c4, type: 3}
+  - key: android_icon
+    texture: {fileID: 2800000, guid: f5a9e3c43fb4cbb48bdb8c08df3b8729, type: 3}
   - key: title_logo@3x
     texture: {fileID: 2800000, guid: ae7fcea7922b3384f866fead61ed28c7, type: 3}
   - key: fx_broth_glow

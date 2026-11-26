@@ -92,7 +92,19 @@ namespace Imoni.Game.UI.Components
     { public ImoniEffectBanner() { UseEffectLayout(true); } }
     [UxmlElement]
     public partial class ImoniEffectFinale : ImoniEffectTitle
-    { public ImoniEffectFinale() { UseEffectLayout(false); } }
+    {
+        public ImoniEffectFinale()
+        {
+            UseEffectLayout(false);
+            Add(Fill("FinaleFillOne")); Add(Fill("FinaleFillTwo"));
+        }
+        private static Label Fill(string name)
+        {
+            var label = new Label { name = name, pickingMode = PickingMode.Ignore };
+            label.AddToClassList("effect-outline"); label.AddToClassList("effect-yellow"); label.AddToClassList("effect-fill");
+            return label;
+        }
+    }
 
     [UxmlElement]
     public partial class StarBurst : ImoniEffectArt

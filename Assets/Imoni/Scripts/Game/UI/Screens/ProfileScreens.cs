@@ -23,14 +23,22 @@ namespace Imoni.Game.UI.Screens
             avatar.BandColor = App.Profile.BandColor;
             avatar.OutfitColor = App.Profile.OutfitColor;
             Find<ImoniText>("home-team").text = "チーム「" + App.TeamName + "」 / " + App.Data["team"]["size"] + "人";
-            Find<StatCard>("best-round").Value = "R" + App.Data["outGame"]["profile"]["bestRound"];
+            Find<StatCard>("best-round").Value = "R" + App.Profile.Progression.BestRound;
+            Find<StatCard>("normal-clears").Value = App.Profile.Progression.NormalClears > 0 ? Format.Big(App.Profile.Progression.NormalClears, UiTheme.Config) + "回" : "未達成";
+            Find<StatCard>("ranking-records").Value = App.Profile.Rankings.Length > 0 ? "登録済み" : "未登録";
             Find<ImoniText>("endless-locked").text = "エンドレス:" + App.Data["round"]["roundsToClear"] + "連続成功で解放";
             Find<ImoniButton>("play").clicked += () => App.Go("Lobby");
+            var modeSelector = Find<SegmentedControl>("home-mode-selector");
+            modeSelector.style.display = App.EndlessUnlocked ? DisplayStyle.Flex : DisplayStyle.None;
+            this.Q<VisualElement>(className: "home-modes").style.display = App.EndlessUnlocked ? DisplayStyle.None : DisplayStyle.Flex;
+            modeSelector.Selected = App.EndlessSelected ? 1 : 0;
+            modeSelector.Changed += selected => App.EndlessSelected = selected != 0 && App.EndlessUnlocked;
             Find<TabBar>("tabs").NavigateRequested += App.Go;
 
             VisualElement overlay = Find<VisualElement>("settings-overlay");
             Find<ImoniButton>("settings").clicked += () => overlay.style.display = DisplayStyle.Flex;
             Find<ImoniButton>("settings-close").clicked += () => overlay.style.display = DisplayStyle.None;
+            Find<ImoniButton>("profile-login").clicked += () => App.Go("Login");
             var sound = Find<ImoniButton>("sound-toggle");
             var volume = Find<AudioVolumeControl>("sound-volume");
             void ShowSound()
@@ -106,32 +114,34 @@ namespace Imoni.Game.UI.Screens
             JToken fixture = App.Data["outGame"]["ranking"];
             bool common = seed == 0;
             bool normal = mode == 0;
-            string section = common ? "common" : "free";
-            string[] teams = fixture[section + "Teams"].Values<string>().ToArray();
-            JToken scores = fixture[section + (normal ? "Normal" : "Endless")];
+            var records = LocalRanking.Board(App.Profile, normal ? RankingMode.Normal : RankingMode.Endless,
+                common ? RankingSeed.Common : RankingSeed.Free, UiTheme.Config.TeamSize, App.Data["outGame"]["lobby"]["commonSeed"].Value<int>());
             var rows = new List<RankingRowView>();
-            for (int index = 0; index < teams.Length; index++)
+            for (int index = 0; index < records.Count; index++)
             {
-                JToken score = scores[index];
-                string clear = normal ? App.Data["round"]["roundsToClear"] + "R連続成功" : "最高R" + score["round"];
-                string seedText = common ? string.Empty : " · シード" + fixture["freeSeeds"][index];
+                LocalRankingRecord record = records[index];
+                string clear = normal ? App.Data["round"]["roundsToClear"] + "R連続成功" : "最高R" + record.RoundNumber;
+                string seedText = common ? string.Empty : " · #" + record.Seed;
                 rows.Add(new RankingRowView
                 {
-                    RankText = (index + 1).ToString(), Team = teams[index],
-                    Detail = clear + seedText + " · " + fixture["dates"][index],
-                    ScoreText = Format.Big(BigInteger.Parse(score["score"].Value<string>(), CultureInfo.InvariantCulture), UiTheme.Config),
+                    RankText = (index + 1).ToString(CultureInfo.InvariantCulture), Team = record.TeamName,
+                    Detail = clear + seedText + " · " + record.RecordedAtUtc.ToLocalTime().ToString("MM/dd HH:mm", CultureInfo.InvariantCulture),
+                    ScoreText = Format.Big(record.Score, UiTheme.Config),
                     Style = index == 0 ? RankingRankStyle.First : index < fixture["podiumRanks"].Value<int>() ? RankingRankStyle.Podium : RankingRankStyle.Normal,
                     Alternating = index % 2 == 0
                 });
             }
             Find<RankingList>("ranking-list").Bind(rows);
+            Find<RankingList>("ranking-list").EmptyText = normal ? "まだ記録がありません\n通常モードをクリアして登録しよう" : "まだ記録がありません\nR" + (UiTheme.Config.RoundsToClear + 1) + "以降の成功結果から記録して終了しよう";
             Find<ImoniText>("ranking-caption").text = common
-                ? "共通シード部門:今週 " + fixture["commonSeed"] : "自由シード部門:マップはチームごとにランダム";
+                ? "端末内 / 共通シード " + fixture["commonSeed"] : "端末内 / 自由シード部門";
             Find<ImoniText>("ranking-team-size").text = App.Data["team"]["size"] + "人部門";
             Find<ImoniText>("ranking-mine-team").text = App.TeamName + "(あなた)";
-            Find<ImoniText>("ranking-mine-note").text = normal
-                ? App.Data["round"]["roundsToClear"] + "ラウンド連続成功で登録されます(最高 R" + App.Data["outGame"]["profile"]["bestRound"] + ")"
-                : "通常クリアで解放";
+            int ownIndex = records.ToList().FindIndex(record => record.TeamName == App.TeamName);
+            Find<ImoniText>("ranking-mine-state").text = ownIndex < 0 ? "未登録" : (ownIndex + 1) + "位";
+            Find<ImoniText>("ranking-mine-note").text = ownIndex >= 0 ? "最高記録 " + Format.Big(records[ownIndex].Score, UiTheme.Config)
+                : normal ? App.Data["round"]["roundsToClear"] + "ラウンド連続成功で登録されます(最高 R" + App.Profile.Progression.BestRound + ")"
+                : App.EndlessUnlocked ? "成功結果で記録して終了 / 失敗・中断は未登録" : "通常クリアで解放";
         }
     }
 }

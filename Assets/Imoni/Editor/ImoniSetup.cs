@@ -61,6 +61,7 @@ namespace Imoni.Editor
             EnsureBootScene(panel, settings);
             RegisterBootScene();
             SetPortrait(settings);
+            ImoniAndroidSetup.Configure();
 
             AssetDatabase.SaveAssets();
             // Resolve Theme.uss URLs that were imported before their FontAssets existed.
@@ -180,7 +181,8 @@ namespace Imoni.Editor
                 asset.atlasPadding != settings.AtlasPadding || asset.atlasWidth != settings.AtlasWidth ||
                 asset.atlasHeight != settings.AtlasHeight || asset.atlasRenderMode != GlyphRenderMode.SDFAA ||
                 asset.material == null || asset.atlasTextures == null ||
-                asset.atlasTextures.Length == 0 || asset.atlasTextures.Any(texture => texture == null);
+                asset.atlasTextures.Length < asset.atlasTextureCount ||
+                asset.atlasTextures.Take(asset.atlasTextureCount).Any(texture => texture == null);
 
             if (needsCreation)
             {
@@ -211,23 +213,54 @@ namespace Imoni.Editor
                 }
             }
 
-            asset.name = name;
-            asset.atlasPopulationMode = AtlasPopulationMode.Dynamic;
-            asset.isMultiAtlasTexturesEnabled = true;
-            bool warmed = ImoniFontWarmup.PrepareHomeSettings(asset, name);
-            SaveFontSubAsset(asset.material, asset, name + " Material");
-            foreach (Texture2D texture in asset.atlasTextures)
-                SaveFontSubAsset(texture, asset, name + " Atlas");
-            asset.ReadFontAssetDefinition();
-            EditorUtility.SetDirty(asset);
-            if (warmed)
+            bool changed = needsCreation;
+            if (asset.name != name) { asset.name = name; changed = true; }
+            if (asset.atlasPopulationMode != AtlasPopulationMode.Dynamic) { asset.atlasPopulationMode = AtlasPopulationMode.Dynamic; changed = true; }
+            if (!asset.isMultiAtlasTexturesEnabled) { asset.isMultiAtlasTexturesEnabled = true; changed = true; }
+            // TextCore's build preprocessor otherwise clears the deliberately prewarmed
+            // characters and atlases. This option has no public setter in Unity 6000.3.
+            using (var fontSettings = new SerializedObject(asset))
             {
-                AssetDatabase.SaveAssets();
+                SerializedProperty clearOnBuild = fontSettings.FindProperty("m_ClearDynamicDataOnBuild");
+                if (clearOnBuild == null) throw new InvalidOperationException("TextCore's Clear Dynamic Data on Build setting was not found.");
+                if (clearOnBuild.boolValue)
+                {
+                    clearOnBuild.boolValue = false;
+                    fontSettings.ApplyModifiedPropertiesWithoutUndo();
+                    changed = true;
+                }
+            }
+            if (name == "DelaGothicOne SDF")
+            {
+                // The fallback face terminates the chain; never create a Zen/Dela cycle.
+                if (asset.fallbackFontAssetTable != null && asset.fallbackFontAssetTable.Count > 0)
+                { asset.fallbackFontAssetTable.Clear(); changed = true; }
+            }
+            else
+            {
+                FontAsset fallback = LoadRequired<FontAsset>(FontFolder + "/DelaGothicOne SDF.asset");
+                if (asset.fallbackFontAssetTable == null) asset.fallbackFontAssetTable = new List<FontAsset>();
+                if (!asset.fallbackFontAssetTable.Contains(fallback))
+                { asset.fallbackFontAssetTable.Add(fallback); changed = true; }
+            }
+            bool warmed = ImoniFontWarmup.PrepareUi(asset, name);
+            changed |= warmed;
+            changed |= SaveFontSubAsset(asset.material, asset, name + " Material", changed);
+            // TextCore grows the backing array geometrically; unused capacity can be null.
+            foreach (Texture2D texture in asset.atlasTextures.Take(asset.atlasTextureCount))
+                changed |= SaveFontSubAsset(texture, asset, name + " Atlas", changed);
+            if (changed)
+            {
+                asset.ReadFontAssetDefinition();
+                EditorUtility.SetDirty(asset);
+                AssetDatabase.SaveAssetIfDirty(asset);
+                // Newly created atlas subassets must be imported once after being saved. A
+                // repeated Setup with the same known glyphs must not request another reimport.
                 AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate | ImportAssetOptions.ForceSynchronousImport);
             }
         }
 
-        private static void SaveFontSubAsset(Object subAsset, FontAsset font, string name)
+        private static bool SaveFontSubAsset(Object subAsset, FontAsset font, string name, bool changed)
         {
             if (subAsset == null)
                 throw new InvalidOperationException("FontAsset " + font.name + " has a missing atlas or material.");
@@ -236,8 +269,10 @@ namespace Imoni.Editor
                 subAsset.name = name;
                 subAsset.hideFlags = HideFlags.None;
                 AssetDatabase.AddObjectToAsset(subAsset, font);
+                changed = true;
             }
-            EditorUtility.SetDirty(subAsset);
+            if (changed) EditorUtility.SetDirty(subAsset);
+            return changed;
         }
 
         private static PanelSettings EnsurePanel(SetupSettings settings)

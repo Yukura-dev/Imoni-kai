@@ -150,7 +150,10 @@ namespace Imoni.Game.UI.Components
         private static VisualElement Row(StatCard left, StatCard right)
         { var row = new VisualElement(); row.AddToClassList("result-summary__row"); right.AddToClassList("result-summary__right"); row.Add(left); row.Add(right); return row; }
         public void Bind(RoundResultView view, string titleText)
-        { score.Value = view.ScoreText; funds.Value = view.FundsRewardText; cumulative.Value = view.CumulativeScoreText; title.Value = titleText; }
+        {
+            score.Value = view.ScoreText; funds.Value = view.FundsRewardText; cumulative.Value = view.CumulativeScoreText; title.Value = titleText;
+            title.tooltip = string.IsNullOrEmpty(view.NewTitleText) ? titleText : view.NewTitleText;
+        }
     }
 
     [UxmlElement]

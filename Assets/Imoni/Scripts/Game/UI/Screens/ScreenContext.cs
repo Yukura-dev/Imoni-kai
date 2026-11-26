@@ -13,12 +13,17 @@ namespace Imoni.Game.UI.Screens
     {
         private readonly string savePath;
         private bool preparedRoundForLoading;
+        private RankingSeed challengeDivision;
+        private string challengeTeamName;
+        public string ChallengeId { get; private set; }
         public ScreenRouter Router { get; }
         public Bootstrap Bootstrap { get; }
         public IGameServer Server { get; private set; }
         public ProfileData Profile { get; private set; }
         public JObject Data => UiTheme.Data;
         public bool FreeSeed { get; set; }
+        public bool EndlessSelected { get; set; }
+        public bool EndlessUnlocked => Profile.Progression.NormalClears > 0;
         public bool JoinedTeam { get; set; }
         public int MemberCount { get; set; } = 1;
         public string TeamName { get; set; } = "鍋底同盟";
@@ -38,7 +43,10 @@ namespace Imoni.Game.UI.Screens
         {
             int chosen = seed ?? (FreeSeed ? unchecked((int)DateTime.UtcNow.Ticks)
                 : Data["outGame"]["lobby"]["commonSeed"].Value<int>());
-            Server = new LocalGameServer(UiTheme.Config, chosen);
+            if (!EndlessUnlocked) EndlessSelected = false;
+            Server = new LocalGameServer(UiTheme.Config, chosen, endless: EndlessSelected);
+            BeginChallengeIdentity(chosen);
+            SaveReachedRound();
             preparedRoundForLoading = false;
         }
         public void PrepareLoadingGame()
@@ -49,6 +57,7 @@ namespace Imoni.Game.UI.Screens
         public void StartNextRound()
         {
             Server.StartNextRound();
+            SaveReachedRound();
             preparedRoundForLoading = false;
             Go("Game");
         }
@@ -59,13 +68,45 @@ namespace Imoni.Game.UI.Screens
             if (newSeed == oldSeed) newSeed = unchecked(newSeed + 1);
             Server.Retry(newSeed);
             FreeSeed = true;
+            BeginChallengeIdentity(newSeed);
+            SaveReachedRound();
             preparedRoundForLoading = true;
             Go("Loading");
         }
         public void GrantResultRewards(RoundResult result, string actorId)
         {
-            Profile = ProfilePersistence.ApplyResultRewards(Data, Profile, result, actorId);
+            Profile = PreviewResultRewards(result, actorId).Profile;
+            Profile = LocalRanking.Register(Data, Profile, result, ChallengeId, challengeTeamName,
+                UiTheme.Config.TeamSize, challengeDivision, DateTimeOffset.UtcNow);
             SaveProfile();
+        }
+        public ProgressionOutcome PreviewResultRewards(RoundResult result, string actorId) =>
+            PlayerProgression.Apply(Data, Profile, result, actorId, ChallengeId + ":" + result.RoundNumber);
+        private void BeginChallengeIdentity(int seed)
+        {
+            ChallengeId = Guid.NewGuid().ToString("N");
+            challengeTeamName = TeamName;
+            challengeDivision = FreeSeed || seed != Data["outGame"]["lobby"]["commonSeed"].Value<int>() ? RankingSeed.Free : RankingSeed.Common;
+        }
+        private void SaveReachedRound()
+        {
+            Profile = PlayerProgression.ReachRound(Data, Profile, Server.Snapshot().RoundNumber);
+            SaveProfile();
+        }
+        public void StartEndless()
+        {
+            Server.StartEndless();
+            SaveReachedRound();
+            EndlessSelected = true;
+            Go("Game");
+        }
+        public void FinishEndless()
+        {
+            Server.FinishEndless();
+            Profile = LocalRanking.Register(Data, Profile, Server.Snapshot().LastResult, ChallengeId, challengeTeamName,
+                UiTheme.Config.TeamSize, challengeDivision, DateTimeOffset.UtcNow, finishEndless: true);
+            SaveProfile();
+            Go("Home");
         }
         public void SaveProfile()
         {
@@ -86,9 +127,9 @@ namespace Imoni.Game.UI.Screens
             {
                 Name = Profile.Name, First = Profile.FirstTitle, Second = Profile.SecondTitle,
                 MemberNumber = "No." + fixture["memberNumber"].Value<string>(),
-                Detail = "チーム " + TeamName + " / 最高到達 R" + fixture["bestRound"],
-                BadgeSummary = "達成したバッジ " + fixture["badges"].Count(item => item["acquired"].Value<bool>()) + "/" + fixture["badges"].Count(),
-                Badges = fixture["badges"].Select(item => new BadgeViewModel { Text = item["text"].Value<string>(), Acquired = item["acquired"].Value<bool>() }).ToArray()
+                Detail = "チーム " + TeamName + " / 最高到達 R" + Profile.Progression.BestRound,
+                BadgeSummary = "達成したバッジ " + Profile.OwnedBadges.Length + "/" + Data["progression"]["badgeRules"].Count(),
+                Badges = Data["progression"]["badgeRules"].Select(item => new BadgeViewModel { Text = item["text"].Value<string>(), Acquired = Profile.OwnedBadges.Contains(item["id"].Value<string>()) }).ToArray()
             };
         }
     }

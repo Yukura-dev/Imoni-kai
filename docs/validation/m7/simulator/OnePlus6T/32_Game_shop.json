@@ -1,0 +1,200 @@
+{
+  "screen": "Game",
+  "resolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "nativeResolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "bounds": {
+        "x": 10.1111107,
+        "y": 771.6944,
+        "width": 86.66667,
+        "height": 59.22223
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "bounds": {
+        "x": 104.722221,
+        "y": 771.6944,
+        "width": 86.30555,
+        "height": 59.22223
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "bounds": {
+        "x": 198.972214,
+        "y": 771.6944,
+        "width": 86.66667,
+        "height": 59.22223
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "bounds": {
+        "x": 293.5833,
+        "y": 771.6944,
+        "width": 86.30557,
+        "height": 59.22223
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 331.8611,
+        "y": 323.194427,
+        "width": 44.055542,
+        "height": 43.6944275
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Buy_wood_10",
+      "text": "×10  60G",
+      "bounds": {
+        "x": 177.305557,
+        "y": 417.444458,
+        "width": 87.7499847,
+        "height": 44.055542
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Buy_wood_50",
+      "text": "×50  300G",
+      "bounds": {
+        "x": 273.0,
+        "y": 417.444458,
+        "width": 88.1111145,
+        "height": 44.055542
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Buy_taro_10",
+      "text": "×10  300G",
+      "bounds": {
+        "x": 177.305557,
+        "y": 497.6111,
+        "width": 87.7499847,
+        "height": 44.05551
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Buy_taro_50",
+      "text": "×50  1,500G",
+      "bounds": {
+        "x": 273.0,
+        "y": 497.6111,
+        "width": 88.1111145,
+        "height": 44.05551
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Buy_negi_10",
+      "text": "×10  180G",
+      "bounds": {
+        "x": 177.305557,
+        "y": 577.7778,
+        "width": 87.7499847,
+        "height": 44.055542
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Buy_negi_50",
+      "text": "×50  900G",
+      "bounds": {
+        "x": 273.0,
+        "y": 577.7778,
+        "width": 88.1111145,
+        "height": 44.055542
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Buy_mushroom_10",
+      "text": "×10  900G",
+      "bounds": {
+        "x": 177.305557,
+        "y": 657.944458,
+        "width": 87.7499847,
+        "height": 44.055542
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Buy_mushroom_50",
+      "text": "×50  4,500G",
+      "bounds": {
+        "x": 273.0,
+        "y": 657.944458,
+        "width": 88.1111145,
+        "height": 44.055542
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

@@ -237,6 +237,10 @@ namespace Imoni.Game.Effects
             finaleHeading.text = failed ? "あれ…?" : "大成功!!";
             finaleTwo.text = failed ? "未完成…" : "完成!!";
             Outline(finaleHeading, failed); Outline(finaleOne, failed); Outline(finaleTwo, failed);
+            // Browser faux-bold expands the fill differently from TextCore. Keep the font/coordinates
+            // and outer outline intact, adding only the configurable same-color inner stroke.
+            SetupFinaleFill("FinaleFillOne", finaleOne.text, failed ? "failLineOne" : "finaleLineOne");
+            SetupFinaleFill("FinaleFillTwo", finaleTwo.text, failed ? "failLineTwo" : "finaleLineTwo");
             if (!failed)
             {
                 AddGlowBefore(finaleOne, "finaleLineOne", N("finaleFont"));
@@ -246,6 +250,15 @@ namespace Imoni.Game.Effects
             missingLabel.style.fontSize = (float)N("missingFont");
             missingLabel.text = "必須素材「" + missing + "」が足りなかった";
             missingLabel.style.display = failed ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        private void SetupFinaleFill(string name, string text, string rectangle)
+        {
+            Label fill = screen.Q<Label>(name); Rect(fill, rectangle); fill.text = text;
+            fill.style.fontSize = (float)N(failed ? "failFont" : "finaleFont");
+            // Dela is already a heavy display face; TextCore's synthetic Bold closes its counters.
+            fill.style.unityFontStyleAndWeight = FontStyle.Normal;
+            fill.style.unityTextOutlineWidth = (float)N("finaleFillStrokePx");
         }
 
         private void SetupActions()

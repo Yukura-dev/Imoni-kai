@@ -138,7 +138,8 @@ namespace Imoni.Editor
             var sizesType = assembly.GetType("UnityEditor.GameViewSizes");
             var sizes = typeof(ScriptableSingleton<>).MakeGenericType(sizesType).GetProperty("instance").GetValue(null);
             var groupType = assembly.GetType("UnityEditor.GameViewSizeGroupType");
-            var group = sizesType.GetMethod("GetGroup").Invoke(sizes, new[] { Enum.Parse(groupType, "Standalone") });
+            string groupName = EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android ? "Android" : "Standalone";
+            var group = sizesType.GetMethod("GetGroup").Invoke(sizes, new[] { Enum.Parse(groupType, groupName) });
             var labels = (string[])group.GetType().GetMethod("GetDisplayTexts", flags).Invoke(group, null);
             var panel = JObject.Parse(File.ReadAllText("Assets/Imoni/Config/GameConfig.json"))["setup"]["panel"];
             int width = (int)panel["referenceWidth"], height = (int)panel["referenceHeight"], index = -1;

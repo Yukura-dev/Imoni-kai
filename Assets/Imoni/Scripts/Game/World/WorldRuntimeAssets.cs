@@ -8,6 +8,7 @@ namespace Imoni.Game.World
     public sealed class WorldRuntimeAssets : ScriptableObject
     {
         public WorldTileSet tileSet;
+        public Shader worldBoundaryShader;
         public ResourceNodeView resourceNode;
         public CharacterView character;
         public GatherPopupView gatherPopup;

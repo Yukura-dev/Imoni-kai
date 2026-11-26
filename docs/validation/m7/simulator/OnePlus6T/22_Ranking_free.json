@@ -1,0 +1,129 @@
+{
+  "screen": "Ranking",
+  "connectionState": null,
+  "resolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "nativeResolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "",
+      "text": "通常モード",
+      "bounds": {
+        "x": 18.7777767,
+        "y": 131.444443,
+        "width": 176.222229,
+        "height": 44.0555573
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "エンドレス",
+      "bounds": {
+        "x": 195.0,
+        "y": 131.444443,
+        "width": 176.2222,
+        "height": 44.0555573
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "共通シード",
+      "bounds": {
+        "x": 15.8888884,
+        "y": 188.5,
+        "width": 176.222214,
+        "height": 36.1111
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "自由シード",
+      "bounds": {
+        "x": 198.25,
+        "y": 188.5,
+        "width": 175.861115,
+        "height": 36.1111
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Home",
+      "text": "",
+      "bounds": {
+        "x": 0.0,
+        "y": 768.805542,
+        "width": 128.194443,
+        "height": 76.19446
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Ranking",
+      "text": "",
+      "bounds": {
+        "x": 128.194443,
+        "y": 768.805542,
+        "width": 130.722214,
+        "height": 76.19446
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Member",
+      "text": "",
+      "bounds": {
+        "x": 258.916656,
+        "y": 768.805542,
+        "width": 131.083344,
+        "height": 76.19446
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

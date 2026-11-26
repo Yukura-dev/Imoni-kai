@@ -1,0 +1,450 @@
+{
+  "utc": "2026-11-26T03:31:06.517201Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "audio": {
+    "enabled": true,
+    "volume": 1.0,
+    "activeVoices": 0,
+    "mixer": "ImoniMaster",
+    "masterGroup": "Master",
+    "masterDecibels": 0.0,
+    "allVoicesRouted": true,
+    "savedEnabled": true,
+    "savedVolume": 1.0
+  },
+  "round": 4,
+  "seed": 202647,
+  "phase": "Succeeded",
+  "elapsed": 300.0,
+  "funds": "17110376",
+  "cumulative": "87902093",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "259547",
+      "current": "269529",
+      "met": true
+    },
+    {
+      "material": "negi",
+      "name": "ねぎ",
+      "required": "249407",
+      "current": "250440",
+      "met": true
+    },
+    {
+      "material": "mushroom",
+      "name": "キノコ",
+      "required": "101479",
+      "current": "110788",
+      "met": true
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 7,
+        "speed": 7,
+        "amount": 7,
+        "luck": 7
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "0896B8D86B3A608683E07783F3856CA76766BD0140DD4BFE28F9BC6F59BE6C68",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 32,
+  "result": {
+    "round": 4,
+    "success": true,
+    "score": "87629910",
+    "requiredPoints": "4332996",
+    "bonusPoints": "42731706",
+    "bonusMultiplier": "4",
+    "fundsReward": "17092682",
+    "fundsAfter": "17110376",
+    "cumulative": "87902093",
+    "missing": []
+  },
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "enabled": true,
+      "display": "Flex",
+      "x": 10.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "enabled": true,
+      "display": "Flex",
+      "x": 105.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "enabled": true,
+      "display": "Flex",
+      "x": 199.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "enabled": true,
+      "display": "Flex",
+      "x": 294.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ProtectDecrease",
+      "text": "−",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ProtectIncrease",
+      "text": "＋",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ToggleProtection",
+      "text": "全部保護",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent25",
+      "text": "25%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent50",
+      "text": "50%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent75",
+      "text": "75%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent100",
+      "text": "100%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SaleSelected",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SellAllUnprotected",
+      "text": "保護以外をまとめて売却",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ReturnHome",
+      "text": "ホームへ戻る(挑戦は中断)",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "TimeUpResults",
+      "text": "結果を見る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ReconnectHome",
+      "text": "ホームへ戻る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    }
+  ],
+  "status": "autoplay complete",
+  "autoplay": {
+    "round": 4,
+    "actor": "player1",
+    "secondsAdvanced": 300.0,
+    "tickCalls": 150,
+    "resourceSelections": 88,
+    "commands": "IGameServer.TrySelectResource/Upgrade/Buy/Tick",
+    "upgradePolicy": "budget",
+    "upgradePurchases": [
+      {
+        "upgrade": "luck",
+        "level": 3,
+        "cost": "338"
+      },
+      {
+        "upgrade": "speed",
+        "level": 3,
+        "cost": "338"
+      },
+      {
+        "upgrade": "move",
+        "level": 3,
+        "cost": "338"
+      },
+      {
+        "upgrade": "amount",
+        "level": 4,
+        "cost": "506"
+      },
+      {
+        "upgrade": "luck",
+        "level": 4,
+        "cost": "506"
+      },
+      {
+        "upgrade": "speed",
+        "level": 4,
+        "cost": "506"
+      },
+      {
+        "upgrade": "move",
+        "level": 4,
+        "cost": "506"
+      },
+      {
+        "upgrade": "amount",
+        "level": 5,
+        "cost": "759"
+      },
+      {
+        "upgrade": "luck",
+        "level": 5,
+        "cost": "759"
+      },
+      {
+        "upgrade": "speed",
+        "level": 5,
+        "cost": "759"
+      },
+      {
+        "upgrade": "move",
+        "level": 5,
+        "cost": "759"
+      },
+      {
+        "upgrade": "amount",
+        "level": 6,
+        "cost": "1139"
+      },
+      {
+        "upgrade": "luck",
+        "level": 6,
+        "cost": "1139"
+      },
+      {
+        "upgrade": "speed",
+        "level": 6,
+        "cost": "1139"
+      },
+      {
+        "upgrade": "move",
+        "level": 6,
+        "cost": "1139"
+      },
+      {
+        "upgrade": "amount",
+        "level": 7,
+        "cost": "1709"
+      },
+      {
+        "upgrade": "luck",
+        "level": 7,
+        "cost": "1709"
+      },
+      {
+        "upgrade": "speed",
+        "level": 7,
+        "cost": "1709"
+      },
+      {
+        "upgrade": "move",
+        "level": 7,
+        "cost": "1709"
+      }
+    ]
+  },
+  "goalReach": [
+    {
+      "material": "taro",
+      "name": "里芋",
+      "target": "259547",
+      "achieved": "269529",
+      "firstReachedSeconds": 181.745454,
+      "bonus": false
+    },
+    {
+      "material": "negi",
+      "name": "ねぎ",
+      "target": "249407",
+      "achieved": "250440",
+      "firstReachedSeconds": 191.911688,
+      "bonus": false
+    },
+    {
+      "material": "mushroom",
+      "name": "キノコ",
+      "target": "101479",
+      "achieved": "110788",
+      "firstReachedSeconds": 192.914286,
+      "bonus": false
+    },
+    {
+      "material": "sansai",
+      "name": "希少な山菜",
+      "target": "110257",
+      "achieved": "315052",
+      "firstReachedSeconds": 237.344324,
+      "bonus": true
+    }
+  ]
+}

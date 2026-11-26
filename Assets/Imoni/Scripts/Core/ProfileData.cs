@@ -18,6 +18,10 @@ namespace Imoni.Core
         public bool TutorialCompleted { get; set; }
         public string[] OwnedFirstTitles { get; set; } = Array.Empty<string>();
         public string[] OwnedSecondTitles { get; set; } = Array.Empty<string>();
+        public string[] OwnedBadges { get; set; } = Array.Empty<string>();
+        public ProgressionStats Progression { get; set; } = new ProgressionStats();
+        public string[] AppliedRoundKeys { get; set; } = Array.Empty<string>();
+        public LocalRankingRecord[] Rankings { get; set; } = Array.Empty<LocalRankingRecord>();
     }
 
     /// <summary>Save validation and name/title constraints, independent of Unity or UI controls.</summary>
@@ -27,7 +31,17 @@ namespace Imoni.Core
         {
             ProfileData value = null;
             if (!string.IsNullOrWhiteSpace(json))
-                try { value = JsonConvert.DeserializeObject<ProfileData>(json); }
+                try
+                {
+                    JObject saved = JObject.Parse(json);
+                    value = saved.ToObject<ProfileData>();
+                    // Before ownership arrays existed, a saved selected catalog part was owned.
+                    // Migrate just that selection; never reintroduce the old mock's whole inventory.
+                    if (value != null && saved[nameof(ProfileData.OwnedFirstTitles)] == null && config["titles"]["firstParts"].Values<string>().Contains(value.FirstTitle))
+                        value.OwnedFirstTitles = new[] { value.FirstTitle };
+                    if (value != null && saved[nameof(ProfileData.OwnedSecondTitles)] == null && config["titles"]["secondParts"].Values<string>().Contains(value.SecondTitle))
+                        value.OwnedSecondTitles = new[] { value.SecondTitle };
+                }
                 catch (JsonException) { /* A damaged save starts from the configured defaults. */ }
             return Normalize(config, value ?? new ProfileData());
         }
@@ -55,19 +69,16 @@ namespace Imoni.Core
                 SoundEnabled = profile.SoundEnabled,
                 SoundVolume = Effects.ImoniAudioPlan.NormalizeVolume(config, profile.SoundVolume),
                 TutorialCompleted = profile.TutorialCompleted,
-                OwnedFirstTitles = first, OwnedSecondTitles = second
+                OwnedFirstTitles = first, OwnedSecondTitles = second,
+                OwnedBadges = (profile.OwnedBadges ?? Array.Empty<string>()).Where(id => config["progression"]["badgeRules"].Any(rule => rule["id"].Value<string>() == id)).Distinct(StringComparer.Ordinal).ToArray(),
+                Progression = PlayerProgression.Normalize(config, profile.Progression),
+                AppliedRoundKeys = (profile.AppliedRoundKeys ?? Array.Empty<string>()).Where(key => !string.IsNullOrWhiteSpace(key)).Distinct(StringComparer.Ordinal).ToArray(),
+                Rankings = LocalRanking.Normalize(config, profile.Rankings)
             };
         }
         /// <summary>Idempotent local profile grant; a replay of the same detached result cannot duplicate ownership.</summary>
-        public static ProfileData ApplyResultRewards(JObject config, ProfileData profile, RoundResult result, string actorId)
-        {
-            ProfileData normalized = Normalize(config, profile);
-            var rewards = RoundResultProjection.EligibleTitles(GameConfig.FromJson(config.ToString()), result, actorId,
-                normalized.OwnedFirstTitles, normalized.OwnedSecondTitles);
-            normalized.OwnedFirstTitles = normalized.OwnedFirstTitles.Concat(rewards.Where(reward => reward.Part == "first").Select(reward => reward.Value)).ToArray();
-            normalized.OwnedSecondTitles = normalized.OwnedSecondTitles.Concat(rewards.Where(reward => reward.Part == "second").Select(reward => reward.Value)).ToArray();
-            return Normalize(config, normalized);
-        }
+        public static ProfileData ApplyResultRewards(JObject config, ProfileData profile, RoundResult result, string actorId, string roundKey = null) =>
+            PlayerProgression.Apply(config, profile, result, actorId, roundKey ?? "legacy:" + result.Seed + ":" + result.RoundNumber).Profile;
         private static string[] Owned(string[] saved, JToken initial, JToken catalog) =>
             (initial?.Values<string>() ?? Enumerable.Empty<string>()).Concat(saved ?? Array.Empty<string>())
                 .Where(value => catalog.Values<string>().Contains(value)).Distinct(StringComparer.Ordinal).ToArray();

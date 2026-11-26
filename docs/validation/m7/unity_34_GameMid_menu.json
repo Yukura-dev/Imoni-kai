@@ -1,0 +1,116 @@
+{
+  "screen": "Game",
+  "resolution": {
+    "width": 390,
+    "height": 844
+  },
+  "nativeResolution": {
+    "width": 390,
+    "height": 844
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "bounds": {
+        "x": 10.0,
+        "y": 771.0,
+        "width": 87.0,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "bounds": {
+        "x": 105.0,
+        "y": 771.0,
+        "width": 86.0,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "bounds": {
+        "x": 199.0,
+        "y": 771.0,
+        "width": 87.0,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "bounds": {
+        "x": 294.0,
+        "y": 771.0,
+        "width": 86.0,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 332.0,
+        "y": 422.0,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "ReturnHome",
+      "text": "ホームへ戻る(挑戦は中断)",
+      "bounds": {
+        "x": 14.0,
+        "y": 778.0,
+        "width": 362.0,
+        "height": 48.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

@@ -20,16 +20,18 @@ namespace Imoni.Tests
             return GameConfig.FromJson(File.ReadAllText(path));
         }
 
-        [TestCase(1, "Result")]
-        [TestCase(5, "Clear")]
-        public void SuccessfulEffectUsesSettledScoreAndRoutesWithoutAnotherSettlement(int round, string route)
+        [TestCase(1, false, "Result")]
+        [TestCase(5, false, "Clear")]
+        [TestCase(6, true, "Result")]
+        [TestCase(12, true, "Result")]
+        public void SuccessfulEffectUsesSettledScoreAndRoutesWithoutAnotherSettlement(int round, bool endless, string route)
         {
             var config = Config(); var inventory = new Inventory(config);
             inventory.Add("wood", "normal", 4, config.FixedScale * 2);
             inventory.Add("mushroom", "normal", 3, config.FixedScale);
             var goals = new RoundObjectives(new[] { new Objective("wood", 4) }, new Objective("mushroom", 3));
             var evaluation = Scoring.Evaluate(config, inventory, goals);
-            var result = new RoundResult(round, 123, config.DurationSeconds, evaluation, evaluation.Score, Array.Empty<OperationRecord>());
+            var result = new RoundResult(round, 123, config.DurationSeconds, evaluation, evaluation.Score, Array.Empty<OperationRecord>(), isEndless: endless);
             var view = ImoniEffectResultProjection.Present(config, result);
             Assert.That(view.Score, Is.EqualTo(evaluation.Score));
             Assert.That(view.SuccessReferenceScore, Is.EqualTo(evaluation.Score));

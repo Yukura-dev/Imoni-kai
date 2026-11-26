@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
-  <ui:VisualElement name="GameOverRoot" class="round-screen gameover-screen">
+  <ui:VisualElement name="GameOverRoot" class="round-screen gameover-screen safe-design-padding">
     <c:RoundHeader name="GameOverHeader" failure="true" />
     <c:ImoniText text="芋煮会 失敗…" class="gameover-headline gameover-gap" />
     <c:ImoniText text="必須素材が足りなくて、芋煮が完成しなかった。" class="gameover-copy gameover-gap" />

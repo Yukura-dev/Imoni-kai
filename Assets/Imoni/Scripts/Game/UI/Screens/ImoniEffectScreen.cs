@@ -40,6 +40,7 @@ namespace Imoni.Game.UI.Screens
                 BindExistingAudio(assets);
                 Effect.Begin(presentation.Score, presentation.SuccessReferenceScore, presentation.Failed,
                     presentation.MissingMaterials, () => app.Go(presentation.ResultRoute), presentation.Seed, app.Profile.SoundEnabled);
+                RegisterCallback<GeometryChangedEvent>(FitComposition);
             }
             catch { Dispose(); throw; }
         }
@@ -57,10 +58,24 @@ namespace Imoni.Game.UI.Screens
             app.SaveProfile();
         }
 
+        private void FitComposition(GeometryChangedEvent _)
+        {
+            VisualElement composition = this.Q("EffectScreen");
+            if (composition == null || contentRect.width <= 0 || contentRect.height <= 0) return;
+            var dimensions = app.Data["imoniEffect"]["layout"]["screen"];
+            float width = (float)dimensions[2], height = (float)dimensions[3];
+            float scale = Mathf.Min(contentRect.width / width, contentRect.height / height);
+            composition.style.transformOrigin = new TransformOrigin(0, 0);
+            composition.style.scale = new Scale(new Vector3(scale, scale, 1));
+            composition.style.left = (contentRect.width - width * scale) / 2;
+            composition.style.top = (contentRect.height - height * scale) / 2;
+        }
+
         public void Dispose()
         {
             if (disposed) return;
             disposed = true;
+            UnregisterCallback<GeometryChangedEvent>(FitComposition);
             if (Effect)
             {
                 Effect.SoundChanged -= SaveSound;

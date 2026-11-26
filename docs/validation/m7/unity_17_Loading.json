@@ -1,0 +1,43 @@
+{
+  "screen": "Loading",
+  "resolution": {
+    "width": 390,
+    "height": 844
+  },
+  "nativeResolution": {
+    "width": 390,
+    "height": 844
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 390.0,
+    "height": 844.0
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

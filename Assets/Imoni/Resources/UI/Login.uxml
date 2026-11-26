@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+  <ui:VisualElement class="progression-screen">
+    <c:ImoniText text="会員ログイン" class="progression-title" />
+    <c:ImoniText text="この端末の会員プロフィールで遊びます" class="progression-copy" />
+    <c:MemberCard name="LoginMember" class="progression-space" />
+    <c:Card variant="Dashed" class="progression-space">
+      <c:ImoniText text="プロフィールと記録はこの端末に保存されます。オンラインのアカウント登録・ログインはありません。" class="progression-copy" />
+    </c:Card>
+    <ui:VisualElement class="progression-spacer" />
+    <c:ImoniButton name="LoginContinue" variant="Primary" class="progression-button" />
+    <c:ImoniButton name="LoginTutorial" variant="Outline" text="会員登録・遊び方を見る" class="progression-space" />
+  </ui:VisualElement>
+</ui:UXML>

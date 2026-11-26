@@ -1,0 +1,722 @@
+[
+  {
+    "device": "iPhone12",
+    "capture": "02_Main_ready",
+    "screen": "Main",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "03_Tutorial1",
+    "screen": "Tutorial1",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "04_Tutorial2",
+    "screen": "Tutorial2",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "05_Tutorial3",
+    "screen": "Tutorial3",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "10_Home",
+    "screen": "Home",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "11_Lobby_choose",
+    "screen": "Lobby",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "12_Lobby_join_error",
+    "screen": "Lobby",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "13_Lobby_team",
+    "screen": "Lobby",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "14_Lobby_ready",
+    "screen": "Lobby",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "15_Waiting",
+    "screen": "Waiting",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "16_Waiting_full",
+    "screen": "Waiting",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "17_Loading",
+    "screen": "Loading",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "18_Loading_done",
+    "screen": "Loading",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "19_Member",
+    "screen": "Member",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "20_Member_badges",
+    "screen": "Member",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "21_Ranking_common",
+    "screen": "Ranking",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "22_Ranking_free",
+    "screen": "Ranking",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "23_Ranking_endless",
+    "screen": "Ranking",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "30_Game_start",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "32_Game_shop",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "34_GameMid_menu",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "35_GameWarehouse",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "36_GameUpgrade",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "37_Game_timeup",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "40_Imoni_start",
+    "screen": "Imoni",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "41_Imoni_mid",
+    "screen": "Imoni",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "42_Imoni_finale",
+    "screen": "Imoni",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "43_Result",
+    "screen": "Result",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "44_ImoniFail_mid",
+    "screen": "ImoniFail",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "45_ImoniFail_end",
+    "screen": "ImoniFail",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "46_GameOver",
+    "screen": "GameOver",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "Clear",
+    "screen": "Clear",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "Endless",
+    "screen": "Endless",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "EndlessR6",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "EndlessResult",
+    "screen": "Result",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "Login",
+    "screen": "Login",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "Menu_disconnected",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "Ranking_endless_free",
+    "screen": "Ranking",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "Reconnect",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "iPhone12",
+    "capture": "Settings",
+    "screen": "Home",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "02_Main_ready",
+    "screen": "Main",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "03_Tutorial1",
+    "screen": "Tutorial1",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "04_Tutorial2",
+    "screen": "Tutorial2",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "05_Tutorial3",
+    "screen": "Tutorial3",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "10_Home",
+    "screen": "Home",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "11_Lobby_choose",
+    "screen": "Lobby",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "12_Lobby_join_error",
+    "screen": "Lobby",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "13_Lobby_team",
+    "screen": "Lobby",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "14_Lobby_ready",
+    "screen": "Lobby",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "15_Waiting",
+    "screen": "Waiting",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "16_Waiting_full",
+    "screen": "Waiting",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "17_Loading",
+    "screen": "Loading",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "18_Loading_done",
+    "screen": "Loading",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "19_Member",
+    "screen": "Member",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "20_Member_badges",
+    "screen": "Member",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "21_Ranking_common",
+    "screen": "Ranking",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "22_Ranking_free",
+    "screen": "Ranking",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "23_Ranking_endless",
+    "screen": "Ranking",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "30_Game_start",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "32_Game_shop",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "34_GameMid_menu",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "35_GameWarehouse",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "36_GameUpgrade",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "37_Game_timeup",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "40_Imoni_start",
+    "screen": "Imoni",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "41_Imoni_mid",
+    "screen": "Imoni",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "42_Imoni_finale",
+    "screen": "Imoni",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "43_Result",
+    "screen": "Result",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "44_ImoniFail_mid",
+    "screen": "ImoniFail",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "45_ImoniFail_end",
+    "screen": "ImoniFail",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "46_GameOver",
+    "screen": "GameOver",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "Clear",
+    "screen": "Clear",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "Endless",
+    "screen": "Endless",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "EndlessR6",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "EndlessResult",
+    "screen": "Result",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "Login",
+    "screen": "Login",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "Menu_disconnected",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "Ranking_endless_free",
+    "screen": "Ranking",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "Reconnect",
+    "screen": "Game",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "device": "OnePlus6T",
+    "capture": "Settings",
+    "screen": "Home",
+    "inside": true,
+    "outside": [],
+    "errors": 0,
+    "warnings": 0
+  }
+]

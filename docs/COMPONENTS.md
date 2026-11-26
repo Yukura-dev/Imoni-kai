@@ -177,3 +177,12 @@ ScreenHostがThemeと全部品USSを共有し、個々の部品には祖先に�
 `AudioVolumeControl` は `[UxmlElement]` で、既存のSmallボタン2個とThinのProgressBarを組み合わせる。Homeの設定CardとComponentGalleryから再利用でき、変更方向だけを通知する。音量の刻み・上下限・保存はCoreの `ImoniAudioPlan` とプロフィールに委ねる。`AudioSettings.uss` はScreenHostで一度だけ読み込む。
 
 大きい数値はCoreの `Format.Big` で整形する。StatCard・目標数量・スコア内訳は共通の `NumericLabelFitter` で実際の文字幅を測り、欄からあふれる場合だけ縮小する。数値を切り捨てて別の値へ書き換えず、極端な長さには完全な文字列のtooltipを保持する。短い数値は従来のモック寸法を保つ。
+
+## M7の表示部品
+
+- `ReconnectNotice`：既存Card/ImoniButton/Themeの再接続オーバーレイ。状態はGameScreenから渡し、ホームへ戻る操作意図だけを通知する。
+- `WorldBoundarySurface`：森林とLockedAreaOverlayで共用する描画メッシュ。提供Tile画像とCore由来のセルマスクだけを受け取り、通行・開放・資源の判定を持たない。画面破棄時に描画用Mesh/Material/Textureを解放する。
+- `ImoniEffectFinale`：完成2行へ前景ラベルを1枚ずつ事前追加し、同色ストロークでブラウザーの太字との差を補正する。元のResultBanner構造・文言・位置を共用する。
+- `RankingList.empty-text`：実記録が0件の部門に空状態を表示する。行は既存RankingRowを使い、並び順・登録可否・モード/シード部門の絞り込みはCoreのLocalRankingへ委ねる。
+- `ResultSummary`：複数の二つ名を同時に獲得した場合は、Coreから受け取った「先頭1件＋ほかn件」の2行を既存StatCardへ渡す。全名称はtooltipに保持し、会員証のTitlePartPickerでも確認できる。1件だけの表示はモックのまま。獲得条件や所持更新は部品に置かない。
+- `Login` / `Endless`：UI_SPEC15の補完画面。Card・MemberCard・StatCard・AnimatedPot・ImoniText・ImoniButtonを組み合わせ、新しいボタンや会員証の中身は複製しない。Loginは端末内プロフィールの確認、Endlessは通常Clear後の引継ぎ内容と記録条件を表示する。
