@@ -5,7 +5,6 @@ namespace Imoni.Game.UI.Screens
         public static void Register(ScreenRouter router, ScreenContext app)
         {
             router.Register("Main", () => new MainScreen(app));
-            router.Register("Login", () => new LoginScreen(app));
             router.Register("Endless", () => new EndlessScreen(app));
             router.Register("Tutorial1", () => new Tutorial1Screen(app));
             router.Register("Tutorial2", () => new Tutorial2Screen(app));

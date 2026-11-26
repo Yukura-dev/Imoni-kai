@@ -35,21 +35,7 @@ namespace Imoni.Game.UI.Screens
             modeSelector.Changed += selected => App.EndlessSelected = selected != 0 && App.EndlessUnlocked;
             Find<TabBar>("tabs").NavigateRequested += App.Go;
 
-            VisualElement overlay = Find<VisualElement>("settings-overlay");
-            Find<ImoniButton>("settings").clicked += () => overlay.style.display = DisplayStyle.Flex;
-            Find<ImoniButton>("settings-close").clicked += () => overlay.style.display = DisplayStyle.None;
-            Find<ImoniButton>("profile-login").clicked += () => App.Go("Login");
-            var sound = Find<ImoniButton>("sound-toggle");
-            var volume = Find<AudioVolumeControl>("sound-volume");
-            void ShowSound()
-            {
-                sound.text = App.Profile.SoundEnabled ? "音: ON" : "音: OFF";
-                sound.Icon = App.Profile.SoundEnabled ? "icon_sound_on" : "icon_sound_off";
-                volume.Bind(App.Profile.SoundVolume, App.Data["audio"]["minVolume"].Value<double>(), App.Data["audio"]["maxVolume"].Value<double>(), App.Data["audio"]["volumePercentScale"].Value<double>());
-            }
-            sound.clicked += () => { App.Profile.SoundEnabled = !App.Profile.SoundEnabled; App.SaveProfile(); ShowSound(); };
-            volume.StepRequested += direction => { App.Profile.SoundVolume = ImoniAudioPlan.AdjustVolume(App.Data, App.Profile.SoundVolume, direction); App.SaveProfile(); ShowSound(); };
-            ShowSound();
+            SettingsPresenter.Attach(this, App);
         }
     }
 

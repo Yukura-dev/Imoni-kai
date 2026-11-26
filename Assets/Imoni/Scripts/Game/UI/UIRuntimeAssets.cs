@@ -14,6 +14,9 @@ namespace Imoni.Game.UI
         public Shader imoniEffectGrayscaleShader;
         public UnityEngine.Audio.AudioMixer audioMixer;
         public UnityEngine.Audio.AudioMixerGroup audioMaster;
+        public UnityEngine.Audio.AudioMixerGroup audioBgm;
+        public UnityEngine.Audio.AudioMixerGroup audioEffects;
+        public AudioClip backgroundMusic;
         public AudioClip[] imoniEffectAudio = Array.Empty<AudioClip>();
         public NamedTexture[] textures = Array.Empty<NamedTexture>();
     }

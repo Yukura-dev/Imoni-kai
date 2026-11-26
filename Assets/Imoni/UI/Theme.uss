@@ -28,6 +28,9 @@
     --c-taro-line: #FFE3A3;
     --c-locked-bg: #EFE3C8;
     --c-locked-fg: #5C4518;
+    --c-quality-locked-bg: #D9D9D9;
+    --c-quality-locked-fg: #666666;
+    --c-quality-locked-border: #999999;
     --c-white: #FFFFFF;
     --c-disabled-large-bg: #EFD38A;
     --c-disabled-large-fg: #5C4518;

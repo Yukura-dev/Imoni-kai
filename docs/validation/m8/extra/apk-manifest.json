@@ -1,0 +1,51 @@
+[
+  {
+    "variant": "default",
+    "file": "Imoni.apk",
+    "path": "D:\\UnityProjects\\Imoni-kai\\Builds\\Android\\Imoni.apk",
+    "bytes": 63515460,
+    "sha256": "B6E7F4DDE48D222AF98D705408CD1A6CF1162219846B69390B82BC604D9ADF8F",
+    "package": "package: name='jp.yukura.imoni' versionCode='3' versionName='1.0' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'",
+    "graphicsApis": [
+      "Vulkan",
+      "OpenGLES3"
+    ],
+    "optimizedFramePacing": true,
+    "result": "Succeeded",
+    "errors": 0,
+    "warnings": 0,
+    "physicalDeviceTested": false
+  },
+  {
+    "variant": "gles3-on",
+    "file": "Imoni-gles3-on.apk",
+    "path": "D:\\UnityProjects\\Imoni-kai\\Builds\\Android\\Imoni-gles3-on.apk",
+    "bytes": 62287768,
+    "sha256": "F7DC22982F5D2B52C1DB9A461A471D7A65D505865DF241F8645F1CCAACE0D61F",
+    "package": "package: name='jp.yukura.imoni' versionCode='3' versionName='1.0' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'",
+    "graphicsApis": [
+      "OpenGLES3"
+    ],
+    "optimizedFramePacing": true,
+    "result": "Succeeded",
+    "errors": 0,
+    "warnings": 0,
+    "physicalDeviceTested": false
+  },
+  {
+    "variant": "gles3-off",
+    "file": "Imoni-gles3-off.apk",
+    "path": "D:\\UnityProjects\\Imoni-kai\\Builds\\Android\\Imoni-gles3-off.apk",
+    "bytes": 62207525,
+    "sha256": "DF50E143EC946A624FA3C06E94166EC4C8F422DD52460E83A7E0D9613E6AB0EB",
+    "package": "package: name='jp.yukura.imoni' versionCode='3' versionName='1.0' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'",
+    "graphicsApis": [
+      "OpenGLES3"
+    ],
+    "optimizedFramePacing": false,
+    "result": "Succeeded",
+    "errors": 0,
+    "warnings": 0,
+    "physicalDeviceTested": false
+  }
+]

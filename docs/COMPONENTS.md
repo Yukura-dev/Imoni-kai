@@ -186,3 +186,12 @@ ScreenHostがThemeと全部品USSを共有し、個々の部品には祖先に�
 - `RankingList.empty-text`：実記録が0件の部門に空状態を表示する。行は既存RankingRowを使い、並び順・登録可否・モード/シード部門の絞り込みはCoreのLocalRankingへ委ねる。
 - `ResultSummary`：複数の二つ名を同時に獲得した場合は、Coreから受け取った「先頭1件＋ほかn件」の2行を既存StatCardへ渡す。全名称はtooltipに保持し、会員証のTitlePartPickerでも確認できる。1件だけの表示はモックのまま。獲得条件や所持更新は部品に置かない。
 - `Login` / `Endless`：UI_SPEC15の補完画面。Card・MemberCard・StatCard・AnimatedPot・ImoniText・ImoniButtonを組み合わせ、新しいボタンや会員証の中身は複製しない。Loginは端末内プロフィールの確認、Endlessは通常Clear後の引継ぎ内容と記録条件を表示する。
+
+## M8 追加部品・変更
+
+- **SettingsDialog**（UxmlElement）：Main/Homeで共用。設定Card、全体ON/OFF、BGM/効果音のAudioVolumeControl、アカウント切替、閉じる。操作意図をイベントで通知し、保存はScreenContextが担当。
+- **AccountPicker**（UxmlElement）：保存済み会員の一覧・名前入力・新規会員ボタン・音設定へ戻る。LocalAccountsをSettingsPresenterから投影し、UI自体は保存しない。
+- **TitleLogo**（UxmlElement）：既存Artworkをクリップする湯気なし版。元PNGと文字の位置を保持。
+- **QualityChip.Locked**：グレーの???、倍率非表示。Tutorial3では神話以降に適用。
+- **ProgressBar**：外側角丸−枠幅から塗りの角丸を決め、Thick/Thin/Rainbow共通で枠内いっぱいに表示。
+- **ImoniButton.Icon**：枠内の50%位置と負の50%移動でアイコン中央を一致させる。

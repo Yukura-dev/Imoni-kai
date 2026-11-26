@@ -10,6 +10,12 @@
     "minDecibels": -80,
     "decibelsPerAmplitudeLog10": 20,
     "masterVolumeParameter": "ImoniMasterVolume",
+    "bgmVolumeParameter": "ImoniBgmVolume",
+    "effectsVolumeParameter": "ImoniEffectsVolume",
+    "bgmGroupName": "BGM",
+    "effectsGroupName": "SFX",
+    "bgmClipPath": "",
+    "bgmPriority": 128,
     "eventLogCapacity": 2048,
     "compressor": { "Threshold": -18, "Attack": 20, "Release": 120, "MakeUpGain": 0 }
   },
@@ -958,7 +964,7 @@
     },
     "android": {
       "applicationIdentifier": "jp.yukura.imoni",
-      "versionCode": 2,
+      "versionCode": 3,
       "minimumApiLevel": 26,
       "targetApiLevel": 36,
       "iconTexture": "pot_campfire",
@@ -1070,6 +1076,8 @@
     "mainLoadingTickMs": 80,
     "mainLoadingStepPercent": 4,
     "profileNameMaxLength": 10,
+    "tutorialVisibleQualityThrough": "legend",
+    "titleLogoVisibleWidthFraction": 0.7975460122699386,
     "smallSteamPhaseDelaySeconds": 0.6,
     "largeSteamPhaseDelaySeconds": 0.5,
     "timerUrgentSeconds": 30,
@@ -1112,7 +1120,8 @@
       "campPotHeightPx": 28,
       "campBorderPx": 3,
       "campLabelOffsetXPx": -30,
-      "growthLabelDistanceTiles": 2
+      "growthLabelDistanceTiles": 2,
+      "growthLabelSelfExclusionTiles": 1.5
     },
     "panels": {
       "protectionStep": 5,

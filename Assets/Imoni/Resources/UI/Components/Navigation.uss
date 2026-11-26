@@ -10,7 +10,7 @@
 .imoni-button__icon { position: absolute; left: 18px; top: 50%; translate: 0 -50%; width: 24px; height: 24px; -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: var(--c-brown); }
 .imoni-button.btn-primary > .imoni-button__icon, .imoni-button.btn-danger > .imoni-button__icon, .imoni-button.btn-action--on > .imoni-button__icon { -unity-background-image-tint-color: var(--c-cream); }
 .imoni-button.btn-icon { padding-left: 0; }
-.imoni-button.btn-icon > .imoni-button__icon { left: 10px; }
+.imoni-button.btn-icon > .imoni-button__icon { left: 50%; top: 50%; translate: -50% -50%; }
 .imoni-button.btn-action.imoni-button--has-icon { padding: 28px 4px 5px 4px; }
 .imoni-button.btn-action > .imoni-button__icon { top: 5px; left: 50%; translate: -50% 0; }
 .imoni-card { flex-shrink: 0; }

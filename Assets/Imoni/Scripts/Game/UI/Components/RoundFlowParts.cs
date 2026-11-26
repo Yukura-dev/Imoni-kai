@@ -168,7 +168,6 @@ namespace Imoni.Game.UI.Components
             Add(RoundFlowVisuals.Text("・全員の個人強化 / 連続記録", "failure-reset__line"));
             Add(RoundFlowVisuals.Text("・マップ(新しいランダムマップで再挑戦)", "failure-reset__line"));
             var ranking = RoundFlowVisuals.Text("・今回の挑戦はランキングに登録されません", "failure-reset__line"); ranking.AddToClassList("failure-reset__warning"); Add(ranking);
-            Add(RoundFlowVisuals.Text("過去のランキング記録・会員証・二つ名はそのまま", "failure-reset__note"));
         }
     }
 

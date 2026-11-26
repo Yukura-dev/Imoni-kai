@@ -2,6 +2,10 @@
 
 2026-11-26、Unity 6000.3.21f1。最新main `3c69e6f` から `rebuild/m8-playtest-fixes` を作成。実機報告はGalaxy A53（Android版は不明）。ADB接続がないため、実機のちらつき解消・API別の実行結果は未確認。コード・Editor・ビルドの結果と混同しない。
 
+## 追加レビュー
+
+追加の画面・札・設定修正は[extra/README.md](extra/README.md)。最新APKはversionCode 3、Coreテスト492件成功。以下の447件とversionCode 2の記録は最初のM8実装時の証跡として残す。
+
 ## テスト
 
 `dotnet test tools/CoreTests --logger 'trx;LogFileName=m8-core.trx'`

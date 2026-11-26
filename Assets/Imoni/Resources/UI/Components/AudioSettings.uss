@@ -3,3 +3,9 @@
 .audio-volume__controls { flex-direction: row; align-items: center; margin-top: 8px; }
 .audio-volume__step { width: 44px; min-width: 44px; height: 44px; padding: 0; font-size: 20px; }
 .audio-volume__bar { flex-grow: 1; margin-left: 12px; margin-right: 12px; }
+.settings-dialog { display: none; position: absolute; left: 0; right: 0; top: 0; bottom: 0; align-items: center; justify-content: center; background-color: var(--c-timeup-overlay); padding: 18px; }
+.settings-dialog__card { width: 320px; max-width: 100%; flex-shrink: 0; }
+.settings-dialog__action { margin-top: 14px; }
+.account-picker__list { max-height: 180px; }
+.account-picker__account { margin-bottom: 8px; }
+.account-picker__entry { margin-top: 8px; }

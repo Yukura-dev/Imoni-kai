@@ -165,3 +165,5 @@
 2026-11-26：M7はレビュー承認・mainへマージ済み。mainでgit pull --ff-onlyを実行し、3c69e6fからrebuild/m8-playtest-fixesを作成した。M8はGalaxy A53の実機報告に基づく描画境界・Safe Area更新抑止、全画面の演出背景と指定鍋画像の共通化、8方向A*と経路平滑化、大数の単位とHUDの短い表示を扱う。Coreテスト・Unity再コンパイル・Androidビルドを確認し、演出比較・斜め移動連番・ちらつき対策記録をdocs/validation/m8へ保存する。実機が未接続の場合、Editor確認を実機改善と混同せず、標準/GLES3 Frame Pacing On/OffのAPKと再検証手順を用意する。完了後はrebuild/m8-playtest-fixesをコミット・pushして停止する。
 
 USS非対応の構造擬似クラス（`:first-child`、`:last-child`、`:nth-child`など）は使わない。`Theme.uss` の先頭タブ用クラスは `.tabbar__item--first`。M2のTabBarは先頭のタブにこのクラスを付ける。
+
+M8追加レビュー（2026-11-26）：同じブランチで、Home/Titleの設定配置、札の重なり回避、タイトル湯気非表示、ProgressBar端、初回ログイン導線の除去、設定内のローカル会員切替、BGM/SFX独立保存、チュートリアル文言/上位品質のマスク、GameOver注記削除を対応。修正前後はdocs/validation/m8/extra。APK versionCodeは3。M9には進まない。

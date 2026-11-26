@@ -1,0 +1,125 @@
+{
+  "passed": true,
+  "validatedAtUtc": "2026-11-26T07:45:27.9791943Z",
+  "unityVersion": "6000.3.21f1",
+  "isolatedSavePath": "D:\\UnityProjects\\Imoni-kai\\Library\\M8-extra-profile-f5610746ccb5492484765bb15588b265.json",
+  "scope": "Attached UI intent handlers and temporary audio sources. No real save writes, no live screen navigation, no pointer-hit or audible-listening claim.",
+  "ui": {
+    "checks": [
+      "Main SettingsDialog opens/closes; separate BGM/effect buttons and global sound toggle save and apply.",
+      "First launch Main -> Tutorial1 -> Tutorial2 -> Tutorial3 -> Home; Home opens the shared SettingsDialog.",
+      "Settings account slot: blank-name guard, create, first/second profile switching, independent volume persistence, back to audio.",
+      "Registered launch Main -> Home without Login."
+    ],
+    "accounts": 2,
+    "activeName": "検証いも二",
+    "savedBgmVolume": 0.8,
+    "savedEffectsVolume": 0.9,
+    "screen": "Home"
+  },
+  "mixer": {
+    "ready": true,
+    "assetPath": "Assets/Imoni/Audio/ImoniMaster.mixer",
+    "masterGroup": "Master",
+    "bgmGroup": "BGM",
+    "effectsGroup": "SFX",
+    "masterChildren": [
+      "BGM",
+      "SFX"
+    ],
+    "backgroundMusic": null,
+    "effects": [
+      {
+        "name": "Attenuation",
+        "bypass": false,
+        "parameters": {}
+      },
+      {
+        "name": "Compressor",
+        "bypass": false,
+        "parameters": {
+          "Threshold": -18.0,
+          "Attack": 20.0,
+          "Release": 120.0,
+          "Make up gain": 0.0
+        }
+      }
+    ],
+    "exposedParameters": [
+      "ImoniMasterVolume",
+      "ImoniBgmVolume",
+      "ImoniEffectsVolume"
+    ]
+  },
+  "audio": {
+    "unconfiguredBgmSilent": true,
+    "sourceRoutingCorrect": true,
+    "probeSampleRate": 44100,
+    "probePcm": "one second of generated silence; playback state verified without an audible soundtrack",
+    "states": [
+      {
+        "action": "BGM playing, SFX muted",
+        "enabled": true,
+        "bgmVolume": 1.0,
+        "effectsVolume": 0.0,
+        "bgmPlaying": true,
+        "bgmMuted": false,
+        "dronePlaying": false,
+        "droneMuted": true
+      },
+      {
+        "action": "BGM muted, SFX playing",
+        "enabled": true,
+        "bgmVolume": 0.0,
+        "effectsVolume": 1.0,
+        "bgmPlaying": true,
+        "bgmMuted": true,
+        "dronePlaying": true,
+        "droneMuted": false
+      },
+      {
+        "action": "BeginEffect stopped only SFX",
+        "enabled": true,
+        "bgmVolume": 0.0,
+        "effectsVolume": 1.0,
+        "bgmPlaying": true,
+        "bgmMuted": true,
+        "dronePlaying": false,
+        "droneMuted": false
+      },
+      {
+        "action": "StopBgm kept SFX playing",
+        "enabled": true,
+        "bgmVolume": 0.0,
+        "effectsVolume": 1.0,
+        "bgmPlaying": false,
+        "bgmMuted": true,
+        "dronePlaying": true,
+        "droneMuted": false
+      },
+      {
+        "action": "Global mute retains BGM position",
+        "enabled": false,
+        "bgmVolume": 1.0,
+        "effectsVolume": 1.0,
+        "bgmPlaying": true,
+        "bgmMuted": true,
+        "dronePlaying": false,
+        "droneMuted": true
+      },
+      {
+        "action": "Null BGM is silent",
+        "enabled": true,
+        "bgmVolume": 1.0,
+        "effectsVolume": 1.0,
+        "bgmPlaying": false,
+        "bgmMuted": false,
+        "dronePlaying": false,
+        "droneMuted": false
+      }
+    ]
+  },
+  "audioSettingsRestored": true,
+  "realSaveUnchanged": true,
+  "temporarySaveRemoved": true
+}

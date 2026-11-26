@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Xml;
 using Imoni.Core;
 using Imoni.Game;
+using Imoni.Game.Audio;
 using Imoni.Game.UI;
 using Imoni.Game.UI.Components;
 using Imoni.Game.UI.Screens;
@@ -17,6 +18,7 @@ using UnityEngine.UIElements;
 using Avatar = Imoni.Game.UI.Components.Avatar;
 using ProgressBar = Imoni.Game.UI.Components.ProgressBar;
 using Formatting = Newtonsoft.Json.Formatting;
+using BigInteger = System.Numerics.BigInteger;
 
 namespace Imoni.Editor
 {
@@ -34,12 +36,15 @@ namespace Imoni.Editor
             string savePath = LibraryPath("M2B-validation-profile.json");
             byte[] previousFixture = File.Exists(savePath) ? File.ReadAllBytes(savePath) : null;
             float previousVolume = AudioListener.volume;
+            AudioService audio = AudioService.Instance;
+            bool previousSound = audio && audio.SoundEnabled;
+            double previousBgm = audio ? audio.BgmVolume : 0, previousEffects = audio ? audio.EffectsVolume : 0;
             var report = new JObject
             {
                 ["passed"] = false,
                 ["validatedAtUtc"] = DateTime.UtcNow.ToString("O"),
                 ["unityVersion"] = Application.unityVersion,
-                ["scope"] = "Detached resource checks plus a temporary hidden attached tree for field/input integration; waiting/loading completion uses Core presentation values. Real-time animation, pointer hit testing, and screenshots are checked separately.",
+                ["scope"] = "Detached resource checks plus a temporary hidden attached tree for field/input integration. Owned-title and local-ranking fixtures are restricted to the temporary profile; waiting/loading completion uses Core presentation values. Real-time animation, pointer hit testing, and screenshots are checked separately.",
                 ["isolatedSavePath"] = savePath
             };
             try
@@ -61,6 +66,7 @@ namespace Imoni.Editor
             }
             finally
             {
+                if (audio) audio.SetPreferences(previousSound, previousBgm, previousEffects);
                 AudioListener.volume = previousVolume;
                 if (previousFixture != null) File.WriteAllBytes(savePath, previousFixture);
                 else if (File.Exists(savePath)) File.Delete(savePath);
@@ -174,16 +180,21 @@ namespace Imoni.Editor
                 var home = Current<HomeScreen>(router);
                 bool originalSound = app.Profile.SoundEnabled;
                 Click(Find<ImoniButton>(home, "settings"));
-                Require(Find<VisualElement>(home, "settings-overlay").style.display.value == DisplayStyle.Flex, "Home settings did not open.");
+                Require(Find<VisualElement>(home, "settings-dialog").style.display.value == DisplayStyle.Flex, "Home settings did not open.");
                 Click(Find<ImoniButton>(home, "sound-toggle"));
                 Require(app.Profile.SoundEnabled != originalSound, "The sound control did not change the saved preference.");
                 Click(Find<ImoniButton>(home, "settings-close"));
-                Require(Find<VisualElement>(home, "settings-overlay").style.display.value == DisplayStyle.None, "Home settings did not close.");
+                Require(Find<VisualElement>(home, "settings-dialog").style.display.value == DisplayStyle.None, "Home settings did not close.");
+                // M7 starts with one owned part per side. Grant just the alternatives needed by
+                // this temporary UI fixture rather than treating the whole catalog as initially owned.
+                string firstTitle = app.Data["titles"]["firstParts"].Values<string>().First(text => text != app.Profile.FirstTitle);
+                string secondTitle = app.Data["titles"]["secondParts"].Values<string>().First(text => text != app.Profile.SecondTitle);
+                app.Profile.OwnedFirstTitles = app.Profile.OwnedFirstTitles.Concat(new[] { firstTitle }).Distinct().ToArray();
+                app.Profile.OwnedSecondTitles = app.Profile.OwnedSecondTitles.Concat(new[] { secondTitle }).Distinct().ToArray();
+                app.SaveProfile();
                 ClickRoute(router, Tab(home, "Member"), "Member");
                 var member = Current<MemberScreen>(router);
                 TitlePartPicker picker = Find<TitlePartPicker>(member, "title-picker");
-                string firstTitle = app.Data["outGame"]["profile"]["initialOwnedFirst"].Values<string>().First(text => text != app.Profile.FirstTitle);
-                string secondTitle = app.Data["outGame"]["profile"]["initialOwnedSecond"].Values<string>().First(text => text != app.Profile.SecondTitle);
                 Click(picker.Query<Button>(className: "title-part-picker__part--first").ToList().First(button => button.text == firstTitle));
                 Click(picker.Query<Button>(className: "title-part-picker__part--second").ToList().First(button => button.text == secondTitle));
                 Require(app.Profile.FirstTitle == firstTitle && app.Profile.SecondTitle == secondTitle, "Owned title choices were not saved.");
@@ -202,12 +213,20 @@ namespace Imoni.Editor
 
                 ClickRoute(router, Tab(member, "Ranking"), "Ranking");
                 var ranking = Current<RankingScreen>(router);
-                Require(ranking.Query<RankingRow>().ToList().Count == app.Data["outGame"]["ranking"]["commonTeams"].Count(), "Ranking rows are incomplete.");
+                Require(ranking.Query<RankingRow>().ToList().Count == 0 && Find<RankingList>(ranking, "ranking-list").EmptyText.Contains("まだ記録がありません"),
+                    "A new local profile must show an empty ranking, not the old mock teams.");
+                LocalRankingRecord[] rankingFixture = RankingFixture(app);
+                app.Profile.Rankings = rankingFixture; app.SaveProfile();
+                Require(router.Show("Ranking"), "The seeded local ranking could not reopen.");
+                ranking = Current<RankingScreen>(router);
+                AssertRanking(ranking, rankingFixture[0]);
                 Click(Find<SegmentedControl>(ranking, "ranking-seed")[1] as Button);
-                Require(Find<ImoniText>(ranking, "ranking-caption").text.StartsWith("自由シード部門", StringComparison.Ordinal), "Free seed ranking did not update its caption.");
+                Require(Find<ImoniText>(ranking, "ranking-caption").text == "端末内 / 自由シード部門", "Free seed ranking did not update its local caption.");
+                AssertRanking(ranking, rankingFixture[1]);
                 Click(Find<SegmentedControl>(ranking, "ranking-mode")[1] as Button);
-                Require(ranking.Query<RankingRow>().ToList()[0].ScoreText == app.Data["outGame"]["ranking"]["freeEndless"][0]["displayScore"].Value<string>(),
-                    "The endless/free ranking combination did not bind its fixture.");
+                AssertRanking(ranking, rankingFixture[3]);
+                Click(Find<SegmentedControl>(ranking, "ranking-seed")[0] as Button);
+                AssertRanking(ranking, rankingFixture[2]);
                 ClickRoute(router, Tab(ranking, "Home"), "Home");
                 home = Current<HomeScreen>(router);
                 Require(Find<ImoniText>(home, "home-name").text == testName && Find<TitleChips>(home, "home-titles").First == firstTitle &&
@@ -217,9 +236,10 @@ namespace Imoni.Editor
                     var reloaded = new ScreenContext(reloadRouter, savePath);
                     Require(reloaded.Profile.Name == testName && reloaded.Profile.FirstTitle == firstTitle && reloaded.Profile.SecondTitle == secondTitle &&
                         reloaded.Profile.BandColor == band.Color && reloaded.Profile.OutfitColor == outfit.Color &&
-                        reloaded.Profile.SoundEnabled != originalSound && reloaded.Profile.TutorialCompleted, "Profile reload lost one or more edited fields.");
+                        reloaded.Profile.SoundEnabled != originalSound && reloaded.Profile.TutorialCompleted && reloaded.Profile.Rankings.Length == rankingFixture.Length,
+                        "Profile reload lost one or more edited fields or local ranking fixtures.");
                 }
-                checks.Add("Member/Ranking/Home tabs, ranking combinations, all profile fields survive reload");
+                checks.Add("Member/Ranking/Home tabs, empty local ranking then all four seeded boards, profile and records survive reload");
 
                 ClickRoute(router, Find<ImoniButton>(home, "play"), "Lobby");
                 var lobby = Current<LobbyScreen>(router);
@@ -279,6 +299,28 @@ namespace Imoni.Editor
                     app.Server.World.Resources.Count > 0, "The Game route must present the generated world and HUD.");
             }
             return new JObject { ["passedChecks"] = checks, ["checkCount"] = checks.Count, ["livePlayerSaveTouched"] = false };
+        }
+
+        private static LocalRankingRecord[] RankingFixture(ScreenContext app)
+        {
+            int common = app.Data["outGame"]["lobby"]["commonSeed"].Value<int>();
+            int clear = app.Data["round"]["roundsToClear"].Value<int>();
+            var records = new List<LocalRankingRecord>();
+            foreach (RankingMode mode in new[] { RankingMode.Normal, RankingMode.Endless })
+                foreach (RankingSeed division in new[] { RankingSeed.Common, RankingSeed.Free })
+                    records.Add(new LocalRankingRecord { ChallengeId = "m2b-validation-" + mode + "-" + division,
+                        TeamName = app.TeamName, TeamSize = UiTheme.Config.TeamSize, Mode = mode, SeedDivision = division,
+                        Seed = division == RankingSeed.Common ? common : unchecked(common + 1),
+                        RoundNumber = mode == RankingMode.Normal ? clear : clear + 1,
+                        Score = new BigInteger(12345 * (records.Count + 1)),
+                        RecordedAtUtc = new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero) });
+            return records.ToArray();
+        }
+        private static void AssertRanking(RankingScreen screen, LocalRankingRecord expected)
+        {
+            var rows = screen.Query<RankingRow>().ToList();
+            Require(rows.Count == 1 && rows[0].ScoreText == Format.Big(expected.Score, UiTheme.Config),
+                "The " + expected.Mode + "/" + expected.SeedDivision + " board did not show its local record.");
         }
 
         private static void CompleteLoading(ScreenRouter router, ScreenContext app, LobbyFlowConfig flow)

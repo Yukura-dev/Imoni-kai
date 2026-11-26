@@ -12,7 +12,6 @@
 .progress { flex-shrink: 0; }
 .progress__fill { height: 100%; background-color: var(--c-leaf); flex-shrink: 0; overflow: hidden; }
 .progress--thick { height: 16px; border-width: 3px; border-radius: 8px; background-color: var(--c-white); }
-.progress--thick > .progress__fill { border-radius: 8px; }
 .progress--thin { height: 8px; border-width: 0; border-radius: 4px; background-color: var(--c-sand); }
 .progress--rainbow { height: 10px; border-width: 0; border-radius: 5px; background-color: var(--c-sand); }
 .progress__rainbow { position: absolute; }
@@ -26,6 +25,7 @@
 
 .quality-chip { flex-shrink: 0; align-self: flex-start; -unity-font-definition: var(--font-body-black); white-space: nowrap; }
 .quality-chip--detail { border-width: 2px; border-radius: 8px; padding: 4px 8px; font-size: 12px; }
+.quality-chip--locked { background-color: var(--c-quality-locked-bg); color: var(--c-quality-locked-fg); border-color: var(--c-quality-locked-border); }
 
 .material-goal { flex-shrink: 0; -unity-font-definition: var(--font-body-black); }
 .material-goal__name { font-size: 13px; }

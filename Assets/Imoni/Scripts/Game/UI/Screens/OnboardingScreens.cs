@@ -20,7 +20,8 @@ namespace Imoni.Game.UI.Screens
             progress = Find<ProgressBar>("loading-progress");
             status = Find<ImoniText>("loading-label");
             start = Find<ImoniButton>("start");
-            start.clicked += () => App.Go("Login");
+            start.clicked += () => App.Go(App.Profile.TutorialCompleted ? "Home" : "Tutorial1");
+            SettingsPresenter.Attach(this, App);
             Later(AdvanceLoading, App.Number("mainLoadingTickMs") / 1000);
         }
 
@@ -76,8 +77,14 @@ namespace Imoni.Game.UI.Screens
         public Tutorial3Screen(ScreenContext app) : base(app, "UI/Tutorial3", "UI/OnboardingScreens")
         {
             VisualElement qualities = Find<VisualElement>("quality-chips");
+            bool hidden = false;
+            string visibleThrough = App.Data["ui"]["tutorialVisibleQualityThrough"].Value<string>();
             foreach (JToken quality in App.Data["qualities"])
-                qualities.Add(new QualityChip { Quality = quality["id"].Value<string>(), ShowMultiplier = true });
+            {
+                string id = quality["id"].Value<string>();
+                qualities.Add(new QualityChip { Quality = id, ShowMultiplier = true, Locked = hidden });
+                if (id == visibleThrough) hidden = true;
+            }
             foreach (JToken upgrade in App.Data["upgrades"]["items"])
             {
                 UpgradeHint hint = this.Q<UpgradeHint>("upgrade-" + upgrade["id"].Value<string>());

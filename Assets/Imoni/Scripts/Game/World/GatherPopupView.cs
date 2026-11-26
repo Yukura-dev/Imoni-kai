@@ -12,14 +12,18 @@ namespace Imoni.Game.World
         private float age;
         public bool Active { get; private set; }
         public string Text => label?.text;
+        internal float Age => age;
+        internal Rect? PreferredBounds { get; private set; }
         internal Rect? MapBounds { get; private set; }
         internal void Initialize(VisualElement overlay, WorldViewStyle settings)
         { style = settings; label = UiTheme.Label(string.Empty, "world-gather-popup"); overlay.Add(label); Hide(); }
         internal void Show(string text, string background, string foreground, Vector3 position)
         {
             transform.position = position; age = 0; Active = true;
+            PreferredBounds = MapBounds = null;
             label.text = text; label.style.backgroundColor = UiTheme.Color(background); label.style.color = UiTheme.Color(foreground);
             WorldViewStyle.Visible(label, true);
+            WorldAnnotationLayout.Place(label, null);
         }
         internal void Present(float deltaSeconds, Vector2 point)
         {
@@ -28,16 +32,16 @@ namespace Imoni.Game.World
             float duration = style.Number("popupSeconds");
             if (age >= duration) { Hide(); return; }
             Vector2 anchor = point + Vector2.down * (style.Number("popupOffsetYPx") + style.Number("popupRisePx") * age / duration);
-            WorldViewStyle.Position(label, anchor);
-            Vector2 text = label.MeasureTextSize(label.text, 0, VisualElement.MeasureMode.Undefined, 0, VisualElement.MeasureMode.Undefined);
-            Vector2 size = text + new Vector2(label.resolvedStyle.paddingLeft + label.resolvedStyle.paddingRight
-                + label.resolvedStyle.borderLeftWidth + label.resolvedStyle.borderRightWidth,
-                label.resolvedStyle.paddingTop + label.resolvedStyle.paddingBottom
-                + label.resolvedStyle.borderTopWidth + label.resolvedStyle.borderBottomWidth);
-            MapBounds = size.x > 0 && size.y > 0 && !float.IsInfinity(size.x) && !float.IsInfinity(size.y)
+            Vector2 size = WorldAnnotationLayout.Measure(label);
+            PreferredBounds = WorldAnnotationLayout.Valid(size)
                 ? new Rect(anchor.x - size.x / 2, anchor.y, size.x, size.y) : (Rect?)null;
         }
-        private void Hide() { Active = false; MapBounds = null; if (label != null) WorldViewStyle.Visible(label, false); }
+        internal void Place(Rect? rectangle)
+        {
+            MapBounds = rectangle;
+            WorldAnnotationLayout.Place(label, rectangle);
+        }
+        private void Hide() { Active = false; PreferredBounds = MapBounds = null; if (label != null) WorldViewStyle.Visible(label, false); }
         internal void Release() { label?.RemoveFromHierarchy(); }
     }
 }

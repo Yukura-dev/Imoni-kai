@@ -53,6 +53,7 @@ namespace Imoni.Game.UI.Components
         private float value;
         private ProgressVariant variant;
         private string fillColor = string.Empty;
+        private Vector4 fillRadii = new Vector4(-1, -1, -1, -1);
         [UxmlAttribute] public float Value { get => value; set { this.value = float.IsNaN(value) ? 0 : Mathf.Clamp01(value); fill.style.width = Length.Percent(this.value * 100); } }
         [UxmlAttribute] public ProgressVariant Variant { get => variant; set { variant = value; UiTheme.SetVariant(this, "progress--", value); RefreshRainbow(); } }
         [UxmlAttribute] public string FillColor
@@ -65,7 +66,8 @@ namespace Imoni.Game.UI.Components
             DataVisuals.Apply(this, "progress"); AddToClassList("bar");
             fill.AddToClassList("progress__fill"); rainbow.AddToClassList("progress__rainbow");
             Add(fill); fill.Add(rainbow); Value = 0; Variant = ProgressVariant.Thick;
-            fill.RegisterCallback<GeometryChangedEvent>(_ => PositionRainbow());
+            fill.RegisterCallback<GeometryChangedEvent>(_ => UpdateFillGeometry());
+            RegisterCallback<GeometryChangedEvent>(_ => UpdateFillGeometry());
             RegisterCallback<AttachToPanelEvent>(_ => RefreshRainbow());
         }
         private void RefreshRainbow()
@@ -74,16 +76,33 @@ namespace Imoni.Game.UI.Components
             rainbow.image = UiTheme.Texture("fx_rainbow_scroll");
             float crop = UiTheme.Data?["imoniEffect"]?["layout"]?["gaugeTextureHalf"]?.Value<float>() ?? 1;
             rainbow.uv = new Rect(0, 1 - crop, 1, crop);
-            PositionRainbow();
+            UpdateFillGeometry();
         }
-        private void PositionRainbow()
+        private void UpdateFillGeometry()
         {
             float width = fill.contentRect.width, height = fill.contentRect.height;
+            if (float.IsNaN(width) || float.IsNaN(height) || width < 0 || height < 0) return;
+            // Match the border's inner curve. Reusing its outer radius leaves crescents at full progress.
+            float limit = Mathf.Min(width, height) / 2;
+            IResolvedStyle outer = resolvedStyle;
+            var radii = new Vector4(
+                InnerRadius(outer.borderTopLeftRadius, outer.borderTopWidth, outer.borderLeftWidth, limit),
+                InnerRadius(outer.borderTopRightRadius, outer.borderTopWidth, outer.borderRightWidth, limit),
+                InnerRadius(outer.borderBottomRightRadius, outer.borderBottomWidth, outer.borderRightWidth, limit),
+                InnerRadius(outer.borderBottomLeftRadius, outer.borderBottomWidth, outer.borderLeftWidth, limit));
+            if (radii != fillRadii)
+            {
+                fillRadii = radii;
+                fill.style.borderTopLeftRadius = radii.x; fill.style.borderTopRightRadius = radii.y;
+                fill.style.borderBottomRightRadius = radii.z; fill.style.borderBottomLeftRadius = radii.w;
+            }
             // The supplied light texture is vertical. Rotate its image into the horizontal clipped bar.
             rainbow.style.width = height; rainbow.style.height = width;
             rainbow.style.left = (width - height) / 2; rainbow.style.top = (height - width) / 2;
             rainbow.style.rotate = new Rotate(-90);
         }
+        private static float InnerRadius(float outerRadius, float borderA, float borderB, float limit) =>
+            Mathf.Clamp(outerRadius - Mathf.Max(borderA, borderB), 0, limit);
     }
 
     [UxmlElement]
@@ -151,8 +170,10 @@ namespace Imoni.Game.UI.Components
     {
         private string quality = "normal";
         private bool showMultiplier;
+        private bool locked;
         [UxmlAttribute] public string Quality { get => quality; set { quality = value ?? "normal"; Refresh(); } }
         [UxmlAttribute] public bool ShowMultiplier { get => showMultiplier; set { showMultiplier = value; Refresh(); } }
+        [UxmlAttribute] public bool Locked { get => locked; set { locked = value; Refresh(); } }
         public QualityChip()
         {
             DataVisuals.Apply(this, "quality-chip"); AddToClassList("q"); pickingMode = PickingMode.Ignore;
@@ -162,11 +183,12 @@ namespace Imoni.Game.UI.Components
         {
             JToken visual = UiTheme.Data?["qualities"]?.FirstOrDefault(item => item["id"]?.Value<string>() == quality);
             QualityDefinition definition = UiTheme.Config?.Qualities.FirstOrDefault(item => item.Id == quality);
-            text = definition?.Name ?? quality;
-            if (showMultiplier && definition != null) text += " ×" + Format.Big(definition.Multiplier, UiTheme.Config);
-            style.backgroundColor = visual == null ? new StyleColor(StyleKeyword.Null) : new StyleColor(UiTheme.Color(visual["bg"].Value<string>()));
-            style.color = visual == null ? new StyleColor(StyleKeyword.Null) : new StyleColor(UiTheme.Color(visual["fg"].Value<string>()));
+            text = locked ? "???" : definition?.Name ?? quality;
+            if (!locked && showMultiplier && definition != null) text += " ×" + Format.Big(definition.Multiplier, UiTheme.Config);
+            style.backgroundColor = locked || visual == null ? new StyleColor(StyleKeyword.Null) : new StyleColor(UiTheme.Color(visual["bg"].Value<string>()));
+            style.color = locked || visual == null ? new StyleColor(StyleKeyword.Null) : new StyleColor(UiTheme.Color(visual["fg"].Value<string>()));
             EnableInClassList("quality-chip--detail", showMultiplier);
+            EnableInClassList("quality-chip--locked", locked);
         }
     }
 

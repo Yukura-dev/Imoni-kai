@@ -53,10 +53,28 @@ namespace Imoni.Editor
                     EditorUtility.SetDirty((Object)snapshot);
                 }
             }
-            ExposeMasterVolume(mixer, master, config["audio"]["masterVolumeParameter"].Value<string>());
+            object bgm = EnsureChildGroup(mixer, master, config["audio"]["bgmGroupName"].Value<string>());
+            object sfx = EnsureChildGroup(mixer, master, config["audio"]["effectsGroupName"].Value<string>());
+            ExposeVolume(mixer, master, config["audio"]["masterVolumeParameter"].Value<string>());
+            ExposeVolume(mixer, bgm, config["audio"]["bgmVolumeParameter"].Value<string>());
+            ExposeVolume(mixer, sfx, config["audio"]["effectsVolumeParameter"].Value<string>());
             assets.audioMixer = mixer; assets.audioMaster = (AudioMixerGroup)master;
+            assets.audioBgm = (AudioMixerGroup)bgm; assets.audioEffects = (AudioMixerGroup)sfx;
+            string musicPath = config["audio"]["bgmClipPath"].Value<string>();
+            assets.backgroundMusic = string.IsNullOrWhiteSpace(musicPath) ? null : AssetDatabase.LoadAssetAtPath<AudioClip>(musicPath);
+            if (!string.IsNullOrWhiteSpace(musicPath) && !assets.backgroundMusic)
+                throw new InvalidOperationException("Configured BGM clip was not found: " + musicPath);
+            EditorUtility.SetDirty((Object)bgm); EditorUtility.SetDirty((Object)sfx);
             EditorUtility.SetDirty((Object)master); EditorUtility.SetDirty((Object)compressor); EditorUtility.SetDirty(mixer); EditorUtility.SetDirty(assets);
             AssetDatabase.SaveAssets();
+        }
+        private static object EnsureChildGroup(AudioMixer mixer, object master, string name)
+        {
+            object group = ((IEnumerable)Get(master, "children")).Cast<object>().SingleOrDefault(item => ((Object)item).name == name);
+            if (group != null) return group;
+            group = Invoke(mixer, "CreateNewGroup", name, false);
+            Invoke(mixer, "AddChildToParent", group, master);
+            return group;
         }
         private static string[] ParameterNames(string effect)
         {
@@ -64,9 +82,9 @@ namespace Imoni.Editor
             var parameters = (IEnumerable)definitions.GetMethod("GetEffectParameters", Flags).Invoke(null, new object[] { effect });
             return parameters.Cast<object>().Select(value => (string)value.GetType().GetField("name", Flags).GetValue(value)).ToArray();
         }
-        private static void ExposeMasterVolume(AudioMixer mixer, object master, string name)
+        private static void ExposeVolume(AudioMixer mixer, object group, string name)
         {
-            object guid = Invoke(master, "GetGUIDForVolume");
+            object guid = Invoke(group, "GetGUIDForVolume");
             PropertyInfo property = mixer.GetType().GetProperty("exposedParameters", Flags);
             Type parameterType = EditorType("ExposedAudioParameter");
             FieldInfo nameField = parameterType.GetField("name", Flags), guidField = parameterType.GetField("guid", Flags);
@@ -92,8 +110,13 @@ namespace Imoni.Editor
             }
             var exposed = new JArray();
             foreach (object item in (IEnumerable)Get(mixer, "exposedParameters")) exposed.Add((string)item.GetType().GetField("name", Flags).GetValue(item));
-            return new JObject { ["ready"] = assets.audioMaster == (AudioMixerGroup)master, ["assetPath"] = AssetDatabase.GetAssetPath(mixer),
-                ["masterGroup"] = ((AudioMixerGroup)master).name, ["effects"] = effects, ["exposedParameters"] = exposed };
+            var children = ((IEnumerable)Get(master, "children")).Cast<AudioMixerGroup>().ToArray();
+            return new JObject { ["ready"] = assets.audioMaster == (AudioMixerGroup)master && children.Contains(assets.audioBgm) && children.Contains(assets.audioEffects),
+                ["assetPath"] = AssetDatabase.GetAssetPath(mixer), ["masterGroup"] = ((AudioMixerGroup)master).name,
+                ["bgmGroup"] = assets.audioBgm ? assets.audioBgm.name : null, ["effectsGroup"] = assets.audioEffects ? assets.audioEffects.name : null,
+                ["masterChildren"] = new JArray(children.Select(child => child.name)),
+                ["backgroundMusic"] = assets.backgroundMusic ? AssetDatabase.GetAssetPath(assets.backgroundMusic) : null,
+                ["effects"] = effects, ["exposedParameters"] = exposed };
         }
     }
 }

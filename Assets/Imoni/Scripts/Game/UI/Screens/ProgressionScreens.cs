@@ -4,17 +4,6 @@ using Imoni.Game.UI.Components;
 
 namespace Imoni.Game.UI.Screens
 {
-    public sealed class LoginScreen : ScreenView
-    {
-        public LoginScreen(ScreenContext app) : base(app, "UI/Login", "UI/ProgressionScreens")
-        {
-            Find<MemberCard>("LoginMember").Bind(App.ProfileView());
-            Find<ImoniButton>("LoginContinue").text = App.Profile.TutorialCompleted ? "この会員で続ける" : "会員登録をはじめる";
-            Find<ImoniButton>("LoginContinue").clicked += () => App.Go(App.Profile.TutorialCompleted ? "Home" : "Tutorial1");
-            Find<ImoniButton>("LoginTutorial").clicked += () => App.Go("Tutorial1");
-        }
-    }
-
     public sealed class EndlessScreen : ScreenView
     {
         public EndlessScreen(ScreenContext app) : base(app, "UI/Endless", "UI/ProgressionScreens")

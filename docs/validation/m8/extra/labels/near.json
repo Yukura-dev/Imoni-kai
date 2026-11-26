@@ -1,0 +1,282 @@
+{
+  "screen": "Game",
+  "paddingWrites": 4,
+  "camera": {
+    "rect": {
+      "x": 0.0,
+      "y": 0.09952607,
+      "width": 1.0,
+      "height": 0.6635071
+    },
+    "pixelRect": {
+      "x": 0.0,
+      "y": 84.0,
+      "width": 390.0,
+      "height": 560.0
+    },
+    "enabled": true,
+    "clearFlags": "SolidColor",
+    "viewportWrites": 1,
+    "orthographicSize": 8.75
+  },
+  "elements": [
+    {
+      "name": "ScreenHost",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeArea",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "ScreenContent",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeTopCover",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 0.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeBottomCover",
+      "bounds": {
+        "x": 0.0,
+        "y": 844.0,
+        "width": 390.0,
+        "height": 0.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeLeftCover",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeRightCover",
+      "bounds": {
+        "x": 390.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "GameHud",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 200.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "GameActions",
+      "bounds": {
+        "x": 0.0,
+        "y": 760.0,
+        "width": 390.0,
+        "height": 84.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "GameMapViewport",
+      "bounds": {
+        "x": 0.0,
+        "y": 200.0,
+        "width": 390.0,
+        "height": 560.0
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    }
+  ],
+  "labels": {
+    "coordinateSpace": "map-local border-box, top-left origin",
+    "elapsed": 5.8,
+    "selfId": "player1",
+    "map": {
+      "x": 0.0,
+      "y": 0.0,
+      "width": 390.0,
+      "height": 560.0
+    },
+    "growthLabelSelfExclusionTiles": 1.5,
+    "growthLabelDistanceTiles": 2.0,
+    "rects": [
+      {
+        "kind": "name",
+        "id": "player1",
+        "rect": {
+          "x": 174.5,
+          "y": 307.0,
+          "width": 41.0,
+          "height": 15.0
+        }
+      },
+      {
+        "kind": "name",
+        "id": "player2",
+        "rect": {
+          "x": 125.5,
+          "y": 430.000061,
+          "width": 75.0,
+          "height": 19.0
+        }
+      },
+      {
+        "kind": "name",
+        "id": "player3",
+        "rect": {
+          "x": 125.5,
+          "y": 452.000061,
+          "width": 75.0,
+          "height": 19.0
+        }
+      },
+      {
+        "kind": "popup",
+        "id": "0",
+        "rect": {
+          "x": 132.0,
+          "y": 220.615387,
+          "width": 126.0,
+          "height": 29.0
+        }
+      }
+    ],
+    "intersectionCount": 0,
+    "intersections": [],
+    "renderedRects": [
+      {
+        "kind": "name",
+        "id": "Actor_player1",
+        "text": "あなた",
+        "rect": {
+          "x": 175.0,
+          "y": 307.0,
+          "width": 41.0,
+          "height": 15.0
+        }
+      },
+      {
+        "kind": "name",
+        "id": "Actor_player2",
+        "text": "たろう 切断中",
+        "rect": {
+          "x": 126.0,
+          "y": 430.0,
+          "width": 75.0,
+          "height": 19.0
+        }
+      },
+      {
+        "kind": "name",
+        "id": "Actor_player3",
+        "text": "はなこ 切断中",
+        "rect": {
+          "x": 126.0,
+          "y": 452.0,
+          "width": 75.0,
+          "height": 19.0
+        }
+      },
+      {
+        "kind": "popup",
+        "id": "popup-3",
+        "text": "+3 薪(希少) 連続1",
+        "rect": {
+          "x": 132.0,
+          "y": 221.0,
+          "width": 126.0,
+          "height": 29.0
+        }
+      }
+    ],
+    "renderedIntersectionCount": 0,
+    "renderedIntersections": [],
+    "growthStates": [
+      {
+        "id": "resource-33-27",
+        "material": "wood",
+        "x": 33,
+        "y": 27,
+        "remainingStock": 0,
+        "stage": "Stump",
+        "secondsUntilReady": 39.942426499058676,
+        "distanceTiles": 1.0,
+        "unlocked": true,
+        "onMap": true,
+        "selected": true,
+        "nearSelfExcluded": true,
+        "distanceOrSelectionEligible": true,
+        "growthLabelVisible": false,
+        "selfExclusionRequiresSproutOnly": true
+      }
+    ],
+    "exclusionViolationCount": 0,
+    "activePopupTexts": [
+      "+3 薪(希少) 連続1"
+    ]
+  },
+  "player": {
+    "x": 33.0,
+    "y": 28.0,
+    "action": "Idle",
+    "elapsed": 5.8,
+    "remaining": 0.0,
+    "duration": 0.0,
+    "actorPanelX": 195.0,
+    "actorPanelY": 480.0
+  }
+}

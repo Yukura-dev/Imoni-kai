@@ -2,7 +2,7 @@
     <ui:VisualElement class="onboarding-page onboarding-page--second safe-design-padding">
         <c:StepTitle name="round-title" step="2" count="3" stacked="true" class="tutorial-block" />
         <c:Card class="tutorial-timeline-card tutorial-block">
-            <c:TutorialTimelineStep name="timeline-start" time="0:00" heading="必須素材の発表" description="集める素材と数がすべて公開。資源をタップすると自動で移動・採集するよ" tone="Start" class="tutorial-timeline-spaced" />
+            <c:TutorialTimelineStep name="timeline-start" time="0:00" heading="必須素材の発表" description="集める素材と数が公開。資源をタップすると自動で移動・採集するよ" tone="Start" class="tutorial-timeline-spaced" />
             <c:TutorialTimelineStep name="timeline-bonus" heading="ボーナス素材の発表" tone="Bonus" class="tutorial-timeline-spaced" />
             <c:TutorialTimelineStep name="timeline-finish" heading="芋煮会!" description="倉庫の素材は全部自動で鍋へ。必須素材が足りれば成功" tone="Finish" />
         </c:Card>

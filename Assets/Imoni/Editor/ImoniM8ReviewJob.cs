@@ -31,6 +31,16 @@ namespace Imoni.Editor
                 JObject result;
                 switch (request.Value<string>("command"))
                 {
+                    case "validate-extra": result = ImoniM8ExtraValidation.Run(); break;
+                    case "tap-resource":
+                        if (game == null) throw new InvalidOperationException("Open Game first.");
+                        string id = request.Value<string>("id");
+                        Vector2 resourcePoint = game.WorldView.ResourcePanelPoint(id);
+                        bool resourceAccepted = game.WorldView.TryTapPanelPoint(resourcePoint);
+                        game.RefreshSnapshot();
+                        result = Audit(); result["tap"] = new JObject { ["accepted"] = resourceAccepted,
+                            ["requested"] = id, ["selected"] = game.WorldView.LastTappedResourceId };
+                        break;
                     case "tap-ground":
                         if (game == null) throw new InvalidOperationException("Open Game first.");
                         var tile = new GridPosition(request.Value<int>("x"), request.Value<int>("y"));
@@ -74,6 +84,7 @@ namespace Imoni.Editor
                     ["opacity"] = item.resolvedStyle.opacity, ["display"] = item.resolvedStyle.display.ToString() })) };
             if (game != null)
             {
+                result["labels"] = ImoniM8LabelValidation.Inspect(game.WorldView);
                 PlayerSnapshot player = game.Snapshot.Players.First(p => p.Id == game.LocalActorId);
                 result["player"] = new JObject { ["x"] = player.Location.X, ["y"] = player.Location.Y,
                     ["action"] = player.Action.ToString(), ["elapsed"] = game.Snapshot.ElapsedSeconds,
