@@ -16,6 +16,9 @@ MonoBehaviour:
   theme: {fileID: 7433441132597879392, guid: 67cb1a145e112cb478273500df648a26, type: 3}
   imoniEffectTree: {fileID: 9197481963319205126, guid: f53ba3e800552df49b9da98aeee98a5d, type: 3}
   imoniEffectStyle: {fileID: 7433441132597879392, guid: 62c5372c80fb56a4fb8855c5eaf2b775, type: 3}
+  imoniEffectGrayscaleShader: {fileID: 4800000, guid: af1033fe6128d7e4e9923e794a3779b8, type: 3}
+  audioMixer: {fileID: 24100000, guid: bfa106191f963f745b7c9c055abbc07b, type: 2}
+  audioMaster: {fileID: 24300002, guid: bfa106191f963f745b7c9c055abbc07b, type: 2}
   imoniEffectAudio:
   - {fileID: 8300000, guid: a416d0c505b4bc340b9c0a404fae2d6d, type: 3}
   - {fileID: 8300000, guid: 880524413de3c3d44a1ae1a8b533e529, type: 3}

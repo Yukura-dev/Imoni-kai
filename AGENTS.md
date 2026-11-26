@@ -162,6 +162,6 @@
 
 正本は `D:/UnityProjects/Imoni-kai`。ここがUnityプロジェクトのルートで、`unity/` の入れ子は作らない。旧handoffは資料の受け取り元のみ。既存プロトタイプは比較用に残し、新実装は `Assets/Imoni/` に集約する。仕様書の `unity/Assets/` はこのリポジトリの `Assets/` と読み替える。
 
-2026-11-26：M4のaed4468はレビュー承認済み。rebuild/m4-panelsからrebuild/m5-round-flowを作成し、M5のタイムアップ→芋煮会演出→結果/失敗→次R/再挑戦、5連続成功の通常クリアを実装する。演出はIMONI_EFFECT_SPECの画面座標と既存Effect画像に厳密に従い、部品をプールする。全Coreテスト成功、Unityエラー警告0、指定時刻の演出5枚と結果/失敗2枚の390×844比較、可能なら録画をdocs/validation/m5へ保存。コミット・pushして停止しM6へ進まない。開発用のラウンド短縮は既定OFFで、Editor/Development Buildのみに限定する。
+2026-11-26：M5はレビュー承認・mainへマージ済み。mainをgit pull --ff-onlyで7d7e037へ更新し、rebuild/m6-audio-balanceを作成。M6は目標数量のラウンド・品質・強化インフレと達成可能シミュレーションを最優先し、整数の大数表示、失敗演出の色あせ・かぎかっこ、AudioService/AudioMixerとホームの音量設定を実装する。全Coreテスト成功・Unityエラー警告0、M5自動プレイによる目標/到達時刻、比較画像、音イベント記録をdocs/validation/m6へ保存し、コミット・pushして停止する。M7へ進まない。
 
 USS非対応の構造擬似クラス（`:first-child`、`:last-child`、`:nth-child`など）は使わない。`Theme.uss` の先頭タブ用クラスは `.tabbar__item--first`。M2のTabBarは先頭のタブにこのクラスを付ける。

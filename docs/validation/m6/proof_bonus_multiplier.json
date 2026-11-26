@@ -1,0 +1,120 @@
+{
+  "utc": "2026-11-26T02:08:01.3204112Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Result",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "audio": {
+    "enabled": true,
+    "volume": 0.5,
+    "activeVoices": 0,
+    "mixer": "ImoniMaster",
+    "masterGroup": "Master",
+    "masterDecibels": -6.0206,
+    "allVoicesRouted": true,
+    "savedEnabled": true,
+    "savedVolume": 0.5
+  },
+  "round": 4,
+  "seed": 202647,
+  "phase": "Succeeded",
+  "elapsed": 300.000000,
+  "funds": "72521267",
+  "cumulative": "363655880",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "80995",
+      "current": "95989",
+      "met": true
+    },
+    {
+      "material": "negi",
+      "name": "ねぎ",
+      "required": "76732",
+      "current": "107643",
+      "met": true
+    },
+    {
+      "material": "mushroom",
+      "name": "キノコ",
+      "required": "33539",
+      "current": "40070",
+      "met": true
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 8,
+        "speed": 8,
+        "amount": 9,
+        "luck": 8
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "E5DF77F6755658E86EF0004109091ECC9A86069A120F3AEA6A3FA7D3528D297C",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 32,
+  "result": {
+    "round": 4,
+    "success": true,
+    "score": "363219028",
+    "requiredPoints": "1563252",
+    "bonusPoints": "90609350",
+    "bonusMultiplier": "8",
+    "fundsReward": "72487480",
+    "fundsAfter": "72521267",
+    "cumulative": "363655880",
+    "missing": []
+  },
+  "buttons": [
+    {
+      "name": "ResultNext",
+      "text": "ラウンド5へ",
+      "enabled": true,
+      "display": "Flex",
+      "x": 16.0,
+      "y": 748.0,
+      "width": 358.0,
+      "height": 65.0
+    }
+  ],
+  "image": "M6-proof_bonus_multiplier.png"
+}

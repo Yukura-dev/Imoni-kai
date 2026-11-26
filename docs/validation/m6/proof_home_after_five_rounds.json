@@ -1,0 +1,200 @@
+{
+  "utc": "2026-11-26T02:21:04.8943388Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Home",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "audio": {
+    "enabled": true,
+    "volume": 0.5,
+    "activeVoices": 0,
+    "mixer": "ImoniMaster",
+    "masterGroup": "Master",
+    "masterDecibels": -6.0206,
+    "allVoicesRouted": true,
+    "savedEnabled": true,
+    "savedVolume": 0.5
+  },
+  "round": 5,
+  "seed": 202647,
+  "phase": "Cleared",
+  "elapsed": 300.000000,
+  "funds": "329556614",
+  "cumulative": "1658746656",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "wood",
+      "name": "薪",
+      "required": "1518378",
+      "current": "1660926",
+      "met": true
+    },
+    {
+      "material": "fish",
+      "name": "魚",
+      "required": "393162",
+      "current": "400399",
+      "met": true
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "803690",
+      "current": "974117",
+      "met": true
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 4,
+        "speed": 5,
+        "amount": 5,
+        "luck": 5
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "344060D372DF83527010D81658625613BF0B21DBDBD6B4171E76126C828AAF56",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 46,
+  "result": {
+    "round": 5,
+    "success": true,
+    "score": "1570990703",
+    "requiredPoints": "20797518",
+    "bonusPoints": "390147986",
+    "bonusMultiplier": "8",
+    "fundsReward": "312118388",
+    "fundsAfter": "329556614",
+    "cumulative": "1658746656",
+    "missing": []
+  },
+  "buttons": [
+    {
+      "name": "settings",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 328.0,
+      "y": 57.0,
+      "width": 44.0,
+      "height": 44.0
+    },
+    {
+      "name": "play",
+      "text": "プレイ開始",
+      "enabled": true,
+      "display": "Flex",
+      "x": 18.0,
+      "y": 631.0,
+      "width": 354.0,
+      "height": 78.0
+    },
+    {
+      "name": "Home",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 768.0,
+      "width": 128.0,
+      "height": 76.0
+    },
+    {
+      "name": "Ranking",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 128.0,
+      "y": 768.0,
+      "width": 131.0,
+      "height": 76.0
+    },
+    {
+      "name": "Member",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 259.0,
+      "y": 768.0,
+      "width": 131.0,
+      "height": 76.0
+    },
+    {
+      "name": "sound-toggle",
+      "text": "音: ON",
+      "enabled": true,
+      "display": "Flex",
+      "x": 53.0,
+      "y": 338.0,
+      "width": 284.0,
+      "height": 44.0
+    },
+    {
+      "name": "volume-decrease",
+      "text": "−",
+      "enabled": true,
+      "display": "Flex",
+      "x": 53.0,
+      "y": 425.0,
+      "width": 44.0,
+      "height": 44.0
+    },
+    {
+      "name": "volume-increase",
+      "text": "+",
+      "enabled": true,
+      "display": "Flex",
+      "x": 293.0,
+      "y": 425.0,
+      "width": 44.0,
+      "height": 44.0
+    },
+    {
+      "name": "settings-close",
+      "text": "閉じる",
+      "enabled": true,
+      "display": "Flex",
+      "x": 53.0,
+      "y": 483.0,
+      "width": 284.0,
+      "height": 64.0
+    }
+  ],
+  "image": "M6-proof_home_after_five_rounds.png"
+}

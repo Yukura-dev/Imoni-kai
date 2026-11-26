@@ -230,7 +230,7 @@ namespace Imoni.Game.UI
             foreach (RankingRankStyle rank in Enum.GetValues(typeof(RankingRankStyle)))
                 foreach (bool alternating in new[] { false, true })
                 {
-                    var row = new RankingRow(); row.Bind(new RankingRowView { RankText = rank == RankingRankStyle.First ? "1" : rank == RankingRankStyle.Podium ? "2" : "4", Style = rank, Team = "いもにクラブ", Detail = "最高到達 R3", ScoreText = "1.8万", Alternating = alternating });
+                    var row = new RankingRow(); row.Bind(new RankingRowView { RankText = rank == RankingRankStyle.First ? "1" : rank == RankingRankStyle.Podium ? "2" : "4", Style = rank, Team = "いもにクラブ", Detail = "最高到達 R3", ScoreText = Format.Big(BigInteger.Parse(UiTheme.Data.SelectToken("outGame.ranking.commonNormal[0].score").ToString()), UiTheme.Config), Alternating = alternating });
                     Sample(section, rank + " / alternate " + alternating, row);
                 }
         }

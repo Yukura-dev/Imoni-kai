@@ -182,3 +182,43 @@
 - 質問：指定撮影時刻と静止見本・参考動画の段階が一致しない場合はどれを基準にするか。
   - 仮決定：指定された演出開始からの時刻とIMONI_EFFECT_SPECの式を優先する。参考動画には成功0.76秒・失敗0.24秒の導入画面があり、静止41は演出4.6秒の状態ではない。元動画の並列比較を残したうえで、導入を除いた開始合わせ比較も保存する。乱数の違いを隠すためにタイムラインやスクリーンショットの時刻を変更しない。
   - 該当：docs/validation/m5/effect-comparison.md、tools/Compare-M5.ps1。
+
+## M6 目標インフレ・検証の判断（2026-11-26）
+
+- 質問：最高品質と連続数量を無視したM3の供給予測では、R5の要求がR1より小さく、数十万の採集量に見合わない。
+  - 仮決定：素材別基準量×ラウンド成長×最高品質補正×チーム強化補正で要求を増やす。基準は薪240・里芋160・ねぎ160・キノコ80・魚60・山菜40の90〜110%を抽選し、成長率1.35、最高品質補正の重み0.35とする。1.35は抽選幅1.1/0.9より大きく、同素材の基準量の振れだけで次Rの要求が逆転しない。最高品質の全倍率をそのまま平均採集量とは見なさず、実際の品質分布による供給予測で上限を確認する。
+  - 該当：ObjectiveGenerationConfig.cs、ObjectiveGenerator.cs、GameConfig.objectiveGeneration。
+- 質問：「チームの強化度合い」はLvの合計だけで十分か。
+  - 仮決定：チーム平均Lvの重み（移動0.1・速度0.15・量0.35・運0.12）に加え、同じ位置・在庫・ラウンドでの「実強化の期待供給÷無強化の期待供給」を掛ける（upgradeSupplyWeight=1）。これにより品質抽選と連続の非線形な増加も反映する。生成時の目標を、そのラウンド途中の強化で上げ下げしない。
+  - 該当：ObjectiveGenerator.TargetAmount、GeneratePlan、GatherYieldExpectation.cs。
+- 質問：期待品質と連続を含めても「達成可能」と言えるか。
+  - 仮決定：5分を素材ごとの重複しない作業時間に分け、A*往復移動・1訪問最大3採集・強化速度と量・共有在庫・再生時間を守る作業予定を構築する。実QualityRoller分布と有限回数の連続状態の期待値を加え、その品質換算供給の85%を上限にする。3回まとめて採るのは在庫3回分の自然な操作であり、以前の1採集ごとの拠点往復を過剰に見積もらないため。保証は想定能力と適切な操作での期待供給に収まることで、すべての品質抽選列・放置・無強化での成功保証ではない。
+  - 該当：ObjectiveGenerationPlan.Visits、ObjectiveInflationTests、docs/validation/m6/balance.md。各素材の段階開始時の連続分布は0から計算し、前の素材から続く連続の上振れを保証に使わない。
+- 質問：素材抽選や資源上限がある中で単調増加をどう検証するか。
+  - 仮決定：同素材・同シード・同じ位置／資源状態で、R1〜R5の上限適用後の目標も厳密増加を確認する。強化は非減少、全4強化では全目標の厳密増加を確認する。移動／速度単独の強化が在庫・再生の上限に達する場合だけ同値を許容する。物理的な供給を超えて増やすことはしない。
+  - 該当：ObjectiveInflationTests.FinalGeneratedTargetsAlsoIncreaseForEachRepeatedMaterialAfterCapacityClamp、RaisingUpgradesNeverReducesFinalTargetsAndReadsActualSupply。
+- 質問：自動操作の強化方針で結果が大きく違う。
+  - 仮決定：無強化・計画的強化・予算内無制限投資の3試行を保存する。強化はplayer1のみ、各R開始直後の所持金50%以内、低Lvからamount→luck→speed→move順。計画的試行は各項目+1Lv/Rまで。これはQA専用のbalanceReview設定で、ゲームの強化上限ではない。到達時刻は確定OperationRecordから算出する。
+  - 結果と限界：シード202647では無強化がR4で失敗、計画的強化のR5必須達成は約1:55、予算内無制限投資のR5は約12秒。開始後の大量強化を生成済み目標が予見できない問題は残す。高速クリアを隠すための試行除外、採集／連続／資金報酬の変更や強化上限は追加しない。
+  - 該当：tools/BalanceReview、GameConfig.balanceReview、docs/validation/m6/balance.json、balance.md。
+
+## M6 整数表示・失敗演出の判断（2026-11-26）
+
+- 質問：整数の「万・億・兆」表示で、最小桁や0のグループをどう扱うか。
+  - 判断：1万未満は3桁区切りの整数。1万以上は最高単位から最大2つの隣接単位を表示し、0のグループと万未満の端数は出さない。例は `12,345 → 1万`、`88,701,234 → 8,870万`、`1,234,567,890 → 12億3,456万`、`3,200,012,345,678 → 3兆2,000億`。数量・資金・ポイント・品質倍率・ランキングの表示を共通化する。入力欄と検証用JSONには正確な整数を保持する。
+  - 該当：Format.cs、DisplayProjection.cs、RoundResultProjection.cs、GameHudProjection.cs、ProfileScreens.cs、IntegerDisplayTests.cs。
+- 質問：スコア内訳を整数表示すると、表示した小計の和と確定スコアが一致しない場合がある。
+  - 判断：内部の固定小数精度と最後に一度だけ切り捨てる計算を保持し、各表示項目だけ端数を切り捨てる。内訳に「表示は端数切り捨て」と記載する。強化効果や連続倍率の小数は数量ではないため維持する。達成率1000%以上は整数の「目標の○倍」に切り替える。
+  - 該当：RoundResultProjection.cs、RoundFlowParts.cs、DisplayProjection.cs。
+- 質問：2単位の長い数値が、従来の固定幅に収まらない。
+  - 判断：StatCard・結果内訳は同じラベルを実測して必要時だけ縮小する。結果の目標行は数値列を内容に合わせて広げ、バーが残り幅を使う。Gameの目標チップは名前と数値が同じ行に収まらない場合だけ、同じ枠内の「名前／現在／目標」の配置へ切り替える。結果のボーナス見出しと達成率は最低文字サイズでも収まらない場合だけ2段にする。短い値の配置は保持する。
+  - 該当：NumericLabelFitter.cs、DataControls.cs、RoundFlowParts.cs、Data.uss。
+- 質問：失敗演出を灰色の半透明レイヤーだけで表すと、食材や鍋に元の色が強く残る。
+  - 判断：元画像は変更せず、World内の画像を実行時のシェーダーで段階的に無彩色へ変換する。700msの既存Gray進行を使い、透明度は保持する。線・光粒・画面下地の色も同じ輝度変換を適用する。灰色の覆いは中立色rgb(117,117,117)へ変更し、暖色が戻らないようにする。HUD・操作部品の固有色は対象外。描画用Textureは元画像ごとに再利用し、画面破棄時に解放する。
+  - 該当：ImoniEffectGrayscale.cs、ImoniEffectGrayscale.shader、ImoniEffectView.cs、ImoniEffectParts.cs。
+
+## M6 フォントの事前生成（2026-11-26）
+
+- 質問：Home設定を初めて開いた時、Unityの動的Atlas保存でNativeFormatImporter警告が出る。
+  - 判断：SetupでBlackフォントのHome/設定・初期プロフィール・大数単位の既知文字を生成し、AtlasをEditor APIで保存・同期Importする。Dynamicは未知の名前のため維持し、警告抑制は行わない。提供フォントにない「秭」は単位の事前生成集合からだけ除外し、既存フォールバックを使う。
+  - 該当：ImoniFontWarmup.cs、ImoniSetup.cs、生成済みZenMaruGothic-Black SDF.asset。

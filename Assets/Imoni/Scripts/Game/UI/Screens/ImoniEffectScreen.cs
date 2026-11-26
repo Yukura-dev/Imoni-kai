@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Imoni.Core.Effects;
 using Imoni.Game.Effects;
+using Imoni.Game.Audio;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -45,15 +46,9 @@ namespace Imoni.Game.UI.Screens
 
         private void BindExistingAudio(UIRuntimeAssets assets)
         {
-            var clips = assets.imoniEffectAudio ?? Array.Empty<AudioClip>();
-            AudioClip Clip(string key) => clips.FirstOrDefault(clip => clip && clip.name == key);
             var audio = runtime.AddComponent<ImoniEffectAudio>();
             audio.view = Effect;
-            audio.drone = Clip("bgm_drone_loop"); audio.beat = Clip("sfx_beat");
-            audio.hihat = Clip("sfx_beat_hihat"); audio.hit = Clip("sfx_hit");
-            audio.levelUps = Enumerable.Range(1, UiTheme.Data["imoniEffect"]["levelThresholdRatios"].Count())
-                .Select(level => Clip("sfx_levelup_L" + level)).ToArray();
-            audio.successFinale = Clip("sfx_finale_success"); audio.failureFinale = Clip("sfx_finale_fail");
+            audio.Service = AudioService.Instance;
         }
 
         private void SaveSound(bool enabled)

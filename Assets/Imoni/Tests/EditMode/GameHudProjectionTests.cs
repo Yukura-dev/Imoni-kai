@@ -68,6 +68,17 @@ namespace Imoni.Core.Tests
             Assert.That(view.BonusStatusText, Is.EqualTo("達成率 " + percent + "% 報酬×" + multiplier));
         }
 
+        [TestCase(299, "達成率 996% 報酬×8")]
+        [TestCase(300, "目標の10倍 報酬×8")]
+        [TestCase(330, "目標の11倍 報酬×8")]
+        public void HudSwitchesLargeAchievementToNaturalIntegerMultiples(int quantity, string expected)
+        {
+            GameConfig config = Config();
+            var lot = new MaterialLot(1, "mushroom", "normal", quantity, config.FixedScale);
+            var view = GameHudProjection.Present(config, Snapshot(config, 120, true, new[] { lot }), "player1", 30);
+            Assert.That(view.BonusStatusText, Is.EqualTo(expected));
+        }
+
         [Test]
         public void HugeQuantitiesDoNotPassThroughFloatingPoint()
         {

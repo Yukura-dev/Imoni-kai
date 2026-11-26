@@ -69,7 +69,7 @@ namespace Imoni.Core
                 BonusGoal = DisplayProjection.Goal(config, bonus.MaterialId, bonus.Current, bonus.Required),
                 BonusTiers = DisplayProjection.BonusTiers(config, bonus.Current, bonus.Required),
                 BonusText = config.Material(bonus.MaterialId).Name + " " + Format.Big(bonus.Current, config) + "/" + Format.Big(bonus.Required, config),
-                BonusStatusText = Format.Big(bonus.Current * 100 / bonus.Required, config) + "% 報酬" + multiplier,
+                BonusStatusText = DisplayProjection.Achievement(config, bonus.Current, bonus.Required) + " 報酬" + multiplier,
                 ScoreText = Format.Big(evaluation.Score, config), FundsRewardText = "+" + Format.Big(evaluation.FundsReward, config) + config.CurrencyUnit,
                 CumulativeScoreText = Format.Big(result.CumulativeScore, config),
                 RequiredPointsText = RatioText(evaluation.RequiredPointsRaw, evaluation.PointScale, config),
@@ -79,7 +79,7 @@ namespace Imoni.Core
                 BonusMultiplierText = multiplier,
                 BreakdownTitle = "スコア内訳(" + config.RequiredWeight.ToString(CultureInfo.InvariantCulture) + "×R + " + config.BonusWeight.ToString(CultureInfo.InvariantCulture) + "×B×T)",
                 MissingMaterialNames = missing,
-                MissingMaterialText = missing.Count == 0 ? string.Empty : "必須素材『" + string.Join("・", missing) + "』が足りなかった",
+                MissingMaterialText = missing.Count == 0 ? string.Empty : "必須素材「" + string.Join("・", missing) + "」が足りなかった",
                 NextButtonText = !evaluation.Success ? "R1から再挑戦" : clear ? "ホームへ戻る" : "ラウンド" + (result.RoundNumber + 1) + "へ",
                 NewlyEligibleTitles = titles,
                 NewTitleText = titles.Count == 0 ? string.Empty : string.Join("・", titles.Select(title => "「" + title.Value + "」GET!")),
@@ -103,19 +103,9 @@ namespace Imoni.Core
 
         private static string RatioText(BigInteger numerator, BigInteger denominator, GameConfig config)
         {
-            // Preserve fractional lot points for the breakdown. Score settlement itself is unchanged.
-            BigInteger divisor = denominator; int unit = 0;
-            while (unit + 1 < config.FormatUnits.Count && numerator >= divisor * config.FormatUnitBase)
-            { divisor *= config.FormatUnitBase; unit++; }
-            BigInteger whole = BigInteger.DivRem(numerator, divisor, out BigInteger remainder);
-            string fraction = string.Empty;
-            if (config.FormatDecimalPlaces > 0)
-            {
-                BigInteger digits = remainder * BigInteger.Pow(10, config.FormatDecimalPlaces) / divisor;
-                string text = digits.ToString(CultureInfo.InvariantCulture).PadLeft(config.FormatDecimalPlaces, '0').TrimEnd('0');
-                if (text.Length > 0) fraction = "." + text;
-            }
-            return whole.ToString(unit == 0 ? "N0" : "0", CultureInfo.InvariantCulture) + fraction + config.FormatUnits[unit];
+            // The authoritative score retains raw lot precision. Only the displayed breakdown
+            // is truncated, using exactly the same integer formatter as funds and quantities.
+            return Format.Big(numerator / denominator, config);
         }
     }
 }

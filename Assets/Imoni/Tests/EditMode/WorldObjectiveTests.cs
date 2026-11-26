@@ -55,8 +55,9 @@ namespace Imoni.Core.Tests
             {
                 Assert.That(available.Contains(goal.MaterialId), Is.True);
                 BigInteger cap = plan.SimulatedCapacities[goal.MaterialId];
-                Assert.That(goal.Amount * 10 >= cap * 4, Is.True, "At least forty percent of attainable capacity.");
-                Assert.That(goal.Amount * 10 <= cap * 7, Is.True, "At most seventy percent of attainable capacity.");
+                Assert.That(goal.Amount, Is.GreaterThan(BigInteger.Zero));
+                Assert.That(goal.Amount, Is.LessThanOrEqualTo(GameMath.MultiplyFloor(cap, config.ObjectiveGeneration.MaximumCapacityFraction)),
+                    "Inflated targets must fit the configured fraction of quality-equivalent expected capacity.");
             }
         }
 
@@ -80,7 +81,7 @@ namespace Imoni.Core.Tests
             });
             WorldMap world = WorldGen.Generate(config, 53);
             var plan = new ObjectiveGenerator(config).GeneratePlan(world, 1, new Rng(34));
-            decimal gatherWork = plan.SimulatedCapacities.Sum(item =>
+            decimal gatherWork = plan.RawSimulatedCapacities.Sum(item =>
                 (decimal)(item.Value / config.Material(item.Key).BaseYield) * config.BaseCollectSeconds);
             Assert.That(gatherWork, Is.LessThan(config.TeamSize * config.DurationSeconds));
         }
@@ -115,7 +116,10 @@ namespace Imoni.Core.Tests
                 team.Upgrades.ToDictionary(upgrade => upgrade.Id, upgrade => upgrade.Id == "amount" ? 4 : 0), world.Start)).ToArray();
             var better = new ObjectiveGenerator(team).GeneratePlan(world, 1, new Rng(25), upgraded);
             foreach (string material in three.SimulatedCapacities.Keys)
-                Assert.That(better.SimulatedCapacities[material], Is.EqualTo(three.SimulatedCapacities[material] * 3));
+            {
+                Assert.That(better.RawSimulatedCapacities[material], Is.EqualTo(three.RawSimulatedCapacities[material] * 3));
+                Assert.That(better.SimulatedCapacities[material], Is.GreaterThanOrEqualTo(three.SimulatedCapacities[material] * 3));
+            }
         }
 
         [Test]
@@ -129,10 +133,10 @@ namespace Imoni.Core.Tests
             var plan = new ObjectiveGenerator(config).GeneratePlan(WorldGen.Generate(config, 22), 1, new Rng(26));
             foreach (Objective goal in All(plan.Objectives))
             {
-                BigInteger cap = plan.SimulatedCapacities[goal.MaterialId];
-                Assert.That(goal.Amount * 10 >= cap * 5 && goal.Amount * 10 <= cap * 6, Is.True);
+                BigInteger basis = plan.BaseAmounts[goal.MaterialId], configured = config.ObjectiveGeneration.BaseAmounts[goal.MaterialId];
+                Assert.That(basis * 10 >= configured * 5 && basis * 10 <= configured * 6, Is.True);
             }
-            Assert.Throws<ArgumentException>(() => Config(json => json["objectiveGeneration"]["minimumFraction"] = 0.8m));
+            Assert.Throws<ArgumentException>(() => Config(json => json["objectiveGeneration"]["minimumFraction"] = 1.2m));
             Assert.Throws<ArgumentException>(() => Config(json => json["objectiveGeneration"]["requiredCount"] = 4));
             Assert.Throws<ArgumentException>(() => Config(json => json["objectiveGeneration"]["requiredCount"] = 2.5m));
             Assert.Throws<ArgumentException>(() => Config(json => json["gathering"]["growthStageFractions"][0] = "0.25"));

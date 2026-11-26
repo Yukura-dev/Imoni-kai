@@ -29,6 +29,7 @@
         <ui:VisualElement name="settings-overlay" class="home-settings-overlay">
             <c:Card header="設定" class="home-settings-card">
                 <c:ImoniButton name="sound-toggle" variant="Outline" class="home-sound-toggle" />
+                <c:AudioVolumeControl name="sound-volume" />
                 <c:ImoniButton name="settings-close" variant="Primary" text="閉じる" class="home-settings-close" />
             </c:Card>
         </ui:VisualElement>

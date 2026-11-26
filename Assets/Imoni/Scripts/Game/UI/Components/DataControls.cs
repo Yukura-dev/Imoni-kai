@@ -32,11 +32,16 @@ namespace Imoni.Game.UI.Components
     {
         private readonly Label caption = UiTheme.Label(string.Empty, "stat-card__label");
         private readonly Label number = UiTheme.Label(string.Empty, "stat-card__value");
+        private readonly NumericLabelFitter numberFitter;
         private StatCardVariant variant;
         [UxmlAttribute] public string Label { get => caption.text; set => caption.text = value ?? string.Empty; }
-        [UxmlAttribute] public string Value { get => number.text; set => number.text = value ?? string.Empty; }
-        [UxmlAttribute] public StatCardVariant Variant { get => variant; set { variant = value; UiTheme.SetVariant(this, "stat-card--", value); } }
-        public StatCard() { DataVisuals.Apply(this, "stat-card"); Add(caption); Add(number); Variant = StatCardVariant.Home; }
+        [UxmlAttribute] public string Value { get => number.text; set { number.text = value ?? string.Empty; numberFitter?.Refresh(); } }
+        [UxmlAttribute] public StatCardVariant Variant { get => variant; set { variant = value; UiTheme.SetVariant(this, "stat-card--", value); numberFitter?.Refresh(true); } }
+        public StatCard()
+        {
+            DataVisuals.Apply(this, "stat-card"); Add(caption); Add(number);
+            numberFitter = new NumericLabelFitter(number); Variant = StatCardVariant.Home;
+        }
     }
 
     [UxmlElement]
@@ -157,7 +162,7 @@ namespace Imoni.Game.UI.Components
             JToken visual = UiTheme.Data?["qualities"]?.FirstOrDefault(item => item["id"]?.Value<string>() == quality);
             QualityDefinition definition = UiTheme.Config?.Qualities.FirstOrDefault(item => item.Id == quality);
             text = definition?.Name ?? quality;
-            if (showMultiplier && definition != null) text += " ×" + definition.Multiplier.ToString("N0", CultureInfo.InvariantCulture);
+            if (showMultiplier && definition != null) text += " ×" + Format.Big(definition.Multiplier, UiTheme.Config);
             style.backgroundColor = visual == null ? new StyleColor(StyleKeyword.Null) : new StyleColor(UiTheme.Color(visual["bg"].Value<string>()));
             style.color = visual == null ? new StyleColor(StyleKeyword.Null) : new StyleColor(UiTheme.Color(visual["fg"].Value<string>()));
             EnableInClassList("quality-chip--detail", showMultiplier);
@@ -170,18 +175,25 @@ namespace Imoni.Game.UI.Components
         private readonly Label caption = UiTheme.Label(string.Empty, "material-goal__name");
         private readonly Label count = UiTheme.Label(string.Empty, "material-goal__count");
         private readonly ProgressBar progress = new ProgressBar { Variant = ProgressVariant.Thin };
+        private readonly NumericLabelFitter countFitter;
         private string material = "wood", current = "0", required = "1";
+        private string countText;
+        private bool stacked;
+        private float normalCountSize, normalCaptionSize;
+        private IVisualElementScheduledItem layoutJob;
         private MaterialGoalView bound;
         private MaterialGoalVariant variant;
         [UxmlAttribute] public string Material { get => material; set { material = value; RefreshFromAttributes(); } }
         [UxmlAttribute] public string Current { get => current; set { current = value; RefreshFromAttributes(); } }
         [UxmlAttribute] public string Required { get => required; set { required = value; RefreshFromAttributes(); } }
-        [UxmlAttribute] public MaterialGoalVariant Variant { get => variant; set { variant = value; UiTheme.SetVariant(this, "material-goal--", value); Present(); } }
+        [UxmlAttribute] public MaterialGoalVariant Variant { get => variant; set { variant = value; UiTheme.SetVariant(this, "material-goal--", value); countFitter?.Refresh(true); Present(); ScheduleCountLayout(); } }
         public MaterialGoalChip()
         {
             DataVisuals.Apply(this, "material-goal"); progress.AddToClassList("material-goal__bar");
-            Add(caption); Add(progress); Add(count); Variant = MaterialGoalVariant.Chip;
-            RegisterCallback<AttachToPanelEvent>(_ => { if (bound == null) RefreshFromAttributes(); });
+            Add(caption); Add(progress); Add(count); countFitter = new NumericLabelFitter(count); Variant = MaterialGoalVariant.Chip;
+            RegisterCallback<AttachToPanelEvent>(_ => { if (bound == null) RefreshFromAttributes(); ScheduleCountLayout(); });
+            RegisterCallback<GeometryChangedEvent>(_ => ScheduleCountLayout());
+            RegisterCallback<DetachFromPanelEvent>(_ => layoutJob?.Pause());
         }
         public void Bind(MaterialGoalView view) { bound = view ?? throw new ArgumentNullException(nameof(view)); Present(); }
         private void RefreshFromAttributes()
@@ -194,11 +206,45 @@ namespace Imoni.Game.UI.Components
         {
             if (bound == null) return;
             caption.text = bound.Name;
-            count.text = bound.CurrentText + "/" + bound.RequiredText + (variant == MaterialGoalVariant.FailureRow && !bound.Achieved ? " 不足" : string.Empty);
+            string counts = bound.CurrentText + "/" + bound.RequiredText + (variant == MaterialGoalVariant.FailureRow && !bound.Achieved ? " 不足" : string.Empty);
+            if (countText != counts) { countText = counts; ApplyCountText(); ScheduleCountLayout(); }
             progress.Value = (float)bound.Progress;
             EnableInClassList("material-goal--achieved", bound.Achieved);
             EnableInClassList("material-goal--short", variant == MaterialGoalVariant.FailureRow && !bound.Achieved);
             progress.FillColor = variant == MaterialGoalVariant.FailureRow && !bound.Achieved ? "#8B2310" : "#6B9B3A";
+        }
+
+        private void ApplyCountText()
+        {
+            count.text = stacked && bound != null ? bound.CurrentText + "\n/" + bound.RequiredText : countText;
+            countFitter.Refresh();
+        }
+
+        private void ScheduleCountLayout()
+        {
+            if (panel == null) return;
+            layoutJob?.Pause(); layoutJob = schedule.Execute(UpdateCountLayout);
+        }
+
+        private void UpdateCountLayout()
+        {
+            if (bound == null) return;
+            bool needsStacked = false;
+            if (variant == MaterialGoalVariant.Chip && contentRect.width > 0)
+            {
+                float countSize = count.resolvedStyle.fontSize, captionSize = caption.resolvedStyle.fontSize;
+                if (countSize <= 0 || captionSize <= 0) return;
+                if (normalCountSize <= 0) normalCountSize = countSize;
+                if (normalCaptionSize <= 0) normalCaptionSize = captionSize;
+                float countWidth = count.MeasureTextSize(countText, 0, VisualElement.MeasureMode.Undefined, 0, VisualElement.MeasureMode.Undefined).x * normalCountSize / countSize;
+                float captionWidth = caption.MeasureTextSize(caption.text, 0, VisualElement.MeasureMode.Undefined, 0, VisualElement.MeasureMode.Undefined).x * normalCaptionSize / captionSize;
+                needsStacked = countWidth + captionWidth > contentRect.width;
+            }
+            if (stacked == needsStacked) return;
+            stacked = needsStacked; EnableInClassList("material-goal--stacked", stacked);
+            float minimum = (float)UiTheme.Number("numericLabelMinimumFontSize");
+            caption.style.fontSize = stacked ? new StyleLength(minimum) : new StyleLength(StyleKeyword.Null);
+            countFitter.SetMaximumSize(stacked ? minimum : 0); ApplyCountText();
         }
     }
 

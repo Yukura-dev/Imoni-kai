@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Imoni.Core;
+using Imoni.Game.Audio;
 using Imoni.Game.UI.Components;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -77,7 +78,7 @@ namespace Imoni.Game.UI.Screens
             else File.Move(temporary, savePath);
             ApplySound();
         }
-        private void ApplySound() => AudioListener.volume = Profile.SoundEnabled ? 1 : 0;
+        private void ApplySound() => AudioService.Instance?.SetPreferences(Profile.SoundEnabled, Profile.SoundVolume);
         public ProfileViewModel ProfileView()
         {
             JToken fixture = Data["outGame"]["profile"];

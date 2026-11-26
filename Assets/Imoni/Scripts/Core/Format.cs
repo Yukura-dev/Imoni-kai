@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Numerics;
+using System.Text;
 
 namespace Imoni.Core
 {
@@ -16,15 +17,16 @@ namespace Imoni.Core
             while (unit + 1 < config.FormatUnits.Count && value >= divisor * config.FormatUnitBase)
             { divisor *= config.FormatUnitBase; unit++; }
             if (unit == 0) return sign + value.ToString("N0", CultureInfo.InvariantCulture);
-            BigInteger whole = BigInteger.DivRem(value, divisor, out BigInteger remainder);
-            string fraction = string.Empty;
-            if (config.FormatDecimalPlaces > 0)
+            var text = new StringBuilder(sign);
+            // Once a unit is used, omit values below the first named unit (万 by default).
+            int lastUnit = Math.Max(1, unit - config.FormatMaxDisplayGroups + 1);
+            for (; unit >= lastUnit; unit--)
             {
-                BigInteger digits = remainder * BigInteger.Pow(10, config.FormatDecimalPlaces) / divisor;
-                string text = digits.ToString(CultureInfo.InvariantCulture).PadLeft(config.FormatDecimalPlaces, '0').TrimEnd('0');
-                if (text.Length > 0) fraction = "." + text;
+                BigInteger group = BigInteger.DivRem(value, divisor, out value);
+                if (!group.IsZero) text.Append(group.ToString("N0", CultureInfo.InvariantCulture)).Append(config.FormatUnits[unit]);
+                divisor /= config.FormatUnitBase;
             }
-            return sign + whole.ToString(CultureInfo.InvariantCulture) + fraction + config.FormatUnits[unit];
+            return text.ToString();
         }
     }
 }

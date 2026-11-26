@@ -14,6 +14,7 @@ namespace Imoni.Core
         public string BandColor { get; set; }
         public string OutfitColor { get; set; }
         public bool SoundEnabled { get; set; } = true;
+        public double SoundVolume { get; set; } = double.NaN;
         public bool TutorialCompleted { get; set; }
         public string[] OwnedFirstTitles { get; set; } = Array.Empty<string>();
         public string[] OwnedSecondTitles { get; set; } = Array.Empty<string>();
@@ -52,6 +53,7 @@ namespace Imoni.Core
                 BandColor = Allowed(profile.BandColor, defaults["bandColors"], defaults["defaultBandColor"].Value<string>()),
                 OutfitColor = Allowed(profile.OutfitColor, defaults["outfitColors"], defaults["defaultOutfitColor"].Value<string>()),
                 SoundEnabled = profile.SoundEnabled,
+                SoundVolume = Effects.ImoniAudioPlan.NormalizeVolume(config, profile.SoundVolume),
                 TutorialCompleted = profile.TutorialCompleted,
                 OwnedFirstTitles = first, OwnedSecondTitles = second
             };

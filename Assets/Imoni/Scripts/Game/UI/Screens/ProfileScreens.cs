@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Numerics;
+using Imoni.Core;
+using Imoni.Core.Effects;
 using Imoni.Game.UI.Components;
 using Newtonsoft.Json.Linq;
 using UnityEngine.UIElements;
@@ -28,12 +32,15 @@ namespace Imoni.Game.UI.Screens
             Find<ImoniButton>("settings").clicked += () => overlay.style.display = DisplayStyle.Flex;
             Find<ImoniButton>("settings-close").clicked += () => overlay.style.display = DisplayStyle.None;
             var sound = Find<ImoniButton>("sound-toggle");
+            var volume = Find<AudioVolumeControl>("sound-volume");
             void ShowSound()
             {
                 sound.text = App.Profile.SoundEnabled ? "音: ON" : "音: OFF";
                 sound.Icon = App.Profile.SoundEnabled ? "icon_sound_on" : "icon_sound_off";
+                volume.Bind(App.Profile.SoundVolume, App.Data["audio"]["minVolume"].Value<double>(), App.Data["audio"]["maxVolume"].Value<double>(), App.Data["audio"]["volumePercentScale"].Value<double>());
             }
             sound.clicked += () => { App.Profile.SoundEnabled = !App.Profile.SoundEnabled; App.SaveProfile(); ShowSound(); };
+            volume.StepRequested += direction => { App.Profile.SoundVolume = ImoniAudioPlan.AdjustVolume(App.Data, App.Profile.SoundVolume, direction); App.SaveProfile(); ShowSound(); };
             ShowSound();
         }
     }
@@ -112,7 +119,7 @@ namespace Imoni.Game.UI.Screens
                 {
                     RankText = (index + 1).ToString(), Team = teams[index],
                     Detail = clear + seedText + " · " + fixture["dates"][index],
-                    ScoreText = score["displayScore"].Value<string>(),
+                    ScoreText = Format.Big(BigInteger.Parse(score["score"].Value<string>(), CultureInfo.InvariantCulture), UiTheme.Config),
                     Style = index == 0 ? RankingRankStyle.First : index < fixture["podiumRanks"].Value<int>() ? RankingRankStyle.Podium : RankingRankStyle.Normal,
                     Alternating = index % 2 == 0
                 });

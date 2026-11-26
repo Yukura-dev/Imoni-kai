@@ -28,6 +28,6 @@
 .effect-result--fail { background-color: var(--c-brown); }
 .effect-result-shadow--fail { background-color: #2A1A12; }
 .effect-replay { position: absolute; background-color: var(--c-cream); padding: 0; min-height: 0; }
-.gray-overlay { background-color: rgb(125,116,102); }
+.gray-overlay { background-color: rgb(117,117,117); }
 .dark-overlay { background-color: black; }
 .imoni-effect Label { flex-shrink: 0; }

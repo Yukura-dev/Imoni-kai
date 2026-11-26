@@ -1,0 +1,120 @@
+{
+  "utc": "2026-11-26T02:01:46.5838682Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Result",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "audio": {
+    "enabled": true,
+    "volume": 0.5,
+    "activeVoices": 0,
+    "mixer": "ImoniMaster",
+    "masterGroup": "Master",
+    "masterDecibels": -6.0206,
+    "allVoicesRouted": true,
+    "savedEnabled": true,
+    "savedVolume": 0.5
+  },
+  "round": 1,
+  "seed": 202647,
+  "phase": "Succeeded",
+  "elapsed": 300.000000,
+  "funds": "1815",
+  "cumulative": "7358",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "wood",
+      "name": "薪",
+      "required": "250",
+      "current": "493",
+      "met": true
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "163",
+      "current": "195",
+      "met": true
+    },
+    {
+      "material": "negi",
+      "name": "ねぎ",
+      "required": "159",
+      "current": "187",
+      "met": true
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 1,
+        "amount": 1,
+        "luck": 1
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "9E0306D2EC377430B2AB893FE42725416D4D9DBA42D03E6D661395253FA405A9",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 10,
+  "result": {
+    "round": 1,
+    "success": true,
+    "score": "7358",
+    "requiredPoints": "2064",
+    "bonusPoints": "3163",
+    "bonusMultiplier": "4",
+    "fundsReward": "1265",
+    "fundsAfter": "1815",
+    "cumulative": "7358",
+    "missing": []
+  },
+  "buttons": [
+    {
+      "name": "ResultNext",
+      "text": "ラウンド2へ",
+      "enabled": true,
+      "display": "Flex",
+      "x": 16.0,
+      "y": 748.0,
+      "width": 358.0,
+      "height": 65.0
+    }
+  ],
+  "image": "M6-proof_result_R1.png"
+}

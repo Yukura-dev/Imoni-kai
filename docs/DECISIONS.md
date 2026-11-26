@@ -128,3 +128,24 @@
 - 失敗演出の成功基準は、現在のR/Bを保ち、不足必須素材の品質換算数量×基本ポイントをRへ加えた仮の成功スコア（整数比で計算後に切り捨て）。基準は実スコア以上かつ最低1。旧プロトタイプの実スコア÷0.4はBootのM5経路には適用しない。表示する最終スコアと失敗報酬0は確定結果のまま。
 - 開発用短縮は既存 `round.mockTimeScale=10` を再利用する。Editorメニュー `Imoni > Development > Short Rounds (GameConfig)` の既定はOFF。Development Buildは `--imoni-short-rounds` を明示した場合だけ有効。Releaseでは無効・常時1倍。演出の時計は短縮対象外。
 - 演出部品のプール数は `imoniEffect` の発生間隔・寿命・段階数から算出し、独立した固定個数は追加しない。結果ボタン表示時にスコア表示を確定値へ合わせ、巨大スコアの指数補間の残りを表示し続けない。演出の座標・光画像・時間上限は既存IMONI_EFFECT_SPECのまま。
+
+## M6 目標インフレ（2026-11-26）
+
+- `objectiveGeneration.baseAmounts` はwood240/taro160/negi160/mushroom80/fish60/sansai40。`minimumFraction=0.9, maximumFraction=1.1` はこの基準量の抽選幅とし、M3の「供給量の40〜70%」から役割を変更した。`roundGrowth=1.35` は抽選幅の最大比率を上回り、`highestQualityWeight=0.35` は `1+0.35×(当該R最高品質倍率/R1最高品質倍率−1)` として使う。
+- チーム補正は `[1+Σ(チーム平均Lv×upgradeWeights)]×[1+upgradeSupplyWeight×max(0,実強化期待供給/同条件の無強化期待供給−1)]`。`upgradeWeights={move:0.1,speed:0.15,amount:0.35,luck:0.12}`、`upgradeSupplyWeight=1`。数値はBigIntegerと整数比で計算し、数量をfloatへ変換しない。
+- `simulationGathersPerVisit=3` は1ノードの在庫をまとめて採って戻る予定。全員の5分を必須＋ボーナスで等分し、品質分布は実QualityRollerと同じ、連続は有限回数の状態確率から期待量を求める。各素材段階の連続は0開始、固定小数の小さい確率の端数は0連続へ戻して上振れを過大評価しない。最終要求は式の結果と `maximumCapacityFraction=0.85` ×期待供給の小さい方。共有在庫・再生・A*往復・採集時間を検証できる予定を公開する。
+- QA専用 `balanceReview` はseed202647、upgradeBudgetFraction0.5、plannedLevelsPerRound1、priority=[amount,luck,speed,move]。無強化、計画的、予算内無制限の3試行を通常IGameServer操作で比較する。目標生成後の強化によって確定目標は再計算しない。供給・目標の係数とQAポリシーを分け、正確な達成時刻は履歴から再構築する。
+- 実測では無強化R1の必須達成2:36、R4失敗。計画的強化はR1約2:03→R5約1:55となり、後半の要求が数十のままになる問題を解消した。予算内無制限投資はR5約12秒で達成するため、その限界も残す。採集式、連続倍率、強化上限、資金報酬は変更しない。
+
+## M6 整数表示・失敗演出（2026-11-26）
+
+- `format.maxDisplayGroups=2`、`format.achievementMultipleThresholdPercent=1000` を追加。`Format.Big` は整数の単位グループで表示し、1万以上の値は万未満を省略する。M1の「大数を小数で表示」はこの仕様に置き換える。`format.decimalPlaces` は連続倍率などの係数表示で引き続き使う。スコアの固定小数計算・最終切り捨ては変更しない。
+- `ui.numericLabelMinimumFontSize=10`。共通数値ラベルは実測幅に応じて元のUSSサイズから縮小する。長いGame目標は枠の高さを変えず複数行にし、Result/Clearの目標行は数値列を可変幅にする。入力欄・ログ・検証JSONは省略せず正確な値を保持する。
+- `imoniEffect.layout.grayOpacity=0.65`、`darkOpacity=0.30`。既存の700ms灰色化に合わせ、Worldの画像自体にもRec.709輝度（0.2126/0.7152/0.0722）への補間を適用する。これらの係数は色変換の定義でありバランス値ではない。透過alphaと元画像を保持し、GPUコピーは初回のみ確保、Gray変化時だけ再描画、再生終了後の同じGray値では再描画しない。画面破棄・再構築時にRenderTextureとMaterialを解放する。
+- 灰色の覆いは元の暖色の輝度に近い中立色rgb(117,117,117)とし、画像の下にあるUSSの画面背景色も同じGray値で無彩色化する。HUD・操作部品の固有色は保持する。結果の極端な大数でボーナス見出しと達成率が最低文字サイズでも収まらない場合は、共通ResultBonusCardの見出しだけを2段にする。
+- 不足文のかぎかっこは `必須素材「魚」が足りなかった` の形に統一する。素材名は確定したCore結果から取得する。
+
+## M6 音と設定の生成物（2026-11-26）
+
+- `audio` に保存音量の初期値1、範囲0〜1、刻み0.1、Master下限−80dB、振幅のdB換算20log10を追加。Masterの内蔵CompressorはThreshold−18dB/Attack20ms/Release120ms/Make up gain0dB。Unityが公開しないRatioは設定せず、実在するパラメーターだけをEditor APIで設定する。
+- Home設定で発生した動的Atlasの再Import警告を避けるため、`ImoniFontWarmup` でBlackフォントの既知124字をSetup時に生成する。対象はHome/設定と共通タブ・初期プロフィール・大数単位。未収録の「秭」は単位の事前生成集合からだけ除外する。未知名のためDynamicは保持する。生成済み文字が再度要求された時のAPI戻り値に依存せず、生成後の文字辞書で実在を確認する。

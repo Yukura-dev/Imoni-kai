@@ -1,0 +1,1358 @@
+{
+  "seed": 202647,
+  "objectiveConfig": {
+    "requiredCount": 3,
+    "minimumFraction": 0.9,
+    "maximumFraction": 1.1,
+    "roundGrowth": 1.35,
+    "highestQualityWeight": 0.35,
+    "maximumCapacityFraction": 0.85,
+    "upgradeSupplyWeight": 1,
+    "simulationGathersPerVisit": 3,
+    "baseAmounts": {
+      "wood": 240,
+      "taro": 160,
+      "negi": 160,
+      "mushroom": 80,
+      "fish": 60,
+      "sansai": 40
+    },
+    "upgradeWeights": {
+      "move": 0.1,
+      "speed": 0.15,
+      "amount": 0.35,
+      "luck": 0.12
+    },
+    "_comment": "素材別基準の90〜110%を抽選し、ラウンド成長・最高品質補正・平均強化補正と実効供給倍率補正を掛ける。実効補正=1+upgradeSupplyWeight×max(0,同条件の実強化期待供給/無強化期待供給-1)。期待供給85%を上限とする。供給は全員の時間を必須+ボーナスで等分し、1訪問3回までの採集と往復・共有在庫・再生・実品質分布・有限回数の連続期待量を含む。",
+    "firstRoundRequiredMaterials": [
+      "wood",
+      "taro",
+      "negi"
+    ]
+  },
+  "qaPolicy": {
+    "seed": 202647,
+    "upgradeBudgetFraction": 0.5,
+    "plannedLevelsPerRound": 1,
+    "upgradePriority": [
+      "amount",
+      "luck",
+      "speed",
+      "move"
+    ],
+    "_comment": "QA自動操作専用。通常の目標生成には使わない。各ラウンド開始直後、player1の現在資金の半分以内で低Lv優先に強化する。計画的試行は各項目1Lv/Rまで、別の無制限投資試行は予算だけを制限する。目標は生成済みの値を維持する。"
+  },
+  "trials": [
+    {
+      "policy": "no-upgrades",
+      "rounds": [
+        {
+          "round": 1,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "1000",
+          "fundsAfter": "1438",
+          "goalGenerationUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "upgradePurchases": [],
+          "required": [
+            {
+              "material": "wood",
+              "target": "250",
+              "final": "555",
+              "metAtSeconds": 149.848448
+            },
+            {
+              "material": "taro",
+              "target": "163",
+              "final": "186",
+              "metAtSeconds": 147.942860
+            },
+            {
+              "material": "negi",
+              "target": "159",
+              "final": "204",
+              "metAtSeconds": 156.057144
+            }
+          ],
+          "bonus": {
+            "material": "fish",
+            "target": "42",
+            "final": "73",
+            "metAtSeconds": 220.171432
+          },
+          "requiredMetAtSeconds": 156.057144,
+          "endOfRoundPlayerUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "score": "3251",
+          "cumulativeScore": "3251"
+        },
+        {
+          "round": 2,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "1438",
+          "fundsAfter": "1438",
+          "goalGenerationUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "upgradePurchases": [],
+          "required": [
+            {
+              "material": "fish",
+              "target": "152",
+              "final": "190",
+              "metAtSeconds": 156.057144
+            },
+            {
+              "material": "mushroom",
+              "target": "148",
+              "final": "170",
+              "metAtSeconds": 214.241270
+            },
+            {
+              "material": "sansai",
+              "target": "45",
+              "final": "46",
+              "metAtSeconds": 94.782628
+            }
+          ],
+          "bonus": {
+            "material": "negi",
+            "target": "403",
+            "final": "214",
+            "metAtSeconds": null
+          },
+          "requiredMetAtSeconds": 214.241270,
+          "endOfRoundPlayerUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "score": "6710",
+          "cumulativeScore": "9961"
+        },
+        {
+          "round": 3,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "1438",
+          "fundsAfter": "1438",
+          "goalGenerationUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "upgradePurchases": [],
+          "required": [
+            {
+              "material": "mushroom",
+              "target": "566",
+              "final": "854",
+              "metAtSeconds": 194.234921
+            },
+            {
+              "material": "sansai",
+              "target": "385",
+              "final": "391",
+              "metAtSeconds": 121.677024
+            },
+            {
+              "material": "taro",
+              "target": "1447",
+              "final": "1612",
+              "metAtSeconds": 280.742860
+            }
+          ],
+          "bonus": {
+            "material": "negi",
+            "target": "1326",
+            "final": "64",
+            "metAtSeconds": null
+          },
+          "requiredMetAtSeconds": 280.742860,
+          "endOfRoundPlayerUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "score": "31692",
+          "cumulativeScore": "41653"
+        },
+        {
+          "round": 4,
+          "success": false,
+          "phase": "Failed",
+          "fundsAtStart": "1438",
+          "fundsAfter": "1000",
+          "goalGenerationUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "upgradePurchases": [],
+          "required": [
+            {
+              "material": "taro",
+              "target": "11685",
+              "final": "8491",
+              "metAtSeconds": null
+            },
+            {
+              "material": "negi",
+              "target": "10973",
+              "final": "4241",
+              "metAtSeconds": null
+            },
+            {
+              "material": "mushroom",
+              "target": "5545",
+              "final": "8330",
+              "metAtSeconds": 150.234921
+            }
+          ],
+          "bonus": {
+            "material": "sansai",
+            "target": "7474",
+            "final": "0",
+            "metAtSeconds": null
+          },
+          "requiredMetAtSeconds": null,
+          "endOfRoundPlayerUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "score": "96813",
+          "cumulativeScore": "41653"
+        }
+      ]
+    },
+    {
+      "policy": "planned-upgrades",
+      "rounds": [
+        {
+          "round": 1,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "1000",
+          "fundsAfter": "1815",
+          "goalGenerationUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "amount",
+              "level": 1,
+              "cost": "150"
+            },
+            {
+              "upgrade": "luck",
+              "level": 1,
+              "cost": "150"
+            },
+            {
+              "upgrade": "speed",
+              "level": 1,
+              "cost": "150"
+            }
+          ],
+          "required": [
+            {
+              "material": "wood",
+              "target": "250",
+              "final": "493",
+              "metAtSeconds": 123.702860
+            },
+            {
+              "material": "taro",
+              "target": "163",
+              "final": "195",
+              "metAtSeconds": 84.514288
+            },
+            {
+              "material": "negi",
+              "target": "159",
+              "final": "187",
+              "metAtSeconds": 119.668576
+            }
+          ],
+          "bonus": {
+            "material": "fish",
+            "target": "42",
+            "final": "104",
+            "metAtSeconds": 176.251436
+          },
+          "requiredMetAtSeconds": 123.702860,
+          "endOfRoundPlayerUpgrades": {
+            "move": 0,
+            "speed": 1,
+            "amount": 1,
+            "luck": 1
+          },
+          "score": "7358",
+          "cumulativeScore": "7358"
+        },
+        {
+          "round": 2,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "1815",
+          "fundsAfter": "6211",
+          "goalGenerationUpgrades": {
+            "move": 0,
+            "speed": 1,
+            "amount": 1,
+            "luck": 1
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "move",
+              "level": 1,
+              "cost": "150"
+            },
+            {
+              "upgrade": "amount",
+              "level": 2,
+              "cost": "225"
+            },
+            {
+              "upgrade": "luck",
+              "level": 2,
+              "cost": "225"
+            },
+            {
+              "upgrade": "speed",
+              "level": 2,
+              "cost": "225"
+            }
+          ],
+          "required": [
+            {
+              "material": "fish",
+              "target": "188",
+              "final": "245",
+              "metAtSeconds": 57.931430
+            },
+            {
+              "material": "mushroom",
+              "target": "164",
+              "final": "334",
+              "metAtSeconds": 69.059060
+            },
+            {
+              "material": "sansai",
+              "target": "52",
+              "final": "52",
+              "metAtSeconds": 15.525475
+            }
+          ],
+          "bonus": {
+            "material": "negi",
+            "target": "576",
+            "final": "2066",
+            "metAtSeconds": 163.249524
+          },
+          "requiredMetAtSeconds": 69.059060,
+          "endOfRoundPlayerUpgrades": {
+            "move": 1,
+            "speed": 2,
+            "amount": 2,
+            "luck": 2
+          },
+          "score": "35332",
+          "cumulativeScore": "42690"
+        },
+        {
+          "round": 3,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "6211",
+          "fundsAfter": "49649",
+          "goalGenerationUpgrades": {
+            "move": 1,
+            "speed": 2,
+            "amount": 2,
+            "luck": 2
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "move",
+              "level": 2,
+              "cost": "225"
+            },
+            {
+              "upgrade": "amount",
+              "level": 3,
+              "cost": "338"
+            },
+            {
+              "upgrade": "luck",
+              "level": 3,
+              "cost": "338"
+            },
+            {
+              "upgrade": "speed",
+              "level": 3,
+              "cost": "338"
+            }
+          ],
+          "required": [
+            {
+              "material": "mushroom",
+              "target": "1370",
+              "final": "1423",
+              "metAtSeconds": 92.114283
+            },
+            {
+              "material": "sansai",
+              "target": "969",
+              "final": "1123",
+              "metAtSeconds": 22.618633
+            },
+            {
+              "material": "taro",
+              "target": "3570",
+              "final": "4379",
+              "metAtSeconds": 87.047617
+            }
+          ],
+          "bonus": {
+            "material": "negi",
+            "target": "3252",
+            "final": "17131",
+            "metAtSeconds": 148.914285
+          },
+          "requiredMetAtSeconds": 92.114283,
+          "endOfRoundPlayerUpgrades": {
+            "move": 2,
+            "speed": 3,
+            "amount": 3,
+            "luck": 3
+          },
+          "score": "308279",
+          "cumulativeScore": "350969"
+        },
+        {
+          "round": 4,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "49649",
+          "fundsAfter": "17441009",
+          "goalGenerationUpgrades": {
+            "move": 2,
+            "speed": 3,
+            "amount": 3,
+            "luck": 3
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "move",
+              "level": 3,
+              "cost": "338"
+            },
+            {
+              "upgrade": "amount",
+              "level": 4,
+              "cost": "506"
+            },
+            {
+              "upgrade": "luck",
+              "level": 4,
+              "cost": "506"
+            },
+            {
+              "upgrade": "speed",
+              "level": 4,
+              "cost": "506"
+            }
+          ],
+          "required": [
+            {
+              "material": "taro",
+              "target": "51135",
+              "final": "62650",
+              "metAtSeconds": 105.036743
+            },
+            {
+              "material": "negi",
+              "target": "49895",
+              "final": "57572",
+              "metAtSeconds": 93.191839
+            },
+            {
+              "material": "mushroom",
+              "target": "19232",
+              "final": "21075",
+              "metAtSeconds": 91.844904
+            }
+          ],
+          "bonus": {
+            "material": "sansai",
+            "target": "23943",
+            "final": "183591",
+            "metAtSeconds": 141.481112
+          },
+          "requiredMetAtSeconds": 105.036743,
+          "endOfRoundPlayerUpgrades": {
+            "move": 3,
+            "speed": 4,
+            "amount": 4,
+            "luck": 4
+          },
+          "score": "87404984",
+          "cumulativeScore": "87755953"
+        },
+        {
+          "round": 5,
+          "success": true,
+          "phase": "Cleared",
+          "fundsAtStart": "17441009",
+          "fundsAfter": "329556614",
+          "goalGenerationUpgrades": {
+            "move": 3,
+            "speed": 4,
+            "amount": 4,
+            "luck": 4
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "move",
+              "level": 4,
+              "cost": "506"
+            },
+            {
+              "upgrade": "amount",
+              "level": 5,
+              "cost": "759"
+            },
+            {
+              "upgrade": "luck",
+              "level": 5,
+              "cost": "759"
+            },
+            {
+              "upgrade": "speed",
+              "level": 5,
+              "cost": "759"
+            }
+          ],
+          "required": [
+            {
+              "material": "wood",
+              "target": "1518378",
+              "final": "1660926",
+              "metAtSeconds": 112.197929
+            },
+            {
+              "material": "fish",
+              "target": "393162",
+              "final": "400399",
+              "metAtSeconds": 31.390479
+            },
+            {
+              "material": "taro",
+              "target": "803690",
+              "final": "974117",
+              "metAtSeconds": 115.968257
+            }
+          ],
+          "bonus": {
+            "material": "sansai",
+            "target": "448140",
+            "final": "3104338",
+            "metAtSeconds": 142.104075
+          },
+          "requiredMetAtSeconds": 115.968257,
+          "endOfRoundPlayerUpgrades": {
+            "move": 4,
+            "speed": 5,
+            "amount": 5,
+            "luck": 5
+          },
+          "score": "1570990703",
+          "cumulativeScore": "1658746656"
+        }
+      ]
+    },
+    {
+      "policy": "unlimited-budget-upgrades",
+      "rounds": [
+        {
+          "round": 1,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "1000",
+          "fundsAfter": "1815",
+          "goalGenerationUpgrades": {
+            "move": 0,
+            "speed": 0,
+            "amount": 0,
+            "luck": 0
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "amount",
+              "level": 1,
+              "cost": "150"
+            },
+            {
+              "upgrade": "luck",
+              "level": 1,
+              "cost": "150"
+            },
+            {
+              "upgrade": "speed",
+              "level": 1,
+              "cost": "150"
+            }
+          ],
+          "required": [
+            {
+              "material": "wood",
+              "target": "250",
+              "final": "493",
+              "metAtSeconds": 123.702860
+            },
+            {
+              "material": "taro",
+              "target": "163",
+              "final": "195",
+              "metAtSeconds": 84.514288
+            },
+            {
+              "material": "negi",
+              "target": "159",
+              "final": "187",
+              "metAtSeconds": 119.668576
+            }
+          ],
+          "bonus": {
+            "material": "fish",
+            "target": "42",
+            "final": "104",
+            "metAtSeconds": 176.251436
+          },
+          "requiredMetAtSeconds": 123.702860,
+          "endOfRoundPlayerUpgrades": {
+            "move": 0,
+            "speed": 1,
+            "amount": 1,
+            "luck": 1
+          },
+          "score": "7358",
+          "cumulativeScore": "7358"
+        },
+        {
+          "round": 2,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "1815",
+          "fundsAfter": "6211",
+          "goalGenerationUpgrades": {
+            "move": 0,
+            "speed": 1,
+            "amount": 1,
+            "luck": 1
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "move",
+              "level": 1,
+              "cost": "150"
+            },
+            {
+              "upgrade": "amount",
+              "level": 2,
+              "cost": "225"
+            },
+            {
+              "upgrade": "luck",
+              "level": 2,
+              "cost": "225"
+            },
+            {
+              "upgrade": "speed",
+              "level": 2,
+              "cost": "225"
+            }
+          ],
+          "required": [
+            {
+              "material": "fish",
+              "target": "188",
+              "final": "245",
+              "metAtSeconds": 57.931430
+            },
+            {
+              "material": "mushroom",
+              "target": "164",
+              "final": "334",
+              "metAtSeconds": 69.059060
+            },
+            {
+              "material": "sansai",
+              "target": "52",
+              "final": "52",
+              "metAtSeconds": 15.525475
+            }
+          ],
+          "bonus": {
+            "material": "negi",
+            "target": "576",
+            "final": "2066",
+            "metAtSeconds": 163.249524
+          },
+          "requiredMetAtSeconds": 69.059060,
+          "endOfRoundPlayerUpgrades": {
+            "move": 1,
+            "speed": 2,
+            "amount": 2,
+            "luck": 2
+          },
+          "score": "35332",
+          "cumulativeScore": "42690"
+        },
+        {
+          "round": 3,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "6211",
+          "fundsAfter": "62817",
+          "goalGenerationUpgrades": {
+            "move": 1,
+            "speed": 2,
+            "amount": 2,
+            "luck": 2
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "move",
+              "level": 2,
+              "cost": "225"
+            },
+            {
+              "upgrade": "amount",
+              "level": 3,
+              "cost": "338"
+            },
+            {
+              "upgrade": "luck",
+              "level": 3,
+              "cost": "338"
+            },
+            {
+              "upgrade": "speed",
+              "level": 3,
+              "cost": "338"
+            },
+            {
+              "upgrade": "move",
+              "level": 3,
+              "cost": "338"
+            },
+            {
+              "upgrade": "amount",
+              "level": 4,
+              "cost": "506"
+            },
+            {
+              "upgrade": "luck",
+              "level": 4,
+              "cost": "506"
+            },
+            {
+              "upgrade": "speed",
+              "level": 4,
+              "cost": "506"
+            }
+          ],
+          "required": [
+            {
+              "material": "mushroom",
+              "target": "1370",
+              "final": "2219",
+              "metAtSeconds": 42.097969
+            },
+            {
+              "material": "sansai",
+              "target": "969",
+              "final": "1215",
+              "metAtSeconds": 14.266572
+            },
+            {
+              "material": "taro",
+              "target": "3570",
+              "final": "4452",
+              "metAtSeconds": 45.861226
+            }
+          ],
+          "bonus": {
+            "material": "negi",
+            "target": "3252",
+            "final": "22732",
+            "metAtSeconds": 142.253065
+          },
+          "requiredMetAtSeconds": 45.861226,
+          "endOfRoundPlayerUpgrades": {
+            "move": 3,
+            "speed": 4,
+            "amount": 4,
+            "luck": 4
+          },
+          "score": "394162",
+          "cumulativeScore": "436852"
+        },
+        {
+          "round": 4,
+          "success": true,
+          "phase": "Succeeded",
+          "fundsAtStart": "62817",
+          "fundsAfter": "72521267",
+          "goalGenerationUpgrades": {
+            "move": 3,
+            "speed": 4,
+            "amount": 4,
+            "luck": 4
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "move",
+              "level": 4,
+              "cost": "506"
+            },
+            {
+              "upgrade": "amount",
+              "level": 5,
+              "cost": "759"
+            },
+            {
+              "upgrade": "luck",
+              "level": 5,
+              "cost": "759"
+            },
+            {
+              "upgrade": "speed",
+              "level": 5,
+              "cost": "759"
+            },
+            {
+              "upgrade": "move",
+              "level": 5,
+              "cost": "759"
+            },
+            {
+              "upgrade": "amount",
+              "level": 6,
+              "cost": "1139"
+            },
+            {
+              "upgrade": "luck",
+              "level": 6,
+              "cost": "1139"
+            },
+            {
+              "upgrade": "speed",
+              "level": 6,
+              "cost": "1139"
+            },
+            {
+              "upgrade": "move",
+              "level": 6,
+              "cost": "1139"
+            },
+            {
+              "upgrade": "amount",
+              "level": 7,
+              "cost": "1709"
+            },
+            {
+              "upgrade": "luck",
+              "level": 7,
+              "cost": "1709"
+            },
+            {
+              "upgrade": "speed",
+              "level": 7,
+              "cost": "1709"
+            },
+            {
+              "upgrade": "move",
+              "level": 7,
+              "cost": "1709"
+            },
+            {
+              "upgrade": "amount",
+              "level": 8,
+              "cost": "2563"
+            },
+            {
+              "upgrade": "luck",
+              "level": 8,
+              "cost": "2563"
+            },
+            {
+              "upgrade": "speed",
+              "level": 8,
+              "cost": "2563"
+            },
+            {
+              "upgrade": "move",
+              "level": 8,
+              "cost": "2563"
+            },
+            {
+              "upgrade": "amount",
+              "level": 9,
+              "cost": "3844"
+            }
+          ],
+          "required": [
+            {
+              "material": "taro",
+              "target": "80995",
+              "final": "95989",
+              "metAtSeconds": 45.676190
+            },
+            {
+              "material": "negi",
+              "target": "76732",
+              "final": "107643",
+              "metAtSeconds": 46.838097
+            },
+            {
+              "material": "mushroom",
+              "target": "33539",
+              "final": "40070",
+              "metAtSeconds": 35.447621
+            }
+          ],
+          "bonus": {
+            "material": "sansai",
+            "target": "39369",
+            "final": "711406",
+            "metAtSeconds": 130.153211
+          },
+          "requiredMetAtSeconds": 46.838097,
+          "endOfRoundPlayerUpgrades": {
+            "move": 8,
+            "speed": 8,
+            "amount": 9,
+            "luck": 8
+          },
+          "score": "363219028",
+          "cumulativeScore": "363655880"
+        },
+        {
+          "round": 5,
+          "success": true,
+          "phase": "Cleared",
+          "fundsAtStart": "72521267",
+          "fundsAfter": "3580746847385648927061120",
+          "goalGenerationUpgrades": {
+            "move": 8,
+            "speed": 8,
+            "amount": 9,
+            "luck": 8
+          },
+          "upgradePurchases": [
+            {
+              "upgrade": "luck",
+              "level": 9,
+              "cost": "3844"
+            },
+            {
+              "upgrade": "speed",
+              "level": 9,
+              "cost": "3844"
+            },
+            {
+              "upgrade": "move",
+              "level": 9,
+              "cost": "3844"
+            },
+            {
+              "upgrade": "amount",
+              "level": 10,
+              "cost": "5767"
+            },
+            {
+              "upgrade": "luck",
+              "level": 10,
+              "cost": "5767"
+            },
+            {
+              "upgrade": "speed",
+              "level": 10,
+              "cost": "5767"
+            },
+            {
+              "upgrade": "move",
+              "level": 10,
+              "cost": "5767"
+            },
+            {
+              "upgrade": "amount",
+              "level": 11,
+              "cost": "8650"
+            },
+            {
+              "upgrade": "luck",
+              "level": 11,
+              "cost": "8650"
+            },
+            {
+              "upgrade": "speed",
+              "level": 11,
+              "cost": "8650"
+            },
+            {
+              "upgrade": "move",
+              "level": 11,
+              "cost": "8650"
+            },
+            {
+              "upgrade": "amount",
+              "level": 12,
+              "cost": "12975"
+            },
+            {
+              "upgrade": "luck",
+              "level": 12,
+              "cost": "12975"
+            },
+            {
+              "upgrade": "speed",
+              "level": 12,
+              "cost": "12975"
+            },
+            {
+              "upgrade": "move",
+              "level": 12,
+              "cost": "12975"
+            },
+            {
+              "upgrade": "amount",
+              "level": 13,
+              "cost": "19462"
+            },
+            {
+              "upgrade": "luck",
+              "level": 13,
+              "cost": "19462"
+            },
+            {
+              "upgrade": "speed",
+              "level": 13,
+              "cost": "19462"
+            },
+            {
+              "upgrade": "move",
+              "level": 13,
+              "cost": "19462"
+            },
+            {
+              "upgrade": "amount",
+              "level": 14,
+              "cost": "29193"
+            },
+            {
+              "upgrade": "luck",
+              "level": 14,
+              "cost": "29193"
+            },
+            {
+              "upgrade": "speed",
+              "level": 14,
+              "cost": "29193"
+            },
+            {
+              "upgrade": "move",
+              "level": 14,
+              "cost": "29193"
+            },
+            {
+              "upgrade": "amount",
+              "level": 15,
+              "cost": "43789"
+            },
+            {
+              "upgrade": "luck",
+              "level": 15,
+              "cost": "43789"
+            },
+            {
+              "upgrade": "speed",
+              "level": 15,
+              "cost": "43789"
+            },
+            {
+              "upgrade": "move",
+              "level": 15,
+              "cost": "43789"
+            },
+            {
+              "upgrade": "amount",
+              "level": 16,
+              "cost": "65684"
+            },
+            {
+              "upgrade": "luck",
+              "level": 16,
+              "cost": "65684"
+            },
+            {
+              "upgrade": "speed",
+              "level": 16,
+              "cost": "65684"
+            },
+            {
+              "upgrade": "move",
+              "level": 16,
+              "cost": "65684"
+            },
+            {
+              "upgrade": "amount",
+              "level": 17,
+              "cost": "98526"
+            },
+            {
+              "upgrade": "luck",
+              "level": 17,
+              "cost": "98526"
+            },
+            {
+              "upgrade": "speed",
+              "level": 17,
+              "cost": "98526"
+            },
+            {
+              "upgrade": "move",
+              "level": 17,
+              "cost": "98526"
+            },
+            {
+              "upgrade": "amount",
+              "level": 18,
+              "cost": "147789"
+            },
+            {
+              "upgrade": "luck",
+              "level": 18,
+              "cost": "147789"
+            },
+            {
+              "upgrade": "speed",
+              "level": 18,
+              "cost": "147789"
+            },
+            {
+              "upgrade": "move",
+              "level": 18,
+              "cost": "147789"
+            },
+            {
+              "upgrade": "amount",
+              "level": 19,
+              "cost": "221684"
+            },
+            {
+              "upgrade": "luck",
+              "level": 19,
+              "cost": "221684"
+            },
+            {
+              "upgrade": "speed",
+              "level": 19,
+              "cost": "221684"
+            },
+            {
+              "upgrade": "move",
+              "level": 19,
+              "cost": "221684"
+            },
+            {
+              "upgrade": "amount",
+              "level": 20,
+              "cost": "332526"
+            },
+            {
+              "upgrade": "luck",
+              "level": 20,
+              "cost": "332526"
+            },
+            {
+              "upgrade": "speed",
+              "level": 20,
+              "cost": "332526"
+            },
+            {
+              "upgrade": "move",
+              "level": 20,
+              "cost": "332526"
+            },
+            {
+              "upgrade": "amount",
+              "level": 21,
+              "cost": "498789"
+            },
+            {
+              "upgrade": "luck",
+              "level": 21,
+              "cost": "498789"
+            },
+            {
+              "upgrade": "speed",
+              "level": 21,
+              "cost": "498789"
+            },
+            {
+              "upgrade": "move",
+              "level": 21,
+              "cost": "498789"
+            },
+            {
+              "upgrade": "amount",
+              "level": 22,
+              "cost": "748183"
+            },
+            {
+              "upgrade": "luck",
+              "level": 22,
+              "cost": "748183"
+            },
+            {
+              "upgrade": "speed",
+              "level": 22,
+              "cost": "748183"
+            },
+            {
+              "upgrade": "move",
+              "level": 22,
+              "cost": "748183"
+            },
+            {
+              "upgrade": "amount",
+              "level": 23,
+              "cost": "1122274"
+            },
+            {
+              "upgrade": "luck",
+              "level": 23,
+              "cost": "1122274"
+            },
+            {
+              "upgrade": "speed",
+              "level": 23,
+              "cost": "1122274"
+            },
+            {
+              "upgrade": "move",
+              "level": 23,
+              "cost": "1122274"
+            },
+            {
+              "upgrade": "amount",
+              "level": 24,
+              "cost": "1683411"
+            },
+            {
+              "upgrade": "luck",
+              "level": 24,
+              "cost": "1683411"
+            },
+            {
+              "upgrade": "speed",
+              "level": 24,
+              "cost": "1683411"
+            },
+            {
+              "upgrade": "move",
+              "level": 24,
+              "cost": "1683411"
+            },
+            {
+              "upgrade": "amount",
+              "level": 25,
+              "cost": "2525117"
+            },
+            {
+              "upgrade": "luck",
+              "level": 25,
+              "cost": "2525117"
+            },
+            {
+              "upgrade": "speed",
+              "level": 25,
+              "cost": "2525117"
+            },
+            {
+              "upgrade": "move",
+              "level": 25,
+              "cost": "2525117"
+            },
+            {
+              "upgrade": "amount",
+              "level": 26,
+              "cost": "3787675"
+            }
+          ],
+          "required": [
+            {
+              "material": "wood",
+              "target": "6609838",
+              "final": "9253051",
+              "metAtSeconds": 12.478390
+            },
+            {
+              "material": "fish",
+              "target": "1686667",
+              "final": "1780000",
+              "metAtSeconds": 4.756651
+            },
+            {
+              "material": "taro",
+              "target": "3762485",
+              "final": "4261106",
+              "metAtSeconds": 8.788179
+            }
+          ],
+          "bonus": {
+            "material": "sansai",
+            "target": "1873597",
+            "final": "425299632070000",
+            "metAtSeconds": 120.954045
+          },
+          "requiredMetAtSeconds": 12.478390,
+          "endOfRoundPlayerUpgrades": {
+            "move": 25,
+            "speed": 25,
+            "amount": 26,
+            "luck": 25
+          },
+          "score": "17903734236928244524411394",
+          "cumulativeScore": "17903734236928244888067274"
+        }
+      ]
+    }
+  ]
+}

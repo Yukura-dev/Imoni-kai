@@ -67,13 +67,43 @@ namespace Imoni.Game.UI.Components
         private readonly Label caption = RoundFlowVisuals.Text(string.Empty, "round-card__heading");
         private readonly Label status = RoundFlowVisuals.Text(string.Empty, "result-bonus__status");
         private readonly BonusTierChips tiers = new BonusTierChips();
+        private readonly VisualElement headingRow = new VisualElement();
+        private readonly NumericLabelFitter captionFitter;
+        private readonly NumericLabelFitter statusFitter;
+        private IVisualElementScheduledItem layoutJob;
         public ResultBonusCard()
         {
             RoundFlowVisuals.Apply(this, "result-bonus"); AddToClassList("round-card");
-            var row = new VisualElement(); row.AddToClassList("result-bonus__heading"); row.Add(caption); row.Add(status); Add(row);
+            headingRow.AddToClassList("result-bonus__heading"); headingRow.Add(caption); headingRow.Add(status); Add(headingRow);
             tiers.AddToClassList("result-bonus__tiers"); Add(tiers);
+            captionFitter = new NumericLabelFitter(caption); statusFitter = new NumericLabelFitter(status);
+            RegisterCallback<AttachToPanelEvent>(_ => ScheduleLayout());
+            RegisterCallback<DetachFromPanelEvent>(_ => layoutJob?.Pause());
+            headingRow.RegisterCallback<GeometryChangedEvent>(_ => ScheduleLayout());
         }
-        public void Bind(RoundResultView view) { caption.text = "ボーナス:" + view.BonusText; status.text = view.BonusStatusText; tiers.Bind(view.BonusTiers); }
+        public void Bind(RoundResultView view)
+        {
+            caption.text = "ボーナス:" + view.BonusText; status.text = view.BonusStatusText; tiers.Bind(view.BonusTiers);
+            captionFitter.Refresh(); statusFitter.Refresh(); ScheduleLayout();
+        }
+        private void ScheduleLayout()
+        {
+            if (panel == null) return;
+            layoutJob?.Pause(); layoutJob = schedule.Execute(UpdateLayout);
+        }
+        private void UpdateLayout()
+        {
+            float width = headingRow.contentRect.width;
+            if (width <= 0 || caption.resolvedStyle.fontSize <= 0 || status.resolvedStyle.fontSize <= 0) return;
+            float minimum = (float)UiTheme.Number("numericLabelMinimumFontSize");
+            float minimumCaption = caption.MeasureTextSize(caption.text, 0, VisualElement.MeasureMode.Undefined, 0, VisualElement.MeasureMode.Undefined).x * minimum / caption.resolvedStyle.fontSize;
+            float minimumStatus = status.MeasureTextSize(status.text, 0, VisualElement.MeasureMode.Undefined, 0, VisualElement.MeasureMode.Undefined).x * minimum / status.resolvedStyle.fontSize;
+            bool stacked = Math.Ceiling(minimumCaption) + Math.Ceiling(minimumStatus) > width;
+            status.style.maxWidth = stacked ? width : width - (float)Math.Ceiling(minimumCaption);
+            if (ClassListContains("result-bonus--stacked") == stacked) return;
+            EnableInClassList("result-bonus--stacked", stacked);
+            captionFitter.Refresh(true); statusFitter.Refresh(true);
+        }
     }
 
     [UxmlElement]
@@ -83,11 +113,14 @@ namespace Imoni.Game.UI.Components
         private readonly Label required = RoundFlowVisuals.Text(string.Empty, "score-breakdown__value");
         private readonly Label bonus = RoundFlowVisuals.Text(string.Empty, "score-breakdown__value");
         private readonly Label bonusCaption = RoundFlowVisuals.Text(string.Empty, "score-breakdown__caption");
+        private readonly NumericLabelFitter requiredFitter;
+        private readonly NumericLabelFitter bonusFitter;
         public ScoreBreakdownCard()
         {
             RoundFlowVisuals.Apply(this, "score-breakdown"); AddToClassList("round-card"); Add(heading);
             Add(Row(RoundFlowVisuals.Text("素材ポイント R", "score-breakdown__caption"), required)); Add(Row(bonusCaption, bonus));
-            Add(RoundFlowVisuals.Text("売却した素材はスコアに含まれません", "score-breakdown__note"));
+            Add(RoundFlowVisuals.Text("売却分は対象外・表示は端数切り捨て", "score-breakdown__note"));
+            requiredFitter = new NumericLabelFitter(required); bonusFitter = new NumericLabelFitter(bonus);
         }
         private static VisualElement Row(Label caption, Label value)
         { var row = new VisualElement(); row.AddToClassList("score-breakdown__row"); row.Add(caption); row.Add(value); return row; }
@@ -97,6 +130,7 @@ namespace Imoni.Game.UI.Components
             required.text = view.RequiredPointsText + " → " + view.RequiredWeightedText;
             bonusCaption.text = "ボーナスポイント B × T(" + view.BonusMultiplierText + ")";
             bonus.text = view.BonusPointsText + " → " + view.BonusWeightedText;
+            requiredFitter.Refresh(); bonusFitter.Refresh();
         }
     }
 

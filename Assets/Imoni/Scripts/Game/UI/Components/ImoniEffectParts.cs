@@ -99,11 +99,13 @@ namespace Imoni.Game.UI.Components
     {
         private VisualElement[] stars = Array.Empty<VisualElement>();
         private Texture2D[] colors = Array.Empty<Texture2D>();
+        private Func<Texture2D, StyleBackground> background;
         public int Capacity => stars.Length;
 
-        public void Prepare(int capacity, Texture2D[] textures)
+        public void Prepare(int capacity, Texture2D[] textures, Func<Texture2D, StyleBackground> image = null)
         {
             colors = textures ?? throw new ArgumentNullException(nameof(textures));
+            background = image;
             if (stars.Length == capacity) return;
             Clear(); stars = new VisualElement[capacity];
             for (int i = 0; i < stars.Length; i++)
@@ -119,7 +121,7 @@ namespace Imoni.Game.UI.Components
             VisualElement star = stars[index];
             float size = (float)(pose.Size * textureScale);
             star.style.display = DisplayStyle.Flex;
-            star.style.backgroundImage = colors[pose.ColorIndex];
+            star.style.backgroundImage = background != null ? background(colors[pose.ColorIndex]) : new StyleBackground(colors[pose.ColorIndex]);
             star.style.left = star.style.top = 0;
             star.style.width = star.style.height = size;
             star.style.translate = new Translate((float)pose.CenterX - size / 2, (float)pose.CenterY - size / 2);

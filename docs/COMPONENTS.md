@@ -171,3 +171,9 @@ ScreenHostがThemeと全部品USSを共有し、個々の部品には祖先に�
 | `RoundTimeUpDialog` | 時刻と既存ImoniButton、Card、半透明背景 | 37_Game_timeup |
 
 各部品は表示を担当し、成否・内訳・報酬・二つ名条件はCoreに置く。Result/Clearは同じ `Result.uxml` を使い、確定済みLastResultを表示する。
+
+## M6の音量部品と長い数値
+
+`AudioVolumeControl` は `[UxmlElement]` で、既存のSmallボタン2個とThinのProgressBarを組み合わせる。Homeの設定CardとComponentGalleryから再利用でき、変更方向だけを通知する。音量の刻み・上下限・保存はCoreの `ImoniAudioPlan` とプロフィールに委ねる。`AudioSettings.uss` はScreenHostで一度だけ読み込む。
+
+大きい数値はCoreの `Format.Big` で整形する。StatCard・目標数量・スコア内訳は共通の `NumericLabelFitter` で実際の文字幅を測り、欄からあふれる場合だけ縮小する。数値を切り捨てて別の値へ書き換えず、極端な長さには完全な文字列のtooltipを保持する。短い数値は従来のモック寸法を保つ。

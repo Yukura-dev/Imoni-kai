@@ -106,12 +106,14 @@ namespace Imoni.Editor
             assets.theme = LoadRequired<StyleSheet>(Root + "/UI/Theme.uss");
             assets.imoniEffectTree = LoadRequired<VisualTreeAsset>(Root + "/UI/ImoniEffect.uxml");
             assets.imoniEffectStyle = LoadRequired<StyleSheet>(Root + "/UI/ImoniEffect.uss");
+            assets.imoniEffectGrayscaleShader = LoadRequired<Shader>(Root + "/Shaders/ImoniEffectGrayscale.shader");
             assets.imoniEffectAudio = Directory.GetFiles(Root + "/Audio/SFX", "*.wav")
                 .OrderBy(file => file, StringComparer.Ordinal)
                 .Select(file => LoadRequired<AudioClip>(file.Replace('\\', '/'))).ToArray();
             assets.textures = Directory.GetFiles(Root + "/Art", "*.png", SearchOption.AllDirectories)
                 .OrderBy(file => file, StringComparer.Ordinal)
                 .Select(file => new NamedTexture { key = Path.GetFileNameWithoutExtension(file), texture = LoadRequired<Texture2D>(file.Replace('\\', '/')) }).ToArray();
+            ImoniAudioSetup.EnsureAssets(assets, JObject.Parse(File.ReadAllText(ConfigPath)));
             EditorUtility.SetDirty(assets);
             AssetDatabase.ImportAsset(Root + "/Resources/UI/ComponentGallery.uxml", ImportAssetOptions.ForceUpdate);
         }
@@ -212,11 +214,17 @@ namespace Imoni.Editor
             asset.name = name;
             asset.atlasPopulationMode = AtlasPopulationMode.Dynamic;
             asset.isMultiAtlasTexturesEnabled = true;
+            bool warmed = ImoniFontWarmup.PrepareHomeSettings(asset, name);
             SaveFontSubAsset(asset.material, asset, name + " Material");
             foreach (Texture2D texture in asset.atlasTextures)
                 SaveFontSubAsset(texture, asset, name + " Atlas");
             asset.ReadFontAssetDefinition();
             EditorUtility.SetDirty(asset);
+            if (warmed)
+            {
+                AssetDatabase.SaveAssets();
+                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate | ImportAssetOptions.ForceSynchronousImport);
+            }
         }
 
         private static void SaveFontSubAsset(Object subAsset, FontAsset font, string name)
