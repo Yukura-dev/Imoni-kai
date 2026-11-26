@@ -1,0 +1,7 @@
+{
+  "command": "dotnet test tools/CoreTests --logger \"trx;LogFileName=app-icon.trx\" --results-directory Library/app-icon-tests",
+  "total": 548,
+  "passed": 548,
+  "failed": 0,
+  "skipped": 0
+}

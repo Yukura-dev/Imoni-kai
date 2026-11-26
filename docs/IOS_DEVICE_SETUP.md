@@ -33,7 +33,7 @@ Unity Hubからcloneしたフォルダを開く。`Assets` / `Packages` / `Proje
 
 出力先は再生成用。Xcodeで行った追加変更を残す場合は、再出力前に別途保存する。
 
-設定元は `Assets/Imoni/Config/GameConfig.json` の `setup.ios`。Bundle ID `jp.yukura.imoni`、build番号4、iOS15.0以上、iPhone実機、IL2CPP、Metal、縦固定、自動署名を設定する。Apple Teamはコードで上書きしない。
+設定元は `Assets/Imoni/Config/GameConfig.json` の `setup.ios`。Bundle ID `jp.yukura.imoni`、build番号5、iOS15.0以上、iPhone実機、IL2CPP、Metal、縦固定、自動署名を設定する。Apple Teamはコードで上書きしない。共通アプリアイコンには、ホームと同じ新しい鍋を使用する。
 
 各プラットフォームのGraphics APIは、そのBuild Supportが入っているEditorでのみ適用する。WindowsにiOSモジュールがなくてもSetupは実行でき、MacでのSetup時にMetalを明示設定する。
 

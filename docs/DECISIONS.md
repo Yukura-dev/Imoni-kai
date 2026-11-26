@@ -209,3 +209,4 @@
 
 - 2026-11-26: setup.iosにBundle ID jp.yukura.imoni、buildNumber4、最低iOS15.0、iPhoneOnly/DeviceSDK、IL2CPP/Metal、自動署名、Builds/iOS出力先を追加。Apple Teamはローカルの選択を維持。WindowsにiOSモジュールがなく、Macは学校にあるため、今回は設定準備と手順までを記録し、実機成功と区別する。
 - 2026-11-26: Graphics APIの書き込みは対象Build Supportがある場合だけ行う。モジュールなしではUnityがAPI候補を除外して警告にするため。これによりiOS専用MacにAndroidモジュールを要求しない。
+- 2026-11-26: アプリアイコンも新しいhome_pot_campfireに統一。共通1024pxアイコンの中央82%に配置し、取っ手とたき火の余白を確保。Android versionCode/iOS buildNumberを5へ更新。

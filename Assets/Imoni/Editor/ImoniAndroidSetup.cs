@@ -67,8 +67,9 @@ namespace Imoni.Editor
                 GL.Clear(true, true, color);
                 GL.PushMatrix();
                 GL.LoadPixelMatrix(0, size, size, 0);
-                float height = size * (float)source.height / source.width;
-                Graphics.DrawTexture(new Rect(0, (size - height) / 2, size, height), source);
+                float scale = size * android["iconContentScale"].Value<float>() / Mathf.Max(source.width, source.height);
+                float width = source.width * scale, height = source.height * scale;
+                Graphics.DrawTexture(new Rect((size - width) / 2, (size - height) / 2, width, height), source);
                 GL.PopMatrix();
                 icon.ReadPixels(new Rect(0, 0, size, size), 0, 0); icon.Apply();
                 byte[] bytes = icon.EncodeToPNG();
@@ -85,7 +86,7 @@ namespace Imoni.Editor
                 importer.SaveAndReimport();
             }
             Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(IconPath);
-            // The default icon is used at all Android launcher densities when a platform override is absent.
+            // Shared default icon for Android and iPhone when no platform override is assigned.
             PlayerSettings.SetIcons(NamedBuildTarget.Unknown, new[] { texture }, IconKind.Any);
         }
 
