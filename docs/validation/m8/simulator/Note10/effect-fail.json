@@ -1,0 +1,93 @@
+{
+  "screen": "ImoniFail",
+  "connectionState": null,
+  "resolution": {
+    "width": 1080,
+    "height": 2280
+  },
+  "nativeResolution": {
+    "width": 1080,
+    "height": 2280
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2190.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2190.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 32.5,
+    "width": 390.0,
+    "height": 790.8333
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 32.5,
+    "width": 390.0,
+    "height": 790.8333
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "SoundButton",
+      "text": "",
+      "bounds": {
+        "x": 25.47395,
+        "y": 73.7803345,
+        "width": 97.4486542,
+        "height": 37.5583344
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "SkipButton",
+      "text": "スキップ",
+      "bounds": {
+        "x": 293.457764,
+        "y": 73.7803345,
+        "width": 71.0563049,
+        "height": 37.5583344
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "ResultButton",
+      "text": "結果を見る",
+      "bounds": {
+        "x": 34.60976,
+        "y": 692.308533,
+        "width": 320.768463,
+        "height": 56.168335
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "ReplayButton",
+      "text": "もう一回見る",
+      "bounds": {
+        "x": 34.60976,
+        "y": 755.9209,
+        "width": 320.768463,
+        "height": 41.2803345
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

@@ -15,6 +15,7 @@ namespace Imoni.Core
         public IReadOnlyList<MaterialGoalView> Required { get; internal set; }
         public bool BonusRevealed { get; internal set; }
         public string BonusText { get; internal set; }
+        public string BonusExactText { get; internal set; }
         public string BonusStatusText { get; internal set; }
         public string StreakText { get; internal set; }
         public string StreakMultiplierText { get; internal set; }
@@ -44,6 +45,7 @@ namespace Imoni.Core
                         DisplayProjection.Goal(config, goal.MaterialId, goal.Current, goal.Required)).ToArray()),
                 BonusRevealed = result != null || (snapshot.BonusRevealed && snapshot.BonusObjective != null),
                 BonusText = "あと " + Clock(decimal.Ceiling(config.BonusRevealSeconds - snapshot.ElapsedSeconds)) + " で発表!",
+                BonusExactText = string.Empty,
                 BonusStatusText = string.Empty,
                 StreakText = actor.Streak.ToString(CultureInfo.InvariantCulture),
                 StreakMultiplierText = "×" + FixedMultiplier(new StreakCalc(config).MultiplierRaw(actor.Streak), config),
@@ -55,9 +57,11 @@ namespace Imoni.Core
                 Objective bonus = finalBonus == null ? snapshot.BonusObjective : new Objective(finalBonus.MaterialId, finalBonus.Required);
                 BigInteger current = finalBonus?.Current ?? Equivalent(config, snapshot.Lots, bonus.MaterialId);
                 BonusTier highest = config.BonusTiers.LastOrDefault(tier => current * 100 >= bonus.Amount * tier.MinPercent);
-                view.BonusText = config.Material(bonus.MaterialId).Name + " " + Format.Big(current, config) + "/" + Format.Big(bonus.Amount, config);
-                view.BonusStatusText = DisplayProjection.Achievement(config, current, bonus.Amount, "達成率 ")
-                    + " 報酬×" + Format.Big(highest?.Multiplier ?? BigInteger.Zero, config);
+                string materialName = config.Material(bonus.MaterialId).Name;
+                view.BonusText = materialName + " " + Format.Compact(current, config) + "/" + Format.Compact(bonus.Amount, config);
+                view.BonusExactText = materialName + " " + Format.Exact(current) + "/" + Format.Exact(bonus.Amount);
+                view.BonusStatusText = DisplayProjection.Achievement(config, current, bonus.Amount, "達成率 ", compact: true)
+                    + " 報酬×" + Format.Compact(highest?.Multiplier ?? BigInteger.Zero, config);
             }
             return view;
         }

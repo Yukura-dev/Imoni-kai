@@ -54,7 +54,7 @@ namespace Imoni.Game.Effects
         private readonly List<Spark> sparks = new List<Spark>();
         private JObject layout;
         private GameConfig displayConfig;
-        private VisualElement screen, world, rainbow, sunburst, pillar, glow, pot, broth, flash, gray, dark;
+        private VisualElement screen, world, background, rainbow, sunburst, pillar, glow, pot, broth, flash, gray, dark;
         private VisualElement ingredientsLayer, starsLayer, ringsLayer, banner, finale, actions, gaugeFill;
         private Label scoreLabel, levelLabel, bannerText, soundLabel, finaleHeading, finaleOne, finaleTwo, missingLabel;
         private Label bannerGlow;
@@ -66,11 +66,16 @@ namespace Imoni.Game.Effects
         private string missing;
         private int seed, emittedEvents;
         private double startedAt;
+        private UnityEngine.Rect fullBleedBounds;
+        private double rainbowPeriod;
+        private double backdropPadding;
+        public UnityEngine.Rect FullBleedBounds => fullBleedBounds;
 
         private sealed class Line
         {
             public VisualElement Element;
             public double Base, Delay;
+            public double X;
             public Color Color;
         }
         private sealed class Spark
@@ -159,7 +164,8 @@ namespace Imoni.Game.Effects
             if (!root.styleSheets.Contains(effectStyle)) root.styleSheets.Add(effectStyle);
             visualTree.CloneTree(root);
             screen = root.Q("EffectScreen"); Rect(screen, "screen");
-            world = screen.Q("World"); rainbow = screen.Q("Rainbow"); sunburst = screen.Q("Sunburst");
+            world = screen.Q("World"); background = screen.Q("Backdrop");
+            rainbow = screen.Q("Rainbow"); sunburst = screen.Q("Sunburst");
             pillar = screen.Q("Pillar"); glow = screen.Q("RainbowGlow");
             pot = screen.Q("PotGroup"); broth = screen.Q("BrothGlow");
             flash = screen.Q("Flash"); gray = screen.Q("GrayOverlay"); dark = screen.Q("DarkOverlay");
@@ -179,11 +185,40 @@ namespace Imoni.Game.Effects
             var origin = A("potOriginPercent");
             pot.style.transformOrigin = new TransformOrigin(Length.Percent((float)origin[0]), Length.Percent((float)origin[1]));
             Image(broth, "fx_broth_glow"); Rect(broth, "broth");
-            var potImage = screen.Q("Pot"); Image(potImage, "pot_effect");
+            var potImage = screen.Q("Pot"); Image(potImage, "home_pot_campfire");
             var potRect = A("pot"); Rect(potImage, 0, 0, potRect[2], potRect[3]);
             Image(flash, "fx_flash");
             SetupHud(); SetupTitles(); SetupActions(); SetupPools();
+            var design = A("screen");
+            SetFullBleedBounds(new UnityEngine.Rect((float)design[0], (float)design[1], (float)design[2], (float)design[3]));
             UpdateSound();
+        }
+
+        /// <summary>
+        /// The 390x844 foreground remains fitted inside the safe area. Backgrounds alone extend to
+        /// these full-display bounds, expressed in that same composition coordinate system.
+        /// </summary>
+        public void SetFullBleedBounds(UnityEngine.Rect bounds)
+        {
+            if (screen == null || bounds.width <= 0 || bounds.height <= 0) return;
+            fullBleedBounds = bounds;
+            // World shake must never uncover the app's yellow backing at a display edge.
+            backdropPadding = Config.V("levelShake") + Config.V("hitShake") +
+                Math.Max(Config.V("successShake"), Config.V("failShake"));
+            double left = bounds.xMin - backdropPadding, top = bounds.yMin - backdropPadding;
+            double width = bounds.width + backdropPadding * 2, height = bounds.height + backdropPadding * 2;
+            Rect(background, left, top, width, height);
+            Rect(gray, left, top, width, height); Rect(dark, left, top, width, height);
+            Rect(flash, bounds.xMin, bounds.yMin, bounds.width, bounds.height);
+            // The texture contains two complete, seamlessly matching rainbow periods.
+            rainbowPeriod = Math.Max(N("rainbowPeriodY"), height);
+            Rect(rainbow, left, top, width, rainbowPeriod * 2);
+            var design = A("screen");
+            double expansion = Math.Max(1, Math.Max(bounds.width / design[2], bounds.height / design[3]));
+            double rays = N("sunburstSize") * expansion;
+            Rect(sunburst, Config.V("centerX") - rays / 2, Config.V("potY") - rays / 2, rays, rays);
+            foreach (var line in lines)
+                line.Element.style.left = bounds.xMin + (float)(line.X / design[2] * bounds.width);
         }
 
         private void SetupHud()
@@ -304,7 +339,7 @@ namespace Imoni.Game.Effects
                 var color = rng.Next() < N("streakWhiteChance") ? colors[0] : colors[1 + (int)(rng.Next() * (colors.Length - 1))];
                 element.style.backgroundColor = color; element.style.opacity = (float)Range(rng, "streakOpacity");
                 Round(element, N("streakRadius")); Rect(element, x, 0, width, height);
-                lines.Add(new Line { Element = element, Color = color, Base = Range(rng, "streakSeconds"), Delay = Range(rng, "streakDelay") });
+                lines.Add(new Line { Element = element, X = x, Color = color, Base = Range(rng, "streakSeconds"), Delay = Range(rng, "streakDelay") });
             }
             var sparkleLayer = screen.Q("Sparkles");
             for (var i = 0; i < Config.SparkleCounts.Max(); i++)
@@ -326,34 +361,40 @@ namespace Imoni.Game.Effects
             var t = Timeline.NowMs; var sec = t / N("millisecondsPerSecond"); var level = Timeline.Level;
             bool grayChanged = grayscale.SetAmount((float)frame.Gray);
             // CSS may resolve one panel update after Build. Capture the authored color once it is available.
-            if (!worldBackgroundCaptured && screen.resolvedStyle.backgroundColor.a > 0)
+            if (!worldBackgroundCaptured && background.resolvedStyle.backgroundColor.a > 0)
             {
-                worldBackground = screen.resolvedStyle.backgroundColor; worldBackgroundCaptured = true; grayChanged = true;
+                worldBackground = background.resolvedStyle.backgroundColor; worldBackgroundCaptured = true; grayChanged = true;
             }
             if (grayChanged)
             {
-                if (worldBackgroundCaptured) screen.style.backgroundColor = grayscale.Color(worldBackground);
+                if (worldBackgroundCaptured) background.style.backgroundColor = grayscale.Color(worldBackground);
                 foreach (var entry in imageSources)
                     if (world.Contains(entry.Key)) entry.Key.style.backgroundImage = grayscale.Background(entry.Value);
             }
             Move(world, frame.ShakeX, frame.ShakeY);
             // Absolute elapsed-time phases reproduce CSS animation duration changes without frame drift.
-            Move(rainbow, 0, -Fraction(sec / frame.RainbowDurationSec) * N("rainbowPeriodY"));
+            Move(rainbow, 0, -Fraction(sec / frame.RainbowDurationSec) * rainbowPeriod);
             Rotate(sunburst, sec / frame.SpinDurationSec * N("degreesPerTurn")); sunburst.style.opacity = (float)frame.BurstOpacity;
             var pw = frame.PillarWidth / N("pillarCoreFraction");
-            Rect(pillar, Config.V("centerX") - pw / 2, N("pillarTop"), pw, N("pillarHeight"));
+            double lightTop = Math.Min(N("pillarTop"), fullBleedBounds.yMin - backdropPadding);
+            Rect(pillar, Config.V("centerX") - pw / 2, lightTop, pw, N("pillarTop") + N("pillarHeight") - lightTop);
             var gw = frame.PillarWidth * N("rainbowGlowWidthMultiplier") / N("rainbowGlowContentFraction");
-            Rect(glow, Config.V("centerX") - gw / 2, N("pillarTop"), gw, N("rainbowGlowHeight"));
+            Rect(glow, Config.V("centerX") - gw / 2, lightTop, gw, N("pillarTop") + N("rainbowGlowHeight") - lightTop);
             glow.style.opacity = (float)frame.GlowOpacity;
             Scale(pot, frame.PotScale); broth.style.opacity = (float)frame.BrothGlow;
             flash.style.opacity = (float)frame.Flash;
             gray.style.opacity = (float)(frame.Gray * N("grayOpacity")); dark.style.opacity = (float)(frame.Gray * N("darkOpacity"));
+            double streakTravel = N("streakDistance") + Math.Max(0, fullBleedBounds.height - layout["screen"][3].Value<double>());
             for (var i = 0; i < lines.Count; i++)
             {
                 var line = lines[i]; var visible = i < Config.StreakCounts[level];
                 line.Element.style.backgroundColor = grayscale.Color(line.Color);
                 Visible(line.Element, visible);
-                if (visible) Move(line.Element, 0, N("streakTop") + N("streakDistance") * Fraction((sec + line.Delay) / (line.Base / (1 + N("streakSpeedPerLevel") * level))));
+                if (visible)
+                {
+                    Move(line.Element, 0, fullBleedBounds.yMin + N("streakTop") + streakTravel *
+                        Fraction((sec + line.Delay) / (line.Base / (1 + N("streakSpeedPerLevel") * level))));
+                }
             }
             for (var i = 0; i < sparks.Count; i++)
             {

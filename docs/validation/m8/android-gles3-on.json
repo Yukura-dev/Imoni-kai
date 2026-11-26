@@ -1,0 +1,22 @@
+{
+  "result": "Succeeded",
+  "errors": 0,
+  "warnings": 0,
+  "bytes": 1280675230,
+  "seconds": 42.2717871,
+  "path": "D:\\UnityProjects\\Imoni-kai\\Builds\\Android\\Imoni-gles3-on.apk",
+  "backend": "IL2CPP",
+  "architecture": "ARM64",
+  "orientation": "Portrait",
+  "graphicsApis": [
+    "OpenGLES3"
+  ],
+  "optimizedFramePacing": true,
+  "autoGraphicsApi": false,
+  "variant": "gles3-on",
+  "physicalDeviceTested": false,
+  "messages": [],
+  "apkBytes": 62272492,
+  "sha256": "85EDEB1ABFBCABC52DBD61C7F349E74E71E7B7A800A4056A3E386A2F209FD32B",
+  "versionCode": 2
+}

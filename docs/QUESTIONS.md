@@ -299,3 +299,18 @@
   - 判断：ScrollView内のpage、stack、team、ReadyActionsにflex-shrink:0を指定して内容の自然な高さを測る。余った空間を受け持つspacerだけは縮められるままとし、390×844の既存paddingやボタン寸法は変えない。スクロール可能範囲に下部操作を含める。
   - 該当：Lobby.uxml、LobbyScreens.uss。
 - 補足：会員証の青い無地写真枠、Waiting/Loadingの無地の丸アバターは19_Member・15_Waiting・18_Loading_doneのモックどおり。カメラアイコンはTutorialの写真編集時だけ表示し、これらを描画欠けとして変更しない。
+
+## M8 実機プレイテスト修正（2026-11-26）
+
+- 質問：Galaxy A53のHUDに横帯が出る原因は何か。
+  - 判断：元実装もviewportを限定していたため「全面描画が原因」とは断定しない。毎フレームのviewport再設定・0.1秒ごとのpadding設定・透明なSafe Area外周を修正する。初期レイアウトが未確定の間はマップの地色を表示し、GeometryChangedでカメラを確定する。実機がADB接続されておらずAndroid版も未確認のため、GPU/API/Frame Pacing由来かは未確定。標準版とGLES3 On/Off版で再確認できるようにする。
+  - 該当：GameWorldView、SafeAreaAdapter、Bootstrap、ImoniAndroidSetup、docs/validation/m8/flicker.md。
+- 質問：新しい鍋画像は元画像の透明余白と湯気を含めて引き伸ばすか。
+  - 判断：同じ原画から本体＋たき火、本体のみ、湯気3片をSetupで切り出し、縦横比を保って配置する。演出は汁面(195,536)を拡大中心にする。前景はSafe Area内、背景だけ画面全体。モックの旧鍋との差はユーザー指定による意図した変更。
+  - 該当：setup.potArtwork、imoniEffect.layout、ImoniPotSetup、AnimatedPot、IMONI_EFFECT_SPEC 9章。
+- 質問：直線化後、途中で別地点をタップするとどこから経路を引くか。
+  - 判断：Coreの現在の連続座標から引く。セル中心へ戻さない。資源には以前どおり隣接停止し、人間同士の重なりは許可する。速度強化は個人Lvなので購入者の残区間だけ新速度で再計時する。
+  - 該当：Pathfinding、PlayerSnapshot.Location、LocalGameServer、M8_MOVEMENT.md。
+- 質問：「7,804穣8,528穣」の再現がmainでは得られない。
+  - 判断：既存コードは「7,804穣8,528秭」、Delaの秭/穣も別glyphで、原因は未確定。上下単位の添字と余り処理を明示し、全階層の回帰テスト・Config重複単位検証を追加。狭いHUDは1単位へ統一する。
+  - 該当：Format、IntegerDisplayTests、DataControls、M8_NUMBERS.md。

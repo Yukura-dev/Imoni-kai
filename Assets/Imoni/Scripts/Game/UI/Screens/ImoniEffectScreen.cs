@@ -65,10 +65,21 @@ namespace Imoni.Game.UI.Screens
             var dimensions = app.Data["imoniEffect"]["layout"]["screen"];
             float width = (float)dimensions[2], height = (float)dimensions[3];
             float scale = Mathf.Min(contentRect.width / width, contentRect.height / height);
+            float left = (contentRect.width - width * scale) / 2;
+            float top = (contentRect.height - height * scale) / 2;
             composition.style.transformOrigin = new TransformOrigin(0, 0);
             composition.style.scale = new Scale(new Vector3(scale, scale, 1));
-            composition.style.left = (contentRect.width - width * scale) / 2;
-            composition.style.top = (contentRect.height - height * scale) / 2;
+            composition.style.left = left;
+            composition.style.top = top;
+            // Only the composition/HUD is safe-area fitted. Convert the actual display rectangle
+            // into design coordinates so the effect background also covers status/navigation insets.
+            VisualElement display = this;
+            for (VisualElement ancestor = parent; ancestor != null; ancestor = ancestor.parent)
+                if (ancestor.name == "ScreenHost") { display = ancestor; break; }
+            Rect full = display.worldBound;
+            Vector2 origin = worldBound.min + new Vector2(left, top);
+            Effect.SetFullBleedBounds(new Rect((full.xMin - origin.x) / scale, (full.yMin - origin.y) / scale,
+                full.width / scale, full.height / scale));
         }
 
         public void Dispose()

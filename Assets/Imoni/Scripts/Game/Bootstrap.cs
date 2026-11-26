@@ -24,6 +24,7 @@ namespace Imoni.Game
         public Grid WorldGrid => worldGrid;
         public Tilemap WorldTilemap => worldTilemap;
         public ScreenRouter Router => router;
+        public SafeAreaAdapter SafeArea => safeArea;
         public ScreenContext Context { get; private set; }
 
         private void OnEnable()
@@ -34,13 +35,24 @@ namespace Imoni.Game
             root.style.flexGrow = 1;
             var host = new VisualElement { name = "ScreenHost" };
             UiTheme.InstallRoot(host);
+            // Separate opaque edge strips leave only the actual map aperture transparent.
+            var covers = new VisualElement { name = "SafeAreaCovers", pickingMode = PickingMode.Ignore };
+            covers.AddToClassList("safe-area-covers");
+            foreach (string edge in new[] { "Top", "Bottom", "Left", "Right" })
+            {
+                var cover = new VisualElement { name = "Safe" + edge + "Cover", pickingMode = PickingMode.Ignore };
+                cover.AddToClassList("safe-area-cover"); cover.AddToClassList("safe-area-cover--" + edge.ToLowerInvariant());
+                covers.Add(cover);
+            }
+            host.Add(covers);
             var safe = new VisualElement { name = "SafeArea" };
             safe.style.flexGrow = 1; safe.style.minHeight = 0;
             var content = new VisualElement { name = "ScreenContent" };
             content.style.flexGrow = 1; content.style.minHeight = 0;
             safe.Add(content); host.Add(safe); root.Add(host);
-            safeArea = new SafeAreaAdapter(safe);
+            safeArea = new SafeAreaAdapter(safe, covers);
             router = new ScreenRouter(content);
+            router.ScreenChanged += screen => host.EnableInClassList("imoni-app--game", screen == "Game");
             string profilePath = null;
 #if UNITY_EDITOR
             profilePath = UnityEditor.SessionState.GetString("Imoni.ReviewSavePath", string.Empty);

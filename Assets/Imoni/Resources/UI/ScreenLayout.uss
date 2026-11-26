@@ -1,4 +1,11 @@
-.imoni-app { flex-grow: 1; min-height: 0; background-color: var(--c-yellow); -unity-font-definition: var(--font-body); color: var(--c-brown); font-size: 14px; }
+.imoni-app { flex-grow: 1; min-height: 0; overflow: hidden; background-color: var(--c-yellow); -unity-font-definition: var(--font-body); color: var(--c-brown); font-size: 14px; }
+.safe-area-covers { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.safe-area-cover { position: absolute; background-color: var(--c-yellow); opacity: 1; }
+.safe-area-cover--top { left: 0; right: 0; top: 0; height: 0; }
+.safe-area-cover--bottom { left: 0; right: 0; bottom: 0; height: 0; }
+.safe-area-cover--left { left: 0; top: 0; bottom: 0; width: 0; }
+.safe-area-cover--right { right: 0; top: 0; bottom: 0; width: 0; }
+.imoni-app--game .safe-area-cover--bottom { background-color: var(--c-cream); }
 .screen-view { flex-grow: 1; min-height: 0; }
 .screen-view > .screen { flex-grow: 1; min-height: 0; }
 .screen-view .tabbar { flex-shrink: 0; }

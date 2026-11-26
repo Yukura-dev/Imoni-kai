@@ -1,0 +1,180 @@
+{
+  "screen": "ImoniFail",
+  "paddingWrites": 4,
+  "camera": {
+    "rect": {
+      "x": 0.0,
+      "y": 0.0,
+      "width": 1.0,
+      "height": 1.0
+    },
+    "pixelRect": {
+      "x": 0.0,
+      "y": 0.0,
+      "width": 390.0,
+      "height": 844.0
+    },
+    "enabled": true,
+    "clearFlags": "Skybox",
+    "viewportWrites": null,
+    "orthographicSize": 8.0
+  },
+  "elements": [
+    {
+      "name": "ScreenHost",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeArea",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "ScreenContent",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeTopCover",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 0.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeBottomCover",
+      "bounds": {
+        "x": 0.0,
+        "y": 844.0,
+        "width": 390.0,
+        "height": 0.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeLeftCover",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeRightCover",
+      "bounds": {
+        "x": 390.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "EffectScreen",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "Backdrop",
+      "bounds": {
+        "x": -24.0,
+        "y": -24.0,
+        "width": 439.0,
+        "height": 893.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "Rainbow",
+      "bounds": {
+        "x": -24.0,
+        "y": -738.4,
+        "width": 439.0,
+        "height": 1786.0
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "Flash",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 844.0
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 0.0,
+      "display": "Flex"
+    },
+    {
+      "name": "GrayOverlay",
+      "bounds": {
+        "x": -24.0,
+        "y": -24.0,
+        "width": 439.0,
+        "height": 893.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 0.0,
+      "display": "Flex"
+    },
+    {
+      "name": "DarkOverlay",
+      "bounds": {
+        "x": -24.0,
+        "y": -24.0,
+        "width": 439.0,
+        "height": 893.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 0.0,
+      "display": "Flex"
+    }
+  ]
+}

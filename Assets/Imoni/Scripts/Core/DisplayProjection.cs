@@ -13,10 +13,18 @@ namespace Imoni.Core
         public string Name { get; }
         public string CurrentText { get; }
         public string RequiredText { get; }
+        public string CurrentCompactText { get; }
+        public string RequiredCompactText { get; }
+        public string ExactCountsText { get; }
         public decimal Progress { get; }
         public bool Achieved { get; }
-        internal MaterialGoalView(string id, string name, string current, string required, decimal progress, bool achieved)
-        { MaterialId = id; Name = name; CurrentText = current; RequiredText = required; Progress = progress; Achieved = achieved; }
+        internal MaterialGoalView(string id, string name, string current, string required,
+            string compactCurrent, string compactRequired, string exactCounts, decimal progress, bool achieved)
+        {
+            MaterialId = id; Name = name; CurrentText = current; RequiredText = required;
+            CurrentCompactText = compactCurrent; RequiredCompactText = compactRequired; ExactCountsText = exactCounts;
+            Progress = progress; Achieved = achieved;
+        }
     }
 
     public sealed class BonusTierView
@@ -39,7 +47,9 @@ namespace Imoni.Core
             BigInteger precision = BigInteger.Min(config.FixedScale, new BigInteger(decimal.MaxValue));
             decimal progress = (decimal)(BigInteger.Min(current, required) * precision / required) / (decimal)precision;
             return new MaterialGoalView(materialId, config.Material(materialId).Name,
-                Format.Big(current, config), Format.Big(required, config), progress, current >= required);
+                Format.Big(current, config), Format.Big(required, config),
+                Format.Compact(current, config), Format.Compact(required, config),
+                Format.Exact(current) + "/" + Format.Exact(required), progress, current >= required);
         }
 
         public static IReadOnlyList<BonusTierView> BonusTiers(GameConfig config, BigInteger current, BigInteger required)
@@ -54,13 +64,14 @@ namespace Imoni.Core
         }
 
         /// <summary>Large achievement ratios use an integer multiple, without float overflow or decimals.</summary>
-        public static string Achievement(GameConfig config, BigInteger current, BigInteger required, string percentPrefix = "")
+        public static string Achievement(GameConfig config, BigInteger current, BigInteger required, string percentPrefix = "", bool compact = false)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));
             ValidateAmounts(current, required);
-            return current * 100 >= required * config.AchievementMultipleThresholdPercent
-                ? "目標の" + Format.Big(current / required, config) + "倍"
-                : percentPrefix + Format.Big(current * 100 / required, config) + "%";
+            bool multiple = current * 100 >= required * config.AchievementMultipleThresholdPercent;
+            BigInteger amount = multiple ? current / required : current * 100 / required;
+            string number = compact ? Format.Compact(amount, config) : Format.Big(amount, config);
+            return multiple ? "目標の" + number + "倍" : percentPrefix + number + "%";
         }
 
         /// <summary>Integer-safe visual interpolation only; never mutates game state.</summary>

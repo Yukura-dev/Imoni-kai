@@ -1,0 +1,154 @@
+{
+  "screen": "Game",
+  "paddingWrites": 6,
+  "camera": {
+    "rect": {
+      "x": 0.0,
+      "y": 0.102631576,
+      "width": 1.0,
+      "height": 0.6149123
+    },
+    "pixelRect": {
+      "x": 0.0,
+      "y": 234.0,
+      "width": 1080.0,
+      "height": 1402.0
+    },
+    "enabled": true,
+    "clearFlags": "SolidColor",
+    "viewportWrites": 1,
+    "orthographicSize": 7.916232
+  },
+  "elements": [
+    {
+      "name": "ScreenHost",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 823.3333
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeArea",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 823.3333
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "ScreenContent",
+      "bounds": {
+        "x": 0.0,
+        "y": 32.5,
+        "width": 390.0,
+        "height": 790.8333
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeTopCover",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 32.5
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeBottomCover",
+      "bounds": {
+        "x": 0.0,
+        "y": 823.3333,
+        "width": 390.0,
+        "height": 0.0
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeLeftCover",
+      "bounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 823.3333
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "SafeRightCover",
+      "bounds": {
+        "x": 390.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 823.3333
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "GameHud",
+      "bounds": {
+        "x": 0.0,
+        "y": 32.5,
+        "width": 390.0,
+        "height": 200.055542
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "GameActions",
+      "bounds": {
+        "x": 0.0,
+        "y": 739.1944,
+        "width": 390.0,
+        "height": 84.138916
+      },
+      "backgroundAlpha": 1.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    },
+    {
+      "name": "GameMapViewport",
+      "bounds": {
+        "x": 0.0,
+        "y": 232.555542,
+        "width": 390.0,
+        "height": 506.638855
+      },
+      "backgroundAlpha": 0.0,
+      "opacity": 1.0,
+      "display": "Flex"
+    }
+  ],
+  "player": {
+    "x": 32.0,
+    "y": 32.0,
+    "action": "Idle",
+    "elapsed": 0.0,
+    "remaining": 0.0,
+    "duration": 0.0,
+    "actorPanelX": 195.0,
+    "actorPanelY": 485.694458
+  }
+}

@@ -181,3 +181,11 @@
 ## M7 端末・Android設定
 - Safe AreaはDevice.Screenを使用。既存の装飾paddingからノッチ分を消費し、演出の390×844構図は等比で内側へ収める。
 - `setup.android`: package `jp.yukura.imoni`、versionCode 1、min API 26、target API 36、icon 512px。Editor APIでPortrait/IL2CPP/ARM64と仮アイコンを生成。Android Build Supportは任意導入とし、通常のSetupではAndroid専用型へのコンパイル依存を作らない。
+
+## M8 実機プレイテスト修正（2026-11-26）
+
+- Safe Area の padding と camera.rect は変更時だけ書く。カメラは HUD〜下部ボタンの実ピクセル境界の内側へ限定し、未確定レイアウトでは停止する。画面外周4辺を不透明なTheme色で塗る。
+- 演出の前景は390×844をSafe Area内へ等比配置し、背景だけ画面全体へ拡張する。鍋はユーザー指定 home_pot.png を setup.potArtwork の左上基準 crop で生成。汁面・拡大中心を(195,536)へ合わせる。座標・切り出し寸法は GameConfig と IMONI_EFFECT_SPEC 9章に記載。
+- A* は8方向、斜め√2、両隣の縦横セルが通れる場合だけ許可。LOS平滑化後の実距離で移動・ボット・供給シミュレーションを進める。Coreに連続座標を持ち、途中リタップや停止で巻き戻らない。
+- 詳細表示は Format.Big の上位＋下位の最大2単位、狭いHUDは Format.Compact の上位1単位。省略で達成判定は変えず、tooltipに完全な整数を入れる。
+- Androidの標準設定をGameConfigに明示（Vulkan優先/OpenGLES3フォールバック、Optimized Frame Pacing=true）。診断版はGLES3のOn/Off。versionCodeは更新用に2へ上げる。実機A53の再検証と原因確定は別に記録し、Editor/ビルド成功を実機改善の証拠としない。

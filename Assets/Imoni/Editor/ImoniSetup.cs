@@ -56,6 +56,7 @@ namespace Imoni.Editor
                 EnsureFont(sourceFonts[index], Fonts[index].Asset, settings);
 
             PanelSettings panel = EnsurePanel(settings);
+            ImoniPotSetup.EnsureAssets();
             EnsureUiRuntimeAssets();
             ImoniWorldSetup.EnsureAssets();
             EnsureBootScene(panel, settings);

@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
     <ui:VisualElement name="EffectScreen" class="imoni-effect">
         <ui:VisualElement name="World" class="effect-layer" picking-mode="Ignore">
+            <ui:VisualElement name="Backdrop" class="effect-art effect-backdrop" picking-mode="Ignore" />
             <ui:VisualElement name="Rainbow" class="effect-art" picking-mode="Ignore" />
             <ui:VisualElement name="Sunburst" class="effect-art" picking-mode="Ignore" />
             <ui:VisualElement name="Streaks" class="effect-layer" picking-mode="Ignore" />

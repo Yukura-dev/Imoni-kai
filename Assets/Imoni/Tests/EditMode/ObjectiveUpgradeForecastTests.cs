@@ -101,7 +101,7 @@ namespace Imoni.Core.Tests
                 {
                     ResourceNode node = world.Resources.Single(item => item.Id == visit.ResourceId);
                     PathResult path = Pathfinding.FindPathToResource(world, world.Start, node, round);
-                    decimal travel = (path.Steps.Count - 1) * GatheringTiming.MoveStepSeconds(config, expectedActors[visit.ActorIndex].Upgrades["move"]);
+                    decimal travel = path.DistanceTiles * GatheringTiming.MoveStepSeconds(config, expectedActors[visit.ActorIndex].Upgrades["move"]);
                     Assert.That(visit.DepartSeconds, Is.GreaterThanOrEqualTo(free));
                     Assert.That(visit.GatherStartSeconds - visit.DepartSeconds, Is.EqualTo(travel));
                     Assert.That(visit.GatherSeconds, Is.EqualTo(GatheringTiming.CollectSeconds(config, expectedActors[visit.ActorIndex].Upgrades["speed"], node)));
