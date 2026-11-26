@@ -33,6 +33,7 @@
     --c-disabled-large-fg: #5C4518;
     --c-disabled-small-bg: #E9D5AE;
     --c-disabled-small-fg: #6B4A3A;
+    --c-protection: #2F5D8A;
 
     --font-title: url("project://database/Assets/Imoni/Fonts/Generated/DelaGothicOne SDF.asset");
     --font-body: url("project://database/Assets/Imoni/Fonts/Generated/ZenMaruGothic-Bold SDF.asset");

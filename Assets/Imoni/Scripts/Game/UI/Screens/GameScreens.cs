@@ -25,6 +25,10 @@ namespace Imoni.Game.UI.Screens
         public GameHudView Hud { get; private set; }
         public GameWorldView WorldView { get; private set; }
         public string LocalActorId { get; private set; }
+        public GamePanels Panels { get; }
+        public string CurrentPanel => Panels.CurrentPanel;
+        public void OpenPanel(string panelName) => Panels.Open(panelName);
+        public void ClosePanel() => Panels.Close();
 #if UNITY_EDITOR
         public bool ReviewPaused { get; set; }
 #endif
@@ -47,6 +51,12 @@ namespace Imoni.Game.UI.Screens
             viewport.style.top = hud; viewport.style.bottom = bottom;
             Find<VisualElement>("GameOverlay").style.top = hud;
             Find<VisualElement>("GameOverlay").style.bottom = bottom;
+            Panels = new GamePanels(this, app); Find<VisualElement>("GameRoot").Add(Panels);
+            Panels.PanelChanged += OnPanelChanged;
+            Find<ImoniButton>("OpenWarehouse").clicked += () => Panels.Toggle("warehouse");
+            Find<ImoniButton>("OpenShop").clicked += () => Panels.Toggle("shop");
+            Find<ImoniButton>("OpenUpgrades").clicked += () => Panels.Toggle("upgrade");
+            Find<ImoniButton>("OpenGameMenu").clicked += () => Panels.Toggle("menu");
             RegisterCallback<AttachToPanelEvent>(_ => AttachWorld());
             RefreshSnapshot();
         }
@@ -62,6 +72,7 @@ namespace Imoni.Game.UI.Screens
             // Isolated UI validation has no camera/Bootstrap and still presents the authoritative HUD.
             if (WorldView == null && App.Bootstrap != null)
                 WorldView = new GameWorldView(Server, App.Bootstrap, viewport, App.Profile);
+            OnPanelChanged();
             RefreshSnapshot();
         }
 
@@ -93,13 +104,31 @@ namespace Imoni.Game.UI.Screens
             bonusStatus.style.display = Hud.BonusRevealed ? DisplayStyle.Flex : DisplayStyle.None;
             Find<ImoniText>("GameStreak").text = Hud.StreakText;
             Find<ImoniText>("GameStreakMultiplier").text = Hud.StreakMultiplierText;
+            Panels?.Refresh(Snapshot);
             UpdateHistory();
+        }
+
+        private void OnPanelChanged()
+        {
+            if (WorldView != null) WorldView.InputEnabled = !Panels.IsOpen;
+            Find<ImoniButton>("OpenWarehouse").Selected = CurrentPanel == "warehouse";
+            Find<ImoniButton>("OpenShop").Selected = CurrentPanel == "shop";
+            Find<ImoniButton>("OpenUpgrades").Selected = CurrentPanel == "upgrade";
+            Find<ImoniButton>("OpenGameMenu").Selected = CurrentPanel == "menu";
+            if (Panels.IsOpen) toast.style.display = DisplayStyle.None;
         }
 
         private void UpdateHistory()
         {
             RoundEvent roundEvent = Snapshot.Events.LastOrDefault(item => item.Sequence > lastEvent);
             OperationRecord gather = Snapshot.History.LastOrDefault(item => item.Sequence > lastOperation && item.Kind == OperationKind.Gather);
+            if (Panels != null && Panels.IsOpen)
+            {
+                if (Snapshot.Events.Count > 0) lastEvent = Snapshot.Events.Max(item => item.Sequence);
+                if (Snapshot.History.Count > 0) lastOperation = Snapshot.History.Max(item => item.Sequence);
+                toast.style.display = DisplayStyle.None;
+                return;
+            }
             if (roundEvent != null)
             {
                 lastEvent = roundEvent.Sequence;

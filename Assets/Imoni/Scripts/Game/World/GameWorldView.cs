@@ -48,9 +48,12 @@ namespace Imoni.Game.World
         public Camera Camera => camera;
         public VisualElement MapViewport => viewport;
         public GameSnapshot Snapshot => snapshot;
+        public bool InputEnabled { get; set; } = true;
         /// <summary>Measured map-local rectangles exposed for visual validation.</summary>
         public IReadOnlyDictionary<string, Rect> GrowthLabelRects => growthLabelRects;
         public IReadOnlyList<Rect> CharacterAvoidanceRects => characterAvoidanceRects;
+        public IReadOnlyList<Rect> GatherPopupRects => popups.Where(popup => popup.Active && popup.MapBounds.HasValue).Select(popup => popup.MapBounds.Value).ToArray();
+        public IReadOnlyList<string> ActivePopupTexts => popups.Where(popup => popup.Active).Select(popup => popup.Text).ToArray();
 
         public GameWorldView(IGameServer server, Bootstrap boot, VisualElement mapViewport, ProfileData profile)
         {
@@ -127,13 +130,16 @@ namespace Imoni.Game.World
             }
             Vector3 focus = characters[selfId].DisplayPosition;
             camera.transform.position = new Vector3(focus.x, focus.y, originalCameraPosition.z);
+            float growthLabelDistance = style.Number("growthLabelDistanceTiles");
             foreach (ResourceSnapshot resource in snapshot.Resources)
             {
                 ResourceNodeView view = resources[resource.Id];
                 PlayerSnapshot gatherer = snapshot.Players.FirstOrDefault(player => player.TargetResourceId == resource.Id && player.Action == PlayerAction.Gathering);
                 bool selected = snapshot.Players.Any(player => player.Id == selfId && player.TargetResourceId == resource.Id);
                 float progress = gatherer == null || gatherer.ActionDurationSeconds <= 0 ? 0 : 1 - (float)(gatherer.ActionRemainingSeconds / gatherer.ActionDurationSeconds);
-                view.Present(resource, selected, gatherer != null, progress);
+                bool growthDetails = resource.Id == LastTappedResourceId || selected
+                    || (view.transform.position - focus).sqrMagnitude <= growthLabelDistance * growthLabelDistance;
+                view.Present(resource, selected, gatherer != null, progress, growthDetails);
                 bool unlocked = server.World.IsUnlocked(resource.Position, snapshot.RoundNumber);
                 view.gameObject.SetActive(unlocked);
                 Vector2 point = LocalPoint(view.transform.position);
@@ -144,7 +150,6 @@ namespace Imoni.Game.World
                 Vector2 point = LocalPoint(character.DisplayPosition);
                 character.PositionOverlay(point, OnMap(point, style.Number("playerHeightPx")));
             }
-            ArrangeGrowthLabels();
             locked.Rebuild(server.World, assets.tileSet, snapshot.RoundNumber);
             PositionLockLabel();
             Vector2 campPoint = LocalPoint(campPosition);
@@ -152,18 +157,19 @@ namespace Imoni.Game.World
             WorldViewStyle.Visible(campLabel, OnMap(campPoint, style.Number("campHeightPx")));
             ShowGatherResults();
             foreach (GatherPopupView popup in popups) if (popup.Active) popup.Present(deltaSeconds, LocalPoint(popup.transform.position));
+            ArrangeGrowthLabels();
         }
 
         public bool TryTapResource(string resourceId)
         {
-            if (disposed || !server.TrySelectResource(selfId, resourceId)) return false;
+            if (disposed || !InputEnabled || !server.TrySelectResource(selfId, resourceId)) return false;
             LastTappedResourceId = resourceId; LastTappedGround = null; return true;
         }
 
         /// <summary>Uses the same coordinate conversion and target picking as actual PointerDown events.</summary>
         public bool TryTapPanelPoint(Vector2 panelPoint)
         {
-            if (disposed || !viewport.worldBound.Contains(panelPoint)) return false;
+            if (disposed || !InputEnabled || !viewport.worldBound.Contains(panelPoint)) return false;
             Vector3 worldPoint = PanelToWorld(panelPoint);
             ResourceNodeView selected = resources.Values.Where(view => view.gameObject.activeSelf && view.State.IsReady && view.Contains(worldPoint))
                 .OrderBy(view => (view.transform.position - worldPoint).sqrMagnitude).FirstOrDefault();
@@ -212,6 +218,7 @@ namespace Imoni.Game.World
                     nameTag.resolvedStyle.width, nameTag.resolvedStyle.height));
             }
             var occupied = characterAvoidanceRects.Select(rect => Expanded(rect, gap)).ToList();
+            occupied.AddRange(popups.Where(popup => popup.Active && popup.MapBounds.HasValue).Select(popup => Expanded(popup.MapBounds.Value, gap)));
             // Preserve the active interaction target and its progress bar as well as the characters.
             foreach (string id in snapshot.Players.Select(player => player.TargetResourceId).Where(id => id != null).Distinct())
             {
@@ -295,8 +302,7 @@ namespace Imoni.Game.World
                 if (record.Kind != OperationKind.Gather) continue;
                 PlayerSnapshot player = snapshot.Players.First(item => item.Id == record.ActorId);
                 JToken quality = UiTheme.Data["qualities"].First(item => item["id"].Value<string>() == record.QualityId);
-                string text = "+" + Format.Big(record.Quantity, UiTheme.Config) + " " + UiTheme.Config.Material(record.MaterialId).Name
-                    + "(" + quality["name"].Value<string>() + ") 連続" + record.GatherStreak;
+                string text = GatherPopupProjection.Text(UiTheme.Config, record);
                 GatherPopupView popup = popups.FirstOrDefault(item => !item.Active);
                 if (!popup)
                 {

@@ -1,0 +1,19 @@
+.game-panels, .game-panels-root { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.game-panel-shadow { position: absolute; left: 0; right: 0; bottom: 0; border-top-left-radius: 26px; border-top-right-radius: 26px; background-color: rgba(74,46,34,0.18); display: none; }
+.game-panel .bottom-sheet__content { min-height: 0; }
+.game-panel-description { font-size: 12px; -unity-font-definition: var(--font-body); white-space: normal; flex-shrink: 0; }
+.game-panel-footnote { font-size: 11px; -unity-font-definition: var(--font-body); color: var(--c-brown-soft); flex-shrink: 0; }
+.game-panel-spaced { margin-top: 10px; }
+.game-panel-rows > .purchase-row { margin-top: 10px; }
+.game-panel .shop-row { min-height: 70px; }
+.game-panel .upgrade-row { min-height: 78px; }
+.game-panel .purchase-row__button { border-radius: 12px; }
+.game-panel-flex { flex-grow: 1; }
+.game-panel--menu .member-row { margin-bottom: 10px; }
+.game-panel .game-return-home { height: 48px; min-height: 48px; border-radius: 24px; font-size: 15px; padding: 0; margin: 0; -unity-font-definition: var(--font-body-black); }
+.game-inventory-list { flex-grow: 1; flex-shrink: 1; min-height: 0; margin-top: 10px; }
+.game-inventory-list .unity-scroll-view__content-container { flex-shrink: 0; }
+.game-inventory-list .inventory-row { margin-bottom: 4px; flex-shrink: 0; }
+.game-inventory-empty { margin-top: 20px; margin-bottom: 20px; font-size: 14px; -unity-text-align: middle-center; white-space: normal; }
+.game-panel .game-sell-all { height: 44px; min-height: 44px; border-width: 3px; border-color: var(--c-red); border-radius: 22px; background-color: var(--c-cream); color: var(--c-red); font-size: 14px; padding: 0; -unity-font-definition: var(--font-body-black); }
+.game-panel .game-sell-all:disabled { opacity: 1; background-color: var(--c-disabled-large-bg); color: var(--c-disabled-large-fg); border-color: var(--c-disabled-large-fg); }

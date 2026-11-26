@@ -6,9 +6,9 @@ using System.Numerics;
 
 namespace Imoni.Core
 {
-    public enum RoundPhase { Collecting, Succeeded, Failed, Cleared }
+    public enum RoundPhase { Collecting, Succeeded, Failed, Cleared, Aborted }
     public enum RoundEventKind { Started, BonusRevealed, TimeUp, Succeeded, Failed, Cleared }
-    public enum OperationKind { Gather, Buy, Sell, SetProtection, Upgrade }
+    public enum OperationKind { Gather, Buy, Sell, SetProtection, Upgrade, SellAll }
     public enum PlayerAction { Idle, Moving, Gathering }
 
     /// <summary>Authoritative local commands. A future network server can implement the same boundary.</summary>
@@ -25,8 +25,10 @@ namespace Imoni.Core
         GatherResult Gather(string actorId, string materialId);
         BigInteger Buy(string actorId, string materialId, BigInteger quantity);
         BigInteger Sell(string actorId, string materialId, string qualityId, BigInteger quantity);
+        BigInteger SellAllUnprotected(string actorId);
         void SetProtection(string actorId, string materialId, string qualityId, BigInteger quantity);
         BigInteger Upgrade(string actorId, string upgradeId);
+        void AbortChallenge(string actorId);
         void Tick(decimal seconds);
         void StartNextRound(RoundObjectives objectives = null);
         void Retry(int seed, RoundObjectives objectives = null);
@@ -204,8 +206,7 @@ namespace Imoni.Core
                 RequirePositiveQuantity(quantity);
                 MaterialDefinition material = config.Material(materialId);
                 QualityDefinition quality = config.Quality(config.PurchasedQualityId);
-                BigInteger cost = GameMath.MultiplyFloor(quantity * material.BasePrice * quality.Multiplier,
-                    config.BuyPriceMultiplier);
+                BigInteger cost = GamePanelProjection.PurchaseCost(config, materialId, quantity);
                 if (funds < cost) throw new InvalidOperationException("Insufficient shared funds.");
                 inventory.Add(materialId, quality.Id, quantity, config.FixedScale);
                 funds -= cost;
@@ -234,6 +235,42 @@ namespace Imoni.Core
                 RequireActorDuringCollection(actorId);
                 inventory.SetProtectedQuantity(materialId, qualityId, quantity);
                 Record(actorId, OperationKind.SetProtection, materialId, qualityId, quantity, BigInteger.Zero);
+            }
+        }
+
+        /// <summary>One atomic sale across all rows; no protected quantity can be consumed between rows.</summary>
+        public BigInteger SellAllUnprotected(string actorId)
+        {
+            lock (gate)
+            {
+                RequireActorDuringCollection(actorId);
+                var sales = inventory.Lots.Select(lot => (lot.MaterialId, lot.QualityId)).Distinct()
+                    .Select(pair => (pair.MaterialId, pair.QualityId, Quantity: inventory.SellableQuantity(pair.MaterialId, pair.QualityId)))
+                    .Where(item => item.Quantity > 0).ToArray();
+                BigInteger proceeds = BigInteger.Zero, quantity = BigInteger.Zero;
+                foreach (var sale in sales)
+                {
+                    proceeds += inventory.Sell(sale.MaterialId, sale.QualityId, sale.Quantity);
+                    quantity += sale.Quantity;
+                }
+                if (quantity > 0)
+                {
+                    funds += proceeds;
+                    Record(actorId, OperationKind.SellAll, null, null, quantity, proceeds);
+                }
+                return proceeds;
+            }
+        }
+
+        /// <summary>Leaving for Home terminates this session. A subsequent challenge uses a fresh server.</summary>
+        public void AbortChallenge(string actorId)
+        {
+            lock (gate)
+            {
+                RequireActor(actorId);
+                foreach (PlayerState player in players.Values) StopAction(player);
+                authorizedGatherActor = authorizedGatherNode = null;
+                phase = RoundPhase.Aborted;
             }
         }
 
@@ -419,7 +456,9 @@ namespace Imoni.Core
         private PlayerState RequireActorDuringCollection(string actorId)
         {
             if (phase != RoundPhase.Collecting) throw new InvalidOperationException("The round is not collecting.");
-            return RequireActor(actorId);
+            PlayerState actor = RequireActor(actorId);
+            if (!actor.Connected) throw new InvalidOperationException("The actor is disconnected.");
+            return actor;
         }
 
         private PlayerState RequireActor(string actorId)
@@ -534,7 +573,8 @@ namespace Imoni.Core
         {
             history.Add(new OperationRecord(++operationSequence, actor, kind, material, quality,
                 quantity, fundsDelta, roundNumber, elapsedSeconds, upgradeId,
-                kind == OperationKind.Gather ? players[actor].Streak : 0));
+                kind == OperationKind.Gather ? players[actor].Streak : 0,
+                kind == OperationKind.Upgrade ? players[actor].Upgrades[upgradeId] : 0));
         }
 
         private void Emit(RoundEventKind kind, decimal atSeconds)
@@ -598,13 +638,15 @@ namespace Imoni.Core
         public decimal ElapsedSeconds { get; }
         public string UpgradeId { get; }
         public int GatherStreak { get; }
+        public int UpgradeLevel { get; }
         internal OperationRecord(long sequence, string actorId, OperationKind kind, string materialId,
             string qualityId, BigInteger quantity, BigInteger fundsDelta, int roundNumber, decimal elapsed, string upgradeId,
-            int gatherStreak = 0)
+            int gatherStreak = 0, int upgradeLevel = 0)
         {
             Sequence = sequence; ActorId = actorId; Kind = kind; MaterialId = materialId; QualityId = qualityId;
             Quantity = quantity; FundsDelta = fundsDelta; RoundNumber = roundNumber; ElapsedSeconds = elapsed; UpgradeId = upgradeId;
             GatherStreak = gatherStreak;
+            UpgradeLevel = upgradeLevel;
         }
     }
 

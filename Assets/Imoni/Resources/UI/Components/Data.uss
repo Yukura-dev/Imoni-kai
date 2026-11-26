@@ -69,7 +69,7 @@
 .inventory-row__description { flex-direction: row; align-items: center; flex-grow: 1.6; flex-basis: 0; min-width: 0; }
 .inventory-row__name { margin-right: 4px; flex-shrink: 0; }
 .inventory-row__number { flex-grow: 1; flex-basis: 0; margin-left: 4px; -unity-text-align: middle-right; min-width: 0; }
-.inventory-row__protected { color: rgb(47,93,138); }
+.inventory-row__protected { color: var(--c-protection); }
 
 .purchase-row { flex-direction: row; align-items: center; background-color: var(--c-white); border-width: 3px; border-color: var(--c-brown); border-radius: 16px; padding: 10px 12px; flex-shrink: 0; }
 .purchase-row__description { flex-grow: 1; min-width: 0; }
@@ -83,6 +83,9 @@
 .upgrade-row__current { margin-top: 3px; font-size: 12px; color: var(--c-brown-soft); }
 .upgrade-row__next { margin-top: 3px; font-size: 12px; -unity-font-definition: var(--font-body-black); color: var(--c-green); }
 .upgrade-row .purchase-row__button { min-width: 96px; height: 52px; font-size: 13px; margin-left: 10px; }
+.upgrade-row--inline-effects .upgrade-row__effects { flex-direction: row; flex-wrap: wrap; margin-top: 4px; }
+.upgrade-row--inline-effects .upgrade-row__current, .upgrade-row--inline-effects .upgrade-row__next { margin-top: 0; white-space: nowrap; }
+.upgrade-row--inline-effects .upgrade-row__next { margin-left: 4px; }
 
 .ranking-row { flex-direction: row; align-items: center; padding: 8px 6px; border-radius: 12px; flex-shrink: 0; }
 .ranking-row--alternating { background-color: var(--c-sand-light); }

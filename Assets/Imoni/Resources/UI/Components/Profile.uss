@@ -73,3 +73,11 @@
 .member-row { flex-direction: row; align-items: center; padding: 10px; border-radius: 14px; border-width: 2px; border-color: var(--c-brown); background-color: var(--c-white); }
 .member-row__info { flex-grow: 1; min-width: 0; margin-left: 12px; margin-right: 8px; }
 .member-row__name { font-size: 16px; -unity-font-definition: var(--font-body-black); margin-top: 2px; }
+.member-row__connection-dot, .member-row__connection-state { display: none; }
+.member-row--connection { background-color: var(--c-white); border-width: 2px; border-color: var(--c-brown); border-radius: 12px; padding: 8px 10px; min-height: 40px; flex-shrink: 0; }
+.member-row--connection > .avatar, .member-row--connection > .status-badge, .member-row--connection .title-chips { display: none; }
+.member-row--connection > .member-row__info { margin: 0 10px; flex-grow: 1; }
+.member-row--connection .member-row__name { font-size: 14px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.member-row--connection > .member-row__connection-dot { display: flex; width: 10px; height: 10px; border-radius: 5px; background-color: var(--c-leaf); flex-shrink: 0; }
+.member-row--connection > .member-row__connection-state { display: flex; color: var(--c-brown-soft); font-size: 12px; -unity-font-definition: var(--font-body); white-space: nowrap; flex-shrink: 0; }
+.member-row--disconnected > .member-row__connection-dot { background-color: #B8A586; }

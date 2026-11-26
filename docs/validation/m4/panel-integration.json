@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": [
+    "Increase protection by configured five",
+    "Decrease protection by configured five",
+    "Protect the whole selected row",
+    "Release whole-row protection",
+    "Configured percentage 25 uses sellable quantity",
+    "Configured percentage 50 uses sellable quantity",
+    "Configured percentage 75 uses sellable quantity",
+    "Configured percentage 100 uses sellable quantity",
+    "Direct quantity sells immediately through the server",
+    "Bulk sale preserves protection across material rows",
+    "Bulk sale disables when only protected stock remains",
+    "Three timestamped operation-history rows are visible",
+    "Upgrade changes only the acting player and shared funds",
+    "Second upgrade uses its own configured level and price",
+    "All upgrades disable below their prices",
+    "Panel keeps simulation ticking while hiding toast and blocking map input",
+    "Closing restores map input without replaying stale toast",
+    "Menu return-home callback navigates to Home"
+  ],
+  "method": "Attached panel callbacks and real IGameServer commands, with isolated review sessions",
+  "utc": "2026-11-26T00:29:14.8410210Z"
+}

@@ -485,15 +485,20 @@ namespace Imoni.Game.UI.Components
         private readonly TitleChips titles;
         private readonly Label playerName;
         private readonly StatusBadge status;
+        private readonly VisualElement connectionDot;
+        private readonly Label connectionState;
+        [UxmlAttribute] public bool ConnectionView { get => ClassListContains("member-row--connection"); set => EnableInClassList("member-row--connection", value); }
 
         public MemberRow()
         {
             ProfileElements.Apply(this, "member-row");
+            connectionDot = ProfileElements.Box("member-row__connection-dot"); Add(connectionDot);
             avatar = new Avatar { Size = 44 }; Add(avatar);
             var info = ProfileElements.Box("member-row__info");
             titles = new TitleChips { Size = TitleChipSize.Compact }; info.Add(titles);
             playerName = ProfileElements.Label(string.Empty, "member-row__name"); info.Add(playerName); Add(info);
             status = new StatusBadge(); Add(status);
+            connectionState = ProfileElements.Label(string.Empty, "member-row__connection-state"); Add(connectionState);
         }
 
         public void Bind(MemberRowViewModel model)
@@ -503,6 +508,11 @@ namespace Imoni.Game.UI.Components
             avatar.Photo = model.Photo; avatar.Dimmed = model.Dimmed;
             titles.First = model.First; titles.Second = model.Second;
             playerName.text = model.Name; status.State = model.State;
+        }
+        public void BindConnection(string memberName, string stateText, bool connected)
+        {
+            ConnectionView = true; playerName.text = memberName; connectionState.text = stateText;
+            EnableInClassList("member-row--disconnected", !connected);
         }
     }
 }

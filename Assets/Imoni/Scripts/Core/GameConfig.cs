@@ -20,6 +20,8 @@ namespace Imoni.Core
         public BigInteger StartFunds { get; }
         public decimal BuyPriceMultiplier { get; }
         public string PurchasedQualityId { get; }
+        public string CurrencyUnit { get; }
+        public GamePanelConfig Panels { get; }
         public decimal BonusFundsPerPoint { get; }
         public BigInteger FixedScale { get; }
         public decimal TopBaseChance { get; }
@@ -57,6 +59,7 @@ namespace Imoni.Core
             StartFunds = Integer(data, "economy.startFunds", false);
             BuyPriceMultiplier = PositiveDecimal(data, "economy.buyPriceMultiplier");
             PurchasedQualityId = Text(data, "economy.purchasedQualityId");
+            CurrencyUnit = Text(data, "economy.currencyUnit");
             BonusFundsPerPoint = NonnegativeDecimal(data, "economy.bonusFundsPerPoint");
             FixedScale = Integer(data, "numeric.fixedScale", true);
             TopBaseChance = NonnegativeDecimal(data, "qualityRoll.topBaseChance");
@@ -147,6 +150,7 @@ namespace Imoni.Core
                 .Select(token => new Objective(Text(token, "material"), Integer(token, "amount", true))),
                 new Objective(Text(data, "round1Mock.bonus.material"), Integer(data, "round1Mock.bonus.amount", true)));
             DefaultObjectives.Validate(this);
+            Panels = new GamePanelConfig(data, this);
         }
 
         public static GameConfig FromJson(string json)

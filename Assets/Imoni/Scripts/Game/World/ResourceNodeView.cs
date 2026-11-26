@@ -15,14 +15,16 @@ namespace Imoni.Game.World
         private WorldRuntimeAssets assets;
         private WorldViewStyle style;
         private ResourceArt art;
+        private ResourceArt sproutArt;
         private VisualElement anchor;
         private ProgressBar gatherBar;
         private Label growth;
         private Label materialLabel;
         private bool overlayVisible;
+        private bool detailedGrowth;
         public ResourceSnapshot State { get; private set; }
         public string ResourceId => State.Id;
-        internal bool NeedsGrowthLabel => overlayVisible && !State.IsReady;
+        internal bool NeedsGrowthLabel => overlayVisible && detailedGrowth && !State.IsReady;
         internal float GatherBarTopOffset => float.IsNaN(gatherBar.resolvedStyle.top) ? 0 : Mathf.Min(0, gatherBar.resolvedStyle.top);
         internal Vector2 GrowthLabelSize
         {
@@ -38,7 +40,7 @@ namespace Imoni.Game.World
 
         internal void Initialize(ResourceSnapshot state, WorldRuntimeAssets references, WorldViewStyle settings, VisualElement overlay)
         {
-            assets = references; style = settings; art = assets.Resource(state.MaterialId);
+            assets = references; style = settings; art = assets.Resource(state.MaterialId); sproutArt = assets.Resource("taro");
             anchor = new VisualElement { name = "Resource_" + state.Id, pickingMode = PickingMode.Ignore };
             anchor.AddToClassList("world-resource");
             anchor.style.width = anchor.style.height = style.Number("resourceTapSizePx");
@@ -55,19 +57,22 @@ namespace Imoni.Game.World
             Present(state, false, false, 0);
         }
 
-        internal void Present(ResourceSnapshot state, bool selected, bool gathering, float progress)
+        internal void Present(ResourceSnapshot state, bool selected, bool gathering, float progress, bool showGrowthDetails = false)
         {
             State = state;
-            artwork.sprite = state.GrowthStage == ResourceGrowthStage.Stump ? assets.stump : art.sprite;
-            artwork.color = state.GrowthStage == ResourceGrowthStage.Stump ? Color.white : art.tint;
-            float scale = state.GrowthStage == ResourceGrowthStage.Stump ? 1 : style.Growth((int)state.GrowthStage);
+            detailedGrowth = showGrowthDetails;
+            bool sproutOnly = !state.IsReady && !detailedGrowth;
+            artwork.sprite = sproutOnly ? sproutArt.sprite : state.GrowthStage == ResourceGrowthStage.Stump ? assets.stump : art.sprite;
+            artwork.color = sproutOnly ? sproutArt.tint : state.GrowthStage == ResourceGrowthStage.Stump ? Color.white : art.tint;
+            float scale = sproutOnly ? style.Growth((int)ResourceGrowthStage.Sapling)
+                : state.GrowthStage == ResourceGrowthStage.Stump ? 1 : style.Growth((int)state.GrowthStage);
             WorldViewStyle.Size(artwork, style.Units("resourceVisualWidthPx") * scale, style.Units("resourceVisualHeightPx") * scale);
             artwork.sortingOrder = GameWorldView.SortOrder(state.Position.Y);
             anchor.EnableInClassList("world-resource--selected", selected);
             WorldViewStyle.Visible(gatherBar, gathering && state.IsReady);
             gatherBar.Value = progress;
             growth.text = "成長中 " + Mathf.CeilToInt((float)state.SecondsUntilReady) + "秒";
-            WorldViewStyle.Visible(growth, !state.IsReady);
+            WorldViewStyle.Visible(growth, NeedsGrowthLabel);
             WorldViewStyle.Visible(materialLabel, state.IsReady && !string.IsNullOrEmpty(art.label));
             tapArea.enabled = state.IsReady;
         }

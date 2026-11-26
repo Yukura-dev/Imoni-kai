@@ -1,0 +1,169 @@
+{
+  "utc": "2026-11-26T00:28:04.3762548Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "panel": "upgrade",
+  "elapsed": 0.0,
+  "phase": "Collecting",
+  "funds": "100",
+  "worldInputEnabled": false,
+  "toastVisible": false,
+  "saleQuantity": "0",
+  "selectedInventory": null,
+  "popups": [],
+  "growthLabels": [],
+  "lastTappedResource": null,
+  "growthLabelDistanceTiles": 2.0,
+  "players": [
+    {
+      "id": "player1",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player2",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "connected": true,
+      "action": "Idle",
+      "x": 32,
+      "y": 32,
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "inventory": [
+    {
+      "material": "mushroom",
+      "quality": "normal",
+      "quantity": "10",
+      "protected": "0",
+      "sellable": "10",
+      "unitPrice": "30"
+    }
+  ],
+  "history": [
+    {
+      "sequence": 1,
+      "actor": "player1",
+      "kind": "Buy",
+      "material": "mushroom",
+      "quality": "normal",
+      "quantity": "10",
+      "time": 0.0
+    }
+  ],
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "enabled": true,
+      "x": 10.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "enabled": true,
+      "x": 105.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "enabled": true,
+      "x": 199.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "enabled": true,
+      "x": 294.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "x": 332.0,
+      "y": 302.0,
+      "width": 44.0,
+      "height": 44.0
+    },
+    {
+      "name": "Upgrade_move",
+      "text": "強化\n150G",
+      "enabled": false,
+      "x": 265.0,
+      "y": 397.0,
+      "width": 96.0,
+      "height": 52.0
+    },
+    {
+      "name": "Upgrade_speed",
+      "text": "強化\n150G",
+      "enabled": false,
+      "x": 265.0,
+      "y": 485.0,
+      "width": 96.0,
+      "height": 52.0
+    },
+    {
+      "name": "Upgrade_amount",
+      "text": "強化\n150G",
+      "enabled": false,
+      "x": 265.0,
+      "y": 573.0,
+      "width": 96.0,
+      "height": 52.0
+    },
+    {
+      "name": "Upgrade_luck",
+      "text": "強化\n150G",
+      "enabled": false,
+      "x": 265.0,
+      "y": 661.0,
+      "width": 96.0,
+      "height": 52.0
+    }
+  ],
+  "image": "M4-proof_funds_04.png"
+}

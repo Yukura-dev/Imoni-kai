@@ -320,6 +320,7 @@ namespace Imoni.Game.UI.Components
     public sealed class PurchaseOptionView
     {
         public string Id { get; set; } = string.Empty;
+        public string Label { get; set; } = string.Empty;
         public string QuantityText { get; set; } = string.Empty;
         public string PriceText { get; set; } = string.Empty;
         public bool Enabled { get; set; } = true;
@@ -383,6 +384,7 @@ namespace Imoni.Game.UI.Components
         private readonly Label caption = UiTheme.Label(string.Empty, "purchase-row__name");
         private readonly Label unit = UiTheme.Label(string.Empty, "purchase-row__unit");
         private readonly VisualElement options = new VisualElement();
+        private readonly Dictionary<string, ImoniButton> optionButtons = new Dictionary<string, ImoniButton>();
         public event Action<string> BuyRequested;
         public ShopRow()
         {
@@ -393,11 +395,19 @@ namespace Imoni.Game.UI.Components
         public void Bind(ShopRowView view)
         {
             if (view == null) throw new ArgumentNullException(nameof(view));
-            caption.text = view.Name; unit.text = view.UnitText; options.Clear();
+            caption.text = view.Name; unit.text = view.UnitText;
+            foreach (string removed in optionButtons.Keys.Where(id => !view.Options.Any(option => option.Id == id)).ToArray())
+            { optionButtons[removed].RemoveFromHierarchy(); optionButtons.Remove(removed); }
             foreach (PurchaseOptionView option in view.Options)
             {
-                var button = new ImoniButton { Variant = ImoniButtonVariant.Small, text = "×" + option.QuantityText + "  " + option.PriceText, Disabled = !option.Enabled };
-                button.AddToClassList("purchase-row__button"); string optionId = option.Id; button.clicked += () => BuyRequested?.Invoke(optionId); options.Add(button);
+                if (!optionButtons.TryGetValue(option.Id, out ImoniButton button))
+                {
+                    button = new ImoniButton { Variant = ImoniButtonVariant.Small, name = "Buy_" + option.Id };
+                    button.AddToClassList("purchase-row__button"); string optionId = option.Id;
+                    button.clicked += () => BuyRequested?.Invoke(optionId); options.Add(button); optionButtons.Add(option.Id, button);
+                }
+                button.text = string.IsNullOrEmpty(option.Label) ? "×" + option.QuantityText + "  " + option.PriceText : option.Label;
+                button.Disabled = !option.Enabled;
             }
         }
     }
@@ -410,13 +420,16 @@ namespace Imoni.Game.UI.Components
         private readonly Label current = UiTheme.Label(string.Empty, "upgrade-row__current");
         private readonly Label next = UiTheme.Label(string.Empty, "upgrade-row__next");
         private readonly ImoniButton buy = new ImoniButton { Variant = ImoniButtonVariant.Small };
+        [UxmlAttribute] public bool InlineEffects { get => ClassListContains("upgrade-row--inline-effects"); set => EnableInClassList("upgrade-row--inline-effects", value); }
         public event Action UpgradeRequested;
         public UpgradeRow()
         {
             DataVisuals.Apply(this, "purchase-row"); AddToClassList("upgrade-row");
             var description = new VisualElement(); description.AddToClassList("purchase-row__description");
             var heading = new VisualElement(); heading.AddToClassList("upgrade-row__heading"); heading.Add(caption); heading.Add(level);
-            description.Add(heading); description.Add(current); description.Add(next);
+            var effects = new VisualElement(); effects.AddToClassList("upgrade-row__effects"); effects.Add(current); effects.Add(next);
+            description.Add(heading); description.Add(effects);
+            buy.name = "UpgradePurchase";
             buy.AddToClassList("purchase-row__button"); Add(description); Add(buy); buy.clicked += () => UpgradeRequested?.Invoke();
         }
         public void Bind(UpgradeRowView view)

@@ -122,3 +122,15 @@ public partial class TitleChips : VisualElement
 | `RankingList` | ScrollView内にRankingRowを配置。順位計算はしない |
 
 ScreenHostがThemeと全部品USSを共有し、個々の部品には祖先に未読込の場合だけUSSを追加する。M2bの画面・部品対応と使い方は `M2B_SCREENS.md` に記載。
+
+## M4で追加した構成部品・表示属性
+
+| 部品 | 用途 |
+|---|---|
+| `InventoryTableHeader` | 倉庫の素材・所持・保護・売却可・単価の列見出し |
+| `InventorySelectionControls` | 選択行の保護操作・割合・数量入力・即売却。操作意図だけを通知し、計算はCoreの投影結果を受け取る |
+| `OperationHistory` | Coreが整形した直近の履歴を表示 |
+| `UpgradeRow.inlineEffects` | 現在→次の効果を横並びにするGameパネル用属性 |
+| `MemberRow.BindConnection` | 接続状態の点・名前・状態文言を表示するGameメニュー用形式 |
+
+`GamePanelParts.uss` もScreenHostで一度だけ読み込む。4つのパネルは `GamePanels.uxml` に既存の `BottomSheet`、行部品と上記部品を配置して構成する。

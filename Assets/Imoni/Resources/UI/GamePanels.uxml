@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:imoni="Imoni.Game.UI.Components">
+    <ui:VisualElement name="GamePanelsRoot" class="game-panels-root" picking-mode="Ignore">
+        <ui:VisualElement name="PanelShadow" class="game-panel-shadow" picking-mode="Ignore" />
+        <imoni:BottomSheet name="WarehouseSheet" title="共有倉庫" is-open="false" class="game-panel game-panel--warehouse">
+            <imoni:InventoryTableHeader />
+            <ui:ScrollView name="InventoryList" class="game-inventory-list" mode="Vertical" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden">
+                <imoni:ImoniText name="EmptyInventory" text="まだ素材がないよ。マップの資源をタップしよう" class="game-inventory-empty" />
+            </ui:ScrollView>
+            <imoni:InventorySelectionControls name="InventorySelection" class="game-panel-spaced" />
+            <imoni:ImoniButton name="SellAllUnprotected" variant="Outline" text="保護以外をまとめて売却" class="game-sell-all game-panel-spaced" />
+            <imoni:OperationHistory name="WarehouseHistory" class="game-panel-spaced" />
+        </imoni:BottomSheet>
+        <imoni:BottomSheet name="ShopSheet" title="ショップ" is-open="false" class="game-panel game-panel--shop">
+            <imoni:ImoniText text="素材を購入して共有倉庫へ。購入品は普通品質。売却は倉庫から" class="game-panel-description" />
+            <ui:VisualElement name="ShopRows" class="game-panel-rows" />
+            <imoni:ImoniText name="ShopPriceHint" class="game-panel-footnote game-panel-spaced" />
+        </imoni:BottomSheet>
+        <imoni:BottomSheet name="UpgradeSheet" title="個人強化" is-open="false" class="game-panel game-panel--upgrade">
+            <imoni:ImoniText text="強化は自分だけに効果。資金はチーム共通だから相談して使おう" class="game-panel-description" />
+            <ui:VisualElement name="UpgradeRows" class="game-panel-rows" />
+        </imoni:BottomSheet>
+        <imoni:BottomSheet name="MenuSheet" title="チーム" is-open="false" class="game-panel game-panel--menu">
+            <ui:VisualElement name="GameMemberRows" />
+            <ui:VisualElement class="game-panel-flex" />
+            <imoni:ImoniButton name="ReturnHome" variant="Outline" text="ホームへ戻る(挑戦は中断)" class="game-return-home" />
+        </imoni:BottomSheet>
+    </ui:VisualElement>
+</ui:UXML>

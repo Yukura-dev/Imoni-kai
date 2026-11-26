@@ -958,7 +958,40 @@
       "campPotWidthPx": 28,
       "campPotHeightPx": 28,
       "campBorderPx": 3,
-      "campLabelOffsetXPx": -30
+      "campLabelOffsetXPx": -30,
+      "growthLabelDistanceTiles": 2
+    },
+    "panels": {
+      "protectionStep": 5,
+      "salePercentages": [
+        25,
+        50,
+        75,
+        100
+      ],
+      "shopQuantities": [
+        10,
+        50
+      ],
+      "shopMaterials": [
+        "wood",
+        "taro",
+        "negi",
+        "mushroom"
+      ],
+      "historyLimit": 3,
+      "effectDecimalPlaces": {
+        "move": 2,
+        "speed": 2,
+        "amount": 1,
+        "luck": 1
+      },
+      "initialSalePercent": 50,
+      "warehouseHeightPx": 620,
+      "shopHeightPx": 540,
+      "upgradeHeightPx": 560,
+      "menuHeightPx": 440,
+      "shadowHeightPx": 8
     }
   },
   "outGame": {
