@@ -14,7 +14,10 @@ namespace Imoni.Core
         public string BandColor { get; set; }
         public string OutfitColor { get; set; }
         public bool SoundEnabled { get; set; } = true;
+        // Retained for saves written before independent BGM/effects controls existed.
         public double SoundVolume { get; set; } = double.NaN;
+        public double BgmVolume { get; set; } = double.NaN;
+        public double EffectsVolume { get; set; } = double.NaN;
         public bool TutorialCompleted { get; set; }
         public string[] OwnedFirstTitles { get; set; } = Array.Empty<string>();
         public string[] OwnedSecondTitles { get; set; } = Array.Empty<string>();
@@ -68,6 +71,8 @@ namespace Imoni.Core
                 OutfitColor = Allowed(profile.OutfitColor, defaults["outfitColors"], defaults["defaultOutfitColor"].Value<string>()),
                 SoundEnabled = profile.SoundEnabled,
                 SoundVolume = Effects.ImoniAudioPlan.NormalizeVolume(config, profile.SoundVolume),
+                BgmVolume = Effects.ImoniAudioPlan.NormalizeChannelVolume(config, profile.BgmVolume, profile.SoundVolume),
+                EffectsVolume = Effects.ImoniAudioPlan.NormalizeChannelVolume(config, profile.EffectsVolume, profile.SoundVolume),
                 TutorialCompleted = profile.TutorialCompleted,
                 OwnedFirstTitles = first, OwnedSecondTitles = second,
                 OwnedBadges = (profile.OwnedBadges ?? Array.Empty<string>()).Where(id => config["progression"]["badgeRules"].Any(rule => rule["id"].Value<string>() == id)).Distinct(StringComparer.Ordinal).ToArray(),

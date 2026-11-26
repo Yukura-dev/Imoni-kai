@@ -71,7 +71,9 @@ namespace Imoni.Editor
                 {
                     string section = request.Substring("capture:".Length);
                     if (!gallery.Sections.ContainsKey(section)) throw new ArgumentException("Unknown gallery section: " + section);
-                    pending.Enqueue(new Page { Section = section, Number = 1 });
+                    float height = gallery.Q<ScrollView>("gallery-scroll").contentViewport.layout.height;
+                    for (int page = 0; page < Math.Max(1, Mathf.CeilToInt(gallery.Sections[section].layout.height / height)); page++)
+                        pending.Enqueue(new Page { Section = section, Number = page + 1, Offset = page * height });
                 }
                 else throw new ArgumentException("Unknown M2a visual review request: " + request);
                 command = request; currentSection = null;

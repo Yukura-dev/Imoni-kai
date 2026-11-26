@@ -21,6 +21,8 @@ namespace Imoni.Game.World
         private Color outfit, band;
         public string ActorId { get; private set; }
         public Vector3 DisplayPosition => transform.position;
+        internal Rect? PreferredNameBounds { get; private set; }
+        internal Rect? NameMapBounds { get; private set; }
 
         internal void Initialize(string id, string actorName, bool isSelf, string outfitColor, string bandColor,
             WorldRuntimeAssets assets, WorldViewStyle settings, VisualElement overlay)
@@ -83,7 +85,15 @@ namespace Imoni.Game.World
         internal void PositionOverlay(Vector2 point, bool visible)
         {
             WorldViewStyle.Visible(nameTag, visible);
-            WorldViewStyle.Position(nameTag, point + Vector2.up * (height * style.TileSize / 2 + style.Number("labelOffsetPx")));
+            Vector2 size = WorldAnnotationLayout.Measure(nameTag);
+            PreferredNameBounds = visible && WorldAnnotationLayout.Valid(size)
+                ? new Rect(point.x - size.x / 2, point.y + height * style.TileSize / 2 + style.Number("labelOffsetPx"), size.x, size.y)
+                : (Rect?)null;
+        }
+        internal void PlaceName(Rect? rectangle)
+        {
+            NameMapBounds = rectangle;
+            WorldAnnotationLayout.Place(nameTag, rectangle);
         }
         internal void Release() { nameTag?.RemoveFromHierarchy(); }
 #if UNITY_EDITOR

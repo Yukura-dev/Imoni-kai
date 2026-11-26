@@ -139,7 +139,6 @@ namespace Imoni.Editor
             switch (screen)
             {
                 case "Main": ClickWhenReady("start", now, dwell); break;
-                case "Login": ClickWhenReady("LoginContinue", now, dwell); break;
                 case "Tutorial1": case "Tutorial2": case "Tutorial3": ClickWhenReady("next", now, dwell); break;
                 case "Home": ClickWhenReady("play", now, dwell); break;
                 case "Lobby": ClickWhenReady("CreateTeam", now, dwell); break;

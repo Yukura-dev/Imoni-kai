@@ -314,3 +314,12 @@
 - 質問：「7,804穣8,528穣」の再現がmainでは得られない。
   - 判断：既存コードは「7,804穣8,528秭」、Delaの秭/穣も別glyphで、原因は未確定。上下単位の添字と余り処理を明示し、全階層の回帰テスト・Config重複単位検証を追加。狭いHUDは1単位へ統一する。
   - 該当：Format、IntegerDisplayTests、DataControls、M8_NUMBERS.md。
+
+## M8 追加実機レビュー（2026-11-26）
+
+- 質問：アカウント切り替えの認証方式は未定。仮決定：オンライン化は行わず、設定内から端末内の会員を選択/新規作成する。既存の会員証・二つ名・実績・ランキング・音設定を会員ごとに残す。旧単一保存を自動移行し、1ファイルを原子的に置換する。初回はTutorial1、登録済みはHomeへ直接進む。該当：LocalAccounts、ScreenContext、SettingsDialog、AccountPicker。
+- 質問：元画像のロゴ右側の湯気だけを消す方法。判断：TitleLogoの表示領域を原画978pxのうち左780pxに制限し、文字と影の画素を保持する。原画PNGは変更せず、UI部品として湯気なし表示に統一。該当：TitleLogo、ui.titleLogoVisibleWidthFraction。
+- 質問：bgm_drone_loop.wavはBGM音量の対象か。判断：UI_SPEC12章の演出ドローンは効果音に分類。未作成の背景曲は独立した任意Clip/ループSourceを用意し、空でも正常動作。Masterの軽いコンプレッサーは共通、下流のBGM/SFXで独立音量。該当：AudioService、ImoniAudioSetup、GameConfig.audio。
+- 質問：札を置ける空間が足りない場合。判断：名札（自分優先）→新しい獲得popup→成長札の順。実際に計測した矩形で回避し、場所がなければ低優先札を隠す。自分から1.5タイル以内は選択中でも成長札を隠して芽のみ。該当：WorldAnnotationLayout、GameWorldView、ui.worldView.growthLabelSelfExclusionTiles。
+
+- 追加：アクティブ会員IDが破損し、既存local-defaultと復旧先が衝突する場合は未使用の復旧IDを作る。既存会員を上書きせず、トップレベルの最新プロフィールも保持する。LocalAccountsTestsで再保存・再読込まで確認。

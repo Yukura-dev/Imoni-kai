@@ -20,6 +20,7 @@ namespace Imoni.Game.UI.Screens
         public Bootstrap Bootstrap { get; }
         public IGameServer Server { get; private set; }
         public ProfileData Profile { get; private set; }
+        public LocalAccounts Accounts { get; }
         public JObject Data => UiTheme.Data;
         public bool FreeSeed { get; set; }
         public bool EndlessSelected { get; set; }
@@ -34,7 +35,8 @@ namespace Imoni.Game.UI.Screens
             Router = router ?? throw new ArgumentNullException(nameof(router));
             Bootstrap = bootstrap;
             savePath = path ?? Path.Combine(Application.persistentDataPath, "imoni-profile.json");
-            Profile = ProfilePersistence.Load(Data, File.Exists(savePath) ? File.ReadAllText(savePath) : null);
+            Accounts = LocalAccounts.Load(Data, File.Exists(savePath) ? File.ReadAllText(savePath) : null);
+            Profile = Accounts.Get(Data, Accounts.ActiveId);
             ApplySound();
         }
         public void Go(string destination) => Router.Show(destination);
@@ -114,12 +116,28 @@ namespace Imoni.Game.UI.Screens
             string parent = Path.GetDirectoryName(savePath);
             if (!string.IsNullOrEmpty(parent)) Directory.CreateDirectory(parent);
             string temporary = savePath + ".tmp";
-            File.WriteAllText(temporary, ProfilePersistence.Save(Data, Profile));
+            File.WriteAllText(temporary, Accounts.Save(Data, Profile));
             if (File.Exists(savePath)) File.Replace(temporary, savePath, null);
             else File.Move(temporary, savePath);
             ApplySound();
         }
-        private void ApplySound() => AudioService.Instance?.SetPreferences(Profile.SoundEnabled, Profile.SoundVolume);
+        private void ApplySound() => AudioService.Instance?.SetPreferences(Profile.SoundEnabled, Profile.BgmVolume, Profile.EffectsVolume);
+        public void SwitchAccount(string id)
+        {
+            Profile = Accounts.Switch(Data, id, Profile);
+            ResetAccountSession(); SaveProfile();
+            Go(Profile.TutorialCompleted ? "Home" : "Tutorial1");
+        }
+        public void CreateAccount(string name)
+        {
+            Profile = Accounts.Create(Data, Guid.NewGuid().ToString("N"), Profile, name);
+            ResetAccountSession(); SaveProfile(); Go("Tutorial1");
+        }
+        private void ResetAccountSession()
+        {
+            Server = null; ChallengeId = null; preparedRoundForLoading = false;
+            JoinedTeam = false; EndlessSelected = false; FreeSeed = false; MemberCount = 1;
+        }
         public ProfileViewModel ProfileView()
         {
             JToken fixture = Data["outGame"]["profile"];

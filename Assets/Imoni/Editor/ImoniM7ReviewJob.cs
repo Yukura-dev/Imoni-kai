@@ -62,6 +62,9 @@ namespace Imoni.Editor
                 case "record-flow": ImoniM7FlowRecording.Start(); WriteStatus("recording opening"); break;
                 case "flow-status": Write(ImoniM7FlowRecording.Status()); break;
                 case "setup": ImoniSetup.SetupProject(); WriteStatus("setup complete"); break;
+                case "recompile":
+                    if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Exit Play Mode before recompiling.");
+                    UnityEditor.Compilation.CompilationPipeline.RequestScriptCompilation(); WriteStatus("recompile requested"); break;
                 case "build": ImoniAndroidSetup.BuildAndroidVariant(request["variant"]?.Value<string>()); Write(JObject.Parse(File.ReadAllText("Library/M7-android-build.json"))); break;
                 case "build-support": Write(new JObject { ["androidSupported"] = BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.Android, BuildTarget.Android), ["activeTarget"] = EditorUserBuildSettings.activeBuildTarget.ToString() }); break;
                 case "devices": Write(Devices()); break;

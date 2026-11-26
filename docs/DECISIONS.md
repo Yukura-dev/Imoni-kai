@@ -189,3 +189,11 @@
 - A* は8方向、斜め√2、両隣の縦横セルが通れる場合だけ許可。LOS平滑化後の実距離で移動・ボット・供給シミュレーションを進める。Coreに連続座標を持ち、途中リタップや停止で巻き戻らない。
 - 詳細表示は Format.Big の上位＋下位の最大2単位、狭いHUDは Format.Compact の上位1単位。省略で達成判定は変えず、tooltipに完全な整数を入れる。
 - Androidの標準設定をGameConfigに明示（Vulkan優先/OpenGLES3フォールバック、Optimized Frame Pacing=true）。診断版はGLES3のOn/Off。versionCodeは更新用に2へ上げる。実機A53の再検証と原因確定は別に記録し、Editor/ビルド成功を実機改善の証拠としない。
+
+## M8 追加レビュー
+
+- 2026-11-26: 成長札の自己近接除外半径をGameConfig.ui.worldView.growthLabelSelfExclusionTiles=1.5タイルに設定。表示可能距離2タイルは維持。
+- 2026-11-26: tutorialVisibleQualityThrough=legend。チュートリアルだけ、それより後の品質をグレーの???にする。実際の品質解放ルールは変更しない。
+- 2026-11-26: titleLogoVisibleWidthFraction=780/978。原画の文字領域と右側の湯気の間でクリップし、文字の画素・画面上の大きさ・位置を維持。
+- 2026-11-26: BGM/SFX各バスの公開名/Group名/任意bgmClipPath/priority=128をaudio設定に追加。背景曲は空。旧SoundVolumeから両音量へ自動移行。
+- 2026-11-26: ローカル会員切り替えはLocalAccountsで1ファイル保存。新規会員は現在の音設定のみ継承し、プレイ実績は既定値から。APK versionCodeを3へ更新。

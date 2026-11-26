@@ -19,6 +19,9 @@ MonoBehaviour:
   imoniEffectGrayscaleShader: {fileID: 4800000, guid: af1033fe6128d7e4e9923e794a3779b8, type: 3}
   audioMixer: {fileID: 24100000, guid: bfa106191f963f745b7c9c055abbc07b, type: 2}
   audioMaster: {fileID: 24300002, guid: bfa106191f963f745b7c9c055abbc07b, type: 2}
+  audioBgm: {fileID: 3196892252242182914, guid: bfa106191f963f745b7c9c055abbc07b, type: 2}
+  audioEffects: {fileID: -1448032082490613065, guid: bfa106191f963f745b7c9c055abbc07b, type: 2}
+  backgroundMusic: {fileID: 0}
   imoniEffectAudio:
   - {fileID: 8300000, guid: a416d0c505b4bc340b9c0a404fae2d6d, type: 3}
   - {fileID: 8300000, guid: 880524413de3c3d44a1ae1a8b533e529, type: 3}

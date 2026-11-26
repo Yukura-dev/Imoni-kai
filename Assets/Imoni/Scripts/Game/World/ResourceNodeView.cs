@@ -26,17 +26,7 @@ namespace Imoni.Game.World
         public string ResourceId => State.Id;
         internal bool NeedsGrowthLabel => overlayVisible && detailedGrowth && !State.IsReady;
         internal float GatherBarTopOffset => float.IsNaN(gatherBar.resolvedStyle.top) ? 0 : Mathf.Min(0, gatherBar.resolvedStyle.top);
-        internal Vector2 GrowthLabelSize
-        {
-            get
-            {
-                Vector2 text = growth.MeasureTextSize(growth.text, 0, VisualElement.MeasureMode.Undefined, 0, VisualElement.MeasureMode.Undefined);
-                return new Vector2(text.x + growth.resolvedStyle.paddingLeft + growth.resolvedStyle.paddingRight
-                    + growth.resolvedStyle.borderLeftWidth + growth.resolvedStyle.borderRightWidth,
-                    text.y + growth.resolvedStyle.paddingTop + growth.resolvedStyle.paddingBottom
-                    + growth.resolvedStyle.borderTopWidth + growth.resolvedStyle.borderBottomWidth);
-            }
-        }
+        internal Vector2 GrowthLabelSize => WorldAnnotationLayout.Measure(growth);
 
         internal void Initialize(ResourceSnapshot state, WorldRuntimeAssets references, WorldViewStyle settings, VisualElement overlay)
         {
@@ -91,11 +81,7 @@ namespace Imoni.Game.World
         }
         internal void PlaceGrowthLabel(Rect? rectangle)
         {
-            growth.style.visibility = rectangle.HasValue ? Visibility.Visible : Visibility.Hidden;
-            if (!rectangle.HasValue) return;
-            Rect value = rectangle.Value;
-            WorldViewStyle.Position(growth, value.position);
-            growth.style.width = value.width; growth.style.height = value.height;
+            WorldAnnotationLayout.Place(growth, rectangle);
         }
         internal void Release() { anchor?.RemoveFromHierarchy(); growth?.RemoveFromHierarchy(); }
 #if UNITY_EDITOR

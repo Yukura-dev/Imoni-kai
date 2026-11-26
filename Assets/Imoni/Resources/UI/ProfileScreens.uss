@@ -4,8 +4,8 @@
 .home-header { padding: 52px 18px 14px; flex-direction: row; align-items: center; flex-shrink: 0; }
 .home-profile { flex-grow: 1; min-width: 0; margin-left: 12px; margin-right: 12px; }
 .home-name { margin-top: 3px; font-size: 18px; -unity-font-definition: var(--font-body-black); }
-.home-settings { width: 44px; height: 44px; border-width: 3px; border-color: var(--c-brown); border-radius: 12px; background-color: var(--c-cream); }
-.home-settings > .imoni-button__icon { width: 22px; height: 22px; left: 8px; }
+.home-settings { width: 44px; height: 44px; margin: 0; padding: 0; align-self: center; border-width: 3px; border-color: var(--c-brown); border-radius: 12px; background-color: var(--c-cream); }
+.home-settings > .imoni-button__icon { width: 22px; height: 22px; }
 .home-main { flex-grow: 1; min-height: 0; padding: 0 18px 18px; }
 .home-hero { flex-grow: 1; flex-shrink: 1; min-height: 0; padding: 0; border-radius: 26px; overflow: hidden; }
 .home-hero > .imoni-card__content { align-items: center; justify-content: center; }

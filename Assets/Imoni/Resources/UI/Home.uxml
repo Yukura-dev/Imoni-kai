@@ -27,13 +27,6 @@
             <c:SegmentedControl name="home-mode-selector" variant="Pill" options="通常モード|エンドレス" class="home-mode-selector" />
         </ui:VisualElement>
         <c:TabBar name="tabs" selected="Home" class="profile-tabs" />
-        <ui:VisualElement name="settings-overlay" class="home-settings-overlay">
-            <c:Card header="設定" class="home-settings-card">
-                <c:ImoniButton name="sound-toggle" variant="Outline" class="home-sound-toggle" />
-                <c:AudioVolumeControl name="sound-volume" />
-                <c:ImoniButton name="profile-login" variant="Outline" text="会員プロフィール" class="home-settings-close" />
-                <c:ImoniButton name="settings-close" variant="Primary" text="閉じる" class="home-settings-close" />
-            </c:Card>
-        </ui:VisualElement>
+        <c:SettingsDialog name="settings-dialog" />
     </ui:VisualElement>
 </ui:UXML>

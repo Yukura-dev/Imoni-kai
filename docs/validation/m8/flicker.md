@@ -69,3 +69,7 @@ Optimized Frame Pacingはフレームの提示間隔を均等にする設定。�
 5. 録画と使用APKを対応づけて残す。ADBを利用できる場合は端末の接続・使用API・描画エラーも記録する。新しい結果をこの表に追記するまでは「実機で解消済み」と扱わない。
 
 現時点の判定は**対策実装済み、Editorの構造・同値再設定抑止は確認、実機再確認必要**。
+
+## 追加レビュー後のAPK
+
+画面・設定・札の追加修正を含むversionCode 3で、標準/Vulkan優先とGLES3のFrame Pacing On/Offの3種類を更新した。最新のビルド結果とSHA-256は[extra/README.md](extra/README.md)と[apk-manifest.json](extra/apk-manifest.json)を参照。追加検証時もADB接続端末は0台で、Galaxy A53実機での症状比較は未実施。描画境界やFrame Pacingの方針は上記と同じ。

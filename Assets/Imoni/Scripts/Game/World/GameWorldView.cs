@@ -28,6 +28,7 @@ namespace Imoni.Game.World
         private readonly Dictionary<string, CharacterView> characters = new Dictionary<string, CharacterView>();
         private readonly List<GatherPopupView> popups = new List<GatherPopupView>();
         private readonly Dictionary<string, Rect> growthLabelRects = new Dictionary<string, Rect>();
+        private readonly Dictionary<string, Rect> nameLabelRects = new Dictionary<string, Rect>();
         private readonly List<Rect> characterAvoidanceRects = new List<Rect>();
         private readonly LockedAreaOverlayView locked;
         private WorldBoundarySurface forestBoundary;
@@ -54,6 +55,7 @@ namespace Imoni.Game.World
         public bool InputEnabled { get; set; } = true;
         /// <summary>Measured map-local rectangles exposed for visual validation.</summary>
         public IReadOnlyDictionary<string, Rect> GrowthLabelRects => growthLabelRects;
+        public IReadOnlyDictionary<string, Rect> NameLabelRects => nameLabelRects;
         public IReadOnlyList<Rect> CharacterAvoidanceRects => characterAvoidanceRects;
         public IReadOnlyList<Rect> GatherPopupRects => popups.Where(popup => popup.Active && popup.MapBounds.HasValue).Select(popup => popup.MapBounds.Value).ToArray();
         public IReadOnlyList<string> ActivePopupTexts => popups.Where(popup => popup.Active).Select(popup => popup.Text).ToArray();
@@ -145,14 +147,16 @@ namespace Imoni.Game.World
             Vector3 focus = characters[selfId].DisplayPosition;
             camera.transform.position = new Vector3(focus.x, focus.y, originalCameraPosition.z);
             float growthLabelDistance = style.Number("growthLabelDistanceTiles");
+            float growthLabelExclusion = style.Number("growthLabelSelfExclusionTiles");
             foreach (ResourceSnapshot resource in snapshot.Resources)
             {
                 ResourceNodeView view = resources[resource.Id];
                 PlayerSnapshot gatherer = snapshot.Players.FirstOrDefault(player => player.TargetResourceId == resource.Id && player.Action == PlayerAction.Gathering);
                 bool selected = snapshot.Players.Any(player => player.Id == selfId && player.TargetResourceId == resource.Id);
                 float progress = gatherer == null || gatherer.ActionDurationSeconds <= 0 ? 0 : 1 - (float)(gatherer.ActionRemainingSeconds / gatherer.ActionDurationSeconds);
-                bool growthDetails = resource.Id == LastTappedResourceId || selected
-                    || (view.transform.position - focus).sqrMagnitude <= growthLabelDistance * growthLabelDistance;
+                float distanceSquared = (view.transform.position - focus).sqrMagnitude;
+                bool growthDetails = distanceSquared > growthLabelExclusion * growthLabelExclusion
+                    && (resource.Id == LastTappedResourceId || selected || distanceSquared <= growthLabelDistance * growthLabelDistance);
                 view.Present(resource, selected, gatherer != null, progress, growthDetails);
                 bool unlocked = server.World.IsUnlocked(resource.Position, snapshot.RoundNumber);
                 view.gameObject.SetActive(unlocked);
@@ -171,7 +175,7 @@ namespace Imoni.Game.World
             WorldViewStyle.Visible(campLabel, OnMap(campPoint, style.Number("campHeightPx")));
             ShowGatherResults();
             foreach (GatherPopupView popup in popups) if (popup.Active) popup.Present(deltaSeconds, LocalPoint(popup.transform.position));
-            ArrangeGrowthLabels();
+            ArrangeAnnotations();
         }
 
         public bool TryTapResource(string resourceId)
@@ -216,10 +220,11 @@ namespace Imoni.Game.World
             forestBoundary.Rebuild(position => server.World.TileAt(position).BiomeId == "forest" && !server.World.TileAt(position).IsBridge);
         }
 
-        private void ArrangeGrowthLabels()
+        private void ArrangeAnnotations()
         {
-            growthLabelRects.Clear(); characterAvoidanceRects.Clear();
+            growthLabelRects.Clear(); nameLabelRects.Clear(); characterAvoidanceRects.Clear();
             float gap = style.Number("labelOffsetPx");
+            Rect map = new Rect(Vector2.zero, viewport.contentRect.size);
             foreach (CharacterView character in characters.Values)
             {
                 SpriteRenderer[] renderers = character.GetComponentsInChildren<SpriteRenderer>();
@@ -230,22 +235,36 @@ namespace Imoni.Game.World
                     Vector2 first = LocalPoint(body.min), second = LocalPoint(body.max);
                     characterAvoidanceRects.Add(Rect.MinMaxRect(Mathf.Min(first.x, second.x), Mathf.Min(first.y, second.y), Mathf.Max(first.x, second.x), Mathf.Max(first.y, second.y)));
                 }
-                Label nameTag = overlay.Q<Label>("Actor_" + character.ActorId);
-                if (nameTag == null || !FinitePositive(nameTag.resolvedStyle.width) || !FinitePositive(nameTag.resolvedStyle.height)) continue;
-                Vector2 anchor = LocalPoint(character.DisplayPosition);
-                float height = style.Number(character.ActorId == selfId ? "playerHeightPx" : "teammateHeightPx");
-                characterAvoidanceRects.Add(new Rect(anchor.x - nameTag.resolvedStyle.width / 2, anchor.y + height / 2 + gap,
-                    nameTag.resolvedStyle.width, nameTag.resolvedStyle.height));
             }
-            var occupied = characterAvoidanceRects.Select(rect => Expanded(rect, gap)).ToList();
-            occupied.AddRange(popups.Where(popup => popup.Active && popup.MapBounds.HasValue).Select(popup => Expanded(popup.MapBounds.Value, gap)));
-            // Preserve the active interaction target and its progress bar as well as the characters.
+            var occupied = new List<Rect>(characterAvoidanceRects);
+            // Names have the first claim on annotation space, with the local player's name first.
+            // Use the same measured border box to draw and reserve each label in this frame.
+            foreach (CharacterView character in characters.Values.OrderByDescending(item => item.ActorId == selfId)
+                .ThenBy(item => item.ActorId, StringComparer.Ordinal))
+            {
+                Rect? bounds = character.PreferredNameBounds.HasValue
+                    ? WorldAnnotationLayout.Nearest(character.PreferredNameBounds.Value, map, occupied, gap) : (Rect?)null;
+                character.PlaceName(bounds);
+                if (!bounds.HasValue) continue;
+                nameLabelRects.Add(character.ActorId, bounds.Value);
+                characterAvoidanceRects.Add(bounds.Value); occupied.Add(bounds.Value);
+            }
+            // A new gather popup must avoid name tags and other popups, not only growth labels.
+            // When densely packed, current feedback takes precedence over older feedback.
+            foreach (GatherPopupView popup in popups.Where(item => item.Active).OrderBy(item => item.Age))
+            {
+                Rect? bounds = popup.PreferredBounds.HasValue && OnMap(LocalPoint(popup.transform.position), 0)
+                    ? WorldAnnotationLayout.Nearest(popup.PreferredBounds.Value, map, occupied, gap) : (Rect?)null;
+                popup.Place(bounds);
+                if (bounds.HasValue) occupied.Add(bounds.Value);
+            }
+            // Preserve the active interaction target and its progress bar for lower-priority growth labels.
             foreach (string id in snapshot.Players.Select(player => player.TargetResourceId).Where(id => id != null).Distinct())
             {
                 Vector2 center = LocalPoint(resources[id].transform.position);
                 float size = style.Number("resourceTapSizePx");
                 float top = resources[id].GatherBarTopOffset;
-                occupied.Add(new Rect(center.x - size / 2 - gap, center.y - size / 2 + top - gap, size + gap * 2, size - top + gap * 2));
+                occupied.Add(new Rect(center.x - size / 2, center.y - size / 2 + top, size, size - top));
             }
             Vector2 self = LocalPoint(characters[selfId].DisplayPosition);
             foreach (ResourceNodeView view in resources.Values.Where(view => view.NeedsGrowthLabel)
@@ -266,15 +285,13 @@ namespace Imoni.Game.World
                 foreach (Vector2 point in candidates)
                 {
                     var rectangle = new Rect(point, size);
-                    if (rectangle.xMin < 0 || rectangle.yMin < 0 || rectangle.xMax > viewport.contentRect.width || rectangle.yMax > viewport.contentRect.height
-                        || occupied.Any(blocked => blocked.Overlaps(rectangle))) continue;
+                    if (!WorldAnnotationLayout.Fits(rectangle, map, occupied, gap)) continue;
                     chosen = rectangle; break;
                 }
                 view.PlaceGrowthLabel(chosen);
-                if (chosen.HasValue) { growthLabelRects.Add(view.ResourceId, chosen.Value); occupied.Add(Expanded(chosen.Value, gap)); }
+                if (chosen.HasValue) { growthLabelRects.Add(view.ResourceId, chosen.Value); occupied.Add(chosen.Value); }
             }
         }
-        private static Rect Expanded(Rect rectangle, float padding) => new Rect(rectangle.x - padding, rectangle.y - padding, rectangle.width + padding * 2, rectangle.height + padding * 2);
 
         private bool ResizeCamera()
         {

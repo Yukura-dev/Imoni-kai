@@ -1,0 +1,2055 @@
+{
+  "screen": "Main",
+  "elements": [
+    {
+      "type": "MainScreen",
+      "name": "MainScreen",
+      "classes": "screen-view",
+      "text": null,
+      "bounds": {
+        "x": 0.0,
+        "y": 32.5,
+        "width": 390.0,
+        "height": 790.8333
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 790.8333
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 790.8333,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "main-page",
+      "text": null,
+      "bounds": {
+        "x": 0.0,
+        "y": 32.5,
+        "width": 390.0,
+        "height": 790.8333
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 790.8333
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 790.8333,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 6,
+      "scrollY": null
+    },
+    {
+      "type": "PatternBackground",
+      "name": "",
+      "classes": "pattern-background main-pattern pattern-background--yellow",
+      "text": null,
+      "bounds": {
+        "x": 0.0,
+        "y": 32.5,
+        "width": 390.0,
+        "height": 790.8333
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 790.8333
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 790.8333,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "TitleLogo",
+      "name": "",
+      "classes": "main-logo",
+      "text": null,
+      "bounds": {
+        "x": 23.8333321,
+        "y": 190.666656,
+        "width": 320.305542,
+        "height": 159.972229
+      },
+      "layout": {
+        "x": 23.8333321,
+        "y": 158.166656,
+        "width": 320.305542,
+        "height": 159.972229
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 159.972229,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "",
+      "text": null,
+      "bounds": {
+        "x": 23.8333321,
+        "y": 190.666656,
+        "width": 255.305557,
+        "height": 159.972229
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 255.305557,
+        "height": 159.972229
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 159.972229,
+      "flexShrink": 1.0,
+      "overflowInline": "Hidden",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "Artwork",
+      "name": "",
+      "classes": "artwork",
+      "text": null,
+      "bounds": {
+        "x": 23.8333321,
+        "y": 190.666656,
+        "width": 320.305542,
+        "height": 159.9722
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 320.305542,
+        "height": 159.972214
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 159.972214,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "settings",
+      "classes": "unity-text-element unity-button btn imoni-button btn-icon imoni-button--has-icon main-settings",
+      "text": "",
+      "bounds": {
+        "x": 327.8889,
+        "y": 84.5,
+        "width": 44.055542,
+        "height": 44.0555573
+      },
+      "layout": {
+        "x": 327.8889,
+        "y": 52.0,
+        "width": 44.055542,
+        "height": 44.0555573
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.0555573,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 338.902771,
+        "y": 95.5138855,
+        "width": 22.027771,
+        "height": 22.0277786
+      },
+      "layout": {
+        "x": 22.027771,
+        "y": 22.0277786,
+        "width": 22.027771,
+        "height": 22.0277786
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 22.0277786,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniText",
+      "name": "",
+      "classes": "unity-text-element unity-label imoni-text main-tagline",
+      "text": "リモートでつながる、秋の鍋あそび",
+      "bounds": {
+        "x": 36.11111,
+        "y": 348.4722,
+        "width": 317.777771,
+        "height": 22.0278015
+      },
+      "layout": {
+        "x": 36.11111,
+        "y": 315.9722,
+        "width": 317.777771,
+        "height": 22.0278015
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 22.0278015,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "main-loading",
+      "text": null,
+      "bounds": {
+        "x": 32.13889,
+        "y": 651.0833,
+        "width": 325.722229,
+        "height": 76.19446
+      },
+      "layout": {
+        "x": 32.13889,
+        "y": 618.5833,
+        "width": 325.722229,
+        "height": 76.19446
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 76.19446,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 3,
+      "scrollY": null
+    },
+    {
+      "type": "ProgressBar",
+      "name": "loading-progress",
+      "classes": "progress bar progress--thick main-progress",
+      "text": null,
+      "bounds": {
+        "x": 32.13889,
+        "y": 651.0833,
+        "width": 325.722229,
+        "height": 18.055542
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 325.722229,
+        "height": 18.055542
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 18.055542,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "progress__fill",
+      "text": null,
+      "bounds": {
+        "x": 35.02778,
+        "y": 653.9722,
+        "width": 319.944427,
+        "height": 12.277771
+      },
+      "layout": {
+        "x": 2.88888931,
+        "y": 2.888916,
+        "width": 319.944427,
+        "height": 12.277771
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 12.277771,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "Image",
+      "name": "",
+      "classes": "unity-image progress__rainbow",
+      "text": null,
+      "bounds": {
+        "x": 35.02778,
+        "y": 653.9722,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniText",
+      "name": "loading-label",
+      "classes": "unity-text-element unity-label imoni-text main-loading-label",
+      "text": "よみこみ中… 100%",
+      "bounds": {
+        "x": 139.388885,
+        "y": 683.2222,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "start",
+      "classes": "unity-text-element unity-button btn imoni-button btn-primary main-start",
+      "text": "タップしてはじめる",
+      "bounds": {
+        "x": 94.97222,
+        "y": 683.2222,
+        "width": 200.055542,
+        "height": 44.055542
+      },
+      "layout": {
+        "x": 62.8333321,
+        "y": 32.138916,
+        "width": 200.055542,
+        "height": 44.055542
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.055542,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 94.97222,
+        "y": 683.2222,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "SettingsDialog",
+      "name": "settings-dialog",
+      "classes": "settings-dialog",
+      "text": null,
+      "bounds": {
+        "x": 0.0,
+        "y": 32.5,
+        "width": 390.0,
+        "height": 790.8333
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 390.0,
+        "height": 790.8333
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 790.8333,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "Card",
+      "name": "",
+      "classes": "card imoni-card card--cream settings-dialog__card",
+      "text": null,
+      "bounds": {
+        "x": 35.02778,
+        "y": 213.416656,
+        "width": 319.944427,
+        "height": 428.999969
+      },
+      "layout": {
+        "x": 35.02778,
+        "y": 180.916656,
+        "width": 319.944427,
+        "height": 428.999969
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 428.999969,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 2,
+      "scrollY": null
+    },
+    {
+      "type": "Label",
+      "name": "",
+      "classes": "unity-text-element unity-label card-header",
+      "text": "設定",
+      "bounds": {
+        "x": 39.0,
+        "y": 217.388885,
+        "width": 312.0,
+        "height": 43.3333435
+      },
+      "layout": {
+        "x": 3.97222137,
+        "y": 3.972229,
+        "width": 312.0,
+        "height": 43.3333435
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 43.3333435,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "card-content",
+      "classes": "imoni-card__content",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 283.8333,
+        "height": 353.527771
+      },
+      "layout": {
+        "x": 18.0555534,
+        "y": 57.4166565,
+        "width": 283.8333,
+        "height": 353.527771
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 353.527771,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 3,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "settings-audio-content",
+      "classes": "",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 283.8333,
+        "height": 275.527771
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 283.8333,
+        "height": 275.527771
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 275.527771,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 4,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "sound-toggle",
+      "classes": "unity-text-element unity-button btn imoni-button btn-outline imoni-button--has-icon",
+      "text": "音: ON",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 283.8333,
+        "height": 44.0555725
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 283.8333,
+        "height": 44.0555725
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.0555725,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 74.02778,
+        "y": 280.763916,
+        "width": 23.8333282,
+        "height": 24.1944275
+      },
+      "layout": {
+        "x": 20.9444466,
+        "y": 22.0278015,
+        "width": 23.8333282,
+        "height": 24.1944275
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 24.1944275,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "AudioVolumeControl",
+      "name": "bgm-volume",
+      "classes": "audio-volume",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 328.9722,
+        "width": 283.8333,
+        "height": 72.58334
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 58.1388855,
+        "width": 283.8333,
+        "height": 72.58334
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 72.58334,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 2,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "audio-volume__heading",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 328.9722,
+        "width": 283.8333,
+        "height": 20.5833435
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 283.8333,
+        "height": 20.5833435
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 20.5833435,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 2,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniText",
+      "name": "",
+      "classes": "unity-text-element unity-label imoni-text",
+      "text": "BGM",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 328.9722,
+        "width": 29.2499962,
+        "height": 20.5833435
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 29.2499962,
+        "height": 20.5833435
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 20.5833435,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniText",
+      "name": "",
+      "classes": "unity-text-element unity-label imoni-text",
+      "text": "100%",
+      "bounds": {
+        "x": 305.8611,
+        "y": 328.9722,
+        "width": 31.055542,
+        "height": 20.5833435
+      },
+      "layout": {
+        "x": 252.777786,
+        "y": 0.0,
+        "width": 31.055542,
+        "height": 20.5833435
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 20.5833435,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "audio-volume__controls",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 357.5,
+        "width": 283.8333,
+        "height": 44.055542
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 28.5278015,
+        "width": 283.8333,
+        "height": 44.055542
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.055542,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 3,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "volume-decrease",
+      "classes": "unity-text-element unity-button btn imoni-button btn-small audio-volume__step",
+      "text": "−",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 357.5,
+        "width": 44.0555534,
+        "height": 44.055542
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 44.0555534,
+        "height": 44.055542
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.055542,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 357.5,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ProgressBar",
+      "name": "",
+      "classes": "progress bar progress--thin audio-volume__bar",
+      "text": null,
+      "bounds": {
+        "x": 109.05555,
+        "y": 375.555542,
+        "width": 171.888885,
+        "height": 7.944458
+      },
+      "layout": {
+        "x": 55.9722176,
+        "y": 18.055542,
+        "width": 171.888885,
+        "height": 7.944458
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 7.944458,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "progress__fill",
+      "text": null,
+      "bounds": {
+        "x": 109.05555,
+        "y": 375.555542,
+        "width": 171.888885,
+        "height": 7.944458
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 171.888885,
+        "height": 7.944458
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 7.944458,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "Image",
+      "name": "",
+      "classes": "unity-image progress__rainbow",
+      "text": null,
+      "bounds": {
+        "x": 109.05555,
+        "y": 375.555542,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "volume-increase",
+      "classes": "unity-text-element unity-button btn imoni-button btn-small audio-volume__step unity-disabled",
+      "text": "+",
+      "bounds": {
+        "x": 292.8611,
+        "y": 357.5,
+        "width": 44.055542,
+        "height": 44.055542
+      },
+      "layout": {
+        "x": 239.777786,
+        "y": 0.0,
+        "width": 44.055542,
+        "height": 44.055542
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.055542,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 292.8611,
+        "y": 357.5,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "AudioVolumeControl",
+      "name": "effects-volume",
+      "classes": "audio-volume",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 415.6389,
+        "width": 283.8333,
+        "height": 72.58331
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 144.805573,
+        "width": 283.8333,
+        "height": 72.58331
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 72.58331,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 2,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "audio-volume__heading",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 415.6389,
+        "width": 283.8333,
+        "height": 20.583313
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 283.8333,
+        "height": 20.583313
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 20.583313,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 2,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniText",
+      "name": "",
+      "classes": "unity-text-element unity-label imoni-text",
+      "text": "効果音",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 415.6389,
+        "width": 42.61111,
+        "height": 20.583313
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 42.61111,
+        "height": 20.583313
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 20.583313,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniText",
+      "name": "",
+      "classes": "unity-text-element unity-label imoni-text",
+      "text": "100%",
+      "bounds": {
+        "x": 305.8611,
+        "y": 415.6389,
+        "width": 31.055542,
+        "height": 20.583313
+      },
+      "layout": {
+        "x": 252.777786,
+        "y": 0.0,
+        "width": 31.055542,
+        "height": 20.583313
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 20.583313,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "audio-volume__controls",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 444.166656,
+        "width": 283.8333,
+        "height": 44.055542
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 28.527771,
+        "width": 283.8333,
+        "height": 44.055542
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.055542,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 3,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "volume-decrease",
+      "classes": "unity-text-element unity-button btn imoni-button btn-small audio-volume__step",
+      "text": "−",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 444.166656,
+        "width": 44.0555534,
+        "height": 44.055542
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 44.0555534,
+        "height": 44.055542
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.055542,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 444.166656,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ProgressBar",
+      "name": "",
+      "classes": "progress bar progress--thin audio-volume__bar",
+      "text": null,
+      "bounds": {
+        "x": 109.05555,
+        "y": 462.2222,
+        "width": 171.888885,
+        "height": 7.944458
+      },
+      "layout": {
+        "x": 55.9722176,
+        "y": 18.055542,
+        "width": 171.888885,
+        "height": 7.944458
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 7.944458,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "progress__fill",
+      "text": null,
+      "bounds": {
+        "x": 109.05555,
+        "y": 462.2222,
+        "width": 171.888885,
+        "height": 7.944458
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 171.888885,
+        "height": 7.944458
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 7.944458,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "Image",
+      "name": "",
+      "classes": "unity-image progress__rainbow",
+      "text": null,
+      "bounds": {
+        "x": 109.05555,
+        "y": 462.2222,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "volume-increase",
+      "classes": "unity-text-element unity-button btn imoni-button btn-small audio-volume__step unity-disabled",
+      "text": "+",
+      "bounds": {
+        "x": 292.8611,
+        "y": 444.166656,
+        "width": 44.055542,
+        "height": 44.055542
+      },
+      "layout": {
+        "x": 239.777786,
+        "y": 0.0,
+        "width": 44.055542,
+        "height": 44.055542
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.055542,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 292.8611,
+        "y": 444.166656,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "account-switch",
+      "classes": "unity-text-element unity-button btn imoni-button btn-outline settings-dialog__action",
+      "text": "アカウント切り替え",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 502.305542,
+        "width": 283.8333,
+        "height": 44.055542
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 231.472229,
+        "width": 283.8333,
+        "height": 44.055542
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 44.055542,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 502.305542,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "settings-account-content",
+      "classes": "",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "AccountPicker",
+      "name": "",
+      "classes": "account-picker",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 4,
+      "scrollY": null
+    },
+    {
+      "type": "ScrollView",
+      "name": "saved-accounts",
+      "classes": "unity-scroll-view unity-scroll-view--scroll unity-scroll-view--vertical account-picker__list",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 2,
+      "scrollY": 0.0
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-content-and-vertical-scroll-container",
+      "classes": "unity-scroll-view__content-and-vertical-scroll-container",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 2,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-content-viewport",
+      "classes": "unity-scroll-view__content-viewport unity-scroll-view__content-viewport--vertical",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-content-container",
+      "classes": "unity-scroll-view__content-container unity-scroll-view__content-container--vertical",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "Scroller",
+      "name": "",
+      "classes": "unity-scroller unity-scroller--vertical unity-scroll-view__vertical-scroller",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 3,
+      "scrollY": null
+    },
+    {
+      "type": "RepeatButton",
+      "name": "unity-low-button",
+      "classes": "unity-text-element unity-repeat-button unity-scroller__low-button",
+      "text": "",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "RepeatButton",
+      "name": "unity-high-button",
+      "classes": "unity-text-element unity-repeat-button unity-scroller__high-button",
+      "text": "",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ScrollerSlider",
+      "name": "unity-slider",
+      "classes": "unity-base-field unity-base-field--no-label unity-base-slider unity-base-slider--vertical unity-slider unity-scroller__slider",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "unity-base-field__input unity-base-slider__input unity-slider__input",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-drag-container",
+      "classes": "unity-base-slider__drag-container",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 3,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-tracker",
+      "classes": "unity-base-slider__tracker",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-dragger-border",
+      "classes": "unity-base-slider__dragger-border",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-dragger",
+      "classes": "unity-base-slider__dragger",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "Scroller",
+      "name": "",
+      "classes": "unity-scroller unity-scroller--horizontal unity-scroll-view__horizontal-scroller",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 3,
+      "scrollY": null
+    },
+    {
+      "type": "RepeatButton",
+      "name": "unity-low-button",
+      "classes": "unity-text-element unity-repeat-button unity-scroller__low-button",
+      "text": "",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "RepeatButton",
+      "name": "unity-high-button",
+      "classes": "unity-text-element unity-repeat-button unity-scroller__high-button",
+      "text": "",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ScrollerSlider",
+      "name": "unity-slider",
+      "classes": "unity-base-field unity-base-field--no-label unity-base-slider unity-base-slider--horizontal unity-slider unity-scroller__slider",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "unity-base-field__input unity-base-slider__input unity-slider__input",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-drag-container",
+      "classes": "unity-base-slider__drag-container",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 3,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-tracker",
+      "classes": "unity-base-slider__tracker",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-dragger-border",
+      "classes": "unity-base-slider__dragger-border",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "unity-dragger",
+      "classes": "unity-base-slider__dragger",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "InputEntry",
+      "name": "account-name",
+      "classes": "unity-base-field unity-base-field--no-label unity-base-text-field unity-text-field input input-entry account-picker__entry",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "TextInput",
+      "name": "unity-text-input",
+      "classes": "unity-base-text-field__input unity-base-text-field__input--single-line unity-base-field__input unity-text-field__input unity-base-text-field__input--placeholder",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "TextElement",
+      "name": "",
+      "classes": "unity-text-element unity-text-element__selectable unity-text-element--inner-input-field-component",
+      "text": "",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "account-create",
+      "classes": "unity-text-element unity-button btn imoni-button btn-yellow settings-dialog__action unity-disabled",
+      "text": "新しい会員ではじめる",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "account-back",
+      "classes": "unity-text-element unity-button btn imoni-button btn-outline settings-dialog__action",
+      "text": "音の設定に戻る",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 270.8333,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    },
+    {
+      "type": "ImoniButton",
+      "name": "settings-close",
+      "classes": "unity-text-element unity-button btn imoni-button btn-primary settings-dialog__action",
+      "text": "閉じる",
+      "bounds": {
+        "x": 53.0833321,
+        "y": 560.444458,
+        "width": 283.8333,
+        "height": 63.916626
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 289.611145,
+        "width": 283.8333,
+        "height": 63.916626
+      },
+      "display": "Flex",
+      "visibility": "Visible",
+      "height": 63.916626,
+      "flexShrink": 0.0,
+      "overflowInline": "Null",
+      "children": 1,
+      "scrollY": null
+    },
+    {
+      "type": "VisualElement",
+      "name": "",
+      "classes": "imoni-button__icon",
+      "text": null,
+      "bounds": {
+        "x": 53.0833321,
+        "y": 560.444458,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "layout": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "display": "None",
+      "visibility": "Visible",
+      "height": 0.0,
+      "flexShrink": 1.0,
+      "overflowInline": "Null",
+      "children": 0,
+      "scrollY": null
+    }
+  ]
+}

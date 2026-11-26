@@ -68,6 +68,9 @@ namespace Imoni.Core.Effects
             if (double.IsNaN(volume) || double.IsInfinity(volume)) volume = settings["defaultVolume"].Value<double>();
             return Math.Max(settings["minVolume"].Value<double>(), Math.Min(settings["maxVolume"].Value<double>(), volume));
         }
+        /// <summary>A missing channel inherits the pre-M8 saved volume; an explicit channel remains independent.</summary>
+        public static double NormalizeChannelVolume(JObject config, double volume, double legacyVolume) =>
+            NormalizeVolume(config, double.IsNaN(volume) ? legacyVolume : volume);
         public static double MasterDecibels(JObject config, bool enabled, double volume)
         {
             JObject settings = (JObject)config["audio"];

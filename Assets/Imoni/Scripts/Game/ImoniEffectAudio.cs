@@ -42,11 +42,11 @@ namespace Imoni.Game.Effects
             }
             plan = new ImoniAudioPlan(view.Config); Service.BeginEffect(); running = true;
         }
-        private void OnHidden() { if (!running) return; running = false; if (Service) Service.StopAll(); }
+        private void OnHidden() { if (!running) return; running = false; if (Service) Service.StopEffects(); }
         private void OnSoundChanged(bool enabled)
         {
             if (!Service) return;
-            Service.SetPreferences(enabled, Service.Volume);
+            Service.SetPreferences(enabled, Service.BgmVolume, Service.EffectsVolume);
             if (enabled && running && view.Timeline != null && !view.Timeline.FinaleAtMs.HasValue && view.Timeline.NowMs >= view.Config.V("droneStartMs"))
                 Service.StartDrone(view.Timeline.NowMs, view.Timeline.NowMs, view.Timeline.Level);
         }
