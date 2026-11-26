@@ -1,0 +1,12 @@
+{
+  "shots": [
+    { "name": "m9-10_Home", "screen": "Home", "waitSeconds": 0.4 },
+    { "name": "m9-50_Help_1_controls", "actions": [{"type":"click","name":"help"}], "waitSeconds": 0.4 },
+    { "name": "m9-51_Help_2_flow", "actions": [{"type":"click","name":"HelpNext"}], "waitSeconds": 0.4 },
+    { "name": "m9-52_Help_3_store", "actions": [{"type":"click","name":"HelpNext"}], "waitSeconds": 0.4 },
+    { "name": "m9-53_Help_4_upgrade", "actions": [{"type":"click","name":"HelpNext"}], "waitSeconds": 0.4 },
+    { "name": "m9-54_Help_5_score", "actions": [{"type":"click","name":"HelpNext"}], "waitSeconds": 0.4 },
+    { "name": "m9-04_Tutorial2", "screen": "Tutorial2", "waitSeconds": 0.4 },
+    { "name": "m9-05_Tutorial3", "screen": "Tutorial3", "waitSeconds": 0.4 }
+  ]
+}

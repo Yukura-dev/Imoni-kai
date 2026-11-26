@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+    <ui:VisualElement class="help-screen safe-design-padding">
+        <c:ScreenHeader name="HelpHeader" />
+        <c:HelpTabs name="HelpTabs" class="help-screen__spaced" />
+        <c:HelpPageCard name="HelpCard" class="help-screen__spaced" />
+        <c:HelpPager name="HelpPager" class="help-screen__spaced" />
+    </ui:VisualElement>
+</ui:UXML>

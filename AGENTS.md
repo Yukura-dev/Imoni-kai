@@ -167,3 +167,5 @@
 USS非対応の構造擬似クラス（`:first-child`、`:last-child`、`:nth-child`など）は使わない。`Theme.uss` の先頭タブ用クラスは `.tabbar__item--first`。M2のTabBarは先頭のタブにこのクラスを付ける。
 
 M8追加レビュー（2026-11-26）：同じブランチで、Home/Titleの設定配置、札の重なり回避、タイトル湯気非表示、ProgressBar端、初回ログイン導線の除去、設定内のローカル会員切替、BGM/SFX独立保存、チュートリアル文言/上位品質のマスク、GameOver注記削除を対応。修正前後はdocs/validation/m8/extra。APK versionCodeは3。M9には進まない。
+
+M9（2026-11-26）：ユーザー承認済みM8を引き継ぎ、mainをpullしてrebuild/m9-help-bgmを作成。mainにはM8追加レビューの89b7888が未反映だったため、その承認済みコミットを作業ブランチへmergeした。最新追加資料のUI_SPEC16・17章を読み、遊び方5項目・呼び出し元への復帰・BGMの選曲とクロスフェードを実装する。文言はHelpContent.json、曲と時間はGameConfig。Coreテスト、390×844比較、再生イベント記録、Unity再コンパイル、標準Android APKの成功を確認し、このブランチをコミット・pushして停止する。次のマイルストーンへ進まない。

@@ -40,6 +40,18 @@ namespace Imoni.Game.UI.Screens
             ApplySound();
         }
         public void Go(string destination) => Router.Show(destination);
+        public void OpenHelp(int section = 0)
+        {
+            if (!Router.ShowOverlay("Help")) return;
+            (Router.OverlayView as HelpScreen)?.SelectSection(section);
+            (Router.CurrentView as GameScreen)?.RefreshSnapshot();
+        }
+        public void CloseHelp()
+        {
+            if (Router.HasOverlay) Router.CloseOverlay();
+            else if (Router.CurrentScreen == "Help") Router.Show("Home");
+            (Router.CurrentView as GameScreen)?.RefreshSnapshot();
+        }
         public double Number(string uiKey) => UiTheme.Number(uiKey);
         public void PrepareGame(int? seed = null)
         {

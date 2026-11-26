@@ -26,6 +26,8 @@
 .quality-chip { flex-shrink: 0; align-self: flex-start; -unity-font-definition: var(--font-body-black); white-space: nowrap; }
 .quality-chip--detail { border-width: 2px; border-radius: 8px; padding: 4px 8px; font-size: 12px; }
 .quality-chip--locked { background-color: var(--c-quality-locked-bg); color: var(--c-quality-locked-fg); border-color: var(--c-quality-locked-border); }
+.quality-chip--locked { border-width: 0; padding: 1.5px 5.5px; }
+.quality-chip--locked.quality-chip--detail { padding: 6px 10px; }
 
 .material-goal { flex-shrink: 0; -unity-font-definition: var(--font-body-black); }
 .material-goal__name { font-size: 13px; }
@@ -64,6 +66,7 @@
 .bottom-sheet__title { flex-grow: 1; font-size: 22px; color: var(--c-green); -unity-font-definition: var(--font-title); }
 .bottom-sheet__funds { font-size: 13px; -unity-font-definition: var(--font-body-black); margin-right: 6px; }
 .bottom-sheet__content { margin-top: 10px; flex-grow: 1; }
+.bottom-sheet__header-actions { flex-direction: row; align-items: center; flex-shrink: 0; }
 .bottom-sheet__close { width: 44px; height: 44px; margin: 0; }
 
 .inventory-row { flex-direction: row; align-items: center; min-height: 44px; padding: 4px 8px; margin: 0; border-width: 2px; border-color: var(--c-sand); border-radius: 10px; background-color: var(--c-white); color: var(--c-brown); font-size: 13px; -unity-font-definition: var(--font-body-black); }

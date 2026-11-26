@@ -22,6 +22,7 @@
         <imoni:BottomSheet name="MenuSheet" title="チーム" is-open="false" class="game-panel game-panel--menu">
             <ui:VisualElement name="GameMemberRows" />
             <ui:VisualElement class="game-panel-flex" />
+            <imoni:ImoniButton name="ViewHelp" variant="Primary" icon="help_question" text="遊び方を見る" class="game-view-help" />
             <imoni:ImoniButton name="ReturnHome" variant="Outline" text="ホームへ戻る(挑戦は中断)" class="game-return-home" />
         </imoni:BottomSheet>
     </ui:VisualElement>

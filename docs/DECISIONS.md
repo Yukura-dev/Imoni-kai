@@ -197,3 +197,10 @@
 - 2026-11-26: titleLogoVisibleWidthFraction=780/978。原画の文字領域と右側の湯気の間でクリップし、文字の画素・画面上の大きさ・位置を維持。
 - 2026-11-26: BGM/SFX各バスの公開名/Group名/任意bgmClipPath/priority=128をaudio設定に追加。背景曲は空。旧SoundVolumeから両音量へ自動移行。
 - 2026-11-26: ローカル会員切り替えはLocalAccountsで1ファイル保存。新規会員は現在の音設定のみ継承し、プレイ実績は既定値から。APK versionCodeを3へ更新。
+
+## M9 遊び方とBGM
+
+- 2026-11-26: 最新UI_SPEC17章のgame main（152BPM）を採用。GameConfig.audio.gameMainに開始557149/終端3446763サンプル、44100Hzを保存。homeだけbgmStyle=wa/band（初期wa）。選曲/パス/gainはaudio.bgmTracks/bgmCatalogに集約。
+- 2026-11-26: BGM画面切替0.5秒、演出へ0.3秒、DSP予約の準備時間0.05秒、Vorbis品質0.7。audioReviewに観測間隔0.1秒、安定待ち0.2秒、休止1秒、4096サンプル/DSP0.05秒の検証許容を分離。APK versionCode=4。
+- 2026-11-26: Helpの5項目と文言はHelpContent.jsonへモックのSECTIONSを無変更で抽出。UI数値はモックと同じUSS、ルールは変更しない。Helpは時間を止めないoverlayで、呼び出し元画面と音楽の再生位置を保持する。
+- 2026-11-26: setup.android.engineDiagnosticsEnabled=false。ローカルAPKのビルドに不要なUnity Cloudシンボル送信を行わず、ローカルSymbolTableは生成する。

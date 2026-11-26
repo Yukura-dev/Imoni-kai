@@ -1,0 +1,190 @@
+{
+  "title": "遊び方",
+  "backText": "戻る",
+  "previousText": "‹ 前へ",
+  "nextText": "次へ ›",
+  "doneText": "わかった!",
+  "sections": [
+    {
+      "tab": "操作",
+      "icon": "help_tap",
+      "title": "1. 基本の操作",
+      "lead": "指1本で遊べるよ。資源をタップするだけで、キャラが自動で動いてくれる。",
+      "steps": [
+        {
+          "icon": "help_tree",
+          "color": "green",
+          "title": "資源をタップ",
+          "desc": "木・里芋・ねぎ・キノコなどをタップすると、自分のキャラが歩いていって自動で採集するよ。"
+        },
+        {
+          "icon": "help_repeat",
+          "color": "orange",
+          "title": "取り切るまで自動で続ける",
+          "desc": "1回で数個ずつ採れて、取り切ると切り株に。約40秒でまた生えてくるよ。"
+        },
+        {
+          "icon": "help_turn",
+          "color": "blue",
+          "title": "行き先はいつでも変えられる",
+          "desc": "移動中や採集中でも、別の資源をタップすればそちらへ向かうよ。"
+        },
+        {
+          "icon": "help_team",
+          "color": "red",
+          "title": "素材はチームの共有倉庫へ",
+          "desc": "誰が採っても、チーム全員の倉庫に入るよ。灰色のエリアは、ラウンドが進むと行けるようになる。"
+        }
+      ]
+    },
+    {
+      "tab": "流れ",
+      "icon": "help_flow",
+      "title": "2. ラウンドの流れ",
+      "lead": "1ラウンドは5分。5ラウンド連続で芋煮会を成功させるとクリア!",
+      "steps": [
+        {
+          "icon": "help_start",
+          "color": "green",
+          "title": "0:00 必須素材の発表",
+          "desc": "画面上に、集める素材と数が出るよ。数は品質で増える「品質換算」で数えるよ。"
+        },
+        {
+          "icon": "help_bonus",
+          "color": "orange",
+          "title": "2:00 ボーナス素材の発表",
+          "desc": "目標の100%で報酬。150%・200%・300%でさらに倍になるよ。"
+        },
+        {
+          "icon": "help_pot",
+          "color": "red",
+          "title": "5:00 芋煮会!",
+          "desc": "倉庫の素材は全部自動で鍋へ。必須素材がそろえば成功、足りないと失敗。"
+        },
+        {
+          "icon": "help_flag",
+          "color": "blue",
+          "title": "成功と失敗",
+          "desc": "成功すると資金と強化を引き継いで次のラウンドへ。失敗すると全部リセットして、新しいマップでR1から。",
+          "note": "5連続成功の先はエンドレスモード"
+        }
+      ]
+    },
+    {
+      "tab": "倉庫",
+      "icon": "help_box",
+      "title": "3. 倉庫とお金",
+      "lead": "下の「倉庫」ボタンで、チームの素材を確認・売却できるよ。",
+      "steps": [
+        {
+          "icon": "help_coin",
+          "color": "green",
+          "title": "売ってお金(G)に",
+          "desc": "素材を選んで、割合(25〜100%)か数を決めて売るよ。確認なしですぐ売れて、チームの資金になる。"
+        },
+        {
+          "icon": "help_shield",
+          "color": "blue",
+          "title": "使う分は「保護」",
+          "desc": "芋煮会で使う分を保護すると、売りすぎを防げるよ。保護した素材も芋煮会にはちゃんと入る。"
+        },
+        {
+          "icon": "help_warn",
+          "color": "red",
+          "title": "売った素材はスコアに入らない",
+          "desc": "売れば資金は増えるけど、芋煮会には使えないよ。",
+          "note": "必須素材は売りすぎに注意!"
+        },
+        {
+          "icon": "help_shop",
+          "color": "orange",
+          "title": "足りないときはショップ",
+          "desc": "下の「ショップ」で素材を買えるよ(品質は普通)。"
+        }
+      ]
+    },
+    {
+      "tab": "強化",
+      "icon": "help_up",
+      "title": "4. 強化と品質",
+      "lead": "資金で自分を強化して、たくさん・高品質に集めよう。",
+      "steps": [
+        {
+          "icon": "help_up",
+          "color": "green",
+          "title": "4つの強化",
+          "desc": "移動速度・採集速度・採集量・採集運。強化は自分だけに効くよ。資金はチーム共通なので、相談して使おう。"
+        },
+        {
+          "icon": "help_gem",
+          "color": "blue",
+          "title": "品質で価値が何倍にも",
+          "desc": "高い品質ほど、1個で何個分にもなるよ。上の品質はラウンドが進むと出るようになる。",
+          "chips": true
+        },
+        {
+          "icon": "help_fire",
+          "color": "red",
+          "title": "最高品質の連続ボーナス",
+          "desc": "そのラウンドの最高品質を続けて引くと、獲得数とポイントが倍々に。左上の「最高品質 連続」で確認できるよ。"
+        }
+      ]
+    },
+    {
+      "tab": "スコア",
+      "icon": "help_rank",
+      "title": "5. スコアとランキング",
+      "lead": "大きなスコアを出して、チームでランキング上位をめざそう。",
+      "steps": [
+        {
+          "icon": "help_calc",
+          "color": "green",
+          "title": "芋煮会のスコア",
+          "desc": "必須素材のポイントと、ボーナス素材のポイント×段階(×1〜×8)で決まるよ。品質と連続ボーナスでどんどん増える!"
+        },
+        {
+          "icon": "help_rank",
+          "color": "blue",
+          "title": "チームランキング",
+          "desc": "5ラウンド連続で成功した挑戦が登録されるよ。みんな同じマップの「共通シード部門」と「自由シード部門」がある。"
+        },
+        {
+          "icon": "help_tag",
+          "color": "red",
+          "title": "二つ名を集めよう",
+          "desc": "活躍すると、二つ名の「前半」「後半」のパーツが手に入るよ。会員証で組み合わせよう。"
+        }
+      ]
+    }
+  ],
+  "qualityChips": [
+    {
+      "quality": "normal",
+      "locked": false
+    },
+    {
+      "quality": "good",
+      "locked": false
+    },
+    {
+      "quality": "rare",
+      "locked": false
+    },
+    {
+      "quality": "legend",
+      "locked": false
+    },
+    {
+      "quality": "myth",
+      "locked": true
+    },
+    {
+      "quality": "transcend",
+      "locked": true
+    },
+    {
+      "quality": "ultimate",
+      "locked": true
+    }
+  ]
+}

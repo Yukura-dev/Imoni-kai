@@ -26,6 +26,7 @@ namespace Imoni.Game
         public ScreenRouter Router => router;
         public SafeAreaAdapter SafeArea => safeArea;
         public ScreenContext Context { get; private set; }
+        public ScreenBgmController Music { get; private set; }
 
         private void OnEnable()
         {
@@ -53,6 +54,8 @@ namespace Imoni.Game
             safeArea = new SafeAreaAdapter(safe, covers);
             router = new ScreenRouter(content);
             router.ScreenChanged += screen => host.EnableInClassList("imoni-app--game", screen == "Game");
+            router.ScreenChanged += _ => host.EnableInClassList("imoni-app--help", false);
+            router.OverlayChanged += screen => host.EnableInClassList("imoni-app--help", screen == "Help");
             string profilePath = null;
 #if UNITY_EDITOR
             profilePath = UnityEditor.SessionState.GetString("Imoni.ReviewSavePath", string.Empty);
@@ -61,6 +64,7 @@ namespace Imoni.Game
 #endif
             AudioService.Ensure(gameObject, UiTheme.Assets, UiTheme.Data);
             Context = new ScreenContext(router, path: profilePath, bootstrap: this);
+            Music = new ScreenBgmController(router, AudioService.Instance, UiTheme.Assets, UiTheme.Data);
             ScreenCatalog.Register(router, Context);
             string start = "Main";
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -83,6 +87,7 @@ namespace Imoni.Game
         private void OnDisable()
         {
             safeArea?.Dispose(); safeArea = null;
+            Music?.Dispose(); Music = null;
             router?.Dispose(); router = null;
             AudioService.Instance?.StopAll();
             Context = null;

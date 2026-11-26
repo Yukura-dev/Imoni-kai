@@ -1,0 +1,177 @@
+{
+  "status": "complete",
+  "passed": true,
+  "validatedAtUtc": "2026-11-26T08:59:42.1307702Z",
+  "unityVersion": "6000.3.21f1",
+  "isolatedSavePath": "D:\\UnityProjects\\Imoni-kai\\Library\\M9-final-review.json",
+  "scope": "Actual attached UI handlers, real Bootstrap Update across frames, real map input gate. Review save only; no touch hit-area or Android hardware claim.",
+  "checks": [
+    {
+      "name": "Home ? opens first section without replacing Home",
+      "passed": true
+    },
+    {
+      "name": "Previous is disabled on first section",
+      "passed": true
+    },
+    {
+      "name": "Only body card can scroll on small displays",
+      "passed": true
+    },
+    {
+      "name": "Body scroll is real after layout",
+      "passed": true
+    },
+    {
+      "name": "Tab navigation resets body scroll",
+      "passed": true
+    },
+    {
+      "name": "Previous returns to first section and disables itself",
+      "passed": true
+    },
+    {
+      "name": "Next opens section 1",
+      "passed": true
+    },
+    {
+      "name": "Next opens section 2",
+      "passed": true
+    },
+    {
+      "name": "Next opens section 3",
+      "passed": true
+    },
+    {
+      "name": "Next opens section 4",
+      "passed": true
+    },
+    {
+      "name": "Final button says わかった!",
+      "passed": true
+    },
+    {
+      "name": "Tab selects section 0",
+      "passed": true
+    },
+    {
+      "name": "Tab selects section 1",
+      "passed": true
+    },
+    {
+      "name": "Tab selects section 2",
+      "passed": true
+    },
+    {
+      "name": "Tab selects section 3",
+      "passed": true
+    },
+    {
+      "name": "Tab selects section 4",
+      "passed": true
+    },
+    {
+      "name": "Final button restores original Home",
+      "passed": true
+    },
+    {
+      "name": "Settings opens Help at first section",
+      "passed": true
+    },
+    {
+      "name": "Settings dialog instance and account draft are preserved",
+      "passed": true
+    },
+    {
+      "name": "Active local account, all accounts, profile and persisted bytes remain unchanged",
+      "passed": true
+    },
+    {
+      "name": "Game menu opens Help without replacing live state",
+      "passed": true
+    },
+    {
+      "name": "Help blocks map input",
+      "passed": true
+    },
+    {
+      "name": "Bootstrap continues Core Tick while Help is open",
+      "passed": true
+    },
+    {
+      "name": "Back restores same game, world, server and menu",
+      "passed": true
+    },
+    {
+      "name": "Warehouse ? opens section 2",
+      "passed": true
+    },
+    {
+      "name": "Warehouse selection, entered quantity and original panel are preserved",
+      "passed": true
+    },
+    {
+      "name": "Help blocks input even without an underlying open panel",
+      "passed": true
+    },
+    {
+      "name": "Map input is restored after Help closes",
+      "passed": true
+    }
+  ],
+  "overlayEvents": [
+    {
+      "visible": "Help",
+      "underlying": "Home",
+      "source": "Home"
+    },
+    {
+      "visible": "Home",
+      "underlying": "Home",
+      "source": null
+    },
+    {
+      "visible": "Help",
+      "underlying": "Home",
+      "source": "Home"
+    },
+    {
+      "visible": "Home",
+      "underlying": "Home",
+      "source": null
+    },
+    {
+      "visible": "Help",
+      "underlying": "Game",
+      "source": "Game"
+    },
+    {
+      "visible": "Game",
+      "underlying": "Game",
+      "source": null
+    },
+    {
+      "visible": "Help",
+      "underlying": "Game",
+      "source": "Game"
+    },
+    {
+      "visible": "Game",
+      "underlying": "Game",
+      "source": null
+    },
+    {
+      "visible": "Help",
+      "underlying": "Game",
+      "source": "Game"
+    },
+    {
+      "visible": "Game",
+      "underlying": "Game",
+      "source": null
+    }
+  ],
+  "gameElapsedBeforeHelpWait": 0.663222300,
+  "gameElapsedAfterHelpWait": 0.879704110,
+  "checkCount": 28
+}

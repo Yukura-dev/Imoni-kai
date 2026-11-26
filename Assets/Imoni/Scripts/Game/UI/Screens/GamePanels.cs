@@ -58,6 +58,11 @@ namespace Imoni.Game.UI.Screens
             selection.SellRequested += SellSelected;
             this.Q<ImoniButton>("SellAllUnprotected").clicked += SellAll;
             this.Q<ImoniButton>("ReturnHome").clicked += ReturnHome;
+            this.Q<ImoniButton>("ViewHelp").clicked += () => app.OpenHelp();
+            var warehouseHelp = new ImoniButton { name = "WarehouseHelp", Variant = ImoniButtonVariant.Icon, Icon = "help_question", tooltip = "倉庫の遊び方" };
+            warehouseHelp.AddToClassList("game-warehouse-help");
+            warehouseHelp.clicked += () => app.OpenHelp(2);
+            sheets["warehouse"].HeaderActions.Add(warehouseHelp);
             this.Q<ImoniText>("ShopPriceHint").text = "購入価格は売却単価の" + Config.BuyPriceMultiplier.ToString(CultureInfo.InvariantCulture) + "倍";
             Refresh(owner.Snapshot);
         }

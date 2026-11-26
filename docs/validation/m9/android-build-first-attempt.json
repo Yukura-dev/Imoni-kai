@@ -1,0 +1,22 @@
+{
+  "result": "Succeeded",
+  "errors": 0,
+  "warnings": 1,
+  "bytes": 1296779904,
+  "seconds": 218.1397777,
+  "path": "D:\\UnityProjects\\Imoni-kai\\Builds\\Android\\Imoni.apk",
+  "backend": "IL2CPP",
+  "architecture": "ARM64",
+  "orientation": "Portrait",
+  "graphicsApis": [
+    "Vulkan",
+    "OpenGLES3"
+  ],
+  "optimizedFramePacing": true,
+  "autoGraphicsApi": false,
+  "variant": "default",
+  "physicalDeviceTested": false,
+  "messages": [
+    "Exception occurred attempting to connect to Unity services. Native symbols will not be uploaded for this build. Exception details:\nSystem.Net.WebException: The remote server returned an error: (403) Forbidden.\r\n  at System.Net.HttpWebRequest.GetResponseFromData (System.Net.WebResponseStream stream, System.Threading.CancellationToken cancellationToken) [0x00146] in <21669058eef547deb03cf22e8499ee91>:0 \r\n  at System.Net.HttpWebRequest.RunWithTimeoutWorker[T] (System.Threading.Tasks.Task`1[TResult] workerTask, System.Int32 timeout, System.Action abort, System.Func`1[TResult] aborted, System.Threading.CancellationTokenSource cts) [0x000f8] in <21669058eef547deb03cf22e8499ee91>:0 \r\n  at System.Net.HttpWebRequest.GetResponse () [0x00016] in <21669058eef547deb03cf22e8499ee91>:0 \r\n  at UnityEditor.CrashReporting.CrashReporting.GetUsymUploadAuthToken () [0x000da] in <ebc962e8381145e6bdb44b1996e8e9b4>:0 \n  at System.Net.HttpWebRequest.GetResponseFromData (System.Net.WebResponseStream stream, System.Threading.CancellationToken cancellationToken) [0x00146] in <21669058eef547deb03cf22e8499ee91>:0 \r\n  at System.Net.HttpWebRequest.RunWithTimeoutWorker[T] (System.Threading.Tasks.Task`1[TResult] workerTask, System.Int32 timeout, System.Action abort, System.Func`1[TResult] aborted, System.Threading.CancellationTokenSource cts) [0x000f8] in <21669058eef547deb03cf22e8499ee91>:0 \r\n  at System.Net.HttpWebRequest.GetResponse () [0x00016] in <21669058eef547deb03cf22e8499ee91>:0 \r\n  at UnityEditor.CrashReporting.CrashReporting.GetUsymUploadAuthToken () [0x000da] in <ebc962e8381145e6bdb44b1996e8e9b4>:0 "
+  ]
+}

@@ -195,3 +195,20 @@ ScreenHostがThemeと全部品USSを共有し、個々の部品には祖先に�
 - **QualityChip.Locked**：グレーの???、倍率非表示。Tutorial3では神話以降に適用。
 - **ProgressBar**：外側角丸−枠幅から塗りの角丸を決め、Thick/Thin/Rainbow共通で枠内いっぱいに表示。
 - **ImoniButton.Icon**：枠内の50%位置と負の50%移動でアイコン中央を一致させる。
+
+## M9 遊び方の共通部品
+
+`HelpParts.cs` の4部品は `[UxmlElement]` として公開し、`Help.uxml` と ComponentGallery で共用する。`HelpParts.uss` は ScreenHost で1回だけ読込む。本文は `Assets/Imoni/Config/HelpContent.json` の `sections`（モックの `SECTIONS` と同じ18手順）から渡し、部品は表示と選択・ページ送りの操作意図だけを担当する。
+
+| 部品 | 再利用・入力 | モックの対応箇所 |
+|---|---|---|
+| `HelpTabs` | 既存 `ImoniButton` にアイコンと見出し。項目一覧・選択位置を受け取り `Changed` だけを通知 | Help 50〜54 の高さ56pxの5項目タブ。選択中は深緑・クリーム |
+| `HelpStepRow` | 番号付き52pxアイコン、見出し・説明、任意の注意書き。品質は既存 `QualityChip` を再利用 | 各本文カードの番号付き手順。4つの色・注意書きあり/なし・品質ありを Gallery に列挙 |
+| `HelpPageCard` | 既存 `Card` に見出し帯・ページ数・導入文・`HelpStepRow` の一覧。本文だけ `ScrollView` | 50〜54 のクリーム本文カード。切替時は本文スクロールを先頭へ戻す |
+| `HelpPager` | 既存 Outline/Primary の `ImoniButton`。最初は前へ不可、途中は次へ、最後はわかった! | Help 下部の2列ボタン。disabled の前へはモック専用色の透明背景 |
+
+アイコンは `mock/Help.dc.html` のSVGパスを `tools/Export-HelpContent.py` で白いマスクPNGへ忠実に描画する。色はThemeから設定する。`help_question` はHomeモックの円付き「?」SVGと同じ。手順の説明の行高はUI Toolkitが対応する rich-text の `<line-height=20.8>`（13px×1.6）を使い、USSに非対応の `line-height` を追加しない。
+
+既存部品への追加は `BottomSheet.HeaderActions`（倉庫「?」用スロット）と `SettingsDialog.HelpRequested`。Home・設定・ゲーム中メニューは先頭、倉庫は `section=2` を開く。`ScreenRouter` のHelpオーバーレイは元の画面・設定ダイアログ・選択行・採集セッションを破棄しない。開いている間もCoreのTickは継続し、マップ入力だけを無効にする。戻る/わかった!で同じ画面へ戻る。
+
+Gallery の `HelpTabs` は5つの選択状態、`HelpPageCard` は5ページ、`HelpStepRow` は18手順、`HelpPager` は初回/途中/最終の全状態を確認できる。

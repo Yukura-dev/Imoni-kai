@@ -73,7 +73,7 @@ namespace Imoni.Editor
         }
         private static void Act(JObject action)
         {
-            VisualElement view = Boot.Router.CurrentView;
+            VisualElement view = Boot.Router.OverlayView ?? Boot.Router.CurrentView;
             string name = action["name"]?.Value<string>();
             switch (action["type"].Value<string>())
             {
@@ -101,7 +101,7 @@ namespace Imoni.Editor
         private static void Inspect()
         {
             var entries = new JArray();
-            foreach (VisualElement element in Descendants(Boot.Router.CurrentView))
+            foreach (VisualElement element in Descendants(Boot.Router.OverlayView ?? Boot.Router.CurrentView))
             {
                 var style = element.resolvedStyle;
                 entries.Add(new JObject { ["type"] = element.GetType().Name, ["name"] = element.name, ["text"] = (element as TextElement)?.text,

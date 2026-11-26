@@ -310,3 +310,34 @@ flowchart LR
 ## 15. まだ作っていない画面（仕様にはある）
 通常クリア画面、エンドレス移行、設定、ログイン、再接続中の画面。
 既存画面と同じスタイルで作ってよい。迷ったら `docs/QUESTIONS.md` に書いて先へ進む。
+
+## 16. 遊び方（Help）★追加
+スクリーンショット：`50_Help_1_controls.png` 〜 `54_Help_5_score.png`、モック：`mock/Help.dc.html`（`?section=0〜4` で各項目）
+- **入り口**：ホーム右上の「?」ボタン（設定ボタンの左、同じ44pxの角丸枠）と、ゲーム中のメニューパネルの「遊び方を見る」（深緑のボタン。「ホームへ戻る」の上）。設定画面にも「遊び方」の行を置く。
+- **上部**：「< 戻る」（開いた画面へ戻る）と見出し「遊び方」（Dela 26px・深緑）。
+- **項目タブ**：5つを横一列に並べる（操作・流れ・倉庫・強化・スコア）。高さ56px、アイコン＋文字。選択中は深緑地・クリーム文字。`SegmentedControl` を拡張するか、新しい部品 `HelpTabs` にする。
+- **本文カード**：焦げ茶の見出し帯に「1. 基本の操作」と「1 / 5」を表示する。その下に導入文1行と、番号付きの手順3〜4個を並べる。
+  - 各手順：52pxの色付き角丸アイコン（左上に黄色い番号丸）＋見出し（15px・900）＋説明（13px）。
+  - 内容が多いときは、カードの中だけがスクロールする。
+  - 「強化」の項目では、品質チップ（普通〜伝説、上位3つは「???」）を表示する。
+  - 注意書きは、薄赤の地にえんじ文字の小さなラベルにする。
+- **下部**：「‹ 前へ」（枠線。最初の項目では押せない）と「次へ ›」（深緑）。最後の項目では「わかった!」で元の画面へ戻る。
+- **文言**：`mock/Help.dc.html` の `SECTIONS` が正。文言の調整はこの配列だけを直せば済むように、`GameConfig` か別の JSON（`Config/HelpContent.json`）に持たせる。
+
+## 17. BGM ★M9で改訂
+### ゲーム中（メインゲーム画面）＝オーナー指定の曲
+- `Assets/Imoni/Audio/BGM/bgm_game_main.wav`（152BPM・約78.2秒・44.1kHz ステレオ）。**これが正式なゲーム中BGM**。
+- 再生方法：**最初だけイントロ（0〜12.634秒）を流し、そのあとはループ区間（12.634秒〜最後）を繰り返す**。
+  - ループ位置は `bgm_game_main_loop.json`（loopStartSample=557149 / loopEndSample=3446763 / sampleRate=44100）。値は GameConfig（例 `audio.gameMain.loopStartSample`）にも持たせ、コードに直書きしない。
+  - 推奨実装：分割済みの `bgm_game_main_intro.wav`（イントロだけ）と `bgm_game_main_loop.wav`（ループ区間だけ・loop=true）を AudioSource 2つで `PlayScheduled` を使って継ぎ目なくつなぐ（イントロ終了時刻 = dspTime + イントロ長）。
+  - 代替実装：`bgm_game_main.wav` 1本を再生し、`timeSamples >= loopEndSample` で `loopStartSample` に戻す方式でもよい（ただし Update 依存でズレやすいので推奨は上）。
+  - インポート設定：Load Type = Streaming か Compressed In Memory、**Preload Audio Data ON**、圧縮は Vorbis 品質70前後。ループ用は「Gapless」相当になるよう Decompress On Load も可。
+- 旧仮曲 `bgm_game_loop*.wav`（和風・バンド・7/8）は**使わない**（入れてあっても参照しない。削除してよい）。
+### ゲーム外（タイトル・ホーム・ロビー・メンバー待ち・会員証・ランキング・遊び方）
+- `bgm_home_loop.wav`（和風・92BPM・約62.6秒）／ `bgm_home_loop_band.wav`（バンド版・同じ長さ）。
+- どちらを使うかは GameConfig `audio.bgmStyle = "wa" | "band"`（初期値 "wa"）。loop=true でそのまま継ぎ目なく回る。
+### 共通
+- 画面切り替えでは0.5秒クロスフェード。ゲーム中→ゲーム中（ラウンド間）は止めずに続ける。
+- 芋煮会演出（Imoni / ImoniFail）の間はBGMを0.3秒でフェードアウトして止め、結果画面（Result / GameOver）では home 側の曲を流す。次ラウンド開始でゲーム中の曲をイントロから再生する。
+- 音量は設定の「BGM」に従う（効果音とは別のミキサーグループ）。アプリがバックグラウンドに行ったら一時停止、戻ったら再開。
+- 全部ファイル名で参照し、後から差し替えられるようにする（AudioCatalog / ScriptableObject などで一元管理）。

@@ -31,7 +31,7 @@ namespace Imoni.Game.UI
             scroll.verticalScrollerVisibility = ScrollerVisibility.Hidden;
             scroll.AddToClassList("gallery-scroll");
             Add(scroll);
-            Navigation(); Profile(); Data(); Effects();
+            Navigation(); Profile(); Data(); Effects(); Help();
             jump = new PopupField<string>(new List<string>(sections.Keys), 0) { name = "gallery-jump" };
             jump.RegisterValueChangedCallback(evt => ScrollToSection(evt.newValue));
             jump.AddToClassList("gallery-jump"); Insert(1, jump);
@@ -251,6 +251,41 @@ namespace Imoni.Game.UI
             {
                 var banner = new ResultBanner { Variant = variant, MissingMaterial = "魚" };
                 Sample(section, variant.ToString(), banner); section.Add(Action("再生: " + variant, banner.Play));
+            }
+        }
+
+        private void Help()
+        {
+            HelpContent content = HelpContent.Load();
+            var section = Section("HelpTabs");
+            for (int index = 0; index < content.Sections.Length; index++)
+            {
+                var tabs = new HelpTabs(); tabs.Bind(content.Sections, index);
+                tabs.Changed += selected => { tabs.Selected = selected; Intent("遊び方: " + content.Sections[selected].Tab); };
+                Sample(section, content.Sections[index].Tab + " / selected", tabs);
+            }
+            section = Section("HelpPageCard");
+            for (int index = 0; index < content.Sections.Length; index++)
+            {
+                var card = new HelpPageCard(); card.style.height = 574;
+                card.Bind(content.Sections[index], index, content.Sections.Length, content.QualityChips);
+                Sample(section, content.Sections[index].Title, card);
+            }
+            section = Section("HelpStepRow");
+            foreach (HelpSection page in content.Sections)
+                for (int index = 0; index < page.Steps.Length; index++)
+                {
+                    var row = new HelpStepRow(); row.Bind(page.Steps[index], index + 1, content.QualityChips);
+                    var surface = new Card(); surface.Add(row);
+                    Sample(section, page.Tab + " / " + page.Steps[index].Title, surface);
+                }
+            section = Section("HelpPager");
+            for (int index = 0; index < content.Sections.Length; index++)
+            {
+                var pager = new HelpPager(); pager.Bind(content, index);
+                pager.PreviousRequested += () => Intent("前の項目へ");
+                pager.NextRequested += () => Intent("次の項目または閉じる");
+                Sample(section, (index + 1) + " / " + content.Sections.Length, pager);
             }
         }
     }

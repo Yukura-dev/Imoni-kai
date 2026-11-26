@@ -1,0 +1,18 @@
+{
+  "captures": [
+    "D:\\UnityProjects\\Imoni-kai\\Library\\M2A-HelpPageCard.png",
+    "D:\\UnityProjects\\Imoni-kai\\Library\\M2A-HelpPageCard_02.png",
+    "D:\\UnityProjects\\Imoni-kai\\Library\\M2A-HelpPageCard_03.png",
+    "D:\\UnityProjects\\Imoni-kai\\Library\\M2A-HelpPageCard_04.png",
+    "D:\\UnityProjects\\Imoni-kai\\Library\\M2A-HelpPageCard_05.png"
+  ],
+  "console": {
+    "available": true,
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "command": "capture:HelpPageCard",
+  "status": "complete",
+  "atUtc": "2026-11-26T08:47:01.1642957Z"
+}

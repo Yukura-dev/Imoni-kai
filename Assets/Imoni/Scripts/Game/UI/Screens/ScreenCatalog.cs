@@ -10,6 +10,7 @@ namespace Imoni.Game.UI.Screens
             router.Register("Tutorial2", () => new Tutorial2Screen(app));
             router.Register("Tutorial3", () => new Tutorial3Screen(app));
             router.Register("Home", () => new HomeScreen(app));
+            router.Register("Help", () => new HelpScreen(app));
             router.Register("Lobby", () => new LobbyScreen(app));
             router.Register("Waiting", () => new WaitingScreen(app));
             router.Register("Loading", () => new LoadingScreen(app));

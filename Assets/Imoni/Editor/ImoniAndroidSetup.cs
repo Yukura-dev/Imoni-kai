@@ -28,6 +28,8 @@ namespace Imoni.Editor
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
             PlayerSettings.Android.renderOutsideSafeArea = true;
             ConfigureRendering(android);
+            // Local/offline APK builds do not require Unity Cloud diagnostics or symbol upload credentials.
+            UnityEditor.EngineDiagnostics.EngineDiagnosticsSettings.enabled = android["engineDiagnosticsEnabled"].Value<bool>();
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
             PlayerSettings.allowedAutorotateToPortrait = true;
             PlayerSettings.allowedAutorotateToPortraitUpsideDown = false;
@@ -121,6 +123,7 @@ namespace Imoni.Editor
                 ["graphicsApis"] = new JArray(PlayerSettings.GetGraphicsAPIs(BuildTarget.Android).Select(api => api.ToString())),
                 ["optimizedFramePacing"] = PlayerSettings.Android.optimizedFramePacing,
                 ["autoGraphicsApi"] = PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.Android),
+                ["engineDiagnosticsEnabled"] = UnityEditor.EngineDiagnostics.EngineDiagnosticsSettings.enabled,
                 ["variant"] = variant ?? "default", ["physicalDeviceTested"] = false,
                 ["messages"] = new JArray(report.steps.SelectMany(step => step.messages).Where(message => message.type == LogType.Error || message.type == LogType.Warning)
                     .Select(message => message.content)) };

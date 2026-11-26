@@ -15,10 +15,23 @@
     "bgmGroupName": "BGM",
     "effectsGroupName": "SFX",
     "bgmClipPath": "",
+    "bgmStyle": "wa",
+    "bgmTracks": { "wa": { "home": "bgm_home_loop" }, "band": { "home": "bgm_home_loop_band" }, "game": "bgm_game_main" },
+    "bgmCrossfadeSeconds": 0.5,
+    "bgmEffectFadeOutSeconds": 0.3,
+    "bgmScheduleLeadSeconds": 0.05,
+    "bgmImportQuality": 0.7,
+    "gameMain": { "bpm": 152, "loopStartSample": 557149, "loopEndSample": 3446763, "sampleRate": 44100 },
+    "bgmCatalog": [
+      { "key": "bgm_home_loop", "loop": "Assets/Imoni/Audio/BGM/bgm_home_loop.wav", "gain": 1 },
+      { "key": "bgm_home_loop_band", "loop": "Assets/Imoni/Audio/BGM/bgm_home_loop_band.wav", "gain": 1 },
+      { "key": "bgm_game_main", "intro": "Assets/Imoni/Audio/BGM/bgm_game_main_intro.wav", "loop": "Assets/Imoni/Audio/BGM/bgm_game_main_loop.wav", "gain": 1 }
+    ],
     "bgmPriority": 128,
     "eventLogCapacity": 2048,
     "compressor": { "Threshold": -18, "Attack": 20, "Release": 120, "MakeUpGain": 0 }
   },
+  "audioReview": { "sampleIntervalSeconds": 0.1, "settleSeconds": 0.2, "pauseSeconds": 1.0, "sampleTolerance": 4096, "dspToleranceSeconds": 0.05 },
   "team": {
     "size": 3,
     "allowJoinDuringRun": false
@@ -964,13 +977,14 @@
     },
     "android": {
       "applicationIdentifier": "jp.yukura.imoni",
-      "versionCode": 3,
+      "versionCode": 4,
       "minimumApiLevel": 26,
       "targetApiLevel": 36,
       "iconTexture": "pot_campfire",
       "iconSize": 512,
       "graphicsApis": ["Vulkan", "OpenGLES3"],
       "optimizedFramePacing": true,
+      "engineDiagnosticsEnabled": false,
       "validationVariants": {
         "gles3-on": { "graphicsApis": ["OpenGLES3"], "optimizedFramePacing": true },
         "gles3-off": { "graphicsApis": ["OpenGLES3"], "optimizedFramePacing": false }

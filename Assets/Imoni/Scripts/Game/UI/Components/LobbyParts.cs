@@ -97,13 +97,17 @@ namespace Imoni.Game.UI.Components
     /// <summary>Small vector artwork replacing CSS dashed outlines (which USS does not support).</summary>
     internal sealed class LobbyDashedOutline : VisualElement
     {
-        internal LobbyDashedOutline(bool circle, float cornerRadius = 14, float strokeWidth = 2, string color = "#8C6A2E", float dashLength = 4, float gapLength = 4)
+        internal LobbyDashedOutline(bool circle, float cornerRadius = 14, float strokeWidth = 2, string color = "#8C6A2E", float dashLength = 4, float gapLength = 4, Func<Color> resolveColor = null)
         {
             pickingMode = PickingMode.Ignore;
-            generateVisualContent += context =>
-            {
+            generateVisualContent += context => Draw(context, contentRect, circle, cornerRadius, strokeWidth,
+                resolveColor != null ? resolveColor() : string.IsNullOrEmpty(color) ? resolvedStyle.color : UiTheme.Color(color), dashLength, gapLength);
+        }
+        internal static void Draw(MeshGenerationContext context, Rect contentRect, bool circle, float cornerRadius,
+            float strokeWidth, Color color, float dashLength = 4, float gapLength = 4)
+        {
                 var painter = context.painter2D;
-                painter.strokeColor = string.IsNullOrEmpty(color) ? resolvedStyle.color : UiTheme.Color(color); painter.lineWidth = circle ? 3 : strokeWidth;
+                painter.strokeColor = color; painter.lineWidth = circle ? 3 : strokeWidth;
                 float inset = painter.lineWidth / 2;
                 Rect rect = new Rect(inset, inset, contentRect.width - inset * 2, contentRect.height - inset * 2);
                 if (rect.width <= 0 || rect.height <= 0) return;
@@ -144,7 +148,6 @@ namespace Imoni.Game.UI.Components
                         walked += amount; phase += amount;
                     }
                 }
-            };
         }
     }
 }

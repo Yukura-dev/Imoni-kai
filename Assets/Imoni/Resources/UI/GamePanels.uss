@@ -11,6 +11,11 @@
 .game-panel-flex { flex-grow: 1; }
 .game-panel--menu .member-row { margin-bottom: 10px; }
 .game-panel .game-return-home { height: 48px; min-height: 48px; border-radius: 24px; font-size: 15px; padding: 0; margin: 0; -unity-font-definition: var(--font-body-black); }
+.game-panel .game-view-help { height: 48px; min-height: 48px; border-radius: 24px; font-size: 16px; padding: 0; margin: 0 0 10px; border-bottom-width: 4px; -unity-font-definition: var(--font-body-black); }
+.game-panel .game-view-help { padding-left: 26px; }
+.game-view-help > .imoni-button__icon { left: 50%; translate: -64px -50%; width: 18px; height: 18px; }
+.game-warehouse-help { margin-right: 4px; }
+.game-warehouse-help > .imoni-button__icon { width: 22px; height: 22px; }
 .game-inventory-list { flex-grow: 1; flex-shrink: 1; min-height: 0; margin-top: 10px; }
 .game-inventory-list .unity-scroll-view__content-container { flex-shrink: 0; }
 .game-inventory-list .inventory-row { margin-bottom: 4px; flex-shrink: 0; }

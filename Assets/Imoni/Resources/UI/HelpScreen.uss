@@ -1,0 +1,5 @@
+.help-screen { flex-grow: 1; min-height: 0; background-color: var(--c-yellow); padding: 52px 18px 28px; }
+.help-screen__spaced { margin-top: 12px; }
+.help-screen .screen-header__icon { width: 22px; height: 22px; }
+.help-screen .screen-header__back-label { margin-left: 2px; }
+.help-screen .screen-header__title { margin-left: 12px; }

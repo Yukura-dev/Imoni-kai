@@ -24,7 +24,7 @@ a{color:#4A2E22}a:hover{color:#8B2310}
 <span style="font-size: 15px; font-weight: 900">品質で価値が何倍にも</span>
 <div style="display: flex; gap: 6px; flex-wrap: wrap">
 <sc-for list="{{qualities}}" as="q" hint-placeholder-count="7">
-<span style="background: {{q.bg}}; color: {{q.fg}}; border: 2px solid #4A2E22; font-size: 12px; font-weight: 900; padding: 4px 8px; border-radius: 8px">{{q.name}} ×{{q.mul}}</span>
+<span style="background: {{q.bg}}; color: {{q.fg}}; border: 2px {{q.border}} {{q.line}}; font-size: 12px; font-weight: 900; padding: 4px 8px; border-radius: 8px">{{q.label}}</span>
 </sc-for>
 </div>
 <span style="font-size: 12px; font-weight: 700; color: #6B4A3A">上位の品質はラウンドが進むと解放されるよ</span>
@@ -74,10 +74,10 @@ class Component extends DCLogic {
         { name: '良質', mul: '2', bg: '#DCE8C4', fg: '#34421C' },
         { name: '希少', mul: '5', bg: '#C8DCEB', fg: '#1F3E5C' },
         { name: '伝説', mul: '20', bg: '#F7B92B', fg: '#4A2E22' },
-        { name: '神話', mul: '100', bg: '#B5652B', fg: '#FFF3D6' },
-        { name: '超越', mul: '1,000', bg: '#8B2310', fg: '#FFF3D6' },
-        { name: '究極', mul: '10,000', bg: '#4A2E22', fg: '#F7B92B' }
-      ],
+        { name: '???', mul: '?', bg: '#EFE3C8', fg: '#6B5A45', locked: true },
+        { name: '???', mul: '?', bg: '#EFE3C8', fg: '#6B5A45', locked: true },
+        { name: '???', mul: '?', bg: '#EFE3C8', fg: '#6B5A45', locked: true }
+      ].map(q => ({ ...q, label: q.locked ? '???' : q.name + ' ×' + q.mul, border: q.locked ? 'dashed' : 'solid', line: q.locked ? '#8C6A2E' : '#4A2E22' })),
       ups: [
         { name: '移動速度', desc: '目的地まで早く着く' },
         { name: '採集速度', desc: '採集が早く終わる' },

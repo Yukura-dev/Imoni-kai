@@ -16,6 +16,7 @@ namespace Imoni.Game.UI.Screens
             void Refresh() => dialog.Bind(app.Profile.SoundEnabled, app.Profile.BgmVolume, app.Profile.EffectsVolume);
             screen.Q<ImoniButton>("settings").clicked += () => { Refresh(); dialog.Open(); };
             dialog.CloseRequested += dialog.Close;
+            dialog.HelpRequested += () => app.OpenHelp();
             dialog.SoundToggleRequested += () => { app.Profile.SoundEnabled = !app.Profile.SoundEnabled; app.SaveProfile(); Refresh(); };
             dialog.BgmStepRequested += direction =>
             {

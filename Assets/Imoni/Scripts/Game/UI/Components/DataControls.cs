@@ -177,6 +177,11 @@ namespace Imoni.Game.UI.Components
         public QualityChip()
         {
             DataVisuals.Apply(this, "quality-chip"); AddToClassList("q"); pickingMode = PickingMode.Ignore;
+            generateVisualContent += context =>
+            {
+                if (locked) LobbyDashedOutline.Draw(context, new Rect(0, 0, layout.width, layout.height), false,
+                    resolvedStyle.borderTopLeftRadius, 2, resolvedStyle.borderTopColor);
+            };
             RegisterCallback<AttachToPanelEvent>(_ => Refresh()); Refresh();
         }
         private void Refresh()
@@ -189,6 +194,7 @@ namespace Imoni.Game.UI.Components
             style.color = locked || visual == null ? new StyleColor(StyleKeyword.Null) : new StyleColor(UiTheme.Color(visual["fg"].Value<string>()));
             EnableInClassList("quality-chip--detail", showMultiplier);
             EnableInClassList("quality-chip--locked", locked);
+            MarkDirtyRepaint();
         }
     }
 
@@ -364,6 +370,7 @@ namespace Imoni.Game.UI.Components
         private readonly Label funds = UiTheme.Label(string.Empty, "bottom-sheet__funds");
         private bool open = true, inline;
         public event Action CloseRequested;
+        public VisualElement HeaderActions { get; } = new VisualElement();
         public override VisualElement contentContainer => body;
         [UxmlAttribute] public string Title { get => title.text; set => title.text = value ?? string.Empty; }
         [UxmlAttribute] public string FundsText { get => funds.text; set { funds.text = value ?? string.Empty; funds.style.display = string.IsNullOrEmpty(value) ? DisplayStyle.None : DisplayStyle.Flex; } }
@@ -375,7 +382,8 @@ namespace Imoni.Game.UI.Components
             var header = new VisualElement(); header.AddToClassList("bottom-sheet__header");
             var close = new ImoniButton { Variant = ImoniButtonVariant.Icon, Icon = "icon_close", tooltip = "閉じる" };
             close.AddToClassList("bottom-sheet__close"); close.clicked += () => { CloseRequested?.Invoke(); Close(); };
-            header.Add(title); header.Add(funds); header.Add(close); body.AddToClassList("bottom-sheet__content");
+            HeaderActions.AddToClassList("bottom-sheet__header-actions");
+            header.Add(title); header.Add(HeaderActions); header.Add(funds); header.Add(close); body.AddToClassList("bottom-sheet__content");
             hierarchy.Add(header); hierarchy.Add(body); FundsText = string.Empty;
         }
         public void Open() => IsOpen = true;

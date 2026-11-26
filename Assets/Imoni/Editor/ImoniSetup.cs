@@ -105,6 +105,7 @@ namespace Imoni.Editor
             UIRuntimeAssets assets = LoadGenerated<UIRuntimeAssets>(path);
             if (!assets) { assets = ScriptableObject.CreateInstance<UIRuntimeAssets>(); AssetDatabase.CreateAsset(assets, path); }
             assets.config = LoadRequired<TextAsset>(ConfigPath);
+            assets.helpContent = LoadRequired<TextAsset>(Root + "/Config/HelpContent.json");
             assets.theme = LoadRequired<StyleSheet>(Root + "/UI/Theme.uss");
             assets.imoniEffectTree = LoadRequired<VisualTreeAsset>(Root + "/UI/ImoniEffect.uxml");
             assets.imoniEffectStyle = LoadRequired<StyleSheet>(Root + "/UI/ImoniEffect.uss");
@@ -116,6 +117,7 @@ namespace Imoni.Editor
                 .OrderBy(file => file, StringComparer.Ordinal)
                 .Select(file => new NamedTexture { key = Path.GetFileNameWithoutExtension(file), texture = LoadRequired<Texture2D>(file.Replace('\\', '/')) }).ToArray();
             ImoniAudioSetup.EnsureAssets(assets, JObject.Parse(File.ReadAllText(ConfigPath)));
+            ImoniBgmSetup.EnsureAssets(assets, JObject.Parse(File.ReadAllText(ConfigPath)));
             EditorUtility.SetDirty(assets);
             AssetDatabase.ImportAsset(Root + "/Resources/UI/ComponentGallery.uxml", ImportAssetOptions.ForceUpdate);
         }

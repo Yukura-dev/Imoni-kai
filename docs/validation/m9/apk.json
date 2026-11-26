@@ -1,0 +1,15 @@
+{
+  "path": "D:\\UnityProjects\\Imoni-kai\\Builds\\Android\\Imoni.apk",
+  "bytes": 68362350,
+  "sha256": "63CE972257F7466F6B5CF92C46A48E3497141550A7F25E3A7C037DC22B333B10",
+  "versionCode": 4,
+  "package": "jp.yukura.imoni",
+  "variant": "standard",
+  "graphicsApis": [
+    "Vulkan",
+    "OpenGLES3"
+  ],
+  "optimizedFramePacing": true,
+  "engineDiagnosticsEnabled": false,
+  "physicalDeviceTested": false
+}

@@ -13,6 +13,7 @@ namespace Imoni.Game.UI.Components
         private readonly AudioVolumeControl bgm = new AudioVolumeControl { name = "bgm-volume", Caption = "BGM" };
         private readonly AudioVolumeControl effects = new AudioVolumeControl { name = "effects-volume", Caption = "効果音" };
         private readonly ImoniButton account = new ImoniButton { name = "account-switch", Variant = ImoniButtonVariant.Outline, text = "アカウント切り替え" };
+        private readonly ImoniButton help = new ImoniButton { name = "settings-help", Variant = ImoniButtonVariant.Outline, text = "遊び方", Icon = "help_question" };
         private readonly ImoniButton close = new ImoniButton { name = "settings-close", Variant = ImoniButtonVariant.Primary, text = "閉じる" };
         public VisualElement AudioContent { get; } = new VisualElement { name = "settings-audio-content" };
         public VisualElement AccountContent { get; } = new VisualElement { name = "settings-account-content" };
@@ -21,6 +22,7 @@ namespace Imoni.Game.UI.Components
         public event Action<int> BgmStepRequested;
         public event Action<int> EffectsStepRequested;
         public event Action AccountSwitchRequested;
+        public event Action HelpRequested;
         public event Action CloseRequested;
 
         public SettingsDialog()
@@ -28,12 +30,14 @@ namespace Imoni.Game.UI.Components
             AddToClassList("settings-dialog"); UiTheme.Apply(this, "UI/Components/AudioSettings");
             card.AddToClassList("settings-dialog__card");
             account.AddToClassList("settings-dialog__action"); close.AddToClassList("settings-dialog__action");
-            AudioContent.Add(sound); AudioContent.Add(bgm); AudioContent.Add(effects); AudioContent.Add(account);
+            help.AddToClassList("settings-dialog__action");
+            AudioContent.Add(sound); AudioContent.Add(bgm); AudioContent.Add(effects); AudioContent.Add(help); AudioContent.Add(account);
             card.Add(AudioContent); card.Add(AccountContent); card.Add(close); Add(card);
             sound.clicked += () => SoundToggleRequested?.Invoke();
             bgm.StepRequested += direction => BgmStepRequested?.Invoke(direction);
             effects.StepRequested += direction => EffectsStepRequested?.Invoke(direction);
             account.clicked += () => AccountSwitchRequested?.Invoke();
+            help.clicked += () => HelpRequested?.Invoke();
             close.clicked += () => CloseRequested?.Invoke();
             Close();
         }

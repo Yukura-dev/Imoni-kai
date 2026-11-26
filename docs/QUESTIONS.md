@@ -323,3 +323,20 @@
 - 質問：札を置ける空間が足りない場合。判断：名札（自分優先）→新しい獲得popup→成長札の順。実際に計測した矩形で回避し、場所がなければ低優先札を隠す。自分から1.5タイル以内は選択中でも成長札を隠して芽のみ。該当：WorldAnnotationLayout、GameWorldView、ui.worldView.growthLabelSelfExclusionTiles。
 
 - 追加：アクティブ会員IDが破損し、既存local-defaultと復旧先が衝突する場合は未使用の復旧IDを作る。既存会員を上書きせず、トップレベルの最新プロフィールも保持する。LocalAccountsTestsで再保存・再読込まで確認。
+
+## M9 遊び方・BGM（2026-11-26）
+
+- 質問：最初の依頼のゲームBGM（和風/バンド×4/4・7/8）と、追加資料のUI_SPEC17章が異なる。
+  - 仮決定：最新資料を優先し、ゲームは指定曲bgm_game_mainのイントロ→ループ、ホームだけ和風/バンドを切り替える。旧ゲーム曲は新資料にも含まれず、参照しない。この前提を作業中にユーザーへ明示した。差し替えはGameConfig.audioの選曲表・catalogに集約する。
+  - 該当：BgmPlan、BgmLoopPlan、ScreenBgmController、ImoniBgmSetup、UI_SPEC17章。
+- 質問：ゲーム中の遊び方を閉じると、採集中の位置やパネルを作り直すか。
+  - 判断：ScreenRouterのoverlayとして開く。元のGameScreen/Server/パネルを保持し、時間・ボット採集は継続。背面のタップ入力を止める。閉じると同じ設定ダイアログ/メニュー/倉庫へ戻り、倉庫からは第3項目を開く。
+  - 該当：ScreenRouter、ScreenContext、HelpScreen、GameScreens。
+- 質問：追加資料のUI_SPEC全体と既存M8の記述に差がある。
+  - 判断：新規16・17章を取り込み、以前の章は承認済みM8の鍋・座標・ログイン撤去・数値表示を保持。新しいmock/画像は参照資料として受領し、Tutorial2の通常クリア文言とTutorial3未解放チップの点線も合わせる。
+- 質問：Vorbisのデコード待ちでイントロの継ぎ目が遅れないか。
+  - 判断：登録する4クリップをVorbis品質0.7・DecompressOnLoad・Preloadに統一。予約は0.05秒先、境界は丸めた秒数でなく557149/44100秒と実クリップのsamplesを使用する。全曲原本は参照資料として残すが実行catalogからは参照しない。
+  - 該当：GameConfig.audio、ImoniBgmSetup、BgmPlaybackController。
+- 質問：標準APKの初回ビルドで、Unity Cloudのシンボル送信認証が403になり警告1件が出た。
+  - 判断：ローカル/オフライン範囲では不要なEngine Diagnosticsをsetup.android.engineDiagnosticsEnabled=falseにし、Setupが公開Editor APIで適用する。ローカルSymbolTableのzip生成は維持する。最初の警告もandroid-build-first-attempt.jsonに保存し、再ビルドで確認する。
+  - 参考：[Unity 6.3 EngineDiagnosticsSettings](https://docs.unity.com/en-us/engine/6000.3/script-reference/unityeditor/enginediagnostics/enginediagnosticssettings)。設定ファイルの手書きは行わない。

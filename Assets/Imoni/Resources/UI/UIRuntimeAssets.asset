@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: UIRuntimeAssets
   m_EditorClassIdentifier: Imoni.Game::Imoni.Game.UI.UIRuntimeAssets
   config: {fileID: 4900000, guid: 63553f0000392e34e884f28d4d645d95, type: 3}
+  helpContent: {fileID: 4900000, guid: c738fb0054f422248a5c467a8b9cb612, type: 3}
   theme: {fileID: 7433441132597879392, guid: 67cb1a145e112cb478273500df648a26, type: 3}
   imoniEffectTree: {fileID: 9197481963319205126, guid: f53ba3e800552df49b9da98aeee98a5d, type: 3}
   imoniEffectStyle: {fileID: 7433441132597879392, guid: 62c5372c80fb56a4fb8855c5eaf2b775, type: 3}
@@ -22,6 +23,19 @@ MonoBehaviour:
   audioBgm: {fileID: 3196892252242182914, guid: bfa106191f963f745b7c9c055abbc07b, type: 2}
   audioEffects: {fileID: -1448032082490613065, guid: bfa106191f963f745b7c9c055abbc07b, type: 2}
   backgroundMusic: {fileID: 0}
+  backgroundMusicTracks:
+  - key: bgm_home_loop
+    intro: {fileID: 0}
+    loop: {fileID: 8300000, guid: 258d98eeecf8c7346875c4215aaad1b2, type: 3}
+    gain: 1
+  - key: bgm_home_loop_band
+    intro: {fileID: 0}
+    loop: {fileID: 8300000, guid: 88293f43f286edb41944c9ee70953844, type: 3}
+    gain: 1
+  - key: bgm_game_main
+    intro: {fileID: 8300000, guid: 303291a0bc6ee7141aff2c2da70a7707, type: 3}
+    loop: {fileID: 8300000, guid: 09819c5096b7ea244b54cb243a6f0242, type: 3}
+    gain: 1
   imoniEffectAudio:
   - {fileID: 8300000, guid: a416d0c505b4bc340b9c0a404fae2d6d, type: 3}
   - {fileID: 8300000, guid: 880524413de3c3d44a1ae1a8b533e529, type: 3}
@@ -139,6 +153,52 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: 29cca7fcdde398648a0fcad12bda65a1, type: 3}
   - key: teammate_white
     texture: {fileID: 2800000, guid: 934e3402bcd86c140860c7fff7dec218, type: 3}
+  - key: help_bonus
+    texture: {fileID: 2800000, guid: b54af76576028ec4c8b8f10a64775ae1, type: 3}
+  - key: help_box
+    texture: {fileID: 2800000, guid: edb24757148981e4286f895ed5c9c788, type: 3}
+  - key: help_calc
+    texture: {fileID: 2800000, guid: a6d97b004163e854e9ec56b3f8acd714, type: 3}
+  - key: help_coin
+    texture: {fileID: 2800000, guid: ec77131a68e632e4eb1ccec9c4a7f9c3, type: 3}
+  - key: help_fire
+    texture: {fileID: 2800000, guid: 61261326d72e1124c8ae733f88b71eb2, type: 3}
+  - key: help_flag
+    texture: {fileID: 2800000, guid: beb5b1ad3ff702f419f56bfdfa63dd52, type: 3}
+  - key: help_flow
+    texture: {fileID: 2800000, guid: ad36e2104cc950c46b8ce91fecdad0b7, type: 3}
+  - key: help_gem
+    texture: {fileID: 2800000, guid: d31b7ee1787a98e45a740ab8b316bda3, type: 3}
+  - key: help_medal
+    texture: {fileID: 2800000, guid: e9eee8ef73a8bc64dbf0dcae5b43686d, type: 3}
+  - key: help_pot
+    texture: {fileID: 2800000, guid: 83ac549148027bd49b478f18155c8a45, type: 3}
+  - key: help_question
+    texture: {fileID: 2800000, guid: 5b5164755c7c2f445b40b70ae457bdc2, type: 3}
+  - key: help_rank
+    texture: {fileID: 2800000, guid: 04d10efc489eff544b506ce82ecc4bf5, type: 3}
+  - key: help_repeat
+    texture: {fileID: 2800000, guid: 02b8ed0fcf863bc44a11c4083553ac66, type: 3}
+  - key: help_shield
+    texture: {fileID: 2800000, guid: 688d1922f3ae6f14a969259c8521e56b, type: 3}
+  - key: help_shop
+    texture: {fileID: 2800000, guid: 02e750401db5dd74e8cf6b2bbc8d2480, type: 3}
+  - key: help_start
+    texture: {fileID: 2800000, guid: 9ddd4fe4e9df4ef4fa4ffb05a58d577d, type: 3}
+  - key: help_tag
+    texture: {fileID: 2800000, guid: bff84bf5e699a63409ba50b2ba1b826c, type: 3}
+  - key: help_tap
+    texture: {fileID: 2800000, guid: 7132655eef0e10342a3f3fb92deea01a, type: 3}
+  - key: help_team
+    texture: {fileID: 2800000, guid: 268051fd49f5ce342a6e725bd732f5ca, type: 3}
+  - key: help_tree
+    texture: {fileID: 2800000, guid: 495e12de6cd8c714dbc45980f51c0cc2, type: 3}
+  - key: help_turn
+    texture: {fileID: 2800000, guid: 396a6de30bd025049b8bad0d0c1b316b, type: 3}
+  - key: help_up
+    texture: {fileID: 2800000, guid: a1db3fc4212b88444bf88a13b206b217, type: 3}
+  - key: help_warn
+    texture: {fileID: 2800000, guid: 74f3f8100c2e6684d96c860b1228647d, type: 3}
   - key: icon_back
     texture: {fileID: 2800000, guid: 6f5876e39660b2d44b68113f1c948d30, type: 3}
   - key: icon_badge

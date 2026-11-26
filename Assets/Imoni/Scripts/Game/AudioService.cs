@@ -25,6 +25,44 @@ namespace Imoni.Game.Audio
         public bool Played { get; internal set; }
     }
 
+    public sealed class BgmVoiceState
+    {
+        public string TrackKey { get; internal set; }
+        public string LoopClip { get; internal set; }
+        public string IntroClip { get; internal set; }
+        public string Phase { get; internal set; }
+        public double Weight { get; internal set; }
+        public double Gain { get; internal set; }
+        public double EffectiveGain { get; internal set; }
+        public bool Started { get; internal set; }
+        public bool Muted { get; internal set; }
+        public double StartedAtDsp { get; internal set; }
+        public double LoopAtDsp { get; internal set; }
+        public int IntroSamples { get; internal set; }
+        public int LoopSamples { get; internal set; }
+        public int SampleRate { get; internal set; }
+        public int IntroTimeSamples { get; internal set; }
+        public int LoopTimeSamples { get; internal set; }
+        public long CompletedLoops { get; internal set; }
+        public bool IntroIsPlaying { get; internal set; }
+        public bool LoopIsPlaying { get; internal set; }
+    }
+
+    public sealed class BgmPlaybackEvent
+    {
+        public string Kind { get; internal set; }
+        public string Context { get; internal set; }
+        public string TargetKey { get; internal set; }
+        public string ObservedTrackKey { get; internal set; }
+        public double AtSeconds { get; internal set; }
+        public double DspTimeSeconds { get; internal set; }
+        public double FadeSeconds { get; internal set; }
+        public double Volume { get; internal set; }
+        public bool SoundEnabled { get; internal set; }
+        public bool ApplicationPaused { get; internal set; }
+        public BgmVoiceState[] Voices { get; internal set; }
+    }
+
     /// <summary>Independent BGM/effect buses share the generated Master compressor. No BGM clip is required.</summary>
     [DisallowMultipleComponent]
     public sealed class AudioService : MonoBehaviour
@@ -42,7 +80,13 @@ namespace Imoni.Game.Audio
         public IReadOnlyList<AudioPlaybackEvent> EventLog => eventLog.AsReadOnly();
         public int ActiveVoices => voices.Count(source => source && source.isPlaying) + (droneSource && droneSource.isPlaying ? 1 : 0);
         public AudioSource DroneSource => droneSource;
-        public AudioSource BgmSource => bgmSource;
+        public AudioSource BgmSource => bgmPlayback?.PrimarySource;
+        public IReadOnlyList<AudioSource> BgmSources => bgmPlayback?.Sources ?? Array.Empty<AudioSource>();
+        public AudioClip BgmTargetClip => bgmPlayback?.TargetClip;
+        public string BgmTargetKey => bgmPlayback?.TargetKey;
+        public bool BgmIsTransitioning => bgmPlayback?.IsTransitioning ?? false;
+        public bool ApplicationPaused => applicationPaused;
+        public IReadOnlyList<BgmPlaybackEvent> BgmEventLog => bgmEventLog.AsReadOnly();
         public AudioLowPassFilter DroneFilter => droneFilter;
         public IReadOnlyList<AudioSource> Voices => voices.AsReadOnly();
         public event Action<bool, double> PreferencesChanged;
@@ -52,15 +96,23 @@ namespace Imoni.Game.Audio
         private JObject config;
         private ImoniAudioPlan plan;
         private AudioSource droneSource;
-        private AudioSource bgmSource;
+        private BgmPlaybackController bgmPlayback;
         private AudioLowPassFilter droneFilter;
         private readonly List<AudioSource> voices = new List<AudioSource>();
         private readonly List<AudioPlaybackEvent> eventLog = new List<AudioPlaybackEvent>();
+        private readonly List<BgmPlaybackEvent> bgmEventLog = new List<BgmPlaybackEvent>();
         private readonly Dictionary<AudioSource, double> voiceStarted = new Dictionary<AudioSource, double>();
         private readonly Dictionary<AudioClip, AudioClip> octaveClips = new Dictionary<AudioClip, AudioClip>();
         private double droneStartedAt;
         private int droneLevel = -1;
         private bool preferencesDirty;
+        private double lastBgmClock;
+        private string bgmContext;
+        private bool applicationPaused, listenerPausedBeforeBackground;
+        private Action<string, string> bgmPlaybackObserved;
+#if UNITY_EDITOR
+        public bool BgmManualTime { get; set; }
+#endif
 
         public static AudioService Ensure(GameObject owner, UIRuntimeAssets runtimeAssets, JObject data)
         {
@@ -74,10 +126,10 @@ namespace Imoni.Game.Audio
             plan = new ImoniAudioPlan(ImoniEffectConfig.FromJson(data.ToString()));
             if (!MasterGroup || !Mixer || !BgmGroup || !EffectsGroup)
                 throw new InvalidOperationException("Run Imoni > Setup Project to generate the Master/BGM/SFX AudioMixer.");
-            if (!bgmSource)
+            if (bgmPlayback == null)
             {
-                bgmSource = CreateSource("Imoni Background Music", config["audio"]["bgmPriority"].Value<int>(), BgmGroup);
-                bgmSource.loop = true; SetBgmClip(assets.backgroundMusic);
+                bgmPlayback = new BgmPlaybackController(name => CreateSource(name, config["audio"]["bgmPriority"].Value<int>(), BgmGroup));
+                SetBgmClip(assets.backgroundMusic);
             }
             if (!droneSource)
             {
@@ -87,27 +139,38 @@ namespace Imoni.Game.Audio
                 droneFilter.lowpassResonanceQ = (float)plan.Number("lowPassResonance");
             }
             while (voices.Count < (int)plan.Number("voiceCount")) voices.Add(CreateSource("Imoni Voice " + voices.Count, (int)plan.Number("effectPriority"), EffectsGroup));
-            bgmSource.outputAudioMixerGroup = BgmGroup; droneSource.outputAudioMixerGroup = EffectsGroup;
+            foreach (AudioSource source in BgmSources) source.outputAudioMixerGroup = BgmGroup;
+            droneSource.outputAudioMixerGroup = EffectsGroup;
             foreach (AudioSource source in voices) source.outputAudioMixerGroup = EffectsGroup;
             preferencesDirty = true;
+            bgmPlaybackObserved = OnBgmPlaybackObserved;
+            lastBgmClock = Time.realtimeSinceStartupAsDouble;
             AudioListener.volume = 1;
         }
         public void SetPreferences(bool enabled, double volume) => SetPreferences(enabled, volume, volume);
         public void SetPreferences(bool enabled, double bgmVolume, double effectsVolume)
         {
+            bool changed = SoundEnabled != enabled || BgmVolume != bgmVolume || EffectsVolume != effectsVolume;
             SoundEnabled = enabled;
             BgmVolume = ImoniAudioPlan.NormalizeVolume(config, bgmVolume);
             EffectsVolume = ImoniAudioPlan.NormalizeVolume(config, effectsVolume);
             foreach (AudioSource source in voices) source.mute = !enabled || EffectsVolume <= 0;
             if (droneSource) droneSource.mute = !enabled || EffectsVolume <= 0;
-            if (bgmSource) bgmSource.mute = !enabled || BgmVolume <= 0;
+            bgmPlayback?.SetMuted(!enabled || BgmVolume <= 0);
             preferencesDirty = true;
             if (!enabled) StopEffects();
             PreferencesChanged?.Invoke(enabled, EffectsVolume);
             ChannelPreferencesChanged?.Invoke(enabled, BgmVolume, EffectsVolume);
+            if (changed) LogBgm("preferences", 0);
         }
         private void Update()
         {
+            double now = Time.realtimeSinceStartupAsDouble;
+            double delta = Math.Max(0, now - lastBgmClock); lastBgmClock = now;
+#if UNITY_EDITOR
+            if (!BgmManualTime)
+#endif
+                AdvanceBgm(delta);
             // AudioMixer.SetFloat is applied after Awake/OnEnable, as required by the runtime mixer lifecycle.
             if (!preferencesDirty || !Mixer) return;
             // Master only applies the global switch. Applying a saved channel volume here as well
@@ -124,19 +187,56 @@ namespace Imoni.Game.Audio
         }
         public void SetBgmClip(AudioClip clip, bool play = true)
         {
-            if (!bgmSource) return;
-            if (bgmSource.clip != clip) { bgmSource.Stop(); bgmSource.clip = clip; }
-            if (!clip || !play) { bgmSource.Stop(); return; }
-            PlayBgm();
+            if (bgmPlayback == null) return;
+            bgmPlayback.SetImmediate(clip, play); LogBgm("set-immediate", 0);
         }
         public bool PlayBgm()
         {
-            if (!bgmSource || !bgmSource.clip) return false;
-            bgmSource.mute = !SoundEnabled || BgmVolume <= 0;
-            if (!bgmSource.isPlaying) bgmSource.Play();
-            return true;
+            bool played = bgmPlayback?.PlaySelected(config["audio"]["bgmScheduleLeadSeconds"].Value<double>()) ?? false;
+            if (played) LogBgm("play-immediate", 0);
+            return played;
         }
-        public void StopBgm() { if (bgmSource) bgmSource.Stop(); }
+        public void StopBgm() { bgmPlayback?.Stop(); if (config != null) LogBgm("stop-immediate", 0); }
+        public void CrossFadeBgm(string trackKey, AudioClip loopClip, double seconds, string context, float gain = 1, AudioClip introClip = null)
+        {
+            if (bgmPlayback == null) throw new InvalidOperationException("Initialize AudioService before selecting BGM.");
+            bgmContext = context;
+            double lead = config["audio"]["bgmScheduleLeadSeconds"].Value<double>();
+            bool changed = bgmPlayback.CrossFade(trackKey, loopClip, seconds, gain, introClip, lead);
+            LogBgm(changed ? loopClip ? "crossfade" : "fade-out" : "continue", seconds);
+        }
+        public BgmVoiceState[] BgmSnapshot() => bgmPlayback?.Snapshot(BgmVolume, SoundEnabled && !applicationPaused) ?? Array.Empty<BgmVoiceState>();
+        public void ClearBgmEventLog() => bgmEventLog.Clear();
+        private void AdvanceBgm(double seconds)
+        {
+            if (applicationPaused || AudioListener.pause || bgmPlayback == null) return;
+            if (bgmPlayback.Tick(seconds)) LogBgm("fade-complete", 0);
+            bgmPlayback.ObservePlayback(bgmPlaybackObserved);
+        }
+        private void OnBgmPlaybackObserved(string kind, string trackKey) => LogBgm(kind, 0, trackKey);
+#if UNITY_EDITOR
+        public void AdvanceBgmForReview(double seconds)
+        { lastBgmClock = Time.realtimeSinceStartupAsDouble; AdvanceBgm(seconds); }
+#endif
+        private void OnApplicationPause(bool paused)
+        {
+            if (applicationPaused == paused) return;
+            applicationPaused = paused;
+            if (paused) { listenerPausedBeforeBackground = AudioListener.pause; AudioListener.pause = true; }
+            else AudioListener.pause = listenerPausedBeforeBackground;
+            // AudioListener.pause freezes DSP time and scheduled starts; the envelope must freeze with it.
+            lastBgmClock = Time.realtimeSinceStartupAsDouble;
+            if (config != null) LogBgm(paused ? "application-pause" : "application-resume", 0);
+        }
+        private void LogBgm(string kind, double fadeSeconds, string observedTrackKey = null)
+        {
+            bgmEventLog.Add(new BgmPlaybackEvent { Kind = kind, Context = bgmContext, TargetKey = BgmTargetKey,
+                ObservedTrackKey = observedTrackKey, AtSeconds = Time.realtimeSinceStartupAsDouble, DspTimeSeconds = AudioSettings.dspTime,
+                FadeSeconds = fadeSeconds, Volume = BgmVolume, SoundEnabled = SoundEnabled,
+                ApplicationPaused = applicationPaused, Voices = BgmSnapshot() });
+            int capacity = config["audio"]["eventLogCapacity"].Value<int>();
+            if (bgmEventLog.Count > capacity) bgmEventLog.RemoveRange(0, bgmEventLog.Count - capacity);
+        }
         public void BeginEffect() { StopEffects(); eventLog.Clear(); }
         public void ClearEventLog() => eventLog.Clear();
         public void StartDrone(double atMs, double nowMs, int level)
@@ -204,7 +304,11 @@ namespace Imoni.Game.Audio
             var clip = AudioClip.Create(original.name + " (presentation octave)", original.samples, original.channels, (int)(original.frequency * plan.Number("octaveRatio")), false);
             clip.SetData(samples, 0); octaveClips.Add(original, clip); return clip;
         }
-        private void OnDisable() => StopAll();
+        private void OnDisable()
+        {
+            StopAll();
+            if (applicationPaused) { AudioListener.pause = listenerPausedBeforeBackground; applicationPaused = false; }
+        }
         private void OnDestroy()
         { StopAll(); foreach (AudioClip clip in octaveClips.Values) if (clip) Destroy(clip); octaveClips.Clear(); if (Instance == this) Instance = null; }
     }

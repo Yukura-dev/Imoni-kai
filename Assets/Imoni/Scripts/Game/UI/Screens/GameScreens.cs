@@ -160,7 +160,7 @@ namespace Imoni.Game.UI.Screens
                 TimeUpDialog.TimeText = GameHudProjection.Clock(Snapshot.LastResult.ElapsedSeconds) + " タイムアップ";
                 TimeUpDialog.style.display = DisplayStyle.Flex;
             }
-            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen && !IsReconnecting;
+            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen && !IsReconnecting && !App.Router.HasOverlay;
             UpdateHistory();
         }
 
@@ -169,7 +169,7 @@ namespace Imoni.Game.UI.Screens
 
         private void OnPanelChanged()
         {
-            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen && !IsReconnecting;
+            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen && !IsReconnecting && !App.Router.HasOverlay;
             Find<ImoniButton>("OpenWarehouse").Selected = CurrentPanel == "warehouse";
             Find<ImoniButton>("OpenShop").Selected = CurrentPanel == "shop";
             Find<ImoniButton>("OpenUpgrades").Selected = CurrentPanel == "upgrade";

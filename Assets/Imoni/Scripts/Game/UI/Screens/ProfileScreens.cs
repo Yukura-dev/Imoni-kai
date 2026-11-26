@@ -28,6 +28,7 @@ namespace Imoni.Game.UI.Screens
             Find<StatCard>("ranking-records").Value = App.Profile.Rankings.Length > 0 ? "登録済み" : "未登録";
             Find<ImoniText>("endless-locked").text = "エンドレス:" + App.Data["round"]["roundsToClear"] + "連続成功で解放";
             Find<ImoniButton>("play").clicked += () => App.Go("Lobby");
+            Find<ImoniButton>("help").clicked += () => App.OpenHelp();
             var modeSelector = Find<SegmentedControl>("home-mode-selector");
             modeSelector.style.display = App.EndlessUnlocked ? DisplayStyle.Flex : DisplayStyle.None;
             this.Q<VisualElement>(className: "home-modes").style.display = App.EndlessUnlocked ? DisplayStyle.None : DisplayStyle.Flex;

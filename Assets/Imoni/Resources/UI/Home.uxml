@@ -6,6 +6,7 @@
                 <c:TitleChips name="home-titles" size="Compact" />
                 <c:ImoniText name="home-name" class="home-name" />
             </ui:VisualElement>
+            <c:ImoniButton name="help" variant="Icon" icon="help_question" tooltip="遊び方" class="home-settings home-help" />
             <c:ImoniButton name="settings" variant="Icon" icon="icon_settings" tooltip="設定" class="home-settings" />
         </ui:VisualElement>
         <ui:VisualElement class="home-main">

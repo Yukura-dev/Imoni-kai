@@ -6,6 +6,7 @@
 .safe-area-cover--left { left: 0; top: 0; bottom: 0; width: 0; }
 .safe-area-cover--right { right: 0; top: 0; bottom: 0; width: 0; }
 .imoni-app--game .safe-area-cover--bottom { background-color: var(--c-cream); }
+.imoni-app--help .safe-area-cover--bottom { background-color: var(--c-yellow); }
 .screen-view { flex-grow: 1; min-height: 0; }
 .screen-view > .screen { flex-grow: 1; min-height: 0; }
 .screen-view .tabbar { flex-shrink: 0; }

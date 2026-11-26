@@ -8,6 +8,7 @@ namespace Imoni.Game.UI
     public sealed class UIRuntimeAssets : ScriptableObject
     {
         public TextAsset config;
+        public TextAsset helpContent;
         public StyleSheet theme;
         public VisualTreeAsset imoniEffectTree;
         public StyleSheet imoniEffectStyle;
@@ -17,8 +18,18 @@ namespace Imoni.Game.UI
         public UnityEngine.Audio.AudioMixerGroup audioBgm;
         public UnityEngine.Audio.AudioMixerGroup audioEffects;
         public AudioClip backgroundMusic;
+        public NamedBgmTrack[] backgroundMusicTracks = Array.Empty<NamedBgmTrack>();
         public AudioClip[] imoniEffectAudio = Array.Empty<AudioClip>();
         public NamedTexture[] textures = Array.Empty<NamedTexture>();
+    }
+
+    [Serializable]
+    public sealed class NamedBgmTrack
+    {
+        public string key;
+        public AudioClip intro;
+        public AudioClip loop;
+        public float gain = 1;
     }
 
     [Serializable]

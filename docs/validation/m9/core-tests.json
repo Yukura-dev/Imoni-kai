@@ -1,0 +1,8 @@
+{
+  "command": "dotnet test tools/CoreTests --logger \"trx;LogFileName=m9-core.trx\" --results-directory Library/M9-tests",
+  "total": 548,
+  "passed": 548,
+  "failed": 0,
+  "notExecuted": 0,
+  "newBgmCases": 56
+}

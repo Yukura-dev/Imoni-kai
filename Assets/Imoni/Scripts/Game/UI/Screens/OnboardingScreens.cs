@@ -65,7 +65,7 @@ namespace Imoni.Game.UI.Screens
             string[] thresholds = App.Data["bonusTiers"].Select(tier => tier["minPercent"].ToString() + "%").ToArray();
             bonus.Description = "目標の" + thresholds[0] + "で報酬。" + string.Join("・", thresholds.Skip(1)) + "でさらに倍!";
             Find<TutorialTimelineStep>("timeline-finish").Time = Clock(duration);
-            Find<ImoniText>("clear-condition").text = round["roundsToClear"] + "ラウンド連続成功でクリア!その先はエンドレス";
+            Find<ImoniText>("clear-condition").text = round["roundsToClear"] + "ラウンド連続成功でクリア!立派な芋煮会をしよう！";
             Find<ImoniButton>("next").clicked += () => App.Go("Tutorial3");
         }
 
