@@ -48,28 +48,28 @@ namespace Imoni.Core
     public static class RoundResultProjection
     {
         public static RoundResultView Present(GameConfig config, RoundResult result, string actorId = "player1",
-            IEnumerable<string> ownedFirst = null, IEnumerable<string> ownedSecond = null)
+            IEnumerable<string> ownedFirst = null, IEnumerable<string> ownedSecond = null, IReadOnlyList<EarnedTitlePart> progressionTitles = null)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));
             if (result == null) throw new ArgumentNullException(nameof(result));
             RoundEvaluation evaluation = result.Evaluation;
-            bool clear = evaluation.Success && result.RoundNumber >= config.RoundsToClear;
+            bool clear = evaluation.Success && !result.IsEndless && result.RoundNumber >= config.RoundsToClear;
             GoalProgress bonus = evaluation.BonusGoal;
             GameMath.DecimalRatio(config.RequiredWeight, out BigInteger requiredWeight, out BigInteger requiredDenominator);
             GameMath.DecimalRatio(config.BonusWeight, out BigInteger bonusWeight, out BigInteger bonusDenominator);
             var missing = Array.AsReadOnly(evaluation.MissingMaterialIds.Select(id => config.Material(id).Name).ToArray());
-            var titles = EligibleTitles(config, result, actorId, ownedFirst, ownedSecond);
+            var titles = progressionTitles ?? EligibleTitles(config, result, actorId, ownedFirst, ownedSecond);
             string multiplier = "×" + Format.Big(evaluation.BonusMultiplier, config);
             return new RoundResultView
             {
                 Success = evaluation.Success, IsClear = clear, CanNextRound = evaluation.Success && !clear, CanRetry = !evaluation.Success,
-                RoundNumber = result.RoundNumber, RoundText = "ラウンド " + result.RoundNumber + "/" + config.RoundsToClear + " 結果",
+                RoundNumber = result.RoundNumber, RoundText = result.IsEndless ? "エンドレス R" + result.RoundNumber + " 結果" : "ラウンド " + result.RoundNumber + "/" + config.RoundsToClear + " 結果",
                 Rank = evaluation.Success ? config.ResultRules.Grades.First(grade => bonus.Current * 100 >= bonus.Required * grade.MinimumBonusPercent).Grade : string.Empty,
                 Required = Array.AsReadOnly(evaluation.RequiredGoals.Select(goal => DisplayProjection.Goal(config, goal.MaterialId, goal.Current, goal.Required)).ToArray()),
                 BonusGoal = DisplayProjection.Goal(config, bonus.MaterialId, bonus.Current, bonus.Required),
                 BonusTiers = DisplayProjection.BonusTiers(config, bonus.Current, bonus.Required),
                 BonusText = config.Material(bonus.MaterialId).Name + " " + Format.Big(bonus.Current, config) + "/" + Format.Big(bonus.Required, config),
-                BonusStatusText = Format.Big(bonus.Current * 100 / bonus.Required, config) + "% 報酬" + multiplier,
+                BonusStatusText = DisplayProjection.Achievement(config, bonus.Current, bonus.Required) + " 報酬" + multiplier,
                 ScoreText = Format.Big(evaluation.Score, config), FundsRewardText = "+" + Format.Big(evaluation.FundsReward, config) + config.CurrencyUnit,
                 CumulativeScoreText = Format.Big(result.CumulativeScore, config),
                 RequiredPointsText = RatioText(evaluation.RequiredPointsRaw, evaluation.PointScale, config),
@@ -79,11 +79,11 @@ namespace Imoni.Core
                 BonusMultiplierText = multiplier,
                 BreakdownTitle = "スコア内訳(" + config.RequiredWeight.ToString(CultureInfo.InvariantCulture) + "×R + " + config.BonusWeight.ToString(CultureInfo.InvariantCulture) + "×B×T)",
                 MissingMaterialNames = missing,
-                MissingMaterialText = missing.Count == 0 ? string.Empty : "必須素材『" + string.Join("・", missing) + "』が足りなかった",
+                MissingMaterialText = missing.Count == 0 ? string.Empty : "必須素材「" + string.Join("・", missing) + "」が足りなかった",
                 NextButtonText = !evaluation.Success ? "R1から再挑戦" : clear ? "ホームへ戻る" : "ラウンド" + (result.RoundNumber + 1) + "へ",
                 NewlyEligibleTitles = titles,
                 NewTitleText = titles.Count == 0 ? string.Empty : string.Join("・", titles.Select(title => "「" + title.Value + "」GET!")),
-                TitleRewardText = titles.Count > 0 ? string.Join("・", titles.Select(title => "「" + title.Value + "」GET!"))
+                TitleRewardText = titles.Count > 0 ? "「" + titles[0].Value + "」GET!" + (titles.Count > 1 ? "\nほか" + Format.Big(titles.Count - 1, config) + "件" : string.Empty)
                     : EligibleTitles(config, result, actorId).Count > 0 ? "獲得済み" : "なし"
             };
         }
@@ -97,25 +97,15 @@ namespace Imoni.Core
             int peak = result.History.Where(record => record.RoundNumber == result.RoundNumber && record.ActorId == actorId && record.Kind == OperationKind.Gather)
                 .Select(record => record.GatherStreak).DefaultIfEmpty(0).Max();
             return Array.AsReadOnly(config.ResultRules.TitleUnlocks.Where(rule => result.RoundNumber >= rule.MinimumRound && peak >= rule.MinimumStreak
-                && (!rule.RequiresClear || result.RoundNumber >= config.RoundsToClear) && !(rule.Part == "first" ? first : second).Contains(rule.Value))
+                && (!rule.RequiresClear || !result.IsEndless && result.RoundNumber >= config.RoundsToClear) && !(rule.Part == "first" ? first : second).Contains(rule.Value))
                 .Select(rule => new EarnedTitlePart(rule.Part, rule.Value)).ToArray());
         }
 
         private static string RatioText(BigInteger numerator, BigInteger denominator, GameConfig config)
         {
-            // Preserve fractional lot points for the breakdown. Score settlement itself is unchanged.
-            BigInteger divisor = denominator; int unit = 0;
-            while (unit + 1 < config.FormatUnits.Count && numerator >= divisor * config.FormatUnitBase)
-            { divisor *= config.FormatUnitBase; unit++; }
-            BigInteger whole = BigInteger.DivRem(numerator, divisor, out BigInteger remainder);
-            string fraction = string.Empty;
-            if (config.FormatDecimalPlaces > 0)
-            {
-                BigInteger digits = remainder * BigInteger.Pow(10, config.FormatDecimalPlaces) / divisor;
-                string text = digits.ToString(CultureInfo.InvariantCulture).PadLeft(config.FormatDecimalPlaces, '0').TrimEnd('0');
-                if (text.Length > 0) fraction = "." + text;
-            }
-            return whole.ToString(unit == 0 ? "N0" : "0", CultureInfo.InvariantCulture) + fraction + config.FormatUnits[unit];
+            // The authoritative score retains raw lot precision. Only the displayed breakdown
+            // is truncated, using exactly the same integer formatter as funds and quantities.
+            return Format.Big(numerator / denominator, config);
         }
     }
 }

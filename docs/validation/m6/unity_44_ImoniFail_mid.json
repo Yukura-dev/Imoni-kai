@@ -1,0 +1,187 @@
+{
+  "utc": "2026-11-26T02:22:34.9929719Z",
+  "width": 390,
+  "height": 844,
+  "screen": "ImoniFail",
+  "source": "artwork-preview",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "audio": {
+    "enabled": true,
+    "volume": 0.5,
+    "activeVoices": 2,
+    "mixer": "ImoniMaster",
+    "masterGroup": "Master",
+    "masterDecibels": -6.0206,
+    "allVoicesRouted": true,
+    "savedEnabled": true,
+    "savedVolume": 0.5
+  },
+  "round": 5,
+  "seed": 202647,
+  "phase": "Cleared",
+  "elapsed": 300.000000,
+  "funds": "329556614",
+  "cumulative": "1658746656",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "wood",
+      "name": "薪",
+      "required": "1518378",
+      "current": "1660926",
+      "met": true
+    },
+    {
+      "material": "fish",
+      "name": "魚",
+      "required": "393162",
+      "current": "400399",
+      "met": true
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "803690",
+      "current": "974117",
+      "met": true
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 4,
+        "speed": 5,
+        "amount": 5,
+        "luck": 5
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "344060D372DF83527010D81658625613BF0B21DBDBD6B4171E76126C828AAF56",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 46,
+  "result": {
+    "round": 5,
+    "success": true,
+    "score": "1570990703",
+    "requiredPoints": "20797518",
+    "bonusPoints": "390147986",
+    "bonusMultiplier": "8",
+    "fundsReward": "312118388",
+    "fundsAfter": "329556614",
+    "cumulative": "1658746656",
+    "missing": []
+  },
+  "effect": {
+    "timeMs": 4000.0,
+    "failed": true,
+    "level": 0,
+    "grayscaleTextures": 16,
+    "score": "937",
+    "displayScore": "936",
+    "finalScore": "7350",
+    "referenceScore": "18420",
+    "finaleAtMs": null,
+    "resultAtMs": null,
+    "resultVisible": false,
+    "pose": {
+      "PillarWidth": 57.783484681251032,
+      "GlowOpacity": 0.35,
+      "BurstOpacity": 0.0,
+      "RainbowDurationSec": 5.0,
+      "SpinDurationSec": 14.0,
+      "Gray": 0.0,
+      "PotScale": 1.0,
+      "BrothGlow": 0.4,
+      "Flash": 0.0,
+      "ShakeX": 0.0,
+      "ShakeY": 0.0,
+      "BannerScale": 1.0,
+      "BannerOpacity": 0.0,
+      "FinaleScale": 1.0,
+      "FailDrop": 0.0,
+      "Gauge": 94.1708,
+      "ShowBanner": false,
+      "Finale": false,
+      "FailFinale": false,
+      "ResultVisible": false
+    },
+    "levelEvents": [],
+    "activeItems": 3
+  },
+  "buttons": [
+    {
+      "name": "SoundButton",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 14.0,
+      "y": 44.0,
+      "width": 104.0,
+      "height": 40.0
+    },
+    {
+      "name": "SkipButton",
+      "text": "スキップ",
+      "enabled": true,
+      "display": "Flex",
+      "x": 300.0,
+      "y": 44.0,
+      "width": 76.0,
+      "height": 40.0
+    },
+    {
+      "name": "ResultButton",
+      "text": "結果を見る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 24.0,
+      "y": 704.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ReplayButton",
+      "text": "もう一回見る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 24.0,
+      "y": 772.0,
+      "width": 0.0,
+      "height": 0.0
+    }
+  ],
+  "image": "M6-44_ImoniFail_mid.png"
+}

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Imoni.Core;
 using Imoni.Game.UI.Components;
+using UnityEngine.UIElements;
 
 namespace Imoni.Game.UI.Screens
 {
@@ -13,7 +14,8 @@ namespace Imoni.Game.UI.Screens
         {
             RoundResult settled = App.Server?.Snapshot().LastResult ?? throw new InvalidOperationException("Result requires a settled round.");
             string actor = App.Server.Snapshot().Players.First(player => !player.IsBot).Id;
-            Result = RoundResultProjection.Present(UiTheme.Config, settled, actor, App.Profile.OwnedFirstTitles, App.Profile.OwnedSecondTitles);
+            ProgressionOutcome rewards = App.PreviewResultRewards(settled, actor);
+            Result = RoundResultProjection.Present(UiTheme.Config, settled, actor, App.Profile.OwnedFirstTitles, App.Profile.OwnedSecondTitles, rewards.Titles);
             var header = Find<RoundHeader>("ResultHeader"); header.RoundText = Result.RoundText;
             var hero = Find<RankHero>("ResultHero"); hero.Rank = Result.Rank;
             Find<RequiredGoalsCard>("ResultRequired").Bind(Result.Required);
@@ -27,6 +29,13 @@ namespace Imoni.Game.UI.Screens
                 Find<ImoniText>("ResultNextNote").text = UiTheme.Config.RoundsToClear + "ラウンド連続成功!みんなでおいしい芋煮ができた!";
             }
             next.clicked += () => { if (Result.IsClear) App.Go("Home"); else if (Result.CanNextRound) App.StartNextRound(); };
+            var endless = Find<ImoniButton>("ResultEndless");
+            endless.style.display = Result.IsClear ? DisplayStyle.Flex : DisplayStyle.None;
+            endless.clicked += () => App.Go("Endless");
+            var finish = Find<ImoniButton>("ResultFinishEndless");
+            finish.style.display = settled.IsEndless && settled.RoundNumber > UiTheme.Config.RoundsToClear ? DisplayStyle.Flex : DisplayStyle.None;
+            finish.clicked += App.FinishEndless;
+            Find<VisualElement>("ResultActions").EnableInClassList("result-actions--multiple", Result.IsClear || settled.IsEndless && settled.RoundNumber > UiTheme.Config.RoundsToClear);
             App.GrantResultRewards(settled, actor);
         }
     }
@@ -44,6 +53,8 @@ namespace Imoni.Game.UI.Screens
             Find<StatCard>("GameOverCumulative").Value = Result.CumulativeScoreText;
             Find<ImoniButton>("GameOverRetry").clicked += () => { if (Result.CanRetry) App.RetryChallenge(); };
             Find<ImoniButton>("GameOverHome").clicked += () => App.Go("Home");
+            string actor = App.Server.Snapshot().Players.First(player => !player.IsBot).Id;
+            App.GrantResultRewards(settled, actor);
         }
     }
 }

@@ -1,0 +1,105 @@
+{
+  "screen": "Lobby",
+  "connectionState": null,
+  "resolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "nativeResolution": {
+    "width": 1080,
+    "height": 2340
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1080.0,
+    "height": 2261.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 28.5277767,
+    "width": 390.0,
+    "height": 816.4722
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 18.0555553,
+        "y": 80.52778,
+        "width": 44.0555573,
+        "height": 44.0555573
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "CopyTeamCode",
+      "text": "招待コードをコピー",
+      "bounds": {
+        "x": 36.11111,
+        "y": 531.9166,
+        "width": 317.777771,
+        "height": 44.055542
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "共通シード\n<size=10>今週 #2026-47・共通シード部門</size>",
+      "bounds": {
+        "x": 35.02778,
+        "y": 651.4444,
+        "width": 156.0,
+        "height": 58.138916
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "自由シード\n<size=10>ランダム生成・自由シード部門</size>",
+      "bounds": {
+        "x": 198.9722,
+        "y": 651.4444,
+        "width": 155.999969,
+        "height": 58.138916
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "ReadyButton",
+      "text": "準備完了",
+      "bounds": {
+        "x": 18.0555553,
+        "y": 777.8334,
+        "width": 353.8889,
+        "height": 63.916626
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

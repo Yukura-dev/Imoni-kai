@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
-    <ui:VisualElement class="onboarding-page onboarding-page--second">
+    <ui:VisualElement class="onboarding-page onboarding-page--second safe-design-padding">
         <c:StepTitle name="round-title" step="2" count="3" stacked="true" class="tutorial-block" />
         <c:Card class="tutorial-timeline-card tutorial-block">
             <c:TutorialTimelineStep name="timeline-start" time="0:00" heading="必須素材の発表" description="集める素材と数がすべて公開。資源をタップすると自動で移動・採集するよ" tone="Start" class="tutorial-timeline-spaced" />

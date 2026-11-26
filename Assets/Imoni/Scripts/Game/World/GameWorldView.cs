@@ -30,6 +30,7 @@ namespace Imoni.Game.World
         private readonly Dictionary<string, Rect> growthLabelRects = new Dictionary<string, Rect>();
         private readonly List<Rect> characterAvoidanceRects = new List<Rect>();
         private readonly LockedAreaOverlayView locked;
+        private WorldBoundarySurface forestBoundary;
         private readonly Label campLabel;
         private readonly Vector3 campPosition;
         private readonly Rect originalCameraRect;
@@ -93,7 +94,7 @@ namespace Imoni.Game.World
                 characters.Add(player.Id, view);
             }
             locked = Object.Instantiate(assets.lockedAreaOverlay, worldRoot.transform);
-            locked.Initialize(server.World, assets.tileSet, snapshot.RoundNumber, overlay);
+            locked.Initialize(server.World, assets, style, snapshot.RoundNumber, overlay);
             campPosition = Position(server.World.Start) + Vector3.up * style.Units("campHeightPx") / 2;
             var campObject = new GameObject("Starting Camp"); campObject.transform.SetParent(worldRoot.transform, false); campObject.transform.position = campPosition;
             int campOrder = SortOrder(server.World.Start.Y) - 3;
@@ -150,7 +151,7 @@ namespace Imoni.Game.World
                 Vector2 point = LocalPoint(character.DisplayPosition);
                 character.PositionOverlay(point, OnMap(point, style.Number("playerHeightPx")));
             }
-            locked.Rebuild(server.World, assets.tileSet, snapshot.RoundNumber);
+            locked.Rebuild(server.World, snapshot.RoundNumber);
             PositionLockLabel();
             Vector2 campPoint = LocalPoint(campPosition);
             WorldViewStyle.Position(campLabel, campPoint + new Vector2(style.Number("campLabelOffsetXPx"), style.Number("campHeightPx") / 2 + style.Number("labelOffsetPx")));
@@ -169,7 +170,7 @@ namespace Imoni.Game.World
         /// <summary>Uses the same coordinate conversion and target picking as actual PointerDown events.</summary>
         public bool TryTapPanelPoint(Vector2 panelPoint)
         {
-            if (disposed || !InputEnabled || !viewport.worldBound.Contains(panelPoint)) return false;
+            if (disposed || !InputEnabled || !viewport.worldBound.Contains(panelPoint) || !ResizeCamera()) return false;
             Vector3 worldPoint = PanelToWorld(panelPoint);
             ResourceNodeView selected = resources.Values.Where(view => view.gameObject.activeSelf && view.State.IsReady && view.Contains(worldPoint))
                 .OrderBy(view => (view.transform.position - worldPoint).sqrMagnitude).FirstOrDefault();
@@ -193,7 +194,13 @@ namespace Imoni.Game.World
             Tilemap tilemap = boot.WorldTilemap; tilemap.ClearAllTiles();
             tilemap.GetComponent<TilemapRenderer>().sortingOrder = 0;
             for (int y = 0; y < server.World.Height; y++) for (int x = 0; x < server.World.Width; x++)
-                tilemap.SetTile(Cell(x, y), assets.tileSet.For(server.World.TileAt(new GridPosition(x, y))));
+            {
+                WorldTile tile = server.World.TileAt(new GridPosition(x, y));
+                tilemap.SetTile(Cell(x, y), tile.BiomeId == "forest" && !tile.IsBridge ? assets.tileSet.plain : assets.tileSet.For(tile));
+            }
+            forestBoundary = new WorldBoundarySurface(worldRoot.transform, "Forest Boundary", server.World, assets.worldBoundaryShader,
+                assets.tileSet.forest.sprite.texture, assets.tileSet.forest.color, style.Units("boundaryFeatherPx"), 1);
+            forestBoundary.Rebuild(position => server.World.TileAt(position).BiomeId == "forest" && !server.World.TileAt(position).IsBridge);
         }
 
         private void ArrangeGrowthLabels()
@@ -263,7 +270,9 @@ namespace Imoni.Game.World
                 || float.IsNaN(area.x) || float.IsNaN(area.y)) return false;
             camera.rect = new Rect((area.x - full.x) / full.width, 1 - (area.yMax - full.y) / full.height, area.width / full.width, area.height / full.height);
             camera.orthographicSize = area.height / (2 * style.TileSize);
-            return true;
+            // A window/device transition can retain panel bounds while its render surface is
+            // temporarily zero-sized. Keep ticking Core, but defer camera projection/input.
+            return camera.pixelWidth > 0 && camera.pixelHeight > 0;
         }
         private static bool FinitePositive(float value) => value > 0 && !float.IsInfinity(value) && !float.IsNaN(value);
 
@@ -345,6 +354,7 @@ namespace Imoni.Game.World
             foreach (CharacterView view in characters.Values) view.Release();
             foreach (GatherPopupView popup in popups) popup.Release();
             locked.Release(); overlay.RemoveFromHierarchy();
+            forestBoundary?.Dispose();
             if (boot.WorldTilemap) boot.WorldTilemap.ClearAllTiles();
             if (worldRoot) Object.Destroy(worldRoot);
             if (camera)

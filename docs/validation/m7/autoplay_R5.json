@@ -1,0 +1,650 @@
+{
+  "utc": "2026-11-26T03:31:08.2218585Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Game",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "audio": {
+    "enabled": true,
+    "volume": 1.0,
+    "activeVoices": 0,
+    "mixer": "ImoniMaster",
+    "masterGroup": "Master",
+    "masterDecibels": 0.0,
+    "allVoicesRouted": true,
+    "savedEnabled": true,
+    "savedVolume": 1.0
+  },
+  "round": 5,
+  "seed": 202647,
+  "phase": "Cleared",
+  "elapsed": 300.0,
+  "funds": "78048528973512900624178281054495",
+  "cumulative": "390242644867564510660793456796400",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "wood",
+      "name": "薪",
+      "required": "52932742642",
+      "current": "83201055145",
+      "met": true
+    },
+    {
+      "material": "fish",
+      "name": "魚",
+      "required": "2203847586",
+      "current": "2256860123",
+      "met": true
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "99816826098",
+      "current": "118013720000",
+      "met": true
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 21,
+        "speed": 22,
+        "amount": 22,
+        "luck": 22
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "B5687C4F79306F52DCD41EAEB9446CBDFEB785682ECF9180EDCF6D08807654CB",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 46,
+  "result": {
+    "round": 5,
+    "success": true,
+    "score": "390242644867564510660793368894307",
+    "requiredPoints": "15079804016252287",
+    "bonusPoints": "97560661216891125780222840192041",
+    "bonusMultiplier": "8",
+    "fundsReward": "78048528973512900624178272153632",
+    "fundsAfter": "78048528973512900624178281054495",
+    "cumulative": "390242644867564510660793456796400",
+    "missing": []
+  },
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "enabled": true,
+      "display": "Flex",
+      "x": 10.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "enabled": true,
+      "display": "Flex",
+      "x": 105.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "enabled": true,
+      "display": "Flex",
+      "x": 199.0,
+      "y": 771.0,
+      "width": 87.0,
+      "height": 59.0
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "enabled": true,
+      "display": "Flex",
+      "x": 294.0,
+      "y": 771.0,
+      "width": 86.0,
+      "height": 59.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ProtectDecrease",
+      "text": "−",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ProtectIncrease",
+      "text": "＋",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ToggleProtection",
+      "text": "全部保護",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent25",
+      "text": "25%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent50",
+      "text": "50%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent75",
+      "text": "75%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SalePercent100",
+      "text": "100%",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SaleSelected",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "SellAllUnprotected",
+      "text": "保護以外をまとめて売却",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "",
+      "text": "",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ReturnHome",
+      "text": "ホームへ戻る(挑戦は中断)",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "TimeUpResults",
+      "text": "結果を見る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ReconnectHome",
+      "text": "ホームへ戻る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 0.0,
+      "height": 0.0
+    }
+  ],
+  "status": "autoplay complete",
+  "autoplay": {
+    "round": 5,
+    "actor": "player1",
+    "secondsAdvanced": 300.0,
+    "tickCalls": 150,
+    "resourceSelections": 134,
+    "commands": "IGameServer.TrySelectResource/Upgrade/Buy/Tick",
+    "upgradePolicy": "budget",
+    "upgradePurchases": [
+      {
+        "upgrade": "amount",
+        "level": 8,
+        "cost": "2563"
+      },
+      {
+        "upgrade": "luck",
+        "level": 8,
+        "cost": "2563"
+      },
+      {
+        "upgrade": "speed",
+        "level": 8,
+        "cost": "2563"
+      },
+      {
+        "upgrade": "move",
+        "level": 8,
+        "cost": "2563"
+      },
+      {
+        "upgrade": "amount",
+        "level": 9,
+        "cost": "3844"
+      },
+      {
+        "upgrade": "luck",
+        "level": 9,
+        "cost": "3844"
+      },
+      {
+        "upgrade": "speed",
+        "level": 9,
+        "cost": "3844"
+      },
+      {
+        "upgrade": "move",
+        "level": 9,
+        "cost": "3844"
+      },
+      {
+        "upgrade": "amount",
+        "level": 10,
+        "cost": "5767"
+      },
+      {
+        "upgrade": "luck",
+        "level": 10,
+        "cost": "5767"
+      },
+      {
+        "upgrade": "speed",
+        "level": 10,
+        "cost": "5767"
+      },
+      {
+        "upgrade": "move",
+        "level": 10,
+        "cost": "5767"
+      },
+      {
+        "upgrade": "amount",
+        "level": 11,
+        "cost": "8650"
+      },
+      {
+        "upgrade": "luck",
+        "level": 11,
+        "cost": "8650"
+      },
+      {
+        "upgrade": "speed",
+        "level": 11,
+        "cost": "8650"
+      },
+      {
+        "upgrade": "move",
+        "level": 11,
+        "cost": "8650"
+      },
+      {
+        "upgrade": "amount",
+        "level": 12,
+        "cost": "12975"
+      },
+      {
+        "upgrade": "luck",
+        "level": 12,
+        "cost": "12975"
+      },
+      {
+        "upgrade": "speed",
+        "level": 12,
+        "cost": "12975"
+      },
+      {
+        "upgrade": "move",
+        "level": 12,
+        "cost": "12975"
+      },
+      {
+        "upgrade": "amount",
+        "level": 13,
+        "cost": "19462"
+      },
+      {
+        "upgrade": "luck",
+        "level": 13,
+        "cost": "19462"
+      },
+      {
+        "upgrade": "speed",
+        "level": 13,
+        "cost": "19462"
+      },
+      {
+        "upgrade": "move",
+        "level": 13,
+        "cost": "19462"
+      },
+      {
+        "upgrade": "amount",
+        "level": 14,
+        "cost": "29193"
+      },
+      {
+        "upgrade": "luck",
+        "level": 14,
+        "cost": "29193"
+      },
+      {
+        "upgrade": "speed",
+        "level": 14,
+        "cost": "29193"
+      },
+      {
+        "upgrade": "move",
+        "level": 14,
+        "cost": "29193"
+      },
+      {
+        "upgrade": "amount",
+        "level": 15,
+        "cost": "43789"
+      },
+      {
+        "upgrade": "luck",
+        "level": 15,
+        "cost": "43789"
+      },
+      {
+        "upgrade": "speed",
+        "level": 15,
+        "cost": "43789"
+      },
+      {
+        "upgrade": "move",
+        "level": 15,
+        "cost": "43789"
+      },
+      {
+        "upgrade": "amount",
+        "level": 16,
+        "cost": "65684"
+      },
+      {
+        "upgrade": "luck",
+        "level": 16,
+        "cost": "65684"
+      },
+      {
+        "upgrade": "speed",
+        "level": 16,
+        "cost": "65684"
+      },
+      {
+        "upgrade": "move",
+        "level": 16,
+        "cost": "65684"
+      },
+      {
+        "upgrade": "amount",
+        "level": 17,
+        "cost": "98526"
+      },
+      {
+        "upgrade": "luck",
+        "level": 17,
+        "cost": "98526"
+      },
+      {
+        "upgrade": "speed",
+        "level": 17,
+        "cost": "98526"
+      },
+      {
+        "upgrade": "move",
+        "level": 17,
+        "cost": "98526"
+      },
+      {
+        "upgrade": "amount",
+        "level": 18,
+        "cost": "147789"
+      },
+      {
+        "upgrade": "luck",
+        "level": 18,
+        "cost": "147789"
+      },
+      {
+        "upgrade": "speed",
+        "level": 18,
+        "cost": "147789"
+      },
+      {
+        "upgrade": "move",
+        "level": 18,
+        "cost": "147789"
+      },
+      {
+        "upgrade": "amount",
+        "level": 19,
+        "cost": "221684"
+      },
+      {
+        "upgrade": "luck",
+        "level": 19,
+        "cost": "221684"
+      },
+      {
+        "upgrade": "speed",
+        "level": 19,
+        "cost": "221684"
+      },
+      {
+        "upgrade": "move",
+        "level": 19,
+        "cost": "221684"
+      },
+      {
+        "upgrade": "amount",
+        "level": 20,
+        "cost": "332526"
+      },
+      {
+        "upgrade": "luck",
+        "level": 20,
+        "cost": "332526"
+      },
+      {
+        "upgrade": "speed",
+        "level": 20,
+        "cost": "332526"
+      },
+      {
+        "upgrade": "move",
+        "level": 20,
+        "cost": "332526"
+      },
+      {
+        "upgrade": "amount",
+        "level": 21,
+        "cost": "498789"
+      },
+      {
+        "upgrade": "luck",
+        "level": 21,
+        "cost": "498789"
+      },
+      {
+        "upgrade": "speed",
+        "level": 21,
+        "cost": "498789"
+      },
+      {
+        "upgrade": "move",
+        "level": 21,
+        "cost": "498789"
+      },
+      {
+        "upgrade": "amount",
+        "level": 22,
+        "cost": "748183"
+      },
+      {
+        "upgrade": "luck",
+        "level": 22,
+        "cost": "748183"
+      },
+      {
+        "upgrade": "speed",
+        "level": 22,
+        "cost": "748183"
+      }
+    ]
+  },
+  "goalReach": [
+    {
+      "material": "wood",
+      "name": "薪",
+      "target": "52932742642",
+      "achieved": "83201055145",
+      "firstReachedSeconds": 106.602022,
+      "bonus": false
+    },
+    {
+      "material": "fish",
+      "name": "魚",
+      "target": "2203847586",
+      "achieved": "2256860123",
+      "firstReachedSeconds": 70.884747,
+      "bonus": false
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "target": "99816826098",
+      "achieved": "118013720000",
+      "firstReachedSeconds": 104.784882,
+      "bonus": false
+    },
+    {
+      "material": "sansai",
+      "name": "希少な山菜",
+      "target": "273945333",
+      "achieved": "1838303243047720000",
+      "firstReachedSeconds": 120.579766,
+      "bonus": true
+    }
+  ]
+}

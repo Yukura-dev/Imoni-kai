@@ -18,11 +18,16 @@
 .round-goals--wide-name .material-goal__name { width: 68px; }
 .result-bonus { min-height: 77px; }
 .result-bonus__heading { flex-direction: row; align-items: center; justify-content: space-between; }
-.result-bonus__status { height: 20px; font-size: 14px; -unity-font-definition: var(--font-body-black); color: var(--c-red); white-space: nowrap; }
+.result-bonus__heading > .round-card__heading { min-width: 0; flex-shrink: 1; }
+.result-bonus--stacked .result-bonus__heading { flex-direction: column; align-items: stretch; }
+.result-bonus--stacked .result-bonus__status { -unity-text-align: middle-right; }
+.result-bonus__status { height: 20px; min-width: 0; flex-shrink: 1; font-size: 14px; -unity-font-definition: var(--font-body-black); color: var(--c-red); white-space: nowrap; }
 .result-bonus__tiers { margin-top: 6px; }
 .score-breakdown { min-height: 112px; height: 112px; }
 .score-breakdown__row { flex-direction: row; justify-content: space-between; margin-top: 6px; }
 .score-breakdown__caption, .score-breakdown__value { font-size: 12px; -unity-font-definition: var(--font-body-black); white-space: nowrap; }
+.score-breakdown__caption { flex-shrink: 0; }
+.score-breakdown__value { min-width: 0; flex-shrink: 1; -unity-text-align: middle-right; }
 .score-breakdown__note { font-size: 10px; color: var(--c-brown-soft); margin-top: 6px; }
 .result-summary { border-radius: 18px; padding: 12px 14px; min-height: 120px; }
 .result-summary__row { flex-direction: row; }

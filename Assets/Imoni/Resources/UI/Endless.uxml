@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
+  <ui:VisualElement class="progression-screen">
+    <c:ImoniText text="エンドレスへ!" class="progression-title" />
+    <c:AnimatedPot variant="Small" steam="true" sway="true" class="progression-pot" />
+    <c:Card header="まだまだ芋煮会" class="progression-space">
+      <c:ImoniText name="EndlessDescription" class="progression-copy" />
+      <ui:VisualElement class="progression-stats">
+        <c:StatCard name="EndlessScore" label="累積スコア" variant="Home" />
+        <c:StatCard name="EndlessFunds" label="共有資金" variant="Home" class="progression-stat-spaced" />
+      </ui:VisualElement>
+    </c:Card>
+    <c:Card variant="Dashed" class="progression-space">
+      <c:ImoniText text="成功した結果画面で「記録してホームへ」を選ぶと、エンドレスのランキングに登録されます。失敗・途中中断では登録されません。通常クリアの記録は残ります。" class="progression-copy" />
+    </c:Card>
+    <ui:VisualElement class="progression-spacer" />
+    <c:ImoniButton name="EndlessStart" variant="Primary" class="progression-button" />
+    <c:ImoniButton name="EndlessHome" variant="Outline" text="ホームへ戻る" class="progression-space" />
+  </ui:VisualElement>
+</ui:UXML>

@@ -16,7 +16,7 @@ namespace Imoni.Game.UI
         private static JObject data;
         private static readonly Dictionary<string, StyleSheet> sheets = new Dictionary<string, StyleSheet>();
         private static readonly ConditionalWeakTable<VisualElement, StyleRequests> requests = new ConditionalWeakTable<VisualElement, StyleRequests>();
-        public static readonly string[] ComponentStyles = { "UI/Components/Navigation", "UI/Components/Profile", "UI/Components/Data", "UI/Components/Effects", "UI/Components/ScreenPrimitives", "UI/Components/OnboardingParts", "UI/Components/LobbyParts", "UI/Components/ProfileScreenParts", "UI/Components/GamePanelParts", "UI/Components/RoundFlow" };
+        public static readonly string[] ComponentStyles = { "UI/Components/Navigation", "UI/Components/Profile", "UI/Components/Data", "UI/Components/Effects", "UI/Components/ScreenPrimitives", "UI/Components/OnboardingParts", "UI/Components/LobbyParts", "UI/Components/ProfileScreenParts", "UI/Components/GamePanelParts", "UI/Components/RoundFlow", "UI/Components/AudioSettings" };
         private sealed class StyleRequests { public readonly HashSet<string> Paths = new HashSet<string>(); }
         public static UIRuntimeAssets Assets => assets ? assets : (assets = Resources.Load<UIRuntimeAssets>("UI/UIRuntimeAssets"));
         public static GameConfig Config => config ?? (Assets && Assets.config ? (config = GameConfig.FromJson(Assets.config.text)) : null);

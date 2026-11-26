@@ -43,6 +43,8 @@ namespace Imoni.Core
         public decimal BonusWeight { get; }
         public int FormatUnitBase { get; }
         public int FormatDecimalPlaces { get; }
+        public int FormatMaxDisplayGroups { get; }
+        public int AchievementMultipleThresholdPercent { get; }
         public IReadOnlyList<string> FormatUnits { get; }
         public IReadOnlyList<MaterialDefinition> Materials { get; }
         public IReadOnlyList<QualityDefinition> Qualities { get; }
@@ -96,6 +98,8 @@ namespace Imoni.Core
             FormatUnitBase = PositiveInt(data, "format.unitBase");
             Require(FormatUnitBase > 1, "format.unitBase must exceed one.");
             FormatDecimalPlaces = NonnegativeInt(data, "format.decimalPlaces");
+            FormatMaxDisplayGroups = PositiveInt(data, "format.maxDisplayGroups");
+            AchievementMultipleThresholdPercent = PositiveInt(data, "format.achievementMultipleThresholdPercent");
             FormatUnits = ReadOnly(Array(data, "format.units").Select(token =>
             {
                 Require(token.Type == JTokenType.String, "Format units must be strings.");
@@ -111,6 +115,7 @@ namespace Imoni.Core
                 PositiveDecimal(token, "spawnWeight"))));
             foreach (MaterialDefinition material in Materials)
             {
+                Require(ObjectiveGeneration.BaseAmounts.ContainsKey(material.Id), "Every material needs a configured objective base amount.");
                 Require(material.Biomes.Count > 0, "Every material needs at least one biome.");
                 Unique(material.Biomes, "material biome");
                 foreach (string biomeId in material.Biomes) Biome(biomeId);

@@ -162,6 +162,6 @@
 
 正本は `D:/UnityProjects/Imoni-kai`。ここがUnityプロジェクトのルートで、`unity/` の入れ子は作らない。旧handoffは資料の受け取り元のみ。既存プロトタイプは比較用に残し、新実装は `Assets/Imoni/` に集約する。仕様書の `unity/Assets/` はこのリポジトリの `Assets/` と読み替える。
 
-2026-11-26：M4のaed4468はレビュー承認済み。rebuild/m4-panelsからrebuild/m5-round-flowを作成し、M5のタイムアップ→芋煮会演出→結果/失敗→次R/再挑戦、5連続成功の通常クリアを実装する。演出はIMONI_EFFECT_SPECの画面座標と既存Effect画像に厳密に従い、部品をプールする。全Coreテスト成功、Unityエラー警告0、指定時刻の演出5枚と結果/失敗2枚の390×844比較、可能なら録画をdocs/validation/m5へ保存。コミット・pushして停止しM6へ進まない。開発用のラウンド短縮は既定OFFで、Editor/Development Buildのみに限定する。
+2026-11-26：M6はレビュー承認済み。M7の開始時にmainでgit pull --ff-onlyを実行したが、origin/mainはまだM5の7d7e037を指していた。mainからrebuild/m7-polishを作り、承認済みrebuild/m6-audio-balance（ad965ae）をfast-forwardで取り込んだ。main自体は変更・pushしない。M7では共有資金からの見込み強化を目標へ反映し、実績・二つ名・ローカルランキング・エンドレス・再接続表示・境界と見出しを仕上げる。全Coreテスト成功・Unityエラー警告0、3パターンのバランス再計測、変更画面の比較、iPhone/AndroidのDevice Simulator Safe Area確認、Androidビルド、タイトルからR2までの通し録画をdocs/validation/m7へ記録する。完了条件を満たしたらrebuild/m7-polishをコミット・pushし、そこで停止する。
 
 USS非対応の構造擬似クラス（`:first-child`、`:last-child`、`:nth-child`など）は使わない。`Theme.uss` の先頭タブ用クラスは `.tabbar__item--first`。M2のTabBarは先頭のタブにこのクラスを付ける。

@@ -156,8 +156,8 @@
   - 該当：GameWorldView.cs、ResourceNodeView.cs、GameConfig.json。
 - 質問：ショップの「素材ごと」は全資源6種か。
   - 仮決定：UI_SPEC 11章とモックの4種（薪・里芋・ねぎ・キノコ）を扱う。対象は `ui.panels.shopMaterials` で変更できる。倉庫は全素材・品質に対応する。
-- 後続メモ（今は対応しない）：森林・未開放エリアの境目が四角いタイルの階段状に見える。M7でオートタイル等による滑らかな境界を検討する。
-- 後続メモ（今は対応しない）：R1の目標が2:50経過時点で倍近く達成でき、簡単すぎる可能性がある。プレイテストで目標上限の比率を調整する。
+- 対応済み（M7）：森林・未開放エリアの階段状境界は、既存Tile画像とセル中心マスクの双線形補間・4pxの縁で滑らかにした。Coreの地形・開放・衝突は変更しない。詳細は下記「M7 表示・再接続の判断」と `docs/M7_PRESENTATION.md`。
+- 対応済み（M6/M7の定量確認）：R1が2:50時点で倍近く達成できる懸念を受け、M6で目標と供給予測を調整し、M7で共有資金から購入可能な強化を見込むようにした。シード202647のM7実測は、R1の全必須到達が無強化4:17、計画的／予算内無制限強化2:42。R5の予算内無制限強化はM6の約12秒からM7の1:46となった。3方針の成功・失敗をともに `docs/validation/m6/balance.md` と `docs/validation/m7/balance.md` に残す。これは同一シードの自動操作比較であり、全プレイ方針の難易度保証ではない。
 - 質問：数量入力が売却可能数を超える場合、モックのように内部で上限へ丸めるか。
   - 判断：入力した数量を維持して売却を無効にする。今回の「保護を超える売却ができない」を明確にし、意図しない数量の即売却を避ける。割合ボタンは保護を除く数量から計算する。サーバーも過大な売却を拒否する。
   - 該当：GamePanelProjection.SelectSale、GamePanels.SellSelected、GamePanelTests。
@@ -182,3 +182,120 @@
 - 質問：指定撮影時刻と静止見本・参考動画の段階が一致しない場合はどれを基準にするか。
   - 仮決定：指定された演出開始からの時刻とIMONI_EFFECT_SPECの式を優先する。参考動画には成功0.76秒・失敗0.24秒の導入画面があり、静止41は演出4.6秒の状態ではない。元動画の並列比較を残したうえで、導入を除いた開始合わせ比較も保存する。乱数の違いを隠すためにタイムラインやスクリーンショットの時刻を変更しない。
   - 該当：docs/validation/m5/effect-comparison.md、tools/Compare-M5.ps1。
+
+## M6 目標インフレ・検証の判断（2026-11-26）
+
+- 質問：最高品質と連続数量を無視したM3の供給予測では、R5の要求がR1より小さく、数十万の採集量に見合わない。
+  - 仮決定：素材別基準量×ラウンド成長×最高品質補正×チーム強化補正で要求を増やす。基準は薪240・里芋160・ねぎ160・キノコ80・魚60・山菜40の90〜110%を抽選し、成長率1.35、最高品質補正の重み0.35とする。1.35は抽選幅1.1/0.9より大きく、同素材の基準量の振れだけで次Rの要求が逆転しない。最高品質の全倍率をそのまま平均採集量とは見なさず、実際の品質分布による供給予測で上限を確認する。
+  - 該当：ObjectiveGenerationConfig.cs、ObjectiveGenerator.cs、GameConfig.objectiveGeneration。
+- 質問：「チームの強化度合い」はLvの合計だけで十分か。
+  - 仮決定：チーム平均Lvの重み（移動0.1・速度0.15・量0.35・運0.12）に加え、同じ位置・在庫・ラウンドでの「実強化の期待供給÷無強化の期待供給」を掛ける（upgradeSupplyWeight=1）。これにより品質抽選と連続の非線形な増加も反映する。生成時の目標を、そのラウンド途中の強化で上げ下げしない。
+  - 該当：ObjectiveGenerator.TargetAmount、GeneratePlan、GatherYieldExpectation.cs。
+- 質問：期待品質と連続を含めても「達成可能」と言えるか。
+  - 仮決定：5分を素材ごとの重複しない作業時間に分け、A*往復移動・1訪問最大3採集・強化速度と量・共有在庫・再生時間を守る作業予定を構築する。実QualityRoller分布と有限回数の連続状態の期待値を加え、その品質換算供給の85%を上限にする。3回まとめて採るのは在庫3回分の自然な操作であり、以前の1採集ごとの拠点往復を過剰に見積もらないため。保証は想定能力と適切な操作での期待供給に収まることで、すべての品質抽選列・放置・無強化での成功保証ではない。
+  - 該当：ObjectiveGenerationPlan.Visits、ObjectiveInflationTests、docs/validation/m6/balance.md。各素材の段階開始時の連続分布は0から計算し、前の素材から続く連続の上振れを保証に使わない。
+- 質問：素材抽選や資源上限がある中で単調増加をどう検証するか。
+  - 仮決定：同素材・同シード・同じ位置／資源状態で、R1〜R5の上限適用後の目標も厳密増加を確認する。強化は非減少、全4強化では全目標の厳密増加を確認する。移動／速度単独の強化が在庫・再生の上限に達する場合だけ同値を許容する。物理的な供給を超えて増やすことはしない。
+  - 該当：ObjectiveInflationTests.FinalGeneratedTargetsAlsoIncreaseForEachRepeatedMaterialAfterCapacityClamp、RaisingUpgradesNeverReducesFinalTargetsAndReadsActualSupply。
+- 質問：自動操作の強化方針で結果が大きく違う。
+  - 仮決定：無強化・計画的強化・予算内無制限投資の3試行を保存する。強化はplayer1のみ、各R開始直後の所持金50%以内、低Lvからamount→luck→speed→move順。計画的試行は各項目+1Lv/Rまで。これはQA専用のbalanceReview設定で、ゲームの強化上限ではない。到達時刻は確定OperationRecordから算出する。
+  - 結果と限界：シード202647では無強化がR4で失敗、計画的強化のR5必須達成は約1:55、予算内無制限投資のR5は約12秒。開始後の大量強化を生成済み目標が予見できない問題は残す。高速クリアを隠すための試行除外、採集／連続／資金報酬の変更や強化上限は追加しない。
+  - 該当：tools/BalanceReview、GameConfig.balanceReview、docs/validation/m6/balance.json、balance.md。
+
+## M6 整数表示・失敗演出の判断（2026-11-26）
+
+- 質問：整数の「万・億・兆」表示で、最小桁や0のグループをどう扱うか。
+  - 判断：1万未満は3桁区切りの整数。1万以上は最高単位から最大2つの隣接単位を表示し、0のグループと万未満の端数は出さない。例は `12,345 → 1万`、`88,701,234 → 8,870万`、`1,234,567,890 → 12億3,456万`、`3,200,012,345,678 → 3兆2,000億`。数量・資金・ポイント・品質倍率・ランキングの表示を共通化する。入力欄と検証用JSONには正確な整数を保持する。
+  - 該当：Format.cs、DisplayProjection.cs、RoundResultProjection.cs、GameHudProjection.cs、ProfileScreens.cs、IntegerDisplayTests.cs。
+- 質問：スコア内訳を整数表示すると、表示した小計の和と確定スコアが一致しない場合がある。
+  - 判断：内部の固定小数精度と最後に一度だけ切り捨てる計算を保持し、各表示項目だけ端数を切り捨てる。内訳に「表示は端数切り捨て」と記載する。強化効果や連続倍率の小数は数量ではないため維持する。達成率1000%以上は整数の「目標の○倍」に切り替える。
+  - 該当：RoundResultProjection.cs、RoundFlowParts.cs、DisplayProjection.cs。
+- 質問：2単位の長い数値が、従来の固定幅に収まらない。
+  - 判断：StatCard・結果内訳は同じラベルを実測して必要時だけ縮小する。結果の目標行は数値列を内容に合わせて広げ、バーが残り幅を使う。Gameの目標チップは名前と数値が同じ行に収まらない場合だけ、同じ枠内の「名前／現在／目標」の配置へ切り替える。結果のボーナス見出しと達成率は最低文字サイズでも収まらない場合だけ2段にする。短い値の配置は保持する。
+  - 該当：NumericLabelFitter.cs、DataControls.cs、RoundFlowParts.cs、Data.uss。
+- 質問：失敗演出を灰色の半透明レイヤーだけで表すと、食材や鍋に元の色が強く残る。
+  - 判断：元画像は変更せず、World内の画像を実行時のシェーダーで段階的に無彩色へ変換する。700msの既存Gray進行を使い、透明度は保持する。線・光粒・画面下地の色も同じ輝度変換を適用する。灰色の覆いは中立色rgb(117,117,117)へ変更し、暖色が戻らないようにする。HUD・操作部品の固有色は対象外。描画用Textureは元画像ごとに再利用し、画面破棄時に解放する。
+  - 該当：ImoniEffectGrayscale.cs、ImoniEffectGrayscale.shader、ImoniEffectView.cs、ImoniEffectParts.cs。
+
+## M6 フォントの事前生成（2026-11-26）
+
+- 質問：Home設定を初めて開いた時、Unityの動的Atlas保存でNativeFormatImporter警告が出る。
+  - 判断：SetupでBlackフォントのHome/設定・初期プロフィール・大数単位の既知文字を生成し、AtlasをEditor APIで保存・同期Importする。Dynamicは未知の名前のため維持し、警告抑制は行わない。提供フォントにない「秭」は単位の事前生成集合からだけ除外し、既存フォールバックを使う。
+  - 該当：ImoniFontWarmup.cs、ImoniSetup.cs、生成済みZenMaruGothic-Black SDF.asset。
+
+## M7 フォント事前生成の拡張（2026-11-26）
+
+- 質問：M6のHome/設定124字の事前生成後も、冷起動・Androidビルド後のR5結果でBlack、アウトゲームでBold/Delaの動的Atlas再Import警告が再発する。
+  - 判断：全UXML属性・Core/Game文字列リテラル・Config文字列から既知UI文字を集め、全4字体で不足分だけ事前生成する。最終集合は594字で、Zen3種は「秭」以外の各593字、Delaは全角「＋」以外の593字。複数Atlasは配列容量ではなくatlasTextureCountの実使用枚数だけを保存・検証し、文字・設定に変化がないSetupはフォント保存・Importを省く。Dynamicは未知名のため維持し、生成済みフォントは意図した成果物として保持する。
+  - 判断：「秭」はZen3種に未収録だが提供Delaに収録されている。Zen→Delaの明示的なフォールバックとDelaでの事前生成を追加し、AndroidのOSフォントに依存させない。Delaのフォールバックは空で循環を避ける。Delaにない全角「＋」はZen Blackの倉庫Smallボタン専用なのでDela集合からだけ除外し、その他の未収録字はエラーにする。M6節の「既存フォールバックを使う」はこの明示設定に置き換える。
+  - 検証：全4字体版でSetup2回目の4種FontAssetハッシュ不変・エラー0/警告0。再Play後の両Device SimulatorでMainからLoadingまでのアウトゲーム各状態、GameOver、成功／失敗演出の指定時刻を再撮影し、全件0/0・outsideButtons空。先行Black版の新規プロフィールR1→R5→R6成功・各結果表示とResult/Clear/Endlessの確認も0/0。範囲と証跡はM7_PRESENTATION.md。Android実機確認ではない。
+  - 該当：ImoniFontWarmup.cs、ImoniSetup.cs、Fonts/Generated/、docs/M7_PRESENTATION.md。
+- 質問：Editorの事前生成が通っても、Androidビルド後にFontAssetが空の状態へ戻る。
+  - 判断：TextCoreのClear Dynamic Data on Buildが既定でtrueだったため、SetupのSerializedObject経由で4字体の `m_ClearDynamicDataOnBuild=false` を保存する。Unity 6000.3には公開setterがない。Dynamicは維持し、既知文字・AtlasをAPKへ保持する。最終APKはこの設定で再生成する。
+  - 該当：ImoniSetup.EnsureFont、Fonts/Generated/、docs/M7_PRESENTATION.md。
+
+## M7 表示・再接続の判断（2026-11-26）
+
+- 質問：森林・未開放の階段状境界を滑らかにするためにCore地形を変えるか。
+  - 判断：Coreは維持し、既存Tile画像を描く表示メッシュとセル中心マスクで境界だけ丸める。双線形補間後の4pxの縁をなじませ、各セル中心の判定を保持する。森林下地は既存平野、未開放は既存半透明画像と鍵ラベルを使う。
+  - 該当：WorldBoundarySurface.cs、WorldBoundary.shader、GameWorldView.cs、LockedAreaOverlayView.cs。
+- 質問：ローカル版で再接続をどう再現し、進行中の挑戦をどう戻すか。
+  - 判断：Editor/Developmentの入口から既存SetConnectedを呼び、3秒実時間後に同じServerへ再接続する。自分の操作だけを遮断し、チームの時間・仲間は継続する。有効な採集先だけ元の選択APIで再開する。通常プレイへ切断をランダム発生させない。
+  - 該当：GameScreen.BeginReconnectDemo、ReconnectNotice、ReconnectionTests。
+- 質問：演出の完成見出しをロゴのようなPNGへ変換するか。
+  - 判断：画像化せず提供Delaを保持する。2行の前景の塗りに同色0.1pxストロークを足して補正し、元の外枠・寸法・座標・タイムラインを維持する。前景の1pxとTextCoreの合成BoldはSDFの字の穴を潰したため、追加前景は元フォントのNormalと0.1pxとする。既存の外枠ラベルのBoldは保持する。文言の正本と複数解像度での描画品質を保てるため。
+  - 該当：ImoniEffectFinale、ImoniEffectView.SetupFinaleFill、docs/M7_PRESENTATION.md。
+
+
+## M7 共有資金からの見込み強化（2026-11-26）
+
+- 質問：M6ではR5開始後の大量投資に目標生成が追いつかず、予算50%の一括強化で約12秒で必須を集められた。未購入の強化をどの程度見込むか。
+  - 仮決定：目標生成時の共有資金の50%を、同じUpgradeRulesによる実購入価格の安い順に配分した見込みLvを計算する。係数は `objectiveGeneration.anticipatedUpgradeBudgetFraction=0.5`。同額は `anticipatedUpgradePriority=[amount,luck,speed,move]`、次にactor順で決める。人間（IsBot=false）だけを対象にし、ボットは購入を行わない現行ルールに合わせ現在Lvのままとする。複数人間の場合も予算を各人に重複計上しない。
+  - 該当：ObjectiveUpgradeForecast.cs、ObjectiveGenerationConfig.cs、GameConfig.json。
+- 質問：見込みLvを目標だけに使うと「達成可能」の根拠がずれる。
+  - 仮決定：目標のチーム平均Lv補正・実効供給補正と、A*移動／共有在庫／再生／採集時間／品質／有限連続の供給予定を、すべて同一の見込みLvで計算する。見込み購入はその場の共有資金内で実行可能。実際の資金・Lv・履歴・乱数には触らず、ラウンド開始後は目標を変更しない。Retryは再挑戦の開始資金・初期Lv・元の人間/ボット構成で再生成する。
+  - 該当：ObjectiveGenerator.GeneratePlan、ObjectiveGenerationPlan.UpgradeForecast、LocalGameServer、ObjectiveUpgradeForecastTests。
+- 質問：見込み投資をしない方針の扱いと、50%の根拠は何か。
+  - 仮決定：共有資金の半分を素材購入等に残し、半分を成長に使う自然な初期案を採用。基準量・成長率1.35・品質重み0.35・供給上限85%などM6の係数は維持する。全員が購入可能な能力と適切な操作を使った期待供給に収まる保証であり、投資しない方針やすべての品質乱数列での成功保証ではない。
+  - 実測：同じシード202647・同じ3操作方針を再実行。予算内無制限投資はR1 162.057144秒、R2 129.120006秒、R3 145.371428秒、R4 192.914286秒、R5 106.602022秒で全必須達成。M6のR5 12.478390秒から改善。無強化はR3で失敗、各項目+1Lv/Rの計画的強化はR4で失敗し、その記録も残す。資金を100%使う／別の集中投資／連続上振れによる短縮まで一律に防ぐ制限は加えない。
+  - 該当：tools/BalanceReview、docs/validation/m7/balance.md、balance.json。正確な時刻は確定OperationRecordの品質換算数量を順に集計して求める。
+
+## M7 二つ名・バッジ・ローカル記録（2026-11-26）
+
+- 質問：全二つ名・バッジの獲得条件が未定。
+  - 仮決定：`progression.titleRules/badgeRules` の条件表を採用し、一覧を `M7_PROGRESSION.md` に記載する。二つ名は成功結果で付与、本人の採集・連続・品質バッジは失敗後も残す。購入とボット採集は本人の採集実績に含めない。R3到達と最高到達はラウンド開始時に保存する。
+  - 該当：PlayerProgression.cs、ProfileData.cs、GameConfig.json、RoundScreens.cs。
+- 質問：通常クリア後のエンドレス移行と、失敗したエンドレスの記録をどう扱うか。
+  - 仮決定：Clearから同じワールドのR6へ継続。Homeで解放済みエンドレスを新規選択した場合は初期状態のR1から始める。エンドレスR6以降の成功結果で「記録してホームへ」を選んだ場合だけ正式登録し、失敗・途中中断は未登録。すでに成功した通常R5の記録はエンドレスの失敗で消さない。失敗後のRetryは選択モードを維持して新シードR1へ戻す。
+  - 該当：LocalGameServer.cs、LocalRanking.cs、ScreenContext.cs、ProgressionScreens.cs。
+- 質問：UI_SPEC 15章のログインは今回のオフライン範囲で何を作るか。
+  - 仮決定：端末内の会員プロフィールを確認して続けるLogin画面を追加する。外部アカウント認証とは表示せず、初回はチュートリアルへ、登録済みはHomeへ進む。通常Clearと音量設定は既存画面を利用する。
+  - 該当：Login.uxml、ProgressionScreens.cs、OnboardingScreens.cs。
+- 質問：旧モックの所有パーツ・バッジ・最高R・ランキングを新しい実績へ移すか。
+  - 仮決定：保存済みの所有と選択パーツは保持する。所有配列がなかった旧形式では選択されたカタログ内パーツだけ所有へ移行する。新規プロフィールは初期の1組だけ。保存されていなかったダミーバッジ・最高R3・ランキングは実績へ移さない。端末内ランキングであることを表示する。
+  - 該当：ProfilePersistence.Load、ProfileScreens.cs、LocalRanking.cs。
+
+## M7 端末表示とAndroid生成の判断（2026-11-26）
+
+- 質問：390×844の上下余白をノッチの内側にも重ねると、Tutorial・Resultの下部が狭くなる。
+  - 判断：`UnityEngine.Device.Screen.safeArea`を使い、ノッチありでは既存の装飾用上下paddingからinset分を先に消費する。通常390×844ではUSSの元のpaddingを維持する。演出はIMONI_EFFECT_SPECの390×844座標を変えず、構図全体をSafe Area内へ等比で収める。
+  - 該当：SafeAreaAdapter.cs、Tutorial1〜3.uxml、Result.uxml、GameOver.uxml、ImoniEffectScreen.cs。
+- 質問：Androidのパッケージ名・SDK・仮アイコンが未指定。
+  - 仮決定：`setup.android`に `jp.yukura.imoni` / versionCode 1 / min API 26 / target API 36 / 512px を置く。縦固定・IL2CPP・ARM64、既存の鍋画像とTheme系の黄色から仮アイコンをEditor APIで生成する。APKは `Builds/Android/Imoni.apk`、実機へのインストールは人間が行う。
+  - 該当：ImoniAndroidSetup.cs、ImoniSetup.cs、GameConfig.json。アイコンは非圧縮で取り込み、Androidの任意モジュールはビルド時だけ現在のDebugSymbols APIを解決してSymbolTableのzipを生成する。
+- 質問：Unityを開いたままAndroidモジュールを追加すると、ビルド結果がSucceededでもAPKが出なかった。
+  - 対応：Editorを再起動して追加モジュールを読み込み直す。ビルド完了判定はresultに加え、totalErrorsと実APKの存在も検証する。初回の未生成結果を成功証跡に使わない。
+  - 該当：ImoniAndroidSetup.BuildAndroid、docs/validation/m7/android-build.json。
+
+## M7 ScrollViewと会員証の実画面補正（2026-11-26）
+
+- 質問：Safe Area内に正しい矩形を持つロビー見出し・ランキング先頭行が、Device Simulatorでは描画されない。ConsoleやButton範囲の監査は0件でも検出できなかった。
+  - 判断：該当する2つのScrollViewだけ、パネルに追加される前にcontentContainerのUsageHints.GroupTransformを外す。行のレイアウト・通常のスクロール・標準クリップは維持する。viewportのoverflowを変える案では直らず撤回し、GroupTransform解除後のiPhone 12実画像で見出し・順位行の復帰を確認した。内部Unity APIや毎フレームの再構築は使わない。
+  - 該当：LobbyScreenコンストラクタ、RankingListコンストラクタ、docs/validation/m7/visual-review.md。
+- 質問：iPhone 12で会員証のキャラ編集領域が縮み、見出しが前のカードに重なり、服の色選択がナビの下へ隠れる。
+  - 判断：member-mainにも既存safe-design-paddingを適用して装飾余白とSafe Areaの二重加算を避ける。insetありの場合だけAvatarEditor内の見出し・ラベル・色行の下余白を8pxから4pxにし、44pxの色選択ターゲットを保持する。insetなしの390×844では元の寸法を維持する。
+  - 該当：Member.uxml、ProfileScreens.uss。
+- 質問：ロビー準備完了の画面下部へスクロールしても「準備を取り消す」まで届かない。見た目の描画を直した後の実操作で、ページ763pxに内容が縮み、ReadyActionsの高さが0になって子ボタンだけが外へはみ出していた。
+  - 判断：ScrollView内のpage、stack、team、ReadyActionsにflex-shrink:0を指定して内容の自然な高さを測る。余った空間を受け持つspacerだけは縮められるままとし、390×844の既存paddingやボタン寸法は変えない。スクロール可能範囲に下部操作を含める。
+  - 該当：Lobby.uxml、LobbyScreens.uss。
+- 補足：会員証の青い無地写真枠、Waiting/Loadingの無地の丸アバターは19_Member・15_Waiting・18_Loading_doneのモックどおり。カメラアイコンはTutorialの写真編集時だけ表示し、これらを描画欠けとして変更しない。

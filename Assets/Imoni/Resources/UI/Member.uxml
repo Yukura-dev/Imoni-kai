@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
     <ui:VisualElement class="profile-screen member-screen">
-        <ui:VisualElement class="member-main">
+        <ui:VisualElement class="member-main safe-design-padding">
             <c:MemberCard name="member-card" />
             <c:TitlePartPicker name="title-picker" class="member-title-picker" />
             <c:AvatarEditor name="avatar-editor" class="member-avatar-editor" />

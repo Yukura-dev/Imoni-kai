@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
-    <ui:VisualElement class="onboarding-page onboarding-page--first">
+    <ui:VisualElement class="onboarding-page onboarding-page--first safe-design-padding">
         <c:StepTitle title="会員登録しよう!" step="1" count="3" class="tutorial-block" />
         <c:ImoniText text="リモート芋煮会の会員証をつくるよ。&#10;写真と呼ばれたい名前を入れてね。" class="tutorial-introduction tutorial-block" />
         <c:MemberCard name="registration-card" editable-name="true" class="tutorial-block" />

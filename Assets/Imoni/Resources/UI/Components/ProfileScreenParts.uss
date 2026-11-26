@@ -1,3 +1,4 @@
 .ranking-list { flex-grow: 1; min-height: 0; background-color: var(--c-cream); border-width: 4px; border-color: var(--c-brown); border-radius: 22px; padding: 6px; overflow: hidden; }
 .ranking-list__scroll { flex-grow: 1; min-height: 0; }
 .ranking-list__scroll .ranking-row { height: 52px; }
+.ranking-list__empty { flex-grow: 1; padding: 18px; white-space: normal; -unity-text-align: middle-center; font-size: 14px; color: var(--c-brown); }

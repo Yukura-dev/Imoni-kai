@@ -35,7 +35,8 @@ namespace Imoni.Core
             decimal remaining = ended ? 0 : Math.Max(0, decimal.Ceiling(config.DurationSeconds - snapshot.ElapsedSeconds));
             var view = new GameHudView
             {
-                RoundText = "ラウンド " + (result?.RoundNumber ?? snapshot.RoundNumber) + "/" + config.RoundsToClear,
+                RoundText = snapshot.IsEndless ? "エンドレス R" + (result?.RoundNumber ?? snapshot.RoundNumber)
+                    : "ラウンド " + (result?.RoundNumber ?? snapshot.RoundNumber) + "/" + config.RoundsToClear,
                 TimerText = Clock(remaining), TimerUrgent = remaining <= urgentSeconds,
                 Required = result == null ? Array.AsReadOnly(snapshot.RequiredObjectives.Select(goal =>
                     DisplayProjection.Goal(config, goal.MaterialId, Equivalent(config, snapshot.Lots, goal.MaterialId), goal.Amount)).ToArray())
@@ -55,7 +56,8 @@ namespace Imoni.Core
                 BigInteger current = finalBonus?.Current ?? Equivalent(config, snapshot.Lots, bonus.MaterialId);
                 BonusTier highest = config.BonusTiers.LastOrDefault(tier => current * 100 >= bonus.Amount * tier.MinPercent);
                 view.BonusText = config.Material(bonus.MaterialId).Name + " " + Format.Big(current, config) + "/" + Format.Big(bonus.Amount, config);
-                view.BonusStatusText = "達成率 " + Format.Big(current * 100 / bonus.Amount, config) + "% 報酬×" + Format.Big(highest?.Multiplier ?? BigInteger.Zero, config);
+                view.BonusStatusText = DisplayProjection.Achievement(config, current, bonus.Amount, "達成率 ")
+                    + " 報酬×" + Format.Big(highest?.Multiplier ?? BigInteger.Zero, config);
             }
             return view;
         }

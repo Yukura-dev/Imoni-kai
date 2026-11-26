@@ -14,7 +14,7 @@
                     <c:ImoniText name="ranking-mine-team" class="ranking-mine-team" />
                     <c:ImoniText name="ranking-mine-note" class="ranking-mine-note" />
                 </ui:VisualElement>
-                <c:ImoniText text="未登録" class="ranking-mine-state" />
+                <c:ImoniText name="ranking-mine-state" text="未登録" class="ranking-mine-state" />
             </c:Card>
         </ui:VisualElement>
         <c:TabBar name="tabs" selected="Ranking" class="profile-tabs" />

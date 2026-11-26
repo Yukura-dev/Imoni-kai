@@ -17,6 +17,7 @@
 .home-play { height: 78px; border-bottom-width: 6px; border-radius: 39px; font-size: 26px; margin-top: 14px; padding-left: 36px; padding-right: 0; }
 .home-play > .imoni-button__icon { width: 26px; height: 26px; left: 50%; translate: -83px -50%; }
 .home-modes { margin-top: 8px; flex-direction: row; align-items: center; justify-content: center; flex-shrink: 0; }
+.home-mode-selector { margin-top: 8px; flex-shrink: 0; }
 .home-mode-pill { padding: 4px 10px; border-width: 2px; border-color: var(--c-brown); border-radius: 16px; background-color: var(--c-cream); font-size: 12px; -unity-font-definition: var(--font-body-black); }
 .home-mode-pill--locked { margin-left: 8px; background-color: #EFD38A; border-color: #8C6A2E; color: #5C4518; }
 .home-settings-overlay { display: none; position: absolute; left: 0; right: 0; top: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(74,46,34,0.5); }
@@ -25,6 +26,11 @@
 .member-main { flex-grow: 1; min-height: 0; padding: 52px 16px 12px; }
 .member-title-picker { flex-shrink: 0; margin-top: 7px; }
 .member-avatar-editor { flex-grow: 1; min-height: 0; margin-top: 12px; }
+/* A notched screen first consumes the page's decorative padding, then the
+   editor's internal gaps. Keep the 44px palette targets and native mock intact. */
+.has-safe-insets .member-avatar-editor .avatar-editor__heading,
+.has-safe-insets .member-avatar-editor .avatar-editor__label,
+.has-safe-insets .member-avatar-editor .avatar-editor__swatches { margin-bottom: 4px; }
 .ranking-main { flex-grow: 1; min-height: 0; padding: 52px 16px 12px; }
 .ranking-title { font-size: 26px; -unity-font-definition: var(--font-title); color: var(--c-green); }
 .ranking-section { margin-top: 10px; }

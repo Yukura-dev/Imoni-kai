@@ -1,6 +1,18 @@
 {
   "_comment": "オンライン芋煮会 ゲーム調整値。仕様書 v1.0 + モックで採用した仮の数値。値はすべてプレイテストで変更する前提。コードに数値を直書きせず、必ずこのファイルから読むこと。",
   "version": 1,
+  "audio": {
+    "defaultVolume": 1,
+    "minVolume": 0,
+    "maxVolume": 1,
+    "volumeStep": 0.1,
+    "volumePercentScale": 100,
+    "minDecibels": -80,
+    "decibelsPerAmplitudeLog10": 20,
+    "masterVolumeParameter": "ImoniMasterVolume",
+    "eventLogCapacity": 2048,
+    "compressor": { "Threshold": -18, "Attack": 20, "Release": 120, "MakeUpGain": 0 }
+  },
   "team": {
     "size": 3,
     "allowJoinDuringRun": false
@@ -759,8 +771,9 @@
       "sparkleMinimumScale": 0.1,
       "sparkleFloatY": -60,
       "sparkleRotation": 90,
-      "grayOpacity": 0.55,
-      "darkOpacity": 0.25,
+      "grayOpacity": 0.65,
+      "finaleFillStrokePx": 0.1,
+      "darkOpacity": 0.3,
       "ingredientTextureSize": 64,
       "ingredientTextureOffset": 8,
       "starTextureScale": 1.5,
@@ -801,6 +814,112 @@
       "sourcePitchLimit": 3
     }
   },
+  "progression": {
+    "titleRules": [
+      {
+        "part": "first",
+        "value": "山の",
+        "metric": "successfulRound",
+        "minimum": 2
+      },
+      {
+        "part": "first",
+        "value": "連続の",
+        "metric": "bestStreak",
+        "minimum": 10
+      },
+      {
+        "part": "first",
+        "value": "伝説の",
+        "metric": "normalClears",
+        "minimum": 1
+      },
+      {
+        "part": "first",
+        "value": "神話の",
+        "metric": "successfulRound",
+        "minimum": 7
+      },
+      {
+        "part": "first",
+        "value": "究極の",
+        "metric": "successfulRound",
+        "minimum": 10
+      },
+      {
+        "part": "second",
+        "value": "薪割り職人",
+        "metric": "materialGathered",
+        "minimum": 30,
+        "materialId": "wood"
+      },
+      {
+        "part": "second",
+        "value": "里芋ハンター",
+        "metric": "materialGathered",
+        "minimum": 30,
+        "materialId": "taro"
+      },
+      {
+        "part": "second",
+        "value": "鍋奉行",
+        "metric": "successfulRound",
+        "minimum": 1
+      },
+      {
+        "part": "second",
+        "value": "採集王",
+        "metric": "gatheredTotal",
+        "minimum": 300
+      },
+      {
+        "part": "second",
+        "value": "芋煮マスター",
+        "metric": "normalClears",
+        "minimum": 3
+      }
+    ],
+    "badgeRules": [
+      {
+        "id": "first_step",
+        "text": "はじめの一歩",
+        "metric": "successfulRound",
+        "minimum": 1
+      },
+      {
+        "id": "round3",
+        "text": "R3到達",
+        "metric": "bestRound",
+        "minimum": 3
+      },
+      {
+        "id": "streak10",
+        "text": "10連続",
+        "metric": "bestStreak",
+        "minimum": 10
+      },
+      {
+        "id": "normal_clear",
+        "text": "5連続成功",
+        "metric": "normalClears",
+        "minimum": 1
+      },
+      {
+        "id": "score_100m",
+        "text": "1億点",
+        "metric": "bestScore",
+        "minimum": 100000000
+      },
+      {
+        "id": "ultimate",
+        "text": "究極品質",
+        "metric": "qualityGathered",
+        "minimum": 1,
+        "qualityId": "ultimate"
+      }
+    ],
+    "rankingLimitPerBoard": 100
+  },
   "titles": {
     "_comment": "二つ名 = 前半パーツ + 後半パーツ。集めて自由に組み合わせる(ユーザー要望)",
     "unlockRules": [
@@ -829,6 +948,14 @@
     ]
   },
   "setup": {
+    "android": {
+      "applicationIdentifier": "jp.yukura.imoni",
+      "versionCode": 1,
+      "minimumApiLevel": 26,
+      "targetApiLevel": 36,
+      "iconTexture": "pot_campfire",
+      "iconSize": 512
+    },
     "_comment": "M0のEditor生成設定。ゲームルールの数値とは分離し、Imoni > Setup Projectで読み込む。",
     "panel": {
       "referenceWidth": 390,
@@ -856,6 +983,9 @@
       "cellSizeZ": 0
     }
   },
+  "flowReview": {
+    "maxSeconds": 180
+  },
   "effectReview": {
     "width": 390,
     "height": 844,
@@ -874,6 +1004,8 @@
   "format": {
     "unitBase": 10000,
     "decimalPlaces": 2,
+    "maxDisplayGroups": 2,
+    "achievementMultipleThresholdPercent": 1000,
     "units": [
       "",
       "万",
@@ -896,6 +1028,7 @@
     ]
   },
   "ui": {
+    "numericLabelMinimumFontSize": 10,
     "animationFrameMs": 16,
     "safeAreaPollMs": 100,
     "inviteCopiedSeconds": 1.6,
@@ -926,7 +1059,9 @@
     "smallSteamPhaseDelaySeconds": 0.6,
     "largeSteamPhaseDelaySeconds": 0.5,
     "timerUrgentSeconds": 30,
+    "reconnectDemoSeconds": 3,
     "worldView": {
+      "boundaryFeatherPx": 4,
       "resourceVisualWidthPx": 38,
       "resourceVisualHeightPx": 40,
       "resourceTapSizePx": 48,
@@ -1037,30 +1172,22 @@
       "resourceCount": 214
     },
     "profile": {
-      "bestRound": 3,
+      "bestRound": 0,
       "memberNumber": "123456",
-      "initialOwnedFirst": [
-        "芋煮会の",
-        "山の",
-        "連続の"
-      ],
-      "initialOwnedSecond": [
-        "初心者",
-        "薪割り職人",
-        "里芋ハンター"
-      ],
+      "initialOwnedFirst": ["芋煮会の"],
+      "initialOwnedSecond": ["初心者"],
       "badges": [
         {
           "text": "はじめの一歩",
-          "acquired": true
+          "acquired": false
         },
         {
           "text": "R3到達",
-          "acquired": true
+          "acquired": false
         },
         {
           "text": "10連続",
-          "acquired": true
+          "acquired": false
         },
         {
           "text": "5連続成功",
@@ -1092,7 +1219,7 @@
       ]
     },
     "ranking": {
-      "_comment": "M2b表示用ダミー。数値scoreとモックの表示displayScoreを併記する。通常のFormat.Big仕様は変更しない。",
+      "_comment": "M2bのローカルダミーデータ。M6から数値scoreを共通の整数Format.Bigで表示する。displayScoreは原モックの記録としてだけ保持する。",
       "commonSeed": "#2026-47",
       "podiumRanks": 3,
       "commonTeams": [
@@ -1343,11 +1470,27 @@
     "minimumStartingRequiredNodes": 6,
     "_comment": "地形割合はマップ全体（橋も河川に含む）の目安。河川幅を割合から求め、残りの土地を連続ノイズの順位で配分。R1は平野60%以上を優先。resourceChanceは全タイルに対する資源ノード密度、素材別の個数はmaterials[].spawnWeightで配分し、最低保証が優先される。"
   },
+  "balanceReview": {
+    "seed": 202647,
+    "upgradeBudgetFraction": 0.5,
+    "plannedLevelsPerRound": 1,
+    "upgradePriority": [ "amount", "luck", "speed", "move" ],
+    "_comment": "QA自動操作専用。通常の目標生成には使わない。各ラウンド開始直後、player1の現在資金の半分以内で低Lv優先に強化する。計画的試行は各項目1Lv/Rまで、別の無制限投資試行は予算だけを制限する。目標は生成済みの値を維持する。"
+  },
   "objectiveGeneration": {
     "requiredCount": 3,
-    "minimumFraction": 0.4,
-    "maximumFraction": 0.7,
-    "_comment": "各候補に5分を重複配分せず、必須+ボーナスでチームの作業時間を等分。往復移動・在庫・再生・強化を含む保守的な採集シミュレーションの40〜70%を要求する。",
+    "minimumFraction": 0.9,
+    "maximumFraction": 1.1,
+    "roundGrowth": 1.35,
+    "highestQualityWeight": 0.35,
+    "maximumCapacityFraction": 0.85,
+    "upgradeSupplyWeight": 1,
+    "anticipatedUpgradeBudgetFraction": 0.5,
+    "anticipatedUpgradePriority": ["amount", "luck", "speed", "move"],
+    "simulationGathersPerVisit": 3,
+    "baseAmounts": { "wood": 240, "taro": 160, "negi": 160, "mushroom": 80, "fish": 60, "sansai": 40 },
+    "upgradeWeights": { "move": 0.1, "speed": 0.15, "amount": 0.35, "luck": 0.12 },
+    "_comment": "素材別基準の90〜110%を抽選し、ラウンド成長・最高品質補正・平均強化補正と実効供給倍率補正を掛ける。実効補正=1+upgradeSupplyWeight×max(0,同条件の実強化期待供給/無強化期待供給-1)。期待供給85%を上限とする。供給は全員の時間を必須+ボーナスで等分し、1訪問3回までの採集と往復・共有在庫・再生・実品質分布・有限回数の連続期待量を含む。",
     "firstRoundRequiredMaterials": [
       "wood",
       "taro",

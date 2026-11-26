@@ -3,6 +3,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using Imoni.Game.UI;
 using Imoni.Game.UI.Screens;
+using Imoni.Game.Audio;
 
 namespace Imoni.Game
 {
@@ -46,6 +47,7 @@ namespace Imoni.Game
             UnityEditor.SessionState.EraseString("Imoni.ReviewSavePath");
             if (string.IsNullOrEmpty(profilePath)) profilePath = null;
 #endif
+            AudioService.Ensure(gameObject, UiTheme.Assets, UiTheme.Data);
             Context = new ScreenContext(router, path: profilePath, bootstrap: this);
             ScreenCatalog.Register(router, Context);
             string start = "Main";
@@ -70,6 +72,7 @@ namespace Imoni.Game
         {
             safeArea?.Dispose(); safeArea = null;
             router?.Dispose(); router = null;
+            AudioService.Instance?.StopAll();
             Context = null;
         }
 

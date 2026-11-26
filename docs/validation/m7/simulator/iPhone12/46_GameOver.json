@@ -1,0 +1,68 @@
+{
+  "screen": "GameOver",
+  "resolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "nativeResolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "GameOverRetry",
+      "text": "R1から再挑戦",
+      "bounds": {
+        "x": 18.0,
+        "y": 690.0,
+        "width": 354.0,
+        "height": 65.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "GameOverHome",
+      "text": "<u>ホームへ戻る</u>",
+      "bounds": {
+        "x": 18.0,
+        "y": 764.0,
+        "width": 354.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

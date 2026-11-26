@@ -58,7 +58,7 @@ namespace Imoni.Game.UI.Screens
             selection.SellRequested += SellSelected;
             this.Q<ImoniButton>("SellAllUnprotected").clicked += SellAll;
             this.Q<ImoniButton>("ReturnHome").clicked += ReturnHome;
-            this.Q<ImoniText>("ShopPriceHint").text = "購入価格は仮(売却単価の" + Config.BuyPriceMultiplier.ToString(CultureInfo.InvariantCulture) + "倍)";
+            this.Q<ImoniText>("ShopPriceHint").text = "購入価格は売却単価の" + Config.BuyPriceMultiplier.ToString(CultureInfo.InvariantCulture) + "倍";
             Refresh(owner.Snapshot);
         }
 

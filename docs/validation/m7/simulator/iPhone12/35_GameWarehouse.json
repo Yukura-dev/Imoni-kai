@@ -1,0 +1,200 @@
+{
+  "screen": "Game",
+  "resolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "nativeResolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "bounds": {
+        "x": 10.0,
+        "y": 737.0,
+        "width": 86.6666641,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "bounds": {
+        "x": 104.666664,
+        "y": 737.0,
+        "width": 86.3333359,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "bounds": {
+        "x": 199.0,
+        "y": 737.0,
+        "width": 86.66666,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "bounds": {
+        "x": 293.666656,
+        "y": 737.0,
+        "width": 86.33334,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 332.0,
+        "y": 208.0,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Inventory_taro_normal",
+      "text": "",
+      "bounds": {
+        "x": 14.0,
+        "y": 286.0,
+        "width": 362.0,
+        "height": 44.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Inventory_taro_good",
+      "text": "",
+      "bounds": {
+        "x": 14.0,
+        "y": 334.0,
+        "width": 362.0,
+        "height": 44.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Inventory_negi_normal",
+      "text": "",
+      "bounds": {
+        "x": 14.0,
+        "y": 382.0,
+        "width": 362.0,
+        "height": 44.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Inventory_negi_good",
+      "text": "",
+      "bounds": {
+        "x": 14.0,
+        "y": 430.0,
+        "width": 362.0,
+        "height": 44.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Inventory_negi_rare",
+      "text": "",
+      "bounds": {
+        "x": 14.0,
+        "y": 478.0,
+        "width": 362.0,
+        "height": 44.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Inventory_fish_normal",
+      "text": "",
+      "bounds": {
+        "x": 14.0,
+        "y": 526.0,
+        "width": 362.0,
+        "height": 44.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Inventory_fish_rare",
+      "text": "",
+      "bounds": {
+        "x": 14.0,
+        "y": 574.0,
+        "width": 362.0,
+        "height": 44.0
+      },
+      "scrollContent": true,
+      "insideSafeArea": true
+    },
+    {
+      "name": "SellAllUnprotected",
+      "text": "保護以外をまとめて売却",
+      "bounds": {
+        "x": 14.0,
+        "y": 668.0,
+        "width": 362.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

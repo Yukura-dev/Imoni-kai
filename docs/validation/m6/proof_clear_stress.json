@@ -1,0 +1,120 @@
+{
+  "utc": "2026-11-26T02:08:02.7269181Z",
+  "width": 390,
+  "height": 844,
+  "screen": "Clear",
+  "source": "IGameServer",
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  },
+  "shortRounds": false,
+  "clockScale": 1.0,
+  "audio": {
+    "enabled": true,
+    "volume": 0.5,
+    "activeVoices": 0,
+    "mixer": "ImoniMaster",
+    "masterGroup": "Master",
+    "masterDecibels": -6.0206,
+    "allVoicesRouted": true,
+    "savedEnabled": true,
+    "savedVolume": 0.5
+  },
+  "round": 5,
+  "seed": 202647,
+  "phase": "Cleared",
+  "elapsed": 300.000000,
+  "funds": "3580746847385648927061120",
+  "cumulative": "17903734236928244888067274",
+  "inventoryCount": 0,
+  "protectionCount": 0,
+  "requiredObjectives": [
+    {
+      "material": "wood",
+      "name": "薪",
+      "required": "6609838",
+      "current": "9253051",
+      "met": true
+    },
+    {
+      "material": "fish",
+      "name": "魚",
+      "required": "1686667",
+      "current": "1780000",
+      "met": true
+    },
+    {
+      "material": "taro",
+      "name": "里芋",
+      "required": "3762485",
+      "current": "4261106",
+      "met": true
+    }
+  ],
+  "players": [
+    {
+      "id": "player1",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 25,
+        "speed": 25,
+        "amount": 26,
+        "luck": 25
+      }
+    },
+    {
+      "id": "player2",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    },
+    {
+      "id": "player3",
+      "streak": 0,
+      "action": "Idle",
+      "upgrades": {
+        "move": 0,
+        "speed": 0,
+        "amount": 0,
+        "luck": 0
+      }
+    }
+  ],
+  "resourceCount": 492,
+  "resourceStateHash": "122E33C84278574DE9A10593EA68DB18120750745B85C123D901F6D202655A23",
+  "worldIdentityHash": "09EC7EFFECC8258C052071304FF26EDB80C4222F5580CE8F735BC5140A80EBA2",
+  "unlockedRadius": 46,
+  "result": {
+    "round": 5,
+    "success": true,
+    "score": "17903734236928244524411394",
+    "requiredPoints": "162879421",
+    "bonusPoints": "4475933559232061110742921",
+    "bonusMultiplier": "8",
+    "fundsReward": "3580746847385648888594336",
+    "fundsAfter": "3580746847385648927061120",
+    "cumulative": "17903734236928244888067274",
+    "missing": []
+  },
+  "buttons": [
+    {
+      "name": "ResultNext",
+      "text": "ホームへ戻る",
+      "enabled": true,
+      "display": "Flex",
+      "x": 16.0,
+      "y": 748.0,
+      "width": 358.0,
+      "height": 65.0
+    }
+  ],
+  "image": "M6-proof_clear_stress.png"
+}

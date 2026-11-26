@@ -30,6 +30,16 @@ namespace Imoni.Core.Tests
                 Array.Empty<RoundEvent>(), null, Array.Empty<ResourceSnapshot>());
 
         [Test]
+        public void EndlessHudDoesNotDisplayTheNormalFiveRoundDenominator()
+        {
+            GameConfig config = Config();
+            var server = new LocalGameServer(config, 202647, enableBots: false, endless: true);
+            GameSnapshot snapshot = server.Snapshot();
+            Assert.That(GameHudProjection.Present(config, snapshot, "player1", 30).RoundText,
+                Is.EqualTo("エンドレス R" + snapshot.RoundNumber));
+        }
+
+        [Test]
         public void QualityEquivalentCountsAllLotsButNotPointMultipliersOrOtherMaterials()
         {
             GameConfig config = Config();
@@ -66,6 +76,17 @@ namespace Imoni.Core.Tests
             var lot = new MaterialLot(1, "mushroom", "normal", quantity, config.FixedScale);
             GameHudView view = GameHudProjection.Present(config, Snapshot(config, 120, true, new[] { lot }), "player1", 30);
             Assert.That(view.BonusStatusText, Is.EqualTo("達成率 " + percent + "% 報酬×" + multiplier));
+        }
+
+        [TestCase(299, "達成率 996% 報酬×8")]
+        [TestCase(300, "目標の10倍 報酬×8")]
+        [TestCase(330, "目標の11倍 報酬×8")]
+        public void HudSwitchesLargeAchievementToNaturalIntegerMultiples(int quantity, string expected)
+        {
+            GameConfig config = Config();
+            var lot = new MaterialLot(1, "mushroom", "normal", quantity, config.FixedScale);
+            var view = GameHudProjection.Present(config, Snapshot(config, 120, true, new[] { lot }), "player1", 30);
+            Assert.That(view.BonusStatusText, Is.EqualTo(expected));
         }
 
         [Test]

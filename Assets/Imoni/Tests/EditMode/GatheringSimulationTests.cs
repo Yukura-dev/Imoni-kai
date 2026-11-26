@@ -313,7 +313,7 @@ namespace Imoni.Core.Tests
             const int seed = 72;
             var server = new LocalGameServer(config, seed, enableBots: false);
             var generator = new ObjectiveGenerator(config);
-            RoundObjectives first = generator.Generate(server.World, 1, new Rng(seed + 1), server.Snapshot().Players);
+            RoundObjectives first = generator.Generate(server.World, 1, new Rng(seed + 1), server.Snapshot().Players, server.Snapshot().Funds);
             Assert.That(server.Snapshot().RequiredObjectives.Select(goal => (goal.MaterialId, goal.Amount)),
                 Is.EqualTo(first.Required.Select(goal => (goal.MaterialId, goal.Amount))));
 
@@ -323,7 +323,7 @@ namespace Imoni.Core.Tests
             server.Tick(config.DurationSeconds);
             WorldMap retained = server.World;
             server.StartNextRound();
-            RoundObjectives second = generator.Generate(server.World, 2, new Rng(seed + 2), server.Snapshot().Players);
+            RoundObjectives second = generator.Generate(server.World, 2, new Rng(seed + 2), server.Snapshot().Players, server.Snapshot().Funds);
             Assert.That(server.Snapshot().RoundNumber, Is.EqualTo(2));
             Assert.That(server.World, Is.SameAs(retained));
             Assert.That(server.Snapshot().RequiredObjectives.Select(goal => (goal.MaterialId, goal.Amount)),

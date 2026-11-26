@@ -16,19 +16,22 @@
             </c:Card>
             <ui:VisualElement class="home-stats">
                 <c:StatCard name="best-round" label="最高到達" variant="Home" />
-                <c:StatCard label="通常クリア" value="未達成" variant="Home" class="home-stat-spaced" />
-                <c:StatCard label="ランキング" value="未登録" variant="Home" class="home-stat-spaced" />
+                <c:StatCard name="normal-clears" label="通常クリア" value="未達成" variant="Home" class="home-stat-spaced" />
+                <c:StatCard name="ranking-records" label="ランキング" value="未登録" variant="Home" class="home-stat-spaced" />
             </ui:VisualElement>
             <c:ImoniButton name="play" variant="Primary" icon="icon_play" text="プレイ開始" class="home-play" />
             <ui:VisualElement class="home-modes">
                 <c:ImoniText text="通常モード" class="home-mode-pill" />
                 <c:ImoniText name="endless-locked" class="home-mode-pill home-mode-pill--locked" />
             </ui:VisualElement>
+            <c:SegmentedControl name="home-mode-selector" variant="Pill" options="通常モード|エンドレス" class="home-mode-selector" />
         </ui:VisualElement>
         <c:TabBar name="tabs" selected="Home" class="profile-tabs" />
         <ui:VisualElement name="settings-overlay" class="home-settings-overlay">
             <c:Card header="設定" class="home-settings-card">
                 <c:ImoniButton name="sound-toggle" variant="Outline" class="home-sound-toggle" />
+                <c:AudioVolumeControl name="sound-volume" />
+                <c:ImoniButton name="profile-login" variant="Outline" text="会員プロフィール" class="home-settings-close" />
                 <c:ImoniButton name="settings-close" variant="Primary" text="閉じる" class="home-settings-close" />
             </c:Card>
         </ui:VisualElement>

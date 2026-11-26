@@ -1,0 +1,321 @@
+{
+  "screen": "Member",
+  "connectionState": null,
+  "resolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "nativeResolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "",
+      "text": "芋煮会の",
+      "bounds": {
+        "x": 34.0,
+        "y": 333.0,
+        "width": 76.3333359,
+        "height": 36.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "山の",
+      "bounds": {
+        "x": 116.333336,
+        "y": 333.0,
+        "width": 50.3333359,
+        "height": 36.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "連続の",
+      "bounds": {
+        "x": 172.666672,
+        "y": 333.0,
+        "width": 63.33333,
+        "height": 36.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "伝説の",
+      "bounds": {
+        "x": 242.0,
+        "y": 333.0,
+        "width": 63.3333435,
+        "height": 36.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "???",
+      "bounds": {
+        "x": 311.333344,
+        "y": 333.0,
+        "width": 43.333313,
+        "height": 36.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "???",
+      "bounds": {
+        "x": 34.0,
+        "y": 375.0,
+        "width": 43.3333359,
+        "height": 36.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "初心者",
+      "bounds": {
+        "x": 34.0,
+        "y": 444.666656,
+        "width": 63.3333359,
+        "height": 36.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "薪割り職人",
+      "bounds": {
+        "x": 103.333336,
+        "y": 444.666656,
+        "width": 89.3333359,
+        "height": 36.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "里芋ハンター",
+      "bounds": {
+        "x": 198.666672,
+        "y": 444.666656,
+        "width": 102.333328,
+        "height": 36.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "鍋奉行",
+      "bounds": {
+        "x": 34.0,
+        "y": 486.666656,
+        "width": 63.3333359,
+        "height": 35.99997
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "採集王",
+      "bounds": {
+        "x": 103.333336,
+        "y": 486.666656,
+        "width": 63.3333359,
+        "height": 35.99997
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "???",
+      "bounds": {
+        "x": 172.666672,
+        "y": 486.666656,
+        "width": 43.33333,
+        "height": 35.99997
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 154.0,
+        "y": 606.0,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 204.0,
+        "y": 606.0,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 254.0,
+        "y": 606.0,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 304.0,
+        "y": 606.0,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 154.0,
+        "y": 675.6667,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 204.0,
+        "y": 675.6667,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 254.0,
+        "y": 675.6667,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "",
+      "text": "",
+      "bounds": {
+        "x": 304.0,
+        "y": 675.6667,
+        "width": 44.0,
+        "height": 44.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Home",
+      "text": "",
+      "bounds": {
+        "x": 0.0,
+        "y": 734.0,
+        "width": 128.0,
+        "height": 76.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Ranking",
+      "text": "",
+      "bounds": {
+        "x": 128.0,
+        "y": 734.0,
+        "width": 131.0,
+        "height": 76.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "Member",
+      "text": "",
+      "bounds": {
+        "x": 259.0,
+        "y": 734.0,
+        "width": 131.0,
+        "height": 76.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

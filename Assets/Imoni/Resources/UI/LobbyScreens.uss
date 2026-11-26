@@ -3,8 +3,11 @@
 .lobby-screen .imoni-text { white-space: normal; }
 .lobby-screen .lobby-scroll { flex-grow: 1; min-height: 0; }
 .lobby-screen .lobby-scroll .unity-scroll-view__content-container { flex-grow: 1; }
-.lobby-screen .lobby-page { padding: 52px 18px 40px; flex-grow: 1; }
-.lobby-screen .lobby-stack, .lobby-screen .lobby-team { flex-grow: 1; }
+/* ScrollView must measure the complete page, including both ready actions.
+   Let content exceed the viewport instead of shrinking groups over their children. */
+.lobby-screen .lobby-page { padding: 52px 18px 40px; flex-grow: 1; flex-shrink: 0; }
+.lobby-screen .lobby-stack, .lobby-screen .lobby-team { flex-grow: 1; flex-shrink: 0; }
+.lobby-screen .lobby-ready-actions { flex-shrink: 0; }
 .lobby-screen .lobby-block { margin-bottom: 14px; }
 .lobby-screen .lobby-gap8 { margin-top: 8px; }
 .lobby-screen .lobby-gap10 { margin-top: 10px; }

@@ -31,7 +31,8 @@ namespace Imoni.Core.Tests
         public void SerializedProfileRetainsAllEditableFieldsAcrossReload()
         {
             JObject config = Config(); var fixture = config["outGame"]["profile"];
-            var profile = new ProfileData { Name = "テスト会員", FirstTitle = (string)fixture["initialOwnedFirst"][1], SecondTitle = (string)fixture["initialOwnedSecond"][1],
+            var profile = new ProfileData { Name = "テスト会員", FirstTitle = (string)config["titles"]["firstParts"][1], SecondTitle = (string)config["titles"]["secondParts"][1],
+                OwnedFirstTitles = new[] { (string)config["titles"]["firstParts"][1] }, OwnedSecondTitles = new[] { (string)config["titles"]["secondParts"][1] },
                 BandColor = (string)fixture["bandColors"][1], OutfitColor = (string)fixture["outfitColors"][1], SoundEnabled = false, TutorialCompleted = true };
             ProfileData restored = ProfilePersistence.Load(config, ProfilePersistence.Save(config, profile));
             Assert.That(restored.Name, Is.EqualTo(profile.Name)); Assert.That(restored.FirstTitle, Is.EqualTo(profile.FirstTitle));

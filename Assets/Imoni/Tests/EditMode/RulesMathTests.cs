@@ -228,10 +228,10 @@ namespace Imoni.Core.Tests
         [TestCase("0", "0")]
         [TestCase("9999", "9,999")]
         [TestCase("10000", "1万")]
-        [TestCase("123456", "12.34万")]
+        [TestCase("123456", "12万")]
         [TestCase("100000000", "1億")]
         [TestCase("1000000000000", "1兆")]
-        [TestCase("-1234567890123", "-1.23兆")]
+        [TestCase("-1234567890123", "-1兆2,345億")]
         public void BigNumberFormattingUsesJapaneseUnits(string amount, string expected)
         {
             Assert.That(Format.Big(BigInteger.Parse(amount, CultureInfo.InvariantCulture), Config()), Is.EqualTo(expected));
@@ -246,8 +246,9 @@ namespace Imoni.Core.Tests
                 json["format"]["decimalPlaces"] = 1;
                 json["format"]["units"] = new JArray("", "k", "M");
             });
-            Assert.That(Format.Big(1234567, config), Is.EqualTo("1.2M"));
-            Assert.That(Format.Big(BigInteger.Pow(10, 100), config), Is.EqualTo("1" + new string('0', 94) + "M"));
+            Assert.That(Format.Big(1234567, config), Is.EqualTo("1M234k"));
+            Assert.That(Format.Big(BigInteger.Pow(10, 100), config),
+                Is.EqualTo(BigInteger.Pow(10, 94).ToString("N0", CultureInfo.InvariantCulture) + "M"));
         }
     }
 }

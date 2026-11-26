@@ -47,13 +47,16 @@ namespace Imoni.Game.UI.Screens
         private bool ready;
         public LobbyScreen(ScreenContext app) : base(app, "UI/Lobby", "UI/LobbyScreens")
         {
+            // Set before attachment: preserve clipping without the grouped
+            // transform that hides the leading header on scaled Safe Area panels.
+            Find<ScrollView>("LobbyScroll").contentContainer.usageHints &= ~UsageHints.GroupTransform;
             config = LobbyScreenData.Config(app);
             code = Find<InputEntry>("InviteCodeInput"); code.maxLength = config.CodeMaxLength;
             code.AddToClassList("lobby-code-input--empty");
             error = Find<ErrorMessage>("JoinError"); LobbyScreenData.Show(error, false);
             Find<ScreenHeader>("LobbyHeader").BackRequested += () => { App.JoinedTeam = false; App.MemberCount = 1; App.Go("Home"); };
             Find<ImoniText>("CreateDescription").text = "新しいチームを作って、招待コードで仲間を呼ぼう(最大" + config.TeamSize + "人)";
-            Find<ImoniText>("MockCodeHint").text = "モック用:" + config.SuccessCode + " で参加 / " + config.BusyCode + " は挑戦中のチーム";
+            Find<ImoniText>("MockCodeHint").style.display = DisplayStyle.None;
             code.RegisterValueChangedCallback(change =>
             {
                 code.SetValueWithoutNotify((change.newValue ?? string.Empty).ToUpperInvariant());
@@ -74,7 +77,7 @@ namespace Imoni.Game.UI.Screens
             SegmentedControl seed = Find<SegmentedControl>("SeedOptions");
             seed.Options = "共通シード\n<size=10>今週 " + LobbyScreenData.CommonSeed(App) + "・共通シード部門</size>|自由シード\n<size=10>ランダム生成・自由シード部門</size>";
             seed.Selected = App.FreeSeed ? 1 : 0; seed.Changed += selected => App.FreeSeed = selected != 0;
-            Find<ImoniText>("ModeDescription").text = LobbyPresentation.ModeDescription(UiTheme.Config);
+            Find<ImoniText>("ModeDescription").text = App.EndlessSelected ? "エンドレス / R1から開始、成功を重ねて記録に挑戦" : LobbyPresentation.ModeDescription(UiTheme.Config);
             Find<ImoniButton>("ReadyButton").clicked += () => { ready = true; RefreshTeam(); };
             Find<ImoniButton>("CancelReady").clicked += () => { ready = false; RefreshTeam(); };
             Find<ImoniButton>("LobbyStart").clicked += () => { if (ready) App.Go("Loading"); };

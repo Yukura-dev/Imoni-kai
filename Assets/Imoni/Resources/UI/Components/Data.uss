@@ -1,7 +1,7 @@
 /* Dimensions and typography follow the source mock styles; common colours/fonts come from Theme.uss. */
 .stat-card { background-color: var(--c-cream); border-width: 3px; border-color: var(--c-brown); border-radius: 14px; padding: 10px; flex-shrink: 0; }
 .stat-card__label { font-size: 11px; color: var(--c-brown); }
-.stat-card__value { margin-top: 2px; font-size: 18px; -unity-font-definition: var(--font-title); color: var(--c-green); }
+.stat-card__value { margin-top: 2px; font-size: 18px; -unity-font-definition: var(--font-title); color: var(--c-green); min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .stat-card--result { background-color: var(--c-brown); border-width: 0; border-radius: 18px; padding: 12px 14px; }
 .stat-card--result > .stat-card__label { color: var(--c-cream); }
 .stat-card--result > .stat-card__value { color: var(--c-yellow); font-size: 22px; }
@@ -34,12 +34,15 @@
 .material-goal--chip > .material-goal__name { position: absolute; left: 8px; top: 6px; }
 .material-goal--chip > .material-goal__count { position: absolute; right: 8px; top: 6px; }
 .material-goal--chip > .material-goal__bar { position: absolute; left: 8px; right: 8px; bottom: 7px; height: 6px; border-radius: 3px; }
+.material-goal--chip.material-goal--stacked > .material-goal__name { top: 2px; }
+.material-goal--chip.material-goal--stacked > .material-goal__count { top: 14px; left: 8px; white-space: normal; }
+.material-goal--chip.material-goal--stacked > .material-goal__bar { bottom: 3px; height: 3px; }
 .material-goal--chip.material-goal--achieved { background-color: var(--c-green); color: var(--c-cream); }
 .material-goal--row, .material-goal--failurerow { flex-direction: row; align-items: center; min-height: 20px; }
 .material-goal--row > .material-goal__name { width: 52px; flex-shrink: 0; }
-.material-goal--row > .material-goal__count { width: 76px; flex-shrink: 0; }
+.material-goal--row > .material-goal__count { min-width: 76px; flex-shrink: 1; white-space: nowrap; }
 .material-goal--failurerow > .material-goal__name { width: 56px; flex-shrink: 0; }
-.material-goal--failurerow > .material-goal__count { width: 96px; flex-shrink: 0; }
+.material-goal--failurerow > .material-goal__count { min-width: 96px; flex-shrink: 1; white-space: nowrap; }
 .material-goal--row > .material-goal__bar, .material-goal--failurerow > .material-goal__bar { flex-grow: 1; flex-shrink: 1; margin-left: 8px; margin-right: 8px; }
 .material-goal--row > .material-goal__count { color: var(--c-brown); }
 .material-goal--failurerow > .material-goal__count { color: var(--c-green); }

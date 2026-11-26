@@ -49,8 +49,18 @@ namespace Imoni.Core
             // 100 is the definition of percent, not a balance/tuning value.
             BonusTier highest = config.BonusTiers.LastOrDefault(tier => current * 100 >= required * tier.MinPercent);
             return config.BonusTiers.Select(tier => new BonusTierView(
-                tier.MinPercent.ToString(CultureInfo.InvariantCulture) + "%", "×" + Format.Big(tier.Multiplier, config),
+                Achievement(config, tier.MinPercent, 100), "×" + Format.Big(tier.Multiplier, config),
                 current * 100 >= required * tier.MinPercent, ReferenceEquals(tier, highest))).ToArray();
+        }
+
+        /// <summary>Large achievement ratios use an integer multiple, without float overflow or decimals.</summary>
+        public static string Achievement(GameConfig config, BigInteger current, BigInteger required, string percentPrefix = "")
+        {
+            if (config == null) throw new ArgumentNullException(nameof(config));
+            ValidateAmounts(current, required);
+            return current * 100 >= required * config.AchievementMultipleThresholdPercent
+                ? "目標の" + Format.Big(current / required, config) + "倍"
+                : percentPrefix + Format.Big(current * 100 / required, config) + "%";
         }
 
         /// <summary>Integer-safe visual interpolation only; never mutates game state.</summary>

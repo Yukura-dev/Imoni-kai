@@ -22,12 +22,14 @@
 .effect-yellow { color: #FFE95C; }
 .effect-finale--fail .effect-outline { -unity-text-outline-color: var(--c-brown); }
 .effect-finale--fail .effect-yellow { color: #DCD6CC; }
+.effect-fill { -unity-text-outline-color: #FFE95C; }
+.effect-finale--fail .effect-fill { -unity-text-outline-color: #DCD6CC; }
 .effect-missing { position: absolute; color: var(--c-white); background-color: rgba(74,46,34,0.85); -unity-font-definition: var(--font-body-black); -unity-text-align: middle-center; padding: 0; white-space: normal; }
 .effect-result { position: absolute; border-width: 0; padding: 0; min-height: 0; }
 .effect-result-shadow { background-color: var(--c-green-dark); }
 .effect-result--fail { background-color: var(--c-brown); }
 .effect-result-shadow--fail { background-color: #2A1A12; }
 .effect-replay { position: absolute; background-color: var(--c-cream); padding: 0; min-height: 0; }
-.gray-overlay { background-color: rgb(125,116,102); }
+.gray-overlay { background-color: rgb(117,117,117); }
 .dark-overlay { background-color: black; }
 .imoni-effect Label { flex-shrink: 0; }

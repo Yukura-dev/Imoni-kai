@@ -39,7 +39,7 @@ namespace Imoni.Core.Effects
                 Score = evaluation.Score, Failed = !evaluation.Success,
                 SuccessReferenceScore = BigInteger.Max(BigInteger.One, BigInteger.Max(evaluation.Score, reference)),
                 MissingMaterialNames = Array.AsReadOnly(evaluation.MissingMaterialIds.Select(id => config.Material(id).Name).ToArray()),
-                ResultRoute = !evaluation.Success ? "GameOver" : result.RoundNumber >= config.RoundsToClear ? "Clear" : "Result",
+                ResultRoute = !evaluation.Success ? "GameOver" : !result.IsEndless && result.RoundNumber >= config.RoundsToClear ? "Clear" : "Result",
                 Seed = result.Seed
             };
         }

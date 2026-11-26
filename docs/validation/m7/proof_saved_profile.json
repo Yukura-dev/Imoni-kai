@@ -1,0 +1,88 @@
+{
+  "Name": "ゆくらさん",
+  "FirstTitle": "芋煮会の",
+  "SecondTitle": "初心者",
+  "BandColor": "#8B2310",
+  "OutfitColor": "#FFF3D6",
+  "SoundEnabled": true,
+  "SoundVolume": 1.0,
+  "TutorialCompleted": false,
+  "OwnedFirstTitles": [
+    "芋煮会の",
+    "山の",
+    "連続の",
+    "伝説の"
+  ],
+  "OwnedSecondTitles": [
+    "初心者",
+    "薪割り職人",
+    "里芋ハンター",
+    "鍋奉行",
+    "採集王"
+  ],
+  "OwnedBadges": [
+    "first_step",
+    "round3",
+    "streak10",
+    "normal_clear",
+    "score_100m",
+    "ultimate"
+  ],
+  "Progression": {
+    "BestRound": 6,
+    "SuccessfulRound": 6,
+    "BestStreak": 445,
+    "NormalClears": 1,
+    "BestScore": 19994631396026247994145912054554529,
+    "GatheredByMaterial": {
+      "taro": 60928116337577056,
+      "negi": 1617,
+      "wood": 8320182,
+      "fish": 279663399,
+      "sansai": 183830388895972,
+      "mushroom": 280
+    },
+    "GatheredQualities": [
+      "good",
+      "legend",
+      "myth",
+      "normal",
+      "rare",
+      "transcend",
+      "ultimate"
+    ]
+  },
+  "AppliedRoundKeys": [
+    "fe9f0243f8f349bf9a980703857ac61c:1",
+    "fe9f0243f8f349bf9a980703857ac61c:2",
+    "fe9f0243f8f349bf9a980703857ac61c:3",
+    "fe9f0243f8f349bf9a980703857ac61c:4",
+    "fe9f0243f8f349bf9a980703857ac61c:5",
+    "fe9f0243f8f349bf9a980703857ac61c:6",
+    "d015e8f2c9754939a5824208be93e920:1"
+  ],
+  "Rankings": [
+    {
+      "ChallengeId": "fe9f0243f8f349bf9a980703857ac61c",
+      "TeamName": "鍋底同盟",
+      "TeamSize": 3,
+      "Mode": 0,
+      "SeedDivision": 0,
+      "Seed": 202647,
+      "RoundNumber": 5,
+      "Score": 390242644867564510660793456796400,
+      "RecordedAtUtc": "2026-11-26T03:31:08.542619+00:00"
+    },
+    {
+      "ChallengeId": "fe9f0243f8f349bf9a980703857ac61c",
+      "TeamName": "鍋底同盟",
+      "TeamSize": 3,
+      "Mode": 1,
+      "SeedDivision": 0,
+      "Seed": 202647,
+      "RoundNumber": 6,
+      "Score": 19994631396026247994145912054554529,
+      "RecordedAtUtc": "2026-11-26T03:31:18.7838464+00:00"
+    }
+  ]
+}

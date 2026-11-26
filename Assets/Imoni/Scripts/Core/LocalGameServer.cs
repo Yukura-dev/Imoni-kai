@@ -6,7 +6,7 @@ using System.Numerics;
 
 namespace Imoni.Core
 {
-    public enum RoundPhase { Collecting, Succeeded, Failed, Cleared, Aborted }
+    public enum RoundPhase { Collecting, Succeeded, Failed, Cleared, Aborted, EndlessFinished }
     public enum RoundEventKind { Started, BonusRevealed, TimeUp, Succeeded, Failed, Cleared }
     public enum OperationKind { Gather, Buy, Sell, SetProtection, Upgrade, SellAll }
     public enum PlayerAction { Idle, Moving, Gathering }
@@ -31,6 +31,8 @@ namespace Imoni.Core
         void AbortChallenge(string actorId);
         void Tick(decimal seconds);
         void StartNextRound(RoundObjectives objectives = null);
+        void StartEndless(RoundObjectives objectives = null);
+        void FinishEndless();
         void Retry(int seed, RoundObjectives objectives = null);
     }
 
@@ -70,9 +72,10 @@ namespace Imoni.Core
         private RoundResult lastResult;
         private long operationSequence;
         private long eventSequence;
+        private bool isEndless;
 
         public LocalGameServer(GameConfig config, int seed, IEnumerable<string> actorIds = null,
-            RoundObjectives objectives = null, bool enableBots = true)
+            RoundObjectives objectives = null, bool enableBots = true, bool endless = false)
         {
             this.config = config ?? throw new ArgumentNullException(nameof(config));
             string[] ids = (actorIds ?? Enumerable.Range(1, config.TeamSize)
@@ -91,6 +94,7 @@ namespace Imoni.Core
             streakCalc = new StreakCalc(config);
             upgradeRules = new UpgradeRules(config);
             ResetChallenge(seed);
+            isEndless = endless;
             BeginRound(ValidateObjectives(objectives));
         }
 
@@ -106,7 +110,7 @@ namespace Imoni.Core
                 return new GameSnapshot(phase, roundNumber, seed, elapsedSeconds, bonusRevealed, funds,
                     cumulativeScore, objectives.Required, bonusRevealed ? objectives.Bonus : null,
                     actorOrder.Select(id => PlayerView(players[id])),
-                    lots, protection, history, events, lastResult, World.Resources.Select(node => node.Snapshot()));
+                    lots, protection, history, events, lastResult, World.Resources.Select(node => node.Snapshot()), isEndless);
             }
         }
 
@@ -355,7 +359,9 @@ namespace Imoni.Core
                 objectives?.Validate(config);
                 WorldMap nextWorld = WorldGen.Generate(config, seed);
                 RoundObjectives next = objectives == null
-                    ? objectiveGenerator.Generate(nextWorld, 1, new Rng(unchecked(seed + 1)))
+                    ? objectiveGenerator.Generate(nextWorld, 1, new Rng(unchecked(seed + 1)), actorOrder.Select(id =>
+                        new PlayerSnapshot(id, 0, config.Upgrades.ToDictionary(upgrade => upgrade.Id, _ => 0),
+                            nextWorld.Start, isBot: enableBots && id != actorOrder[0])), config.StartFunds)
                     : ValidateObjectives(objectives, 1, nextWorld);
                 ResetChallenge(seed, nextWorld);
                 history.Clear();
@@ -364,6 +370,29 @@ namespace Imoni.Core
                 eventSequence = 0;
                 lastResult = null;
                 BeginRound(next);
+            }
+        }
+
+        public void StartEndless(RoundObjectives objectives = null)
+        {
+            lock (gate)
+            {
+                if (phase != RoundPhase.Cleared || isEndless) throw new InvalidOperationException("Endless continuation requires a normal clear.");
+                int nextRound = checked(roundNumber + 1);
+                RoundObjectives next = ValidateObjectives(objectives, nextRound);
+                isEndless = true;
+                roundNumber = nextRound;
+                BeginRound(next);
+            }
+        }
+
+        public void FinishEndless()
+        {
+            lock (gate)
+            {
+                if (!isEndless || phase != RoundPhase.Succeeded || roundNumber <= config.RoundsToClear)
+                    throw new InvalidOperationException("An endless record can finish only after a successful endless round.");
+                phase = RoundPhase.EndlessFinished;
             }
         }
 
@@ -377,9 +406,9 @@ namespace Imoni.Core
             {
                 cumulativeScore += evaluation.Score;
                 funds += evaluation.FundsReward;
-                phase = roundNumber >= config.RoundsToClear ? RoundPhase.Cleared : RoundPhase.Succeeded;
+                phase = !isEndless && roundNumber >= config.RoundsToClear ? RoundPhase.Cleared : RoundPhase.Succeeded;
                 lastResult = new RoundResult(roundNumber, seed, config.DurationSeconds, evaluation,
-                    cumulativeScore, history, funds);
+                    cumulativeScore, history, funds, isEndless);
                 inventory.Clear();
                 foreach (PlayerState player in players.Values) player.Streak = 0;
                 Emit(phase == RoundPhase.Cleared ? RoundEventKind.Cleared : RoundEventKind.Succeeded,
@@ -388,7 +417,7 @@ namespace Imoni.Core
             else
             {
                 lastResult = new RoundResult(roundNumber, seed, config.DurationSeconds, evaluation,
-                    cumulativeScore, history, config.StartFunds);
+                    cumulativeScore, history, config.StartFunds, isEndless);
                 Emit(RoundEventKind.Failed, config.DurationSeconds);
                 // Preserve the detached result/event log for GameOver; reset every active run value.
                 ResetChallenge(seed);
@@ -441,7 +470,7 @@ namespace Imoni.Core
         {
             // Independent goal RNG keeps map/goal generation from shifting the gather RNG stream.
             RoundObjectives next = candidate ?? objectiveGenerator.Generate(World, targetRound ?? roundNumber,
-                new Rng(unchecked(seed + (targetRound ?? roundNumber))), actorOrder.Select(id => PlayerView(players[id])));
+                new Rng(unchecked(seed + (targetRound ?? roundNumber))), actorOrder.Select(id => PlayerView(players[id])), funds);
             next.Validate(config);
             if (candidate != null)
             {
@@ -685,6 +714,7 @@ namespace Imoni.Core
 
     public sealed class RoundResult
     {
+        public bool IsEndless { get; }
         public int RoundNumber { get; }
         public int Seed { get; }
         public decimal ElapsedSeconds { get; }
@@ -693,16 +723,18 @@ namespace Imoni.Core
         public BigInteger FundsAfterSettlement { get; }
         public IReadOnlyList<OperationRecord> History { get; }
         internal RoundResult(int round, int seed, decimal elapsed, RoundEvaluation evaluation,
-            BigInteger cumulative, IEnumerable<OperationRecord> history, BigInteger fundsAfterSettlement = default)
+            BigInteger cumulative, IEnumerable<OperationRecord> history, BigInteger fundsAfterSettlement = default, bool isEndless = false)
         {
             RoundNumber = round; Seed = seed; ElapsedSeconds = elapsed; Evaluation = evaluation;
             CumulativeScore = cumulative; History = Array.AsReadOnly(history.ToArray());
             FundsAfterSettlement = fundsAfterSettlement;
+            IsEndless = isEndless;
         }
     }
 
     public sealed class GameSnapshot
     {
+        public bool IsEndless { get; }
         public RoundPhase Phase { get; }
         public int RoundNumber { get; }
         public int Seed { get; }
@@ -724,7 +756,7 @@ namespace Imoni.Core
             BigInteger funds, BigInteger cumulative, IEnumerable<Objective> required, Objective bonus,
             IEnumerable<PlayerSnapshot> players, IEnumerable<MaterialLot> lots,
             IEnumerable<ProtectionSnapshot> protection, IEnumerable<OperationRecord> history,
-            IEnumerable<RoundEvent> events, RoundResult lastResult, IEnumerable<ResourceSnapshot> resources)
+            IEnumerable<RoundEvent> events, RoundResult lastResult, IEnumerable<ResourceSnapshot> resources, bool isEndless = false)
         {
             Phase = phase; RoundNumber = round; Seed = seed; ElapsedSeconds = elapsed; BonusRevealed = bonusRevealed;
             Funds = funds; CumulativeScore = cumulative; RequiredObjectives = Array.AsReadOnly(required.ToArray());
@@ -732,6 +764,7 @@ namespace Imoni.Core
             Protection = Array.AsReadOnly(protection.ToArray()); History = Array.AsReadOnly(history.ToArray());
             Events = Array.AsReadOnly(events.ToArray()); LastResult = lastResult;
             Resources = Array.AsReadOnly(resources.ToArray());
+            IsEndless = isEndless;
         }
     }
 }

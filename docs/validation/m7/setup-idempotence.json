@@ -1,0 +1,25 @@
+{
+  "fontAssetsUnchangedOnSecondSetup": true,
+  "hashes": [
+    {
+      "Algorithm": "SHA256",
+      "Hash": "EFB6C2867CA28BAA6EC99612AA596EE5A4DBE9CCBF173E00285DD99F53A9410E",
+      "Path": "D:\\UnityProjects\\Imoni-kai\\Assets\\Imoni\\Fonts\\Generated\\DelaGothicOne SDF.asset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "9604255585A29AF2AC767669AEBC47A0434E3AC7C7A836A7F404145FFA12F418",
+      "Path": "D:\\UnityProjects\\Imoni-kai\\Assets\\Imoni\\Fonts\\Generated\\ZenMaruGothic-Black SDF.asset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "0E6168B920FFAA093E02514F3C48EB2291ED12AD4026923E959FACCF4FA2ABAC",
+      "Path": "D:\\UnityProjects\\Imoni-kai\\Assets\\Imoni\\Fonts\\Generated\\ZenMaruGothic-Bold SDF.asset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "AE27959235BCEF49B7500A6232C340240D3EB74055BA4C78A61062C4390AD7C3",
+      "Path": "D:\\UnityProjects\\Imoni-kai\\Assets\\Imoni\\Fonts\\Generated\\ZenMaruGothic-Medium SDF.asset"
+    }
+  ]
+}

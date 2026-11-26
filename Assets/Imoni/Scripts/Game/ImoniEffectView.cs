@@ -42,6 +42,11 @@ namespace Imoni.Game.Effects
         private static readonly string[] IngredientNames = { "taro", "negi", "mushroom", "beef", "konnyaku" };
         private static readonly string[] StarNames = { "yellow", "pink", "blue", "green", "purple", "orange" };
         private readonly Dictionary<string, Texture2D> artwork = new Dictionary<string, Texture2D>();
+        private readonly Dictionary<VisualElement, Texture2D> imageSources = new Dictionary<VisualElement, Texture2D>();
+        private ImoniEffectGrayscale grayscale;
+        private Color worldBackground;
+        private bool worldBackgroundCaptured;
+        public int GrayscaleTextureCount => grayscale?.TextureCount ?? 0;
         private readonly List<FallingItem> ingredientElements = new List<FallingItem>();
         private readonly List<StarBurst> burstElements = new List<StarBurst>();
         private readonly List<GlowRing> ringElements = new List<GlowRing>();
@@ -66,11 +71,13 @@ namespace Imoni.Game.Effects
         {
             public VisualElement Element;
             public double Base, Delay;
+            public Color Color;
         }
         private sealed class Spark
         {
             public VisualElement Element;
             public double Y, Duration, FloatDuration, Delay;
+            public Color Tint;
         }
 
         public void Begin(BigInteger finalScore, BigInteger successReferenceScore, bool isFailed,
@@ -110,6 +117,7 @@ namespace Imoni.Game.Effects
         }
 
         private void OnDisable() => Hide();
+        private void OnDestroy() { grayscale?.Dispose(); grayscale = null; }
 
         private void Update()
         {
@@ -137,6 +145,10 @@ namespace Imoni.Game.Effects
 
         private void Build()
         {
+            grayscale?.Dispose();
+            grayscale = new ImoniEffectGrayscale(UiTheme.Assets ? UiTheme.Assets.imoniEffectGrayscaleShader : null);
+            worldBackgroundCaptured = false;
+            imageSources.Clear();
             artwork.Clear();
             foreach (var texture in textures ?? Array.Empty<Texture2D>()) if (texture) artwork[texture.name] = texture;
             var root = Host ?? (document ? document.rootVisualElement : null);
@@ -225,6 +237,10 @@ namespace Imoni.Game.Effects
             finaleHeading.text = failed ? "あれ…?" : "大成功!!";
             finaleTwo.text = failed ? "未完成…" : "完成!!";
             Outline(finaleHeading, failed); Outline(finaleOne, failed); Outline(finaleTwo, failed);
+            // Browser faux-bold expands the fill differently from TextCore. Keep the font/coordinates
+            // and outer outline intact, adding only the configurable same-color inner stroke.
+            SetupFinaleFill("FinaleFillOne", finaleOne.text, failed ? "failLineOne" : "finaleLineOne");
+            SetupFinaleFill("FinaleFillTwo", finaleTwo.text, failed ? "failLineTwo" : "finaleLineTwo");
             if (!failed)
             {
                 AddGlowBefore(finaleOne, "finaleLineOne", N("finaleFont"));
@@ -232,8 +248,17 @@ namespace Imoni.Game.Effects
             }
             Rect(missingLabel, "missing"); Round(missingLabel, N("missingRadius"));
             missingLabel.style.fontSize = (float)N("missingFont");
-            missingLabel.text = "必須素材『" + missing + "』が足りなかった";
+            missingLabel.text = "必須素材「" + missing + "」が足りなかった";
             missingLabel.style.display = failed ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        private void SetupFinaleFill(string name, string text, string rectangle)
+        {
+            Label fill = screen.Q<Label>(name); Rect(fill, rectangle); fill.text = text;
+            fill.style.fontSize = (float)N(failed ? "failFont" : "finaleFont");
+            // Dela is already a heavy display face; TextCore's synthetic Bold closes its counters.
+            fill.style.unityFontStyleAndWeight = FontStyle.Normal;
+            fill.style.unityTextOutlineWidth = (float)N("finaleFillStrokePx");
         }
 
         private void SetupActions()
@@ -260,7 +285,7 @@ namespace Imoni.Game.Effects
             var starTextures = StarNames.Select(name => Texture("fx_star_" + name)).ToArray();
             for (var i = 0; i < capacity.Bursts; i++)
             {
-                var burst = new StarBurst(); burst.Prepare(capacity.StarsPerBurst, starTextures);
+                var burst = new StarBurst(); burst.Prepare(capacity.StarsPerBurst, starTextures, grayscale.Background);
                 starsLayer.Add(burst); burstElements.Add(burst); Visible(burst, false);
             }
             for (var i = 0; i < capacity.Rings; i++)
@@ -279,7 +304,7 @@ namespace Imoni.Game.Effects
                 var color = rng.Next() < N("streakWhiteChance") ? colors[0] : colors[1 + (int)(rng.Next() * (colors.Length - 1))];
                 element.style.backgroundColor = color; element.style.opacity = (float)Range(rng, "streakOpacity");
                 Round(element, N("streakRadius")); Rect(element, x, 0, width, height);
-                lines.Add(new Line { Element = element, Base = Range(rng, "streakSeconds"), Delay = Range(rng, "streakDelay") });
+                lines.Add(new Line { Element = element, Color = color, Base = Range(rng, "streakSeconds"), Delay = Range(rng, "streakDelay") });
             }
             var sparkleLayer = screen.Q("Sparkles");
             for (var i = 0; i < Config.SparkleCounts.Max(); i++)
@@ -288,9 +313,10 @@ namespace Imoni.Game.Effects
                 var side = rng.Next() < .5 ? -1 : 1;
                 var x = Math.Round(Config.V("centerX") + side * Range(rng, "sparkleDistance") + N("sparkleOffsetX"));
                 var y = Math.Round(Range(rng, "sparkleY")); var size = Math.Round(Range(rng, "sparkleSize"));
-                element.style.unityBackgroundImageTintColor = colors[(int)(rng.Next() * colors.Length)];
+                var tint = colors[(int)(rng.Next() * colors.Length)];
+                element.style.unityBackgroundImageTintColor = tint;
                 Rect(element, x, y, size, size);
-                sparks.Add(new Spark { Element = element, Y = y, Duration = Range(rng, "sparkleSeconds"),
+                sparks.Add(new Spark { Element = element, Y = y, Tint = tint, Duration = Range(rng, "sparkleSeconds"),
                     FloatDuration = Range(rng, "sparkleFloatSeconds"), Delay = Range(rng, "sparkleDelay") });
             }
         }
@@ -298,6 +324,18 @@ namespace Imoni.Game.Effects
         private void Render(ImoniEffectFrame frame)
         {
             var t = Timeline.NowMs; var sec = t / N("millisecondsPerSecond"); var level = Timeline.Level;
+            bool grayChanged = grayscale.SetAmount((float)frame.Gray);
+            // CSS may resolve one panel update after Build. Capture the authored color once it is available.
+            if (!worldBackgroundCaptured && screen.resolvedStyle.backgroundColor.a > 0)
+            {
+                worldBackground = screen.resolvedStyle.backgroundColor; worldBackgroundCaptured = true; grayChanged = true;
+            }
+            if (grayChanged)
+            {
+                if (worldBackgroundCaptured) screen.style.backgroundColor = grayscale.Color(worldBackground);
+                foreach (var entry in imageSources)
+                    if (world.Contains(entry.Key)) entry.Key.style.backgroundImage = grayscale.Background(entry.Value);
+            }
             Move(world, frame.ShakeX, frame.ShakeY);
             // Absolute elapsed-time phases reproduce CSS animation duration changes without frame drift.
             Move(rainbow, 0, -Fraction(sec / frame.RainbowDurationSec) * N("rainbowPeriodY"));
@@ -313,12 +351,14 @@ namespace Imoni.Game.Effects
             for (var i = 0; i < lines.Count; i++)
             {
                 var line = lines[i]; var visible = i < Config.StreakCounts[level];
+                line.Element.style.backgroundColor = grayscale.Color(line.Color);
                 Visible(line.Element, visible);
                 if (visible) Move(line.Element, 0, N("streakTop") + N("streakDistance") * Fraction((sec + line.Delay) / (line.Base / (1 + N("streakSpeedPerLevel") * level))));
             }
             for (var i = 0; i < sparks.Count; i++)
             {
                 var spark = sparks[i]; var visible = i < Config.SparkleCounts[level];
+                spark.Element.style.unityBackgroundImageTintColor = grayscale.Color(spark.Tint);
                 Visible(spark.Element, visible); if (!visible) continue;
                 var twinkle = (1 - Math.Cos(Fraction((sec + spark.Delay) / spark.Duration) * Math.PI * 2)) / 2;
                 Scale(spark.Element, N("sparkleMinimumScale") + (1 - N("sparkleMinimumScale")) * twinkle);
@@ -403,7 +443,6 @@ namespace Imoni.Game.Effects
         }
         private string ScoreText(BigInteger value)
         {
-            if (value.ToString(CultureInfo.InvariantCulture).Length <= N("scoreCompactAfterDigits")) return value.ToString("N0", CultureInfo.GetCultureInfo("ja-JP"));
             return Format.Big(value, displayConfig);
         }
         private static bool HasStyleInAncestors(VisualElement element, StyleSheet sheet)
@@ -413,7 +452,12 @@ namespace Imoni.Game.Effects
             return false;
         }
         private Texture2D Texture(string name) => artwork.TryGetValue(name, out var value) ? value : throw new InvalidOperationException("Missing effect image: " + name);
-        private void Image(VisualElement element, string name) => element.style.backgroundImage = new StyleBackground(Texture(name));
+        private void Image(VisualElement element, string name)
+        {
+            Texture2D texture = Texture(name); imageSources[element] = texture;
+            element.style.backgroundImage = world != null && world.Contains(element)
+                ? grayscale.Background(texture) : new StyleBackground(texture);
+        }
         private double N(string key) => layout[key]?.Value<double>() ?? throw new InvalidOperationException("Missing effect layout number: " + key);
         private double[] A(string key) => layout[key]?.Values<double>().ToArray() ?? throw new InvalidOperationException("Missing effect layout array: " + key);
         private double Range(ImoniEffectRandom random, string key) { var range = A(key); return random.Range(range[0], range[1]); }

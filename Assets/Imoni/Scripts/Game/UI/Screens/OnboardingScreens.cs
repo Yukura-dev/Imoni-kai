@@ -20,7 +20,7 @@ namespace Imoni.Game.UI.Screens
             progress = Find<ProgressBar>("loading-progress");
             status = Find<ImoniText>("loading-label");
             start = Find<ImoniButton>("start");
-            start.clicked += () => App.Go("Tutorial1");
+            start.clicked += () => App.Go("Login");
             Later(AdvanceLoading, App.Number("mainLoadingTickMs") / 1000);
         }
 

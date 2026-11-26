@@ -108,7 +108,7 @@ namespace Imoni.Core.Tests
             Assert.That(server.Snapshot().RoundNumber, Is.EqualTo(1)); Assert.That(server.Snapshot().CumulativeScore, Is.EqualTo(BigInteger.Zero));
             Assert.That(view.RoundNumber, Is.EqualTo(2)); Assert.That(view.RoundText, Is.EqualTo("ラウンド 2/5 結果"));
             Assert.That(view.CumulativeScoreText, Is.EqualTo(Format.Big(first.Evaluation.Score, config)));
-            Assert.That(view.MissingMaterialText, Is.EqualTo("必須素材『薪』が足りなかった"));
+            Assert.That(view.MissingMaterialText, Is.EqualTo("必須素材「薪」が足りなかった"));
             Assert.That(view.FundsRewardText, Is.EqualTo("+0G")); Assert.That(view.CanRetry, Is.True); Assert.That(view.CanNextRound, Is.False);
             Assert.That(view.NewlyEligibleTitles, Is.Empty); Assert.That(failure.FundsAfterSettlement, Is.EqualTo(config.StartFunds));
             WorldMap resetWorld = server.World; server.Retry(777);
@@ -160,7 +160,7 @@ namespace Imoni.Core.Tests
         }
 
         [Test]
-        public void FractionalLotPointsRemainVisibleAndFinalScoreStillUsesOneFinalFloor()
+        public void FractionalLotPointsRemainInternalWhileDisplayedBreakdownUsesIntegers()
         {
             GameConfig config = Config(); var inventory = new Inventory(config);
             inventory.Add("wood", "normal", 1, config.FixedScale * 3 / 2);
@@ -168,8 +168,8 @@ namespace Imoni.Core.Tests
             RoundEvaluation evaluation = Scoring.Evaluate(config, inventory, SmallGoals());
             var result = new RoundResult(1, 202647, config.DurationSeconds, evaluation, evaluation.Score, Array.Empty<OperationRecord>());
             RoundResultView view = RoundResultProjection.Present(config, result);
-            Assert.That(view.RequiredPointsText, Is.EqualTo("1.5")); Assert.That(view.RequiredWeightedText, Is.EqualTo("0.75"));
-            Assert.That(view.BonusPointsText, Is.EqualTo("22.5")); Assert.That(view.BonusWeightedText, Is.EqualTo("11.25"));
+            Assert.That(view.RequiredPointsText, Is.EqualTo("1")); Assert.That(view.RequiredWeightedText, Is.EqualTo("0"));
+            Assert.That(view.BonusPointsText, Is.EqualTo("22")); Assert.That(view.BonusWeightedText, Is.EqualTo("11"));
             Assert.That(view.ScoreText, Is.EqualTo("12"));
         }
 

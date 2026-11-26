@@ -3,6 +3,13 @@
 .result-gap { margin-top: 12px; }
 .result-note { font-size: 12px; white-space: normal; -unity-text-align: middle-center; }
 .round-next { height: 65px; margin-bottom: -5px; border-radius: 30px; font-size: 22px; -unity-font-definition: var(--font-title); }
+.result-actions { flex-direction: row; flex-shrink: 0; align-items: center; }
+.result-actions > .imoni-button { flex-grow: 1; flex-basis: 0; min-width: 0; }
+.result-actions--multiple > .round-next { font-size: 16px; }
+.result-secondary { margin-left: 8px; font-size: 14px; height: 65px; white-space: normal; }
+.has-safe-insets .result-gap { margin-top: 10px; }
+.has-safe-insets .result-screen .round-spacer { min-height: 0; }
+.has-safe-insets .result-screen .round-next { margin-bottom: 0; }
 .gameover-screen { padding: 64px 18px 36px; background-color: var(--c-brown); color: var(--c-cream); }
 .gameover-gap { margin-top: 14px; }
 .gameover-headline { font-size: 34px; height: 44px; -unity-font-definition: var(--font-title); color: var(--c-yellow); }

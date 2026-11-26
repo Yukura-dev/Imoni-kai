@@ -27,12 +27,49 @@ namespace Imoni.Game.UI.Screens
         public string LocalActorId { get; private set; }
         public GamePanels Panels { get; }
         public RoundTimeUpDialog TimeUpDialog { get; }
+        public ReconnectNotice ReconnectDialog { get; }
+        public bool IsReconnecting => Snapshot.Phase == RoundPhase.Collecting && !Snapshot.Players.First(player => player.Id == LocalActorId).Connected;
         public bool IsTimeUp => Snapshot.LastResult != null && (Snapshot.Phase == RoundPhase.Succeeded || Snapshot.Phase == RoundPhase.Failed || Snapshot.Phase == RoundPhase.Cleared);
         public string CurrentPanel => Panels.CurrentPanel;
-        public void OpenPanel(string panelName) { if (Snapshot.Phase == RoundPhase.Collecting) Panels.Open(panelName); }
+        public void OpenPanel(string panelName) { if (Snapshot.Phase == RoundPhase.Collecting && !IsReconnecting) Panels.Open(panelName); }
         public void ClosePanel() => Panels.Close();
 #if UNITY_EDITOR
         public bool ReviewPaused { get; set; }
+#endif
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        private IVisualElementScheduledItem reconnectJob;
+        private string reconnectActor, reconnectResource;
+        private GridPosition? reconnectGround;
+        public bool ReconnectDemoPending => reconnectActor != null;
+
+        /// <summary>Development-only connection loss; all mutations still pass through IGameServer.</summary>
+        public void BeginReconnectDemo(string actorId = null)
+        {
+            if (Snapshot.Phase != RoundPhase.Collecting || reconnectActor != null) return;
+            actorId = actorId ?? LocalActorId;
+            PlayerSnapshot actor = Snapshot.Players.First(player => player.Id == actorId);
+            if (!actor.Connected) return;
+            reconnectActor = actorId; reconnectResource = !actor.IsBot ? actor.TargetResourceId : null;
+            reconnectGround = actorId == LocalActorId && actor.Action == PlayerAction.Moving && actor.TargetResourceId == null ? WorldView?.LastTappedGround : null;
+            Server.SetConnected(actorId, false);
+            if (actorId == LocalActorId) Panels.Close();
+            RefreshSnapshot();
+            reconnectJob = schedule.Execute(FinishReconnectDemo).StartingIn((long)(App.Number("reconnectDemoSeconds") * TimeSpan.FromSeconds(1).TotalMilliseconds));
+        }
+
+        private void FinishReconnectDemo()
+        {
+            if (reconnectActor == null) return;
+            string actorId = reconnectActor; reconnectActor = null;
+            Server.SetConnected(actorId, true);
+            if (Server.Snapshot().Phase == RoundPhase.Collecting)
+            {
+                if (reconnectResource != null) Server.TrySelectResource(actorId, reconnectResource);
+                else if (reconnectGround.HasValue) Server.TryMoveTo(actorId, reconnectGround.Value);
+            }
+            reconnectResource = null; reconnectGround = null; RefreshSnapshot();
+            if (!Panels.IsOpen && Snapshot.Phase == RoundPhase.Collecting) toast.Show("再接続しました", App.Number("toastSeconds"));
+        }
 #endif
 
         public GameScreen(ScreenContext app) : base(app, "UI/Game", "UI/GameScreen")
@@ -63,6 +100,9 @@ namespace Imoni.Game.UI.Screens
             TimeUpDialog.style.display = DisplayStyle.None;
             TimeUpDialog.ResultsButton.clicked += () => { if (IsTimeUp) App.Go(Snapshot.LastResult.Evaluation.Success ? "Imoni" : "ImoniFail"); };
             Find<VisualElement>("GameRoot").Add(TimeUpDialog);
+            ReconnectDialog = new ReconnectNotice();
+            ReconnectDialog.ReturnHomeRequested += () => { Server.AbortChallenge(LocalActorId); App.Go("Home"); };
+            Find<VisualElement>("GameRoot").Add(ReconnectDialog);
             RegisterCallback<AttachToPanelEvent>(_ => AttachWorld());
             RefreshSnapshot();
         }
@@ -111,22 +151,24 @@ namespace Imoni.Game.UI.Screens
             Find<ImoniText>("GameStreak").text = Hud.StreakText;
             Find<ImoniText>("GameStreakMultiplier").text = Hud.StreakMultiplierText;
             Panels?.Refresh(Snapshot);
+            ReconnectDialog.style.display = IsReconnecting ? DisplayStyle.Flex : DisplayStyle.None;
+            Find<VisualElement>("GameActions").SetEnabled(!IsReconnecting);
             if (IsTimeUp)
             {
                 if (Panels.IsOpen) Panels.Close();
                 TimeUpDialog.TimeText = GameHudProjection.Clock(Snapshot.LastResult.ElapsedSeconds) + " タイムアップ";
                 TimeUpDialog.style.display = DisplayStyle.Flex;
             }
-            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen;
+            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen && !IsReconnecting;
             UpdateHistory();
         }
 
         private void TogglePanel(string panelName)
-        { if (Snapshot.Phase == RoundPhase.Collecting) Panels.Toggle(panelName); }
+        { if (Snapshot.Phase == RoundPhase.Collecting && !IsReconnecting) Panels.Toggle(panelName); }
 
         private void OnPanelChanged()
         {
-            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen;
+            if (WorldView != null) WorldView.InputEnabled = Snapshot.Phase == RoundPhase.Collecting && !Panels.IsOpen && !IsReconnecting;
             Find<ImoniButton>("OpenWarehouse").Selected = CurrentPanel == "warehouse";
             Find<ImoniButton>("OpenShop").Selected = CurrentPanel == "shop";
             Find<ImoniButton>("OpenUpgrades").Selected = CurrentPanel == "upgrade";
@@ -138,7 +180,7 @@ namespace Imoni.Game.UI.Screens
         {
             RoundEvent roundEvent = Snapshot.Events.LastOrDefault(item => item.Sequence > lastEvent);
             OperationRecord gather = Snapshot.History.LastOrDefault(item => item.Sequence > lastOperation && item.Kind == OperationKind.Gather);
-            if ((Panels != null && Panels.IsOpen) || Snapshot.Phase != RoundPhase.Collecting)
+            if ((Panels != null && Panels.IsOpen) || Snapshot.Phase != RoundPhase.Collecting || IsReconnecting)
             {
                 if (Snapshot.Events.Count > 0) lastEvent = Snapshot.Events.Max(item => item.Sequence);
                 if (Snapshot.History.Count > 0) lastOperation = Snapshot.History.Max(item => item.Sequence);
@@ -164,6 +206,9 @@ namespace Imoni.Game.UI.Screens
 
         protected override void OnDispose()
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            reconnectJob?.Pause();
+#endif
             WorldView?.Dispose(); WorldView = null;
             if (themeRoot != null) themeRoot.style.backgroundColor = previousBackground;
         }

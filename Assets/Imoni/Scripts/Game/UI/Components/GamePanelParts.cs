@@ -7,6 +7,22 @@ using UnityEngine.UIElements;
 namespace Imoni.Game.UI.Components
 {
     [UxmlElement]
+    public partial class ReconnectNotice : VisualElement
+    {
+        public event Action ReturnHomeRequested;
+        public ReconnectNotice()
+        {
+            name = "ReconnectNotice"; AddToClassList("reconnect-notice"); UiTheme.Apply(this, "UI/Components/GamePanelParts");
+            var card = new Card(); card.AddToClassList("reconnect-notice__card");
+            card.Add(UiTheme.Label("再接続中…", "reconnect-notice__title"));
+            card.Add(UiTheme.Label("接続を確認しています。\nチームの挑戦は続いています。", "reconnect-notice__copy"));
+            var home = new ImoniButton { name = "ReconnectHome", Variant = ImoniButtonVariant.Outline, text = "ホームへ戻る" };
+            home.AddToClassList("reconnect-notice__home"); home.clicked += () => ReturnHomeRequested?.Invoke();
+            card.Add(home); Add(card);
+        }
+    }
+
+    [UxmlElement]
     public partial class InventoryTableHeader : VisualElement
     {
         public InventoryTableHeader()

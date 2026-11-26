@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:c="Imoni.Game.UI.Components">
-    <ui:VisualElement class="onboarding-page onboarding-page--third">
+    <ui:VisualElement class="onboarding-page onboarding-page--third safe-design-padding">
         <c:StepTitle title="自分を強化して、&#10;とんでもない芋煮をつくろう!" step="3" count="3" stacked="true" class="tutorial-block" />
         <c:Card class="tutorial-quality-card tutorial-block">
             <c:ImoniText text="品質で価値が何倍にも" class="tutorial-card-heading" />
