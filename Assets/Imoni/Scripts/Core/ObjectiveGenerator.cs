@@ -52,7 +52,7 @@ namespace Imoni.Core
             Worker[] workers = CreateWorkers(world, round, team);
             // Same starting positions and resources isolate the production increase from upgrades.
             PlayerSnapshot[] untrained = team?.Select(player => new PlayerSnapshot(player.Id, 0,
-                config.Upgrades.ToDictionary(upgrade => upgrade.Id, _ => 0), player.Position)).ToArray();
+                config.Upgrades.ToDictionary(upgrade => upgrade.Id, _ => 0), player.Position, location: player.Location)).ToArray();
             Worker[] baselineWorkers = CreateWorkers(world, round, untrained);
             int count = config.ObjectiveGeneration.RequiredCount + 1;
             while (candidates.Count >= count)
@@ -159,9 +159,9 @@ namespace Imoni.Core
                 int amount = player == null ? 0 : player.Upgrades["amount"];
                 int luck = player == null ? 0 : player.Upgrades["luck"];
                 decimal tileSeconds = GatheringTiming.MoveStepSeconds(config, move);
-                PathResult initialPath = Pathfinding.FindPath(world, player == null ? world.Start : player.Position, world.Start, round);
+                PathResult initialPath = Pathfinding.FindPath(world, player == null ? new WorldPosition(world.Start) : player.Location, world.Start, round);
                 if (!initialPath.Reachable) throw new InvalidOperationException("A team member cannot return to the base.");
-                workers[index] = new Worker(tileSeconds, speed, amount, luck, (initialPath.Steps.Count - 1) * tileSeconds);
+                workers[index] = new Worker(tileSeconds, speed, amount, luck, initialPath.DistanceTiles * tileSeconds);
             }
             return workers;
         }
@@ -170,7 +170,7 @@ namespace Imoni.Core
             Worker[] workers, decimal stageStart, decimal stageEnd)
         {
             var nodes = resources.Select(node => new SimulatedNode(node,
-                Pathfinding.FindPathToResource(world, world.Start, node, round).Steps.Count - 1)).ToArray();
+                Pathfinding.FindPathToResource(world, world.Start, node, round).DistanceTiles)).ToArray();
             decimal[] freeAt = workers.Select(worker => Math.Max(stageStart, worker.InitialReturnSeconds)).ToArray();
             BigInteger quantity = BigInteger.Zero;
             GatherYieldExpectation[] expectations = workers.Select(worker => new GatherYieldExpectation(config, round,
@@ -261,11 +261,11 @@ namespace Imoni.Core
         private sealed class SimulatedNode
         {
             public ResourceNode Source { get; }
-            public int PathLength { get; }
+            public decimal PathLength { get; }
             public int Stock { get; set; }
             public decimal ReadyAt { get; set; }
             public decimal AvailableFrom { get; set; }
-            public SimulatedNode(ResourceNode source, int pathLength)
+            public SimulatedNode(ResourceNode source, decimal pathLength)
             { Source = source; PathLength = pathLength; Stock = source.RemainingStock; ReadyAt = source.SecondsUntilReady; }
         }
     }

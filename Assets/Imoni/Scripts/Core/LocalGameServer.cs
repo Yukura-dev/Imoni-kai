@@ -129,7 +129,7 @@ namespace Imoni.Core
                 if (player.TargetResourceId == node.Id && player.Action != PlayerAction.Idle) return true;
                 StopAction(player);
                 player.TargetResourceId = node.Id;
-                player.Path = path.Steps.ToArray();
+                player.Path = path.Waypoints.ToArray();
                 player.PathIndex = 0;
                 if (player.Path.Length > 1) BeginMoveStep(player);
                 else BeginGather(player, node);
@@ -154,11 +154,11 @@ namespace Imoni.Core
             {
                 if (!TryGetMovePath(actorId, target, out PlayerState player, out PathResult path)) return false;
                 if (player.Action == PlayerAction.Moving && player.TargetResourceId == null &&
-                    player.Path[player.Path.Length - 1] == target) return true;
+                    player.Path[player.Path.Length - 1].Cell == target) return true;
                 StopAction(player);
-                if (path.Steps.Count > 1)
+                if (path.Waypoints.Count > 1)
                 {
-                    player.Path = path.Steps.ToArray();
+                    player.Path = path.Waypoints.ToArray();
                     BeginMoveStep(player);
                 }
                 return true;
@@ -290,6 +290,13 @@ namespace Imoni.Core
                 if (funds < cost) throw new InvalidOperationException("Insufficient shared funds.");
                 funds -= cost;
                 player.Upgrades[upgradeId] = nextLevel;
+                if (upgradeId == "move" && player.Action == PlayerAction.Moving)
+                {
+                    // A smoothed leg may span many tiles. Apply the purchased speed at this instant,
+                    // keeping its current position and only retiming the untravelled part of the leg.
+                    player.Location = CurrentLocation(player);
+                    BeginMoveStep(player);
+                }
                 Record(actorId, OperationKind.Upgrade, null, null, BigInteger.One, -cost, upgradeId);
                 return cost;
             }
@@ -442,10 +449,10 @@ namespace Imoni.Core
             foreach (PlayerState player in players.Values)
             {
                 player.Streak = 0;
+                StopAction(player);
                 player.Position = World.Start;
                 player.Connected = true;
                 player.IsBot = enableBots && player.Id != actorOrder[0];
-                StopAction(player);
                 foreach (string key in player.Upgrades.Keys.ToArray()) player.Upgrades[key] = 0;
             }
         }
@@ -505,14 +512,15 @@ namespace Imoni.Core
                 !player.Connected) return false;
             node = World.Resources.FirstOrDefault(item => item.Id == resourceId);
             if (node == null || !node.IsReady) return false;
-            path = Pathfinding.FindPathToResource(World, player.Position, node, roundNumber);
+            path = Pathfinding.FindPathToResource(World, CurrentLocation(player), node, roundNumber);
             return path.Reachable;
         }
 
         private void BeginMoveStep(PlayerState player)
         {
             player.Action = PlayerAction.Moving;
-            SetDuration(player, GatheringTiming.MoveStepSeconds(config, player.Upgrades["move"]));
+            SetDuration(player, GatheringTiming.MoveStepSeconds(config, player.Upgrades["move"]) *
+                player.Location.DistanceTo(player.Path[player.PathIndex + 1]));
         }
 
         private bool TryGetMovePath(string actorId, GridPosition target, out PlayerState player, out PathResult path)
@@ -520,7 +528,7 @@ namespace Imoni.Core
             player = null; path = null;
             if (phase != RoundPhase.Collecting || actorId == null || !players.TryGetValue(actorId, out player) ||
                 !player.Connected) return false;
-            path = Pathfinding.FindPath(World, player.Position, target, roundNumber);
+            path = Pathfinding.FindPath(World, CurrentLocation(player), target, roundNumber);
             return path.Reachable;
         }
 
@@ -548,7 +556,8 @@ namespace Imoni.Core
                 { StopAction(player); continue; }
                 if (player.Action == PlayerAction.Moving)
                 {
-                    player.Position = player.Path[++player.PathIndex];
+                    player.Location = player.Path[++player.PathIndex];
+                    player.Action = PlayerAction.Idle;
                     if (player.PathIndex + 1 < player.Path.Length) BeginMoveStep(player);
                     else if (node != null) BeginGather(player, node);
                     else StopAction(player);
@@ -579,18 +588,28 @@ namespace Imoni.Core
 
         private static void StopAction(PlayerState player)
         {
+            player.Location = CurrentLocation(player);
             player.Action = PlayerAction.Idle;
             player.TargetResourceId = null;
-            player.Path = Array.Empty<GridPosition>();
+            player.Path = Array.Empty<WorldPosition>();
             player.PathIndex = 0;
             player.ActionRemainingSeconds = player.ActionDurationSeconds = 0;
         }
 
-        private static PlayerSnapshot PlayerView(PlayerState player) =>
-            new PlayerSnapshot(player.Id, player.Streak, player.Upgrades, player.Position,
-                player.Action == PlayerAction.Moving ? player.Path[player.PathIndex + 1] : player.Position,
+        private static WorldPosition CurrentLocation(PlayerState player) =>
+            player.Action == PlayerAction.Moving && player.ActionDurationSeconds > 0
+                ? WorldPosition.Lerp(player.Location, player.Path[player.PathIndex + 1],
+                    1 - player.ActionRemainingSeconds / player.ActionDurationSeconds)
+                : player.Location;
+
+        private static PlayerSnapshot PlayerView(PlayerState player)
+        {
+            WorldPosition location = CurrentLocation(player);
+            return new PlayerSnapshot(player.Id, player.Streak, player.Upgrades, location.Cell,
+                player.Action == PlayerAction.Moving ? player.Path[player.PathIndex + 1].Cell : location.Cell,
                 player.Action, player.TargetResourceId, player.ActionRemainingSeconds, player.ActionDurationSeconds,
-                player.Connected, player.IsBot);
+                player.Connected, player.IsBot, location);
+        }
 
         private static void RequirePositiveQuantity(BigInteger quantity)
         {
@@ -616,8 +635,9 @@ namespace Imoni.Core
             public string Id { get; }
             public int Streak { get; set; }
             public Dictionary<string, int> Upgrades { get; }
-            public GridPosition Position { get; set; }
-            public GridPosition[] Path { get; set; } = Array.Empty<GridPosition>();
+            public WorldPosition Location { get; set; }
+            public GridPosition Position { get => Location.Cell; set => Location = new WorldPosition(value); }
+            public WorldPosition[] Path { get; set; } = Array.Empty<WorldPosition>();
             public int PathIndex { get; set; }
             public PlayerAction Action { get; set; }
             public string TargetResourceId { get; set; }
@@ -686,6 +706,8 @@ namespace Imoni.Core
         public IReadOnlyDictionary<string, int> Upgrades { get; }
         public GridPosition Position { get; }
         public GridPosition NextPosition { get; }
+        /// <summary>Authoritative continuous position; render directly, without another step interpolation.</summary>
+        public WorldPosition Location { get; }
         public PlayerAction Action { get; }
         public string TargetResourceId { get; }
         public decimal ActionRemainingSeconds { get; }
@@ -695,10 +717,11 @@ namespace Imoni.Core
         internal PlayerSnapshot(string id, int streak, IDictionary<string, int> upgrades,
             GridPosition position = default, GridPosition nextPosition = default, PlayerAction action = PlayerAction.Idle,
             string targetResourceId = null, decimal remaining = 0, decimal duration = 0,
-            bool connected = true, bool isBot = false)
+            bool connected = true, bool isBot = false, WorldPosition? location = null)
         {
             Id = id; Streak = streak; Upgrades = new ReadOnlyDictionary<string, int>(new Dictionary<string, int>(upgrades));
             Position = position; NextPosition = nextPosition; Action = action; TargetResourceId = targetResourceId;
+            Location = location ?? new WorldPosition(position);
             ActionRemainingSeconds = remaining; ActionDurationSeconds = duration; Connected = connected; IsBot = isBot;
         }
     }

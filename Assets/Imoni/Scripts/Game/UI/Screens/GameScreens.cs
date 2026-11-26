@@ -146,6 +146,7 @@ namespace Imoni.Game.UI.Screens
             while (goals.Count < Hud.Required.Count) { var goal = new MaterialGoalChip(); goals.Add(goal); required.Add(goal); }
             for (int index = 0; index < goals.Count; index++) goals[index].Bind(Hud.Required[index]);
             Find<ImoniText>("GameBonus").text = Hud.BonusText;
+            Find<ImoniText>("GameBonus").tooltip = Hud.BonusExactText;
             ImoniText bonusStatus = Find<ImoniText>("GameBonusStatus"); bonusStatus.text = Hud.BonusStatusText;
             bonusStatus.style.display = Hud.BonusRevealed ? DisplayStyle.Flex : DisplayStyle.None;
             Find<ImoniText>("GameStreak").text = Hud.StreakText;

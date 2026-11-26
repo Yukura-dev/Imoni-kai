@@ -4,6 +4,28 @@ using System.Linq;
 
 namespace Imoni.Core
 {
+    /// <summary>Continuous tile-centre coordinates, independent of any renderer or frame rate.</summary>
+    public readonly struct WorldPosition : IEquatable<WorldPosition>
+    {
+        public decimal X { get; }
+        public decimal Y { get; }
+        public GridPosition Cell => new GridPosition((int)Math.Floor(X + 0.5m), (int)Math.Floor(Y + 0.5m));
+        public WorldPosition(decimal x, decimal y) { X = x; Y = y; }
+        public WorldPosition(GridPosition cell) : this(cell.X, cell.Y) { }
+        public decimal DistanceTo(WorldPosition other)
+        {
+            decimal x = X - other.X, y = Y - other.Y;
+            return (decimal)Math.Sqrt((double)(x * x + y * y));
+        }
+        public static WorldPosition Lerp(WorldPosition from, WorldPosition to, decimal progress) =>
+            new WorldPosition(from.X + (to.X - from.X) * progress, from.Y + (to.Y - from.Y) * progress);
+        public bool Equals(WorldPosition other) => X == other.X && Y == other.Y;
+        public override bool Equals(object obj) => obj is WorldPosition other && Equals(other);
+        public override int GetHashCode() { unchecked { return (X.GetHashCode() * 397) ^ Y.GetHashCode(); } }
+        public static bool operator ==(WorldPosition left, WorldPosition right) => left.Equals(right);
+        public static bool operator !=(WorldPosition left, WorldPosition right) => !left.Equals(right);
+    }
+
     public readonly struct GridPosition : IEquatable<GridPosition>
     {
         public int X { get; }

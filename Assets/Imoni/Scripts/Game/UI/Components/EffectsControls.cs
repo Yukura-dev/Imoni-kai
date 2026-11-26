@@ -14,7 +14,6 @@ namespace Imoni.Game.UI.Components
     {
         private readonly VisualElement body;
         private readonly VisualElement[] steam = new VisualElement[3];
-        private readonly VisualElement ingredients;
         private IVisualElementScheduledItem animation;
         private PotVariant variant;
         private bool steamEnabled = true;
@@ -27,18 +26,6 @@ namespace Imoni.Game.UI.Components
             AddToClassList("animated-pot");
             UiTheme.Apply(this, "UI/Components/Effects");
             body = new VisualElement { pickingMode = PickingMode.Ignore }; body.AddToClassList("animated-pot__body"); Add(body);
-            ingredients = new VisualElement { pickingMode = PickingMode.Ignore }; ingredients.AddToClassList("animated-pot__ingredients");
-            ingredients.generateVisualContent += context =>
-            {
-                // Loading.dc.html's three soup ingredients, in its original 140x120 artwork coordinates.
-                var painter = context.painter2D;
-                painter.fillColor = UiTheme.Color("#F3E2C0");
-                painter.BeginPath(); painter.Arc(new Vector2(54, 49), 6, 0, 360); painter.Fill();
-                painter.BeginPath(); painter.Arc(new Vector2(80, 51), 5, 0, 360); painter.Fill();
-                painter.fillColor = UiTheme.Color("#6B9B3A");
-                painter.BeginPath(); painter.Arc(new Vector2(94, 48), 4, 0, 360); painter.Fill();
-            };
-            Add(ingredients);
             for (int index = 0; index < steam.Length; index++)
             {
                 steam[index] = new VisualElement { pickingMode = PickingMode.Ignore };
@@ -50,19 +37,43 @@ namespace Imoni.Game.UI.Components
                 animation = schedule.Execute(Animate).Every(Math.Max(1, (long)UiTheme.Number("animationFrameMs")));
             });
             RegisterCallback<DetachFromPanelEvent>(_ => animation?.Pause());
+            RegisterCallback<GeometryChangedEvent>(_ => LayoutArtwork());
             Refresh();
         }
         private void Refresh()
         {
             if (body == null) return;
             UiTheme.SetVariant(this, "animated-pot--", variant);
-            body.style.backgroundImage = UiTheme.Texture(variant == PotVariant.Campfire ? "pot_campfire" : "pot_small");
-            ingredients.style.display = variant == PotVariant.Large ? DisplayStyle.Flex : DisplayStyle.None;
+            body.style.backgroundImage = UiTheme.Texture(variant == PotVariant.Campfire ? "home_pot_campfire" : "home_pot_plain");
             for (int index = 0; index < steam.Length; index++)
             {
-                steam[index].style.backgroundImage = UiTheme.Texture("steam");
-                steam[index].style.display = steamEnabled && (variant != PotVariant.Small || index < 2) ? DisplayStyle.Flex : DisplayStyle.None;
+                steam[index].style.backgroundImage = UiTheme.Texture("home_pot_steam_" + index);
+                steam[index].style.display = steamEnabled ? DisplayStyle.Flex : DisplayStyle.None;
             }
+            LayoutArtwork();
+        }
+        private void LayoutArtwork()
+        {
+            if (contentRect.width <= 0 || contentRect.height <= 0) return;
+            var art = UiTheme.Data?["setup"]?["potArtwork"];
+            if (art == null) return;
+            var crop = art[variant == PotVariant.Campfire ? "campfireCrop" : "plainCrop"];
+            float sourceLeft = (float)crop[0], sourceTop = (float)art["steamTop"];
+            float sourceWidth = (float)crop[2], sourceHeight = (float)crop[1] + (float)crop[3] - sourceTop;
+            float scale = Mathf.Min(contentRect.width / sourceWidth, contentRect.height / sourceHeight);
+            float left = (contentRect.width - sourceWidth * scale) / 2;
+            float top = (contentRect.height - sourceHeight * scale) / 2;
+            PlaceCrop(body, crop, sourceLeft, sourceTop, scale, left, top);
+            for (int index = 0; index < steam.Length; index++)
+                PlaceCrop(steam[index], art["steamCrops"][index], sourceLeft, sourceTop, scale, left, top);
+        }
+        private static void PlaceCrop(VisualElement target, JToken crop, float sourceLeft, float sourceTop,
+            float scale, float left, float top)
+        {
+            target.style.left = left + ((float)crop[0] - sourceLeft) * scale;
+            target.style.top = top + ((float)crop[1] - sourceTop) * scale;
+            target.style.width = (float)crop[2] * scale;
+            target.style.height = (float)crop[3] * scale;
         }
         private void ResetPose()
         { style.translate = new Translate(0, 0); style.rotate = new Rotate(0); }

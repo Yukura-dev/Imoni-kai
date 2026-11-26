@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Imoni.Editor
 {
@@ -26,6 +27,7 @@ namespace Imoni.Editor
             PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
             PlayerSettings.Android.renderOutsideSafeArea = true;
+            ConfigureRendering(android);
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
             PlayerSettings.allowedAutorotateToPortrait = true;
             PlayerSettings.allowedAutorotateToPortraitUpsideDown = false;
@@ -33,6 +35,14 @@ namespace Imoni.Editor
             PlayerSettings.allowedAutorotateToLandscapeRight = false;
             PlayerSettings.productName = "みんなで芋煮会";
             EnsureIcon(config, android);
+        }
+
+        private static void ConfigureRendering(JToken settings)
+        {
+            PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, false);
+            PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, settings["graphicsApis"].Values<string>()
+                .Select(value => (GraphicsDeviceType)Enum.Parse(typeof(GraphicsDeviceType), value)).ToArray());
+            PlayerSettings.Android.optimizedFramePacing = settings["optimizedFramePacing"].Value<bool>();
         }
 
         private static void EnsureIcon(JObject config, JToken android)
@@ -74,17 +84,32 @@ namespace Imoni.Editor
         }
 
         [MenuItem("Imoni/Build/Android APK")]
-        public static void BuildAndroid()
+        public static void BuildAndroid() => BuildAndroidVariant(null);
+
+        [MenuItem("Imoni/Build/Android GLES3 Frame Pacing On")]
+        public static void BuildGlesOn() => BuildAndroidVariant("gles3-on");
+
+        [MenuItem("Imoni/Build/Android GLES3 Frame Pacing Off")]
+        public static void BuildGlesOff() => BuildAndroidVariant("gles3-off");
+
+        public static void BuildAndroidVariant(string variant)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Exit Play Mode before building.");
             ImoniSetup.SetupProject();
+            JToken android = JObject.Parse(File.ReadAllText("Assets/Imoni/Config/GameConfig.json"))["setup"]["android"];
+            JToken rendering = variant == null ? android : android["validationVariants"]?[variant]
+                ?? throw new ArgumentException("Unknown Android validation variant: " + variant);
+            ConfigureRendering(rendering);
+            try
+            {
             // Android is an optional Editor module. Resolve its current API only for this build.
             Type symbols = Type.GetType("UnityEditor.Android.UserBuildSettings+DebugSymbols, UnityEditor.Android.Extensions", true);
             PropertyInfo level = symbols.GetProperty("level", BindingFlags.Public | BindingFlags.Static);
             level.SetValue(null, Enum.Parse(level.PropertyType, "SymbolTable"));
             PropertyInfo format = symbols.GetProperty("format", BindingFlags.Public | BindingFlags.Static);
             format.SetValue(null, Enum.Parse(format.PropertyType, "Zip"));
-            string path = "Builds/Android/Imoni.apk"; Directory.CreateDirectory(Path.GetDirectoryName(path));
+            string path = variant == null ? "Builds/Android/Imoni.apk" : "Builds/Android/Imoni-" + variant + ".apk";
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
             BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
                 scenes = new[] { "Assets/Imoni/Scenes/Boot.unity" }, locationPathName = path,
                 target = BuildTarget.Android, options = BuildOptions.None
@@ -93,11 +118,18 @@ namespace Imoni.Editor
                 ["warnings"] = report.summary.totalWarnings, ["bytes"] = report.summary.totalSize,
                 ["seconds"] = report.summary.totalTime.TotalSeconds, ["path"] = Path.GetFullPath(path),
                 ["backend"] = "IL2CPP", ["architecture"] = "ARM64", ["orientation"] = PlayerSettings.defaultInterfaceOrientation.ToString(),
+                ["graphicsApis"] = new JArray(PlayerSettings.GetGraphicsAPIs(BuildTarget.Android).Select(api => api.ToString())),
+                ["optimizedFramePacing"] = PlayerSettings.Android.optimizedFramePacing,
+                ["autoGraphicsApi"] = PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.Android),
+                ["variant"] = variant ?? "default", ["physicalDeviceTested"] = false,
                 ["messages"] = new JArray(report.steps.SelectMany(step => step.messages).Where(message => message.type == LogType.Error || message.type == LogType.Warning)
                     .Select(message => message.content)) };
             File.WriteAllText("Library/M7-android-build.json", result.ToString());
+            File.WriteAllText("Library/M8-android-" + (variant ?? "default") + ".json", result.ToString());
             if (report.summary.result != BuildResult.Succeeded || report.summary.totalErrors > 0 || !File.Exists(path))
                 throw new InvalidOperationException("Android build failed or APK missing; see Library/M7-android-build.json");
+            }
+            finally { ConfigureRendering(android); AssetDatabase.SaveAssets(); }
         }
     }
 }

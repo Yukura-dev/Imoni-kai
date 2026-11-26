@@ -1,0 +1,14 @@
+{
+  "capturedStates": 21,
+  "outsideButtons": 0,
+  "consoleErrors": 0.0,
+  "consoleWarnings": 0.0,
+  "coreTests": {
+    "total": 447,
+    "passed": 447,
+    "failed": 0,
+    "skipped": 0
+  },
+  "androidBuilds": 3,
+  "physicalDeviceTested": false
+}

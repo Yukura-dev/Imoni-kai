@@ -15,7 +15,7 @@ Unity で作ったものを同じ長さで録画し、**並べて見比べ、違
 | 鍋の後ろの回転する光がない | conic-gradient がない | `fx_sunburst.png` を回す |
 | 食材や星が背景に埋もれて安っぽい | drop-shadow（白い光彩）がない | `ingredient_*_glow.png` と `fx_star_<色>.png`（光彩込み）を使う |
 | 柱の横の虹色のにじみがない | blur がない | `fx_rainbow_glow.png`（ぼかし済み）を使う |
-| 鍋が弾むと上に浮く | 拡大の中心が真ん中になっている | 鍋の要素の `transform-origin` を **(50%, 80%)** にする |
+| 鍋が弾むと上に浮く | 元絵と異なる拡大中心を使っている | M8 の元絵では汁面中心を pivot にする。新しい座標と式は **9章**（旧 `pot_effect` の 50%,80% は使わない） |
 | 食材が回転すると位置が飛ぶ | 回転の中心が左上 | 食材と星は `transform-origin` を中心（既定値）にし、位置は `translate` で動かす |
 | 文字の縁取りが細い・ない | CSS の text-shadow を4方向に重ねて縁取りにしている | `-unity-text-outline-width: 3px; -unity-text-outline-color: #8B2310;` ＋ `text-shadow: 4px 4px 0 #8B2310` |
 | 環境によって速さや増え方が変わる | 毎フレーム一定の割合で動かしている | 経過時間（ミリ秒）から計算する。スコアのカウントアップは `disp += (score - disp) * (1 - pow(0.78, dt*60))` |
@@ -33,7 +33,7 @@ Unity で作ったものを同じ長さで録画し、**並べて見比べ、違
 | `fx_sparkle.png`（Game フォルダ） | 4点星（白） | 色を付けて使う |
 | `fx_ring_glow.png` 300² | 光の輪（輪の外径は中央の 200px） | 表示サイズ = `size × 1.5`。中心 (b.x, 536) |
 | `fx_broth_glow.png` | 汁面の光（楕円） | 256×52、中心 (195, 536)。不透明度は `brothGlow`。鍋の画像の**後ろ**に置く |
-| `pot_effect.png` | 鍋（280×170 相当） | 左上 (55, 500)、280×170。**transform-origin (50%, 80%)**、拡大率は `potScale` |
+| `home_pot_campfire.png` | 指定された試作版の鍋・取っ手・里芋・たき火。Setup で元画像から切り出す | M8 以降は9章の矩形・汁面 pivot を使用。拡大率は引き続き `potScale` |
 | `fx_flash.png` | 白 | 画面全体に広げる。不透明度は `flash` |
 
 ## 2. 重ね順（下から）
@@ -145,3 +145,50 @@ UI_SPEC 12章の表のとおり。ドローンは開始0.3秒から鳴らし、�
    - レベルアップのタイミング
    - 最後の文字とボタンが出るまでの時間
 3. どんな最終スコア（1、18,420、10^15）でも、10秒以内に結果ボタンが出ること（Core のテストでも確認する）。
+
+## 9. M8: 指定された鍋の絵と画面全体の背景
+
+### 9.1 元絵と生成物
+
+元絵はユーザー指定の `Assets/ImoniUI/Home/home_pot.png`（1552×1013）。元ファイルを改変せず、`Imoni > Setup Project` の `ImoniPotSetup.EnsureAssets` で以下を `Assets/Imoni/Art/Generated/Pot/` に生成する。座標は元画像の左上原点。切り出し値は `GameConfig.setup.potArtwork` に置く。
+
+| 生成物 | 切り出し `[left, top, width, height]` | 使用先 |
+|---|---|---|
+| `home_pot_campfire.png` | `[292,236,964,728]` | 演出、Home の AnimatedPot.Campfire |
+| `home_pot_plain.png` | `[292,236,964,448]` | Waiting、Loading、Endless などの AnimatedPot.Small/Large |
+| `home_pot_steam_0.png` | `[480,52,76,178]` | AnimatedPot の左の湯気 |
+| `home_pot_steam_1.png` | `[740,24,76,180]` | AnimatedPot の中央の湯気 |
+| `home_pot_steam_2.png` | `[1000,52,76,184]` | AnimatedPot の右の湯気 |
+
+たき火なしの版は、炎の先端が始まる直前の y=684 で下部を切り取る。鍋の最下部もわずかに切れるが、別の鍋を描き直したり、透明部分を手で補修したりしない。湯気も同じ元絵を分離し、既存の表示 ON/OFF と時間ベースの浮遊・透明度アニメーションを維持する。里芋・ねぎが既に描かれているため、旧 Loading の図形による食材の重ね描きは取り除く。
+
+### 9.2 汁面の位置・寸法・拡大中心
+
+元画像の汁面の中心を **(774,360)** とする。本体 crop 内では **(482,124)**。横幅は結果ボタン y=704 と下の薪が重ならない **264px** を採用し、縦横比を維持する。
+
+```
+s = 264 / 964
+pot.width  = 964 * s = 264
+pot.height = 728 * s = 199.3692946058091
+pot.left   = CX - 482 * s = 63
+pot.top    = POT_Y - 124 * s = 502.0414937759336
+origin.x   = 482 / 964 * 100 = 50%
+origin.y   = 124 / 728 * 100 = 17.032967032967033%
+```
+
+したがって通常時も着地で `potScale` が変わる間も、汁面 pivot は **(195,536)** で動かない。鍋の下端は y=701.4107883817427、結果ボタンの y=704 より上。汁面の光は本体ローカル `[28,9.95850622406639,208,48]` とし、その中心を同じ **(195,536)** にそろえる。旧 `pot_effect` の矩形・80% pivot だけをこの元絵に流用しない。食材・星・光の輪・柱の着地点の式、タイムライン、プールは変更しない。
+
+### 9.3 Safe Area と全画面背景
+
+画面上の HUD・文字・操作ボタンは、既存の 390×844 の構図を Safe Area 内に等倍率で収める。これを倍率 `s_ui`、パネル座標上の構図原点を `O` とする。背景専用の矩形は Safe Area ではなく **ScreenHost（物理画面全体）** を使用し、次の逆変換で演出の画面座標へ戻す。
+
+```
+background.left = (ScreenHost.left - O.x) / s_ui
+background.top = (ScreenHost.top - O.y) / s_ui
+background.width = ScreenHost.width / s_ui
+background.height = ScreenHost.height / s_ui
+```
+
+虹・ベース色・白フラッシュ・失敗の灰色／黒の覆いをこの全画面範囲に広げる。World の最大揺れ幅（`levelShake + hitShake + max(successShake,failShake)`、現在24.5px）分を虹・ベース・覆いに追加し、揺れ中も黄色い背景を露出させない。虹の1周期の高さは `max(rainbowPeriodY, 全画面範囲の高さ+揺れ余白×2)`、画像は2周期分。放射光は画面拡大率に応じて拡張し、中心(195,536)を維持。柱／虹色のにじみは下端を維持したまま上端を全画面上端まで延長。ラインの x 分布と縦の移動範囲も全画面に合わせる。
+
+EffectScreen 自体は背景を持たず、はみ出しを許す。最終的なクリップは ScreenHost の画面境界だけで行う。Safe Area の余白へ描画するのは背景のみで、スコアカード、スキップ、最終見出し、結果ボタンの配置は安全領域内のまま。

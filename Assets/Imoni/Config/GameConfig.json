@@ -529,20 +529,20 @@
       "rainbowGlowWidthMultiplier": 3.4,
       "rainbowGlowContentFraction": 0.84,
       "pot": [
-        55,
-        500,
-        280,
-        170
+        63,
+        502.0414937759336,
+        264,
+        199.3692946058091
       ],
       "potOriginPercent": [
         50,
-        80
+        17.032967032967033
       ],
       "broth": [
-        12,
-        10,
-        256,
-        52
+        28,
+        9.95850622406639,
+        208,
+        48
       ],
       "sound": [
         14,
@@ -948,13 +948,27 @@
     ]
   },
   "setup": {
+    "potArtwork": {
+      "source": "Assets/ImoniUI/Home/home_pot.png",
+      "outputFolder": "Assets/Imoni/Art/Generated/Pot",
+      "campfireCrop": [292, 236, 964, 728],
+      "plainCrop": [292, 236, 964, 448],
+      "steamCrops": [[480, 52, 76, 178], [740, 24, 76, 180], [1000, 52, 76, 184]],
+      "steamTop": 24
+    },
     "android": {
       "applicationIdentifier": "jp.yukura.imoni",
-      "versionCode": 1,
+      "versionCode": 2,
       "minimumApiLevel": 26,
       "targetApiLevel": 36,
       "iconTexture": "pot_campfire",
-      "iconSize": 512
+      "iconSize": 512,
+      "graphicsApis": ["Vulkan", "OpenGLES3"],
+      "optimizedFramePacing": true,
+      "validationVariants": {
+        "gles3-on": { "graphicsApis": ["OpenGLES3"], "optimizedFramePacing": true },
+        "gles3-off": { "graphicsApis": ["OpenGLES3"], "optimizedFramePacing": false }
+      }
     },
     "_comment": "M0のEditor生成設定。ゲームルールの数値とは分離し、Imoni > Setup Projectで読み込む。",
     "panel": {

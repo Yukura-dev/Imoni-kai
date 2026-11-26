@@ -102,6 +102,21 @@ namespace Imoni.Core.Tests
             Assert.That(view.BonusStatusText, Does.EndWith("報酬×8"));
         }
 
+        [Test]
+        public void HudUsesCompactBonusNumbersWhileRetainingExactQuantitiesForDetails()
+        {
+            GameConfig config = Config();
+            BigInteger quantity = BigInteger.Parse("28199999999");
+            var lots = new[] { new MaterialLot(1, "wood", "normal", quantity, config.FixedScale),
+                new MaterialLot(2, "mushroom", "normal", quantity, config.FixedScale) };
+            GameHudView view = GameHudProjection.Present(config, Snapshot(config, 120, true, lots), "player1", 30);
+            Assert.That(view.Required.Single(goal => goal.MaterialId == "wood").CurrentCompactText, Is.EqualTo("281億"));
+            Assert.That(view.BonusText, Is.EqualTo("キノコ 281億/30"));
+            Assert.That(view.BonusExactText, Is.EqualTo("キノコ 28,199,999,999/30"));
+            Assert.That(view.BonusStatusText, Is.EqualTo("目標の9億倍 報酬×8"));
+            Assert.That(view.InventoryQuantity, Is.EqualTo(quantity * 2));
+        }
+
         [TestCase(0, "5:00", false)]
         [TestCase(269.9, "0:31", false)]
         [TestCase(270, "0:30", true)]

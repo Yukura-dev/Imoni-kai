@@ -36,6 +36,16 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: c88c01cd8f320174d840cd515876b3f5, type: 3}
   - key: imoni_tile_yellow_384x416
     texture: {fileID: 2800000, guid: 4e8bd4a8ae60e66479b9a607a20281c4, type: 3}
+  - key: home_pot_campfire
+    texture: {fileID: 2800000, guid: f988d3259f3c03e4e8a1dc7524a6152c, type: 3}
+  - key: home_pot_plain
+    texture: {fileID: 2800000, guid: 2f7f97858386ad0498bb2c9eed523521, type: 3}
+  - key: home_pot_steam_0
+    texture: {fileID: 2800000, guid: f7fe115407d57034488158d519425ad7, type: 3}
+  - key: home_pot_steam_1
+    texture: {fileID: 2800000, guid: fe65d6e32ab60fc4ebc5306817ab3470, type: 3}
+  - key: home_pot_steam_2
+    texture: {fileID: 2800000, guid: 8eaa776f145bf5e46b174b537406504e, type: 3}
   - key: android_icon
     texture: {fileID: 2800000, guid: f5a9e3c43fb4cbb48bdb8c08df3b8729, type: 3}
   - key: title_logo@3x

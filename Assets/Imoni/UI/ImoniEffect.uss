@@ -1,10 +1,11 @@
 .imoni-effect {
     position: absolute;
-    overflow: hidden;
-    background-color: #FF6FB1;
+    overflow: visible;
+    background-color: rgba(0,0,0,0);
     -unity-font-definition: var(--font-body-black);
     color: var(--c-brown);
 }
+.effect-backdrop { background-color: #FF6FB1; }
 .effect-layer { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
 .effect-art { position: absolute; -unity-background-scale-mode: stretch-to-fill; }
 .effect-score-card { padding: 0; background-color: rgba(255,243,214,0.94); }

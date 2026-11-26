@@ -1,0 +1,114 @@
+{
+  "screen": "Game",
+  "connectionState": {
+    "reconnecting": false,
+    "pending": false,
+    "elapsed": 0.0,
+    "players": [
+      {
+        "id": "player1",
+        "connected": true,
+        "action": "Idle"
+      },
+      {
+        "id": "player2",
+        "connected": true,
+        "action": "Idle"
+      },
+      {
+        "id": "player3",
+        "connected": true,
+        "action": "Idle"
+      }
+    ]
+  },
+  "resolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "nativeResolution": {
+    "width": 1170,
+    "height": 2532
+  },
+  "safeAreaPixels": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "nativeSafeArea": {
+    "x": 0.0,
+    "y": 102.0,
+    "width": 1170.0,
+    "height": 2289.0
+  },
+  "contentBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewBounds": {
+    "x": 0.0,
+    "y": 47.0,
+    "width": 390.0,
+    "height": 763.0
+  },
+  "viewInsideSafeArea": true,
+  "buttons": [
+    {
+      "name": "OpenWarehouse",
+      "text": "倉庫",
+      "bounds": {
+        "x": 10.0,
+        "y": 737.0,
+        "width": 86.6666641,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenShop",
+      "text": "ショップ",
+      "bounds": {
+        "x": 104.666664,
+        "y": 737.0,
+        "width": 86.3333359,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenUpgrades",
+      "text": "強化",
+      "bounds": {
+        "x": 199.0,
+        "y": 737.0,
+        "width": 86.66666,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    },
+    {
+      "name": "OpenGameMenu",
+      "text": "メニュー",
+      "bounds": {
+        "x": 293.666656,
+        "y": 737.0,
+        "width": 86.33334,
+        "height": 59.0
+      },
+      "scrollContent": false,
+      "insideSafeArea": true
+    }
+  ],
+  "outsideButtons": [],
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 0
+  }
+}

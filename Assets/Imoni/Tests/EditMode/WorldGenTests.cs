@@ -313,6 +313,136 @@ namespace Imoni.Core.Tests
             return tiles;
         }
 
+        [Test]
+        public void EightDirectionSearchUsesDiagonalCostAndSmoothsOpenGroundToOneStraightSegment()
+        {
+            GameConfig config = Config();
+            var start = new GridPosition(32, 32);
+            var target = new GridPosition(37, 35);
+            var world = new WorldMap(config.World, 0, PlainTiles(config), Array.Empty<ResourceNode>(), start);
+            PathResult path = Pathfinding.FindPath(world, start, target, 1);
+            Assert.That(path.Reachable, Is.True);
+            Assert.That(path.Steps.Count, Is.EqualTo(6));
+            decimal searchDistance = path.Steps.Skip(1).Select((step, index) =>
+                new WorldPosition(path.Steps[index]).DistanceTo(new WorldPosition(step))).Sum();
+            Assert.That(searchDistance, Is.EqualTo(2 + 3 * (decimal)Math.Sqrt(2)));
+            Assert.That(path.Waypoints, Is.EqualTo(new[] { new WorldPosition(start), new WorldPosition(target) }));
+            Assert.That(path.DistanceTiles, Is.EqualTo((decimal)Math.Sqrt(34)));
+        }
+
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(true, true)]
+        public void DiagonalSearchAndSmoothingCannotCutEitherWaterCorner(bool blockEast, bool blockSouth)
+        {
+            GameConfig config = Config();
+            WorldTile[,] tiles = PlainTiles(config);
+            var start = new GridPosition(32, 32);
+            var target = new GridPosition(33, 33);
+            if (blockEast) tiles[33, 32] = new WorldTile("river");
+            if (blockSouth) tiles[32, 33] = new WorldTile("river");
+            var world = new WorldMap(config.World, 0, tiles, Array.Empty<ResourceNode>(), start);
+            Assert.That(Pathfinding.HasLineOfSight(world, new WorldPosition(start), new WorldPosition(target), 1), Is.False);
+            PathResult path = Pathfinding.FindPath(world, start, target, 1);
+            Assert.That(path.Reachable, Is.True);
+            Assert.That(path.Steps[1], Is.Not.EqualTo(target));
+            Assert.That(path.Waypoints.Count, Is.GreaterThan(2));
+            for (int i = 1; i < path.Waypoints.Count; i++)
+                Assert.That(Pathfinding.HasLineOfSight(world, path.Waypoints[i - 1], path.Waypoints[i], 1), Is.True);
+        }
+
+        [Test]
+        public void DiagonalDoesNotEscapeATileSurroundedByWater()
+        {
+            GameConfig config = Config();
+            WorldTile[,] tiles = PlainTiles(config);
+            var start = new GridPosition(32, 32);
+            foreach (GridPosition neighbour in Pathfinding.Neighbours(start)) tiles[neighbour.X, neighbour.Y] = new WorldTile("river");
+            var world = new WorldMap(config.World, 0, tiles, Array.Empty<ResourceNode>(), start);
+            Assert.That(Pathfinding.FindPath(world, start, new GridPosition(33, 33), 1).Reachable, Is.False);
+        }
+
+        [TestCase(32, 33)]
+        [TestCase(33, 32)]
+        [TestCase(32, 32)]
+        public void LineOfSightChecksEveryTileTouchedByACornerEndpointInBothDirections(int waterX, int waterY)
+        {
+            GameConfig config = Config();
+            WorldTile[,] tiles = PlainTiles(config);
+            tiles[waterX, waterY] = new WorldTile("river");
+            var world = new WorldMap(config.World, 0, tiles, Array.Empty<ResourceNode>(), new GridPosition(33, 33));
+            var centre = new WorldPosition(33, 33);
+            var corner = new WorldPosition(32.5m, 32.5m);
+            Assert.That(Pathfinding.HasLineOfSight(world, centre, corner, 1), Is.False);
+            Assert.That(Pathfinding.HasLineOfSight(world, corner, centre, 1), Is.False);
+        }
+
+        [TestCase(32.5, 33, 32, 33)]
+        [TestCase(33, 32.5, 33, 32)]
+        public void LineOfSightChecksBothSidesOfAnEdgeEndpointInBothDirections(double x, double y, int waterX, int waterY)
+        {
+            GameConfig config = Config();
+            WorldTile[,] tiles = PlainTiles(config);
+            tiles[waterX, waterY] = new WorldTile("river");
+            var world = new WorldMap(config.World, 0, tiles, Array.Empty<ResourceNode>(), new GridPosition(33, 33));
+            var centre = new WorldPosition(33, 33);
+            var edge = new WorldPosition((decimal)x, (decimal)y);
+            Assert.That(Pathfinding.HasLineOfSight(world, centre, edge, 1), Is.False);
+            Assert.That(Pathfinding.HasLineOfSight(world, edge, centre, 1), Is.False);
+        }
+
+        [Test]
+        public void LineOfSightAllowsWalkableCornerAndEdgeEndpointsInBothDirections()
+        {
+            GameConfig config = Config();
+            var world = new WorldMap(config.World, 0, PlainTiles(config), Array.Empty<ResourceNode>(), new GridPosition(33, 33));
+            var centre = new WorldPosition(33, 33);
+            foreach (WorldPosition endpoint in new[] { new WorldPosition(32.5m, 32.5m), new WorldPosition(32.5m, 33), new WorldPosition(33, 32.5m) })
+            {
+                Assert.That(Pathfinding.HasLineOfSight(world, centre, endpoint, 1), Is.True);
+                Assert.That(Pathfinding.HasLineOfSight(world, endpoint, centre, 1), Is.True);
+            }
+        }
+
+        [Test]
+        public void DiagonalDoesNotCutAnUnopenedCorner()
+        {
+            GameConfig config = Config();
+            var start = new GridPosition(32, 32);
+            var world = new WorldMap(config.World, 0, PlainTiles(config), Array.Empty<ResourceNode>(), start);
+            var edge = (from x in Enumerable.Range(1, world.Width - 2)
+                        from y in Enumerable.Range(1, world.Height - 2)
+                        let a = new GridPosition(x, y)
+                        let b = new GridPosition(x + 1, y + 1)
+                        where world.IsWalkable(a, 1) && world.IsWalkable(b, 1) &&
+                            (!world.IsUnlocked(new GridPosition(x + 1, y), 1) || !world.IsUnlocked(new GridPosition(x, y + 1), 1))
+                        select (a, b)).First();
+            Assert.That(Pathfinding.HasLineOfSight(world, new WorldPosition(edge.a), new WorldPosition(edge.b), 1), Is.False);
+            PathResult path = Pathfinding.FindPath(world, edge.a, edge.b, 1);
+            Assert.That(path.Reachable, Is.True);
+            Assert.That(path.Steps.Count, Is.GreaterThan(2));
+        }
+
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(5)]
+        public void EightDirectionReachabilityMatchesOriginalCardinalConnectedComponent(int round)
+        {
+            WorldMap world = WorldGen.Generate(Config(), 482);
+            var reached = new HashSet<GridPosition> { world.Start };
+            var queue = new Queue<GridPosition>(); queue.Enqueue(world.Start);
+            while (queue.Count > 0)
+                foreach (GridPosition next in Pathfinding.Neighbours(queue.Dequeue()))
+                    if (world.IsWalkable(next, round) && reached.Add(next)) queue.Enqueue(next);
+            for (int y = 0; y < world.Height; y += 4)
+                for (int x = 0; x < world.Width; x += 4)
+                {
+                    var target = new GridPosition(x, y);
+                    Assert.That(Pathfinding.FindPath(world, world.Start, target, round).Reachable,
+                        Is.EqualTo(reached.Contains(target)), target.ToString());
+                }
+        }
+
         private static string Signature(WorldMap world)
         {
             var text = new StringBuilder(world.Start.ToString());

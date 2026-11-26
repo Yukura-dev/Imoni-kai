@@ -1,0 +1,23 @@
+{
+  "result": "Succeeded",
+  "errors": 0,
+  "warnings": 0,
+  "bytes": 1283743206,
+  "seconds": 352.126378,
+  "path": "D:\\UnityProjects\\Imoni-kai\\Builds\\Android\\Imoni.apk",
+  "backend": "IL2CPP",
+  "architecture": "ARM64",
+  "orientation": "Portrait",
+  "graphicsApis": [
+    "Vulkan",
+    "OpenGLES3"
+  ],
+  "optimizedFramePacing": true,
+  "autoGraphicsApi": false,
+  "variant": "default",
+  "physicalDeviceTested": false,
+  "messages": [],
+  "apkBytes": 63500628,
+  "sha256": "18ACF52C81075AFFFB3325A8FD7263BD3BFE0C433DE858B62FC0696FD61DB565",
+  "versionCode": 2
+}

@@ -27,12 +27,12 @@ namespace Imoni.Core.Tests
         private static ResourceNode Nearest(LocalGameServer server, string actor = "player1", string material = null) =>
             server.World.Resources.Where(node => (material == null || node.MaterialId == material) &&
                 server.CanSelectResource(actor, node.Id))
-            .OrderBy(node => Pathfinding.FindPathToResource(server.World, Player(server, actor).Position,
-                node, server.Snapshot().RoundNumber).Steps.Count).ThenBy(node => node.Id, StringComparer.Ordinal).First();
+            .OrderBy(node => Pathfinding.FindPathToResource(server.World, Player(server, actor).Location,
+                node, server.Snapshot().RoundNumber).DistanceTiles).ThenBy(node => node.Id, StringComparer.Ordinal).First();
 
         private static decimal Travel(LocalGameServer server, GameConfig config, ResourceNode node, string actor = "player1") =>
-            (Pathfinding.FindPathToResource(server.World, Player(server, actor).Position, node,
-                server.Snapshot().RoundNumber).Steps.Count - 1) *
+            Pathfinding.FindPathToResource(server.World, Player(server, actor).Location, node,
+                server.Snapshot().RoundNumber).DistanceTiles *
             GatheringTiming.MoveStepSeconds(config, Player(server, actor).Upgrades["move"]);
 
         private static ResourceNode Node(GameConfig config) =>

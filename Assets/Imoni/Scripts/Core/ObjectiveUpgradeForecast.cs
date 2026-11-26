@@ -57,7 +57,7 @@ namespace Imoni.Core
             }
             PlayerSnapshot[] forecast = team.Select((player, actor) => new PlayerSnapshot(player.Id, player.Streak,
                 levels[actor], player.Position, player.NextPosition, player.Action, player.TargetResourceId,
-                player.ActionRemainingSeconds, player.ActionDurationSeconds, player.Connected, player.IsBot)).ToArray();
+                player.ActionRemainingSeconds, player.ActionDurationSeconds, player.Connected, player.IsBot, player.Location)).ToArray();
             return new ObjectiveUpgradeForecast(budget, budget - remaining, forecast, purchases);
         }
     }

@@ -162,14 +162,14 @@ namespace Imoni.BalanceReview
 
         private static bool SelectResource(IGameServer server, PlayerSnapshot actor, int round, string material)
         {
-            ResourceNode best = null; int bestSteps = int.MaxValue;
+            ResourceNode best = null; decimal bestSteps = decimal.MaxValue;
             foreach (ResourceNode node in server.World.Resources.Where(node => node.MaterialId == material && node.IsReady)
-                .OrderBy(node => actor.Position.ManhattanDistance(node.Position)).ThenBy(node => node.Id, StringComparer.Ordinal))
+                .OrderBy(node => actor.Location.DistanceTo(new WorldPosition(node.Position))).ThenBy(node => node.Id, StringComparer.Ordinal))
             {
-                if (actor.Position.ManhattanDistance(node.Position) > bestSteps) break;
-                PathResult path = Pathfinding.FindPathToResource(server.World, actor.Position, node, round);
-                if (!path.Reachable || path.Steps.Count >= bestSteps) continue;
-                best = node; bestSteps = path.Steps.Count;
+                if (actor.Location.DistanceTo(new WorldPosition(node.Position)) - 1 > bestSteps) break;
+                PathResult path = Pathfinding.FindPathToResource(server.World, actor.Location, node, round);
+                if (!path.Reachable || path.DistanceTiles >= bestSteps) continue;
+                best = node; bestSteps = path.DistanceTiles;
             }
             return best != null && server.TrySelectResource(actor.Id, best.Id);
         }

@@ -107,6 +107,10 @@ namespace Imoni.Core
             }));
             Require(FormatUnits.Count > 0 && FormatUnits[0] == string.Empty,
                 "The first format unit must be an empty string.");
+            Require(FormatUnits.Skip(1).All(unit => !string.IsNullOrWhiteSpace(unit)),
+                "Named format units must not be empty.");
+            Require(FormatUnits.Distinct(StringComparer.Ordinal).Count() == FormatUnits.Count,
+                "Format units must be distinct for each magnitude.");
             Materials = ReadOnly(Array(data, "materials").Select(token => new MaterialDefinition(
                 Text(token, "id"), Text(token, "name"), Integer(token, "basePoint", true),
                 Integer(token, "basePrice", true), Integer(token, "baseYield", true),

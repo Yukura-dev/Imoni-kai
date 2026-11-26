@@ -22,7 +22,8 @@ namespace Imoni.Game.UI.Components
         { element.AddToClassList(className); UiTheme.Apply(element, "UI/Components/Data"); }
         internal static bool Amount(string text, out BigInteger value) =>
             BigInteger.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out value) && value >= 0;
-        internal static string FormatAmount(BigInteger value) => UiTheme.Config == null ? value.ToString(CultureInfo.InvariantCulture) : Format.Big(value, UiTheme.Config);
+        internal static string FormatAmount(BigInteger value, bool compact = false) => UiTheme.Config == null ? Format.Exact(value)
+            : compact ? Format.Compact(value, UiTheme.Config) : Format.Big(value, UiTheme.Config);
         internal static string Currency => UiTheme.Data?["economy"]?["currencyUnit"]?.Value<string>() ?? "G";
         internal static long AnimationFrame => Math.Max(1, (long)UiTheme.Number("animationFrameMs"));
     }
@@ -183,6 +184,8 @@ namespace Imoni.Game.UI.Components
         private IVisualElementScheduledItem layoutJob;
         private MaterialGoalView bound;
         private MaterialGoalVariant variant;
+        private string CurrentCount => variant == MaterialGoalVariant.Chip ? bound.CurrentCompactText : bound.CurrentText;
+        private string RequiredCount => variant == MaterialGoalVariant.Chip ? bound.RequiredCompactText : bound.RequiredText;
         [UxmlAttribute] public string Material { get => material; set { material = value; RefreshFromAttributes(); } }
         [UxmlAttribute] public string Current { get => current; set { current = value; RefreshFromAttributes(); } }
         [UxmlAttribute] public string Required { get => required; set { required = value; RefreshFromAttributes(); } }
@@ -206,7 +209,8 @@ namespace Imoni.Game.UI.Components
         {
             if (bound == null) return;
             caption.text = bound.Name;
-            string counts = bound.CurrentText + "/" + bound.RequiredText + (variant == MaterialGoalVariant.FailureRow && !bound.Achieved ? " 不足" : string.Empty);
+            tooltip = bound.Name + " " + bound.ExactCountsText;
+            string counts = CurrentCount + "/" + RequiredCount + (variant == MaterialGoalVariant.FailureRow && !bound.Achieved ? " 不足" : string.Empty);
             if (countText != counts) { countText = counts; ApplyCountText(); ScheduleCountLayout(); }
             progress.Value = (float)bound.Progress;
             EnableInClassList("material-goal--achieved", bound.Achieved);
@@ -216,7 +220,7 @@ namespace Imoni.Game.UI.Components
 
         private void ApplyCountText()
         {
-            count.text = stacked && bound != null ? bound.CurrentText + "\n/" + bound.RequiredText : countText;
+            count.text = stacked && bound != null ? CurrentCount + "\n/" + RequiredCount : countText;
             countFitter.Refresh();
         }
 
@@ -282,18 +286,21 @@ namespace Imoni.Game.UI.Components
     {
         private BigInteger displayed;
         private string value = "0";
+        private bool compact;
         private IVisualElementScheduledItem animation;
         [UxmlAttribute] public string Value { get => value; set { if (DataVisuals.Amount(value, out BigInteger amount)) Bind(amount); } }
+        [UxmlAttribute] public bool Compact { get => compact; set { compact = value; RefreshNumber(); } }
         public BigNumberLabel()
         {
             DataVisuals.Apply(this, "big-number"); AddToClassList("num-big"); pickingMode = PickingMode.Ignore;
-            RegisterCallback<AttachToPanelEvent>(_ => text = DataVisuals.FormatAmount(displayed));
+            RegisterCallback<AttachToPanelEvent>(_ => RefreshNumber());
             RegisterCallback<DetachFromPanelEvent>(_ => animation?.Pause()); Bind(BigInteger.Zero);
         }
         public void Bind(BigInteger amount)
         {
-            animation?.Pause(); displayed = amount; value = amount.ToString(CultureInfo.InvariantCulture); text = DataVisuals.FormatAmount(amount);
+            animation?.Pause(); displayed = amount; value = amount.ToString(CultureInfo.InvariantCulture); RefreshNumber();
         }
+        private void RefreshNumber() { text = DataVisuals.FormatAmount(displayed, compact); tooltip = Format.Exact(displayed); }
         public void CountTo(BigInteger target, float seconds = -1)
         {
             animation?.Pause();
@@ -304,7 +311,7 @@ namespace Imoni.Game.UI.Components
             animation = schedule.Execute(() =>
             {
                 decimal fraction = (decimal)Math.Min(1, Math.Max(0, (Time.realtimeSinceStartupAsDouble - start) / duration));
-                displayed = DisplayProjection.Interpolate(from, target, fraction); text = DataVisuals.FormatAmount(displayed);
+                displayed = DisplayProjection.Interpolate(from, target, fraction); RefreshNumber();
                 if (fraction == 1) animation.Pause();
             }).Every(DataVisuals.AnimationFrame);
         }
@@ -314,16 +321,17 @@ namespace Imoni.Game.UI.Components
     public partial class FundsPill : VisualElement
     {
         private readonly VisualElement coin = UiTheme.Icon("icon_coin", "funds-pill__coin");
-        private readonly BigNumberLabel amount = new BigNumberLabel();
+        private readonly BigNumberLabel amount = new BigNumberLabel { Compact = true };
         private readonly Label unit = UiTheme.Label(string.Empty, "funds-pill__unit");
-        [UxmlAttribute] public string Value { get => amount.Value; set => amount.Value = value; }
+        [UxmlAttribute] public string Value { get => amount.Value; set { amount.Value = value; RefreshTooltip(); } }
         public FundsPill()
         {
             DataVisuals.Apply(this, "funds-pill"); amount.AddToClassList("funds-pill__amount");
             Add(coin); Add(amount); Add(unit); unit.text = DataVisuals.Currency;
-            RegisterCallback<AttachToPanelEvent>(_ => { coin.style.backgroundImage = UiTheme.Texture("icon_coin"); unit.text = DataVisuals.Currency; });
+            RegisterCallback<AttachToPanelEvent>(_ => { coin.style.backgroundImage = UiTheme.Texture("icon_coin"); unit.text = DataVisuals.Currency; RefreshTooltip(); });
         }
-        public void Bind(BigInteger value) => amount.Bind(value);
+        public void Bind(BigInteger value) { amount.Bind(value); RefreshTooltip(); }
+        private void RefreshTooltip() { tooltip = amount.tooltip + DataVisuals.Currency; }
     }
 
     [UxmlElement]

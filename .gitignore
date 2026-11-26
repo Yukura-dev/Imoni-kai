@@ -110,4 +110,5 @@ InitTestScene*.unity*
 !/tools/CoreTests/*.csproj
 /tools/CoreTests/bin/
 /tools/CoreTests/obj/
+/tools/CoreTests/TestResults/
 /design/videos/unity/*_frames/

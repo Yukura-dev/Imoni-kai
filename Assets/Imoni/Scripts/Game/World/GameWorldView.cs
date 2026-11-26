@@ -38,6 +38,7 @@ namespace Imoni.Game.World
         private readonly float originalCameraSize;
         private readonly Color originalCameraBackground;
         private readonly CameraClearFlags originalClearFlags;
+        private readonly bool originalCameraEnabled;
         private readonly string selfId;
         private long lastOperation;
         private bool disposed;
@@ -47,6 +48,7 @@ namespace Imoni.Game.World
         public string SelfId => selfId;
         public IGameServer Server => server;
         public Camera Camera => camera;
+        public int ViewportWriteCount { get; private set; }
         public VisualElement MapViewport => viewport;
         public GameSnapshot Snapshot => snapshot;
         public bool InputEnabled { get; set; } = true;
@@ -69,6 +71,9 @@ namespace Imoni.Game.World
             style = new WorldViewStyle();
             originalCameraRect = camera.rect; originalCameraPosition = camera.transform.position;
             originalCameraSize = camera.orthographicSize; originalCameraBackground = camera.backgroundColor; originalClearFlags = camera.clearFlags;
+            originalCameraEnabled = camera.enabled;
+            // Never render the map through the Boot camera's full-screen rect while layout is pending.
+            camera.enabled = false;
             camera.orthographic = true; camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = UiTheme.Color("#DCE8C4");
             viewport.pickingMode = PickingMode.Ignore;
             overlay = new VisualElement { name = "WorldAnnotations", pickingMode = PickingMode.Ignore };
@@ -108,7 +113,15 @@ namespace Imoni.Game.World
             campLabel = UiTheme.Label("拠点", "world-camp-label"); overlay.Add(campLabel);
             inputRoot = boot.UiDocument.rootVisualElement;
             inputRoot.RegisterCallback<PointerDownEvent>(OnPointerDown);
+            viewport.RegisterCallback<GeometryChangedEvent>(OnViewportGeometry);
             Present(snapshot, 0);
+        }
+
+        private void OnViewportGeometry(GeometryChangedEvent _)
+        {
+            if (disposed) return;
+            if (snapshot.Phase == RoundPhase.Collecting) Present(snapshot, 0);
+            else ResizeCamera();
         }
 
         public void Present(GameSnapshot state, float deltaSeconds)
@@ -267,12 +280,27 @@ namespace Imoni.Game.World
         {
             Rect area = viewport.worldBound, full = boot.UiDocument.rootVisualElement.worldBound;
             if (!FinitePositive(area.width) || !FinitePositive(area.height) || !FinitePositive(full.width) || !FinitePositive(full.height)
-                || float.IsNaN(area.x) || float.IsNaN(area.y)) return false;
-            camera.rect = new Rect((area.x - full.x) / full.width, 1 - (area.yMax - full.y) / full.height, area.width / full.width, area.height / full.height);
-            camera.orthographicSize = area.height / (2 * style.TileSize);
+                || float.IsNaN(area.x) || float.IsNaN(area.y) || float.IsInfinity(area.x) || float.IsInfinity(area.y)
+                || Screen.width <= 0 || Screen.height <= 0)
+            { camera.enabled = false; viewport.style.backgroundColor = camera.backgroundColor; return false; }
+            // Clamp to the render surface and round inward to physical pixels. Fractional scissor
+            // edges must not expose a row of the map under the HUD or bottom controls.
+            float left = Mathf.Ceil(Mathf.Clamp01((area.xMin - full.x) / full.width) * Screen.width);
+            float right = Mathf.Floor(Mathf.Clamp01((area.xMax - full.x) / full.width) * Screen.width);
+            float bottom = Mathf.Ceil(Mathf.Clamp01(1 - (area.yMax - full.y) / full.height) * Screen.height);
+            float top = Mathf.Floor(Mathf.Clamp01(1 - (area.yMin - full.y) / full.height) * Screen.height);
+            if (right <= left || top <= bottom) { camera.enabled = false; viewport.style.backgroundColor = camera.backgroundColor; return false; }
+            Rect rectangle = new Rect(left / Screen.width, bottom / Screen.height, (right - left) / Screen.width, (top - bottom) / Screen.height);
+            if (camera.rect != rectangle) { camera.rect = rectangle; ViewportWriteCount++; }
+            float size = area.height / (2 * style.TileSize);
+            if (!Mathf.Approximately(camera.orthographicSize, size)) camera.orthographicSize = size;
             // A window/device transition can retain panel bounds while its render surface is
             // temporarily zero-sized. Keep ticking Core, but defer camera projection/input.
-            return camera.pixelWidth > 0 && camera.pixelHeight > 0;
+            bool valid = camera.pixelWidth > 0 && camera.pixelHeight > 0;
+            if (camera.enabled != valid) camera.enabled = valid;
+            Color backing = valid ? Color.clear : camera.backgroundColor;
+            if (viewport.style.backgroundColor.value != backing) viewport.style.backgroundColor = backing;
+            return valid;
         }
         private static bool FinitePositive(float value) => value > 0 && !float.IsInfinity(value) && !float.IsNaN(value);
 
@@ -325,21 +353,25 @@ namespace Imoni.Game.World
 
         private Vector3 Interpolated(PlayerSnapshot player)
         {
-            Vector3 current = Position(player.Position);
-            return player.Action != PlayerAction.Moving || player.ActionDurationSeconds <= 0 ? current
-                : Vector3.Lerp(current, Position(player.NextPosition), 1 - (float)(player.ActionRemainingSeconds / player.ActionDurationSeconds));
+            return new Vector3((float)player.Location.X + 0.5f, -(float)player.Location.Y - 0.5f, 0);
         }
         private Vector2 WorldToPanel(Vector3 world)
         {
-            Vector3 point = camera.WorldToViewportPoint(world); Rect area = viewport.worldBound;
+            Vector3 point = camera.WorldToViewportPoint(world); Rect area = CameraPanelBounds();
             return new Vector2(area.x + point.x * area.width, area.y + (1 - point.y) * area.height);
         }
         private Vector2 LocalPoint(Vector3 world) => viewport.WorldToLocal(WorldToPanel(world));
         private Vector3 PanelToWorld(Vector2 point)
         {
-            Rect area = viewport.worldBound;
+            Rect area = CameraPanelBounds();
             if (area.width <= 0 || area.height <= 0) return Position(server.World.Start);
             return camera.ViewportToWorldPoint(new Vector3((point.x - area.x) / area.width, 1 - (point.y - area.y) / area.height, -camera.transform.position.z));
+        }
+        private Rect CameraPanelBounds()
+        {
+            Rect full = boot.UiDocument.rootVisualElement.worldBound, rect = camera.rect;
+            return new Rect(full.x + rect.x * full.width, full.y + (1 - rect.yMax) * full.height,
+                rect.width * full.width, rect.height * full.height);
         }
         private bool OnMap(Vector2 point, float margin) => point.x >= -margin && point.y >= -margin && point.x <= viewport.contentRect.width + margin && point.y <= viewport.contentRect.height + margin;
         internal static Vector3Int Cell(int x, int y) => new Vector3Int(x, -y - 1, 0);
@@ -350,6 +382,7 @@ namespace Imoni.Game.World
         {
             if (disposed) return; disposed = true;
             inputRoot.UnregisterCallback<PointerDownEvent>(OnPointerDown);
+            viewport.UnregisterCallback<GeometryChangedEvent>(OnViewportGeometry);
             foreach (ResourceNodeView view in resources.Values) view.Release();
             foreach (CharacterView view in characters.Values) view.Release();
             foreach (GatherPopupView popup in popups) popup.Release();
@@ -361,6 +394,7 @@ namespace Imoni.Game.World
             {
                 camera.rect = originalCameraRect; camera.transform.position = originalCameraPosition;
                 camera.orthographicSize = originalCameraSize; camera.backgroundColor = originalCameraBackground; camera.clearFlags = originalClearFlags;
+                camera.enabled = originalCameraEnabled;
             }
         }
     }

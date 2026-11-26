@@ -78,8 +78,8 @@ namespace Imoni.Core.Tests
             server.Buy("player1", "wood", 1); server.SetProtection("player1", "wood", "normal", 1);
             ResourceNode node = server.World.Resources.Where(resource => resource.MaterialId == "wood" && server.CanSelectResource("player1", resource.Id))
                 .OrderBy(resource => Pathfinding.FindPathToResource(server.World, server.World.Start, resource, 1).Steps.Count).First();
-            int steps = Pathfinding.FindPathToResource(server.World, server.World.Start, node, 1).Steps.Count - 1;
-            decimal work = steps * GatheringTiming.MoveStepSeconds(config, 1) + config.ResourceStock * GatheringTiming.CollectSeconds(config, 0, node);
+            decimal distance = Pathfinding.FindPathToResource(server.World, server.World.Start, node, 1).DistanceTiles;
+            decimal work = distance * GatheringTiming.MoveStepSeconds(config, 1) + config.ResourceStock * GatheringTiming.CollectSeconds(config, 0, node);
             server.Tick(config.DurationSeconds - work - 5); server.TrySelectResource("player1", node.Id); server.Tick(work + 5);
             GameSnapshot settled = server.Snapshot();
             decimal regrowth = node.RegrowthSeconds;
